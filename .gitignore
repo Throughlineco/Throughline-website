@@ -1,0 +1,16 @@
+# Temporary screenshots (dev tool, not website content)
+temporary screenshots/
+
+# macOS system files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V7
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Reference/design files not part of the live site
+loloagency.com_design_.png
+Throughline-Co-Website.pdf
+CLAUDE.md

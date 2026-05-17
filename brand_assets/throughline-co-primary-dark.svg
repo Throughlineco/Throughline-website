@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 140" width="520" height="140">
+  <!-- Wave mark -->
+  <path d="M32 68 C48 44, 72 44, 88 68 C104 92, 128 92, 144 68 C160 44, 184 44, 200 68"
+        fill="none" stroke="#8BA888" stroke-width="2.8" stroke-linecap="round"/>
+  <!-- Dot -->
+  <circle cx="200" cy="68" r="5" fill="#C2714F"/>
+
+  <!-- Wordmark: Throughline Co. -->
+  <text x="228" y="78" font-family="Georgia, serif" font-size="42" font-weight="400" fill="#2C3E35" letter-spacing="-0.5">Throughline Co.</text>
+
+  <!-- Divider line -->
+  <line x1="228" y1="90" x2="498" y2="90" stroke="#3D6B4F" stroke-width="0.8"/>
+
+  <!-- Tagline -->
+  <text x="228" y="108" font-family="Georgia, serif" font-size="11" fill="#6B7C73" letter-spacing="1.8">PURPOSE-DRIVEN BRAND STRATEGY</text>
+</svg>

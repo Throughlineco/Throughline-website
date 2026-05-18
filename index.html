@@ -475,6 +475,7 @@
       .section-founder, .section-strategy,
       .section-contact { padding-left: 24px; padding-right: 24px; }
       .tl-orbit-wrap { display: none; }
+      .throughline-inner { width: 100%; min-width: 0; }
       .hero-content { grid-template-columns: 1fr; padding: 0 24px 28px; }
       .wild-content, .dyslex-content, .payro-card-content { padding: 36px 28px; }
       .georgetown-content { padding: 36px 28px 24px; }
@@ -484,9 +485,9 @@
       .payro-card-header { padding: 20px 28px 16px; }
       .case-card-stats, .case-card-stats.four-col { grid-template-columns: 1fr; gap: 20px; }
       .site-footer { padding: 20px 24px; flex-direction: column; align-items: flex-start; }
-      .clip-hero-wrap { height: calc(400px + 100vh); }
-      .clip-hero-sticky { clip-path: polygon(4% 4%, 96% 4%, 96% 96%, 4% 96%); }
-      .clip-hero-sticky img { object-position: center 15%; }
+      .clip-hero-wrap { height: auto; }
+      .clip-hero-sticky { position: relative; height: 72vw; clip-path: none; }
+      .clip-hero-sticky img { object-fit: cover; object-position: center 35%; transform: none; }
       .services-full-grid > div:last-child { margin-top: 40px; padding-top: 40px; border-top: 1px solid rgba(245,240,232,.18); }
     }
   </style>
@@ -1011,7 +1012,7 @@
       const clipEls = document.querySelectorAll('.clip-reveal');
 
       function tick() {
-        if (heroWrap && heroSticky) {
+        if (heroWrap && heroSticky && !isMobile) {
           const rect = heroWrap.getBoundingClientRect();
           const progress = clamp(-rect.top / SCROLL_DRIVE, 0, 1);
           const ix = lerp(INIT_X, 0, progress);

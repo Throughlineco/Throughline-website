@@ -38,14 +38,22 @@
       * { cursor: none !important; }
     }
 
+    /* THROUGHLINE SVG TRACKER */
+    #tlNav {
+      position: fixed; left: 20px; top: 0; width: 12px; height: 100vh;
+      z-index: 90; pointer-events: none; overflow: visible; display: none;
+    }
+    @media (min-width: 900px) { #tlNav { display: block; } }
+    #tlFill { filter: drop-shadow(0 0 4px rgba(61,107,79,0.9)) drop-shadow(0 0 8px rgba(61,107,79,0.5)); }
+
     /* NAV */
     .nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      padding: 28px 60px;
+      padding: 36px 64px;
       display: flex; justify-content: space-between; align-items: center;
       pointer-events: none;
     }
-    .nav-logo-svg { height: 62px; width: auto; display: block; pointer-events: all; }
+    .nav-logo-svg { height: 80px; width: auto; display: block; pointer-events: all; }
     .nav-logo-svg .logo-wave    { stroke: rgba(245,240,232,0.6); transition: stroke .35s; }
     .nav-logo-svg .logo-dot     { fill: var(--terracotta); }
     .nav-logo-svg .logo-text    { fill: var(--cream); transition: fill .35s; }
@@ -112,18 +120,32 @@
       color: rgba(245,240,232,.75); max-width: 380px;
     }
     .hero-cta {
-      display: inline-flex; align-items: center; gap: 10px; align-self: flex-start;
-      background: var(--cream); color: var(--deep-forest); border: none;
-      border-radius: 9999px; padding: 5px 20px 5px 5px;
-      font-family: var(--font-body); font-size: 13px; font-weight: 700; cursor: pointer;
-      transition: opacity .25s, gap .3s cubic-bezier(.215,.61,.355,1);
+      position: relative; overflow: hidden; display: inline-block;
+      height: 52px; min-width: 170px; align-self: flex-start;
+      background: var(--cream); border-radius: 9999px; border: none; padding: 0;
+      cursor: pointer;
     }
-    .hero-cta:hover { opacity: .88; gap: 14px; }
     .hero-cta-icon {
-      width: 36px; height: 36px; border-radius: 50%; background: var(--deep-forest);
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      position: absolute; left: 4px; top: 4px; bottom: 4px;
+      width: 44px; border-radius: 9999px; background: var(--deep-forest);
+      display: flex; align-items: center; justify-content: center;
+      transition: width 480ms cubic-bezier(0.4,0,0.2,1); overflow: hidden;
     }
-    .hero-cta-icon svg { width: 14px; height: 14px; stroke: var(--cream); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .hero-cta:hover .hero-cta-icon { width: calc(100% - 8px); }
+    .hero-cta-icon svg {
+      width: 14px; height: 14px; stroke: var(--cream); fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+      flex-shrink: 0; transition: transform 480ms cubic-bezier(0.4,0,0.2,1);
+    }
+    .hero-cta:hover .hero-cta-icon svg { transform: translateX(4px); }
+    .hero-cta-label {
+      position: absolute; top: 50%; left: calc(50% + 14px);
+      transform: translate(-50%, -50%);
+      font-family: var(--font-body); font-size: 13px; font-weight: 700;
+      color: var(--deep-forest); white-space: nowrap;
+      transition: color 480ms cubic-bezier(0.4,0,0.2,1);
+    }
+    .hero-cta:hover .hero-cta-label { color: var(--cream); }
 
     /* WHO WE WORK WITH */
     .section-callout {
@@ -139,6 +161,60 @@
       border: 1.5px solid var(--terracotta); color: var(--terracotta); background: var(--cream);
       white-space: nowrap;
     }
+
+    /* THROUGHLINE SECTION */
+    .section-throughline { background: var(--cream-d); padding: 80px 52px; border-top: 1px solid rgba(44,62,53,.08); position: relative; overflow: hidden; min-height: 400px; display: flex; align-items: center; }
+    .throughline-inner { max-width: 480px; position: relative; z-index: 2; flex: none; }
+    .throughline-label { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 28px; }
+    .throughline-heading { font-family: var(--font-display); font-size: clamp(22px, 2.8vw, 40px); font-weight: 400; font-style: italic; line-height: 1.4; color: var(--deep-forest); margin-bottom: 32px; }
+    .throughline-body { font-size: 17px; font-weight: 400; line-height: 1.85; color: rgba(44,62,53,.82); max-width: 700px; }
+
+    /* ORBIT ANIMATION */
+    .tl-orbit-wrap { position: absolute; inset: 0; pointer-events: none; }
+    .tl-system {
+      position: absolute; top: 50%; right: 80px;
+      transform: translateY(-50%);
+      width: 480px; height: 480px;
+    }
+    .tl-center-node {
+      position: absolute; top: 50%; left: 50%;
+      width: 52px; height: 52px; margin: -26px 0 0 -26px;
+      border-radius: 50%; background: var(--deep-forest);
+      display: flex; align-items: center; justify-content: center; z-index: 10;
+      animation: tl-breathe 3.8s ease-in-out infinite;
+    }
+    @keyframes tl-breathe {
+      0%, 100% { box-shadow: 0 0 0 7px rgba(194,113,79,.07), 0 0 0 18px rgba(194,113,79,.03); }
+      50%       { box-shadow: 0 0 0 14px rgba(194,113,79,.16), 0 0 0 30px rgba(194,113,79,.07); }
+    }
+    .tl-ring {
+      position: absolute; top: 50%; left: 50%;
+      border-radius: 50%; border: 1px dashed rgba(61,107,79,.4);
+    }
+    .tl-ring-a { width: 260px; height: 260px; margin: -130px 0 0 -130px; animation: ring-cw 22s linear infinite; }
+    .tl-ring-b { width: 580px; height: 580px; margin: -290px 0 0 -290px; animation: ring-ccw 34s linear infinite; }
+    .tl-ring-c { width: 1100px; height: 1100px; margin: -550px 0 0 -550px; animation: ring-cw 50s linear infinite; }
+    .tl-node { position: absolute; }
+    /* Counter-rotate nodes to keep pills upright — translate must be inside keyframes */
+    .tl-ring-a .tl-node { animation: node-ccw 22s linear infinite; }
+    .tl-ring-b .tl-node { animation: node-cw  34s linear infinite; }
+    .tl-ring-c .tl-node { animation: node-ccw 50s linear infinite; }
+    .tl-pill {
+      display: block; white-space: nowrap;
+      font-family: var(--font-body); font-size: 9px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 9999px;
+      box-shadow: 0 2px 10px rgba(44,62,53,.1);
+    }
+    .tl-pill-cream { color: var(--deep-forest); background: var(--cream);      border: 1px solid rgba(44,62,53,.18); }
+    .tl-pill-terra { color: var(--cream);       background: var(--terracotta); border: 1px solid var(--terracotta); }
+    .tl-pill-sage  { color: var(--cream);       background: var(--sage-green); border: 1px solid var(--sage-green); }
+    /* Ring keyframes — no translate needed (centered via negative margin) */
+    @keyframes ring-cw  { to { transform: rotate( 360deg); } }
+    @keyframes ring-ccw { to { transform: rotate(-360deg); } }
+    /* Node keyframes — translate MUST be included so animation doesn't wipe it */
+    @keyframes node-cw  { from { transform: translate(-50%,-50%) rotate(  0deg); } to { transform: translate(-50%,-50%) rotate( 360deg); } }
+    @keyframes node-ccw { from { transform: translate(-50%,-50%) rotate(  0deg); } to { transform: translate(-50%,-50%) rotate(-360deg); } }
 
     /* WILD FOUNDATION CARD */
     .card-wild { background: var(--sage-green); color: var(--cream); margin-bottom: 6px; }
@@ -189,12 +265,12 @@
     .fi-content { flex: 1; min-width: 0; }
     .fi-title { font-size: 15px; font-weight: 700; color: var(--deep-forest); margin-bottom: 6px; line-height: 1.3; transition: color .3s; }
     .feature-item:not(.active) .fi-title { color: rgba(44,62,53,.45); }
-    .fi-desc { font-size: 13px; font-weight: 300; line-height: 1.65; color: rgba(44,62,53,.65); margin-bottom: 14px; transition: color .3s; }
-    .feature-item:not(.active) .fi-desc { color: rgba(44,62,53,.32); }
+    .fi-desc { font-size: 14px; font-weight: 400; line-height: 1.65; color: rgba(44,62,53,.75); margin-bottom: 14px; transition: color .3s; }
+    .feature-item:not(.active) .fi-desc { color: rgba(44,62,53,.38); }
     .fi-progress-track { height: 2px; background: rgba(44,62,53,.1); border-radius: 9999px; overflow: hidden; }
     .fi-progress-bar { height: 100%; width: 0%; border-radius: 9999px; background: linear-gradient(to right, var(--terracotta), var(--sage-green)); }
     .features-image-wrap { position: relative; }
-    .features-image-frame { border-radius: 20px; overflow: hidden; box-shadow: 0 24px 64px rgba(44,62,53,.13), 0 6px 20px rgba(44,62,53,.08); border: 1px solid rgba(44,62,53,.07); aspect-ratio: 4/3; background: var(--cream-d); }
+    .features-image-frame { border-radius: 20px; overflow: hidden; box-shadow: 0 24px 64px rgba(44,62,53,.13), 0 6px 20px rgba(44,62,53,.08); border: 1px solid rgba(44,62,53,.07); aspect-ratio: 4/3; background: var(--cream-d); position: relative; }
     @keyframes featureImgIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
     .features-img { width: 100%; height: 100%; object-fit: cover; display: block; animation: featureImgIn .5s cubic-bezier(0.16,1,0.3,1) both; }
 
@@ -203,7 +279,7 @@
     .cover-label { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--muted-sage); margin-bottom: 28px; }
     .cover-heading { font-family: var(--font-body); font-size: clamp(36px, 5vw, 72px); font-weight: 900; letter-spacing: -.04em; line-height: .92; color: var(--cream); max-width: 700px; margin-bottom: 64px; }
     .services-full-grid { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0 48px; }
-    .services-col-divider { background: var(--muted-sage); opacity: .25; }
+    .services-col-divider { background: var(--muted-sage); opacity: .35; }
     .services-col-label { font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 28px; }
     .services-full-list { list-style: none; }
     .services-full-item { padding: 18px 0; border-bottom: 1px solid rgba(245,240,232,.1); }
@@ -242,11 +318,11 @@
     .case-card-label { font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; opacity: .65; margin-bottom: 14px; }
     .case-card-client { font-family: var(--font-body); font-size: clamp(44px, 6vw, 88px); font-weight: 900; letter-spacing: -.045em; line-height: .88; margin-bottom: 16px; }
     .case-card-sub { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .5; margin-bottom: 28px; }
-    .case-card-body { font-size: 14px; font-weight: 300; line-height: 1.75; opacity: .8; }
+    .case-card-body { font-size: 15px; font-weight: 400; line-height: 1.75; opacity: .88; }
     .case-card-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; padding-top: 32px; border-top: 1px solid rgba(0,0,0,.1); }
     .case-card-stats.four-col { grid-template-columns: repeat(4,1fr); }
-    .case-stat-val { font-size: 11px; font-weight: 900; letter-spacing: .07em; text-transform: uppercase; line-height: 1.35; margin-bottom: 8px; }
-    .case-stat-ctx { font-size: 12px; font-weight: 300; line-height: 1.5; opacity: .55; }
+    .case-stat-val { font-size: 10px; font-weight: 900; letter-spacing: .07em; text-transform: uppercase; line-height: 1.35; margin-bottom: 8px; }
+    .case-stat-ctx { font-size: 10px; font-weight: 300; line-height: 1.5; opacity: .55; }
 
     /* PAYRO CARD */
     .card-payro { background: var(--cream-d); color: var(--deep-forest); overflow: hidden; }
@@ -256,6 +332,7 @@
     .payro-card-imgs img { width: 100%; height: 100%; object-fit: cover; object-position: center 32%; display: block; }
     .payro-card-content { padding: 28px 44px; display: flex; flex-direction: column; justify-content: center; }
     .card-payro .case-card-client { font-size: clamp(28px, 3.2vw, 48px); }
+    .payro-bridge { font-size: 13px; font-weight: 300; font-style: italic; line-height: 1.65; color: rgba(44,62,53,.65); margin-bottom: 16px; }
     .payro-card-stats { display: flex; flex-direction: column; }
     .payro-card-stat { padding: 11px 0; border-bottom: 1px solid rgba(44,62,53,.12); }
     .payro-card-stat:first-child { border-top: 1px solid rgba(44,62,53,.12); }
@@ -265,7 +342,8 @@
 
     /* GEORGETOWN CARD */
     .card-georgetown { background: var(--cream-d); color: var(--deep-forest); }
-    .georgetown-content { padding: 56px 52px 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .georgetown-content { padding: 48px 52px 32px; display: block; max-width: 720px; }
+    .georgetown-content > div + div { margin-top: 12px; }
     .georgetown-strip { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px; overflow: hidden; }
     .georgetown-strip img { width: 100%; height: 260px; object-fit: cover; display: block; }
     .georgetown-stat-block {
@@ -294,14 +372,14 @@
     .founder-text { display: flex; flex-direction: column; justify-content: center; }
     .founder-label { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 28px; }
     .founder-heading { font-family: var(--font-display); font-size: clamp(24px, 2.8vw, 40px); font-weight: 400; font-style: italic; line-height: 1.3; color: var(--deep-forest); margin-bottom: 32px; }
-    .founder-body p { font-size: 15px; font-weight: 300; line-height: 1.82; color: rgba(44,62,53,.72); margin-bottom: 20px; }
+    .founder-body p { font-size: 16px; font-weight: 400; line-height: 1.82; color: rgba(44,62,53,.82); margin-bottom: 20px; }
     .founder-body p:last-child { margin-bottom: 0; }
     .founder-name { margin-top: 32px; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--sage-green); }
-    .founder-featured { margin-top: 8px; font-size: 11px; font-weight: 300; font-style: italic; color: rgba(44,62,53,.45); }
+    .founder-featured { margin-top: 6px; font-size: 11px; font-weight: 300; font-style: italic; color: rgba(44,62,53,.45); }
     .founder-img { overflow: hidden; min-height: 560px; }
     .founder-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-    /* PURPOSE */
+    /* HOW WE WORK */
     .section-strategy { background: var(--deep-forest); padding: 100px 52px; overflow: hidden; }
     .strategy-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; }
     .strategy-left { position: relative; z-index: 2; }
@@ -321,11 +399,34 @@
     .contact-inner { max-width: 700px; }
     .contact-label { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--muted-sage); margin-bottom: 28px; }
     .contact-heading { font-family: var(--font-body); font-size: clamp(36px, 5vw, 72px); font-weight: 900; letter-spacing: -.04em; line-height: .92; color: var(--cream); margin-bottom: 32px; }
-    .contact-body { font-size: 15px; font-weight: 300; line-height: 1.78; color: rgba(245,240,232,.7); margin-bottom: 40px; }
-    .contact-cta { display: inline-flex; align-items: center; gap: 10px; background: var(--cream); color: var(--deep-forest); border: none; border-radius: 9999px; padding: 6px 22px 6px 6px; font-family: var(--font-body); font-size: 14px; font-weight: 700; cursor: pointer; margin-bottom: 24px; transition: opacity .25s, gap .3s cubic-bezier(.215,.61,.355,1); }
-    .contact-cta:hover { opacity: .88; gap: 14px; }
-    .contact-cta-icon { width: 38px; height: 38px; border-radius: 50%; background: var(--deep-forest); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .contact-cta-icon svg { width: 14px; height: 14px; stroke: var(--cream); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .contact-body { font-size: 16px; font-weight: 400; line-height: 1.78; color: rgba(245,240,232,.85); margin-bottom: 40px; }
+    .contact-cta {
+      position: relative; overflow: hidden; display: inline-block;
+      height: 54px; min-width: 280px;
+      background: var(--cream); border-radius: 9999px; border: none; padding: 0;
+      cursor: pointer; margin-bottom: 24px;
+    }
+    .contact-cta-icon {
+      position: absolute; left: 5px; top: 5px; bottom: 5px;
+      width: 44px; border-radius: 9999px; background: var(--deep-forest);
+      display: flex; align-items: center; justify-content: center;
+      transition: width 480ms cubic-bezier(0.4,0,0.2,1); overflow: hidden;
+    }
+    .contact-cta:hover .contact-cta-icon { width: calc(100% - 10px); }
+    .contact-cta-icon svg {
+      width: 14px; height: 14px; stroke: var(--cream); fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+      flex-shrink: 0; transition: transform 480ms cubic-bezier(0.4,0,0.2,1);
+    }
+    .contact-cta:hover .contact-cta-icon svg { transform: translateX(4px); }
+    .contact-cta-label {
+      position: absolute; top: 50%; left: calc(50% + 14px);
+      transform: translate(-50%, -50%);
+      font-family: var(--font-body); font-size: 14px; font-weight: 700;
+      color: var(--deep-forest); white-space: nowrap;
+      transition: color 480ms cubic-bezier(0.4,0,0.2,1);
+    }
+    .contact-cta:hover .contact-cta-label { color: var(--cream); }
     .contact-details { font-size: 12px; font-weight: 400; letter-spacing: .06em; color: rgba(245,240,232,.5); }
     .contact-details a { transition: color .25s; }
     .contact-details a:hover { color: var(--cream); }
@@ -343,6 +444,11 @@
 
     /* RESPONSIVE */
     @media (max-width: 1100px) {
+      .section-throughline { min-height: 320px; }
+      .tl-system { right: 40px; width: 360px; height: 360px; }
+      .tl-ring-a { width: 200px; height: 200px; margin: -100px 0 0 -100px; }
+      .tl-ring-b { width: 440px; height: 440px; margin: -220px 0 0 -220px; }
+      .tl-ring-c { width: 840px; height: 840px; margin: -420px 0 0 -420px; }
       .features-grid { grid-template-columns: 1fr; }
       .features-image-wrap { order: -1; max-width: 480px; margin: 0 auto; width: 100%; }
       .features-list { flex-direction: row; overflow-x: auto; gap: 8px; padding-bottom: 12px; scroll-snap-type: x mandatory; }
@@ -356,18 +462,19 @@
       .wild-carousel { min-height: 340px; }
       .section-founder { grid-template-columns: 1fr; }
       .strategy-inner { grid-template-columns: 1fr; }
-      .georgetown-content { grid-template-columns: 1fr; }
+      .georgetown-content { padding: 36px 28px 24px; }
       .georgetown-strip { grid-template-columns: 1fr 1fr; }
       .case-card-stats, .case-card-stats.four-col { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 720px) {
       .nav { padding: 16px 24px; }
       .nav-links { display: none; }
-      .nav-logo-img { height: 40px; }
+      .nav-logo-svg { height: 56px; }
       .section-callout, .section-features, .section-cover,
-      .section-payro, .section-philosophy,
+      .section-throughline, .section-payro, .section-philosophy,
       .section-founder, .section-strategy,
       .section-contact { padding-left: 24px; padding-right: 24px; }
+      .tl-orbit-wrap { display: none; }
       .hero-content { grid-template-columns: 1fr; padding: 0 24px 28px; }
       .wild-content, .dyslex-content, .payro-card-content { padding: 36px 28px; }
       .georgetown-content { padding: 36px 28px 24px; }
@@ -378,12 +485,20 @@
       .case-card-stats, .case-card-stats.four-col { grid-template-columns: 1fr; gap: 20px; }
       .site-footer { padding: 20px 24px; flex-direction: column; align-items: flex-start; }
       .clip-hero-wrap { height: calc(400px + 100vh); }
+      .clip-hero-sticky { clip-path: polygon(4% 4%, 96% 4%, 96% 96%, 4% 96%); }
       .clip-hero-sticky img { object-position: center 15%; }
+      .services-full-grid > div:last-child { margin-top: 40px; padding-top: 40px; border-top: 1px solid rgba(245,240,232,.18); }
     }
   </style>
 </head>
 <body>
 
+  <!-- THROUGHLINE SVG TRACKER -->
+  <svg id="tlNav" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <line x1="6" y1="0" x2="6" y2="10000" stroke="#3D6B4F" stroke-width="1" opacity="0.18" stroke-dasharray="5 7"/>
+    <line id="tlFill" x1="6" y1="0" x2="6" y2="0" stroke="#3D6B4F" stroke-width="1.5" stroke-linecap="round"/>
+    <circle id="tlTip" cx="6" cy="0" r="4" fill="#C2714F" opacity="0" style="filter:drop-shadow(0 0 4px rgba(194,113,79,0.8));"/>
+  </svg>
 
   <!-- NAV -->
   <nav class="nav" id="mainNav">
@@ -422,7 +537,7 @@
           <span class="hero-cta-icon">
             <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </span>
-          Let's talk
+          <span class="hero-cta-label">Let's talk</span>
         </button>
       </div>
     </div>
@@ -431,8 +546,8 @@
   <!-- WHO WE WORK WITH -->
   <section class="section-callout">
     <span class="callout-pill">Who we work with</span>
-    <p class="callout-text reveal">We work best with founders who are tired of explaining what they do and ready to be understood.</p>
-    <div class="callout-tags reveal" style="transition-delay:.12s">
+    <p class="callout-text">We work best with founders who are tired of explaining what they do and ready to be understood.</p>
+    <div class="callout-tags">
       <span class="callout-tag">Women-Owned</span>
       <span class="callout-tag">Black-Owned</span>
       <span class="callout-tag">LGBTQ+-Owned</span>
@@ -444,7 +559,56 @@
     </div>
   </section>
 
-  <!-- WILD FOUNDATION — section 3, crossfade carousel, all 6 slides -->
+  <!-- THE THROUGHLINE -->
+  <section class="section-throughline">
+    <div class="throughline-inner">
+      <p class="throughline-label">The Throughline</p>
+      <h2 class="throughline-heading reveal">Every brand has a throughline. We find yours.</h2>
+      <p class="throughline-body reveal" style="transition-delay:.12s">Most marketing fails because it starts with tactics. We start with the thread. Find that and everything else follows.</p>
+    </div>
+
+    <!-- ORBIT: brand concepts orbiting a central thread -->
+    <div class="tl-orbit-wrap" aria-hidden="true">
+      <div class="tl-system">
+
+        <!-- Center node — the throughline itself -->
+        <div class="tl-center-node">
+          <svg width="28" height="16" viewBox="0 0 28 16" fill="none">
+            <path d="M2 8 C5 3,9 3,14 8 C19 13,23 13,26 8" stroke="#C2714F" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="26" cy="8" r="2.5" fill="#C2714F"/>
+          </svg>
+        </div>
+
+        <!-- Ring A — core (inner, 3 items) -->
+        <div class="tl-ring tl-ring-a">
+          <div class="tl-node" style="left:100%;top:50%">  <span class="tl-pill tl-pill-terra">Brand</span></div>
+          <div class="tl-node" style="left:25%;top:93.3%"> <span class="tl-pill tl-pill-cream">Story</span></div>
+          <div class="tl-node" style="left:25%;top:6.7%">  <span class="tl-pill tl-pill-cream">Voice</span></div>
+        </div>
+
+        <!-- Ring B — delivery (middle, 4 items) -->
+        <div class="tl-ring tl-ring-b">
+          <div class="tl-node" style="left:100%;top:50%">  <span class="tl-pill tl-pill-sage">Audience</span></div>
+          <div class="tl-node" style="left:50%;top:100%">  <span class="tl-pill tl-pill-cream">Content</span></div>
+          <div class="tl-node" style="left:0%;top:50%">    <span class="tl-pill tl-pill-terra">Growth</span></div>
+          <div class="tl-node" style="left:50%;top:0%">    <span class="tl-pill tl-pill-cream">Strategy</span></div>
+        </div>
+
+        <!-- Ring C — channels (outer, 6 items) -->
+        <div class="tl-ring tl-ring-c">
+          <div class="tl-node" style="left:100%;top:50%">  <span class="tl-pill tl-pill-cream">LinkedIn</span></div>
+          <div class="tl-node" style="left:75%;top:93.3%"> <span class="tl-pill tl-pill-sage">Campaign</span></div>
+          <div class="tl-node" style="left:25%;top:93.3%"> <span class="tl-pill tl-pill-cream">Email</span></div>
+          <div class="tl-node" style="left:0%;top:50%">    <span class="tl-pill tl-pill-terra">Copy</span></div>
+          <div class="tl-node" style="left:25%;top:6.7%">  <span class="tl-pill tl-pill-cream">Events</span></div>
+          <div class="tl-node" style="left:75%;top:6.7%">  <span class="tl-pill tl-pill-sage">Proof</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WILD FOUNDATION -->
   <div class="case-card card-wild reveal" id="work">
     <div class="wild-layout">
       <div class="wild-carousel" id="wildCarousel">
@@ -468,7 +632,7 @@
           <p class="case-card-label">Featured work</p>
           <h3 class="case-card-client">Wild<br>Foundation</h3>
           <p class="case-card-sub">Social Strategy · Data Storytelling · Shenandoah Campaign · AI Bot Build</p>
-          <p class="case-card-body">A conservation nonprofit with 50 years of impact and a digital presence that wasn't keeping up. We built the social strategy, the Shenandoah campaign, a donor email system, and an AI bot that makes their website the source of truth for wilderness policy.</p>
+          <p class="case-card-body">A conservation nonprofit with 50 years of impact and a digital presence that wasn't keeping up.</p>
         </div>
         <div>
           <div class="case-card-stats four-col" style="margin-top:40px">
@@ -495,7 +659,7 @@
     </div>
   </div>
 
-  <!-- PAYRO FINANCE CARD -->
+  <!-- PAYRO FINANCE -->
   <div class="case-card card-payro reveal">
     <div class="payro-card-header">
       <p class="case-card-label" style="margin-bottom:0">Featured work</p>
@@ -503,10 +667,11 @@
     </div>
     <div class="payro-card-layout">
       <div class="payro-card-imgs clip-reveal">
-        <img src="/payro-groundhog-linkedin.png" alt="Payro Finance LinkedIn post">
+        <img src="/payro%20groundhog%20.png" alt="Payro Finance Groundhog Day LinkedIn post" style="object-position:center center;">
       </div>
       <div class="payro-card-content">
         <h3 class="case-card-client">Payro<br>Finance</h3>
+        <p class="payro-bridge">We didn't go viral. We got specific. And specific converted.</p>
         <div class="payro-card-stats">
           <div class="payro-card-stat">
             <div class="payro-card-num">+118%</div>
@@ -526,117 +691,10 @@
     </div>
   </div>
 
-  <!-- WHAT WE ACTUALLY DO — animated features -->
-  <section class="section-features" id="services">
-    <div class="features-header">
-      <span class="features-section-label">Services</span>
-      <h2 class="features-heading reveal">What we actually do</h2>
-      <p class="features-intro reveal" style="transition-delay:.1s">You don't need more content. You need the right story, told to the right people, in a way that makes them act.</p>
-    </div>
-    <div class="features-grid">
-
-      <!-- Left: feature list -->
-      <div class="features-list" id="featuresList">
-
-        <div class="feature-item active" data-index="0">
-          <div class="fi-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-          </div>
-          <div class="fi-content">
-            <h3 class="fi-title">Brand Strategy</h3>
-            <p class="fi-desc">We build the narrative architecture your brand has been missing — positioning, voice, and message hierarchy that makes every touchpoint count.</p>
-            <div class="fi-progress-track"><div class="fi-progress-bar"></div></div>
-          </div>
-        </div>
-
-        <div class="feature-item" data-index="1">
-          <div class="fi-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-          </div>
-          <div class="fi-content">
-            <h3 class="fi-title">Audience Growth</h3>
-            <p class="fi-desc">Real growth through the right platforms, the right cadence, and content your audience actually wants to engage with.</p>
-            <div class="fi-progress-track"><div class="fi-progress-bar"></div></div>
-          </div>
-        </div>
-
-        <div class="feature-item" data-index="2">
-          <div class="fi-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-          </div>
-          <div class="fi-content">
-            <h3 class="fi-title">Storytelling &amp; Voice</h3>
-            <p class="fi-desc">Every organization has a story worth telling. We dig it out, sharpen it, and turn it into content that moves people.</p>
-            <div class="fi-progress-track"><div class="fi-progress-bar"></div></div>
-          </div>
-        </div>
-
-        <div class="feature-item" data-index="3">
-          <div class="fi-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-          </div>
-          <div class="fi-content">
-            <h3 class="fi-title">Content &amp; Copywriting</h3>
-            <p class="fi-desc">From campaign copy to thought leadership to email sequences — written in your voice, built for conversion.</p>
-            <div class="fi-progress-track"><div class="fi-progress-bar"></div></div>
-          </div>
-        </div>
-
-        <div class="feature-item" data-index="4">
-          <div class="fi-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-          </div>
-          <div class="fi-content">
-            <h3 class="fi-title">LinkedIn Growth</h3>
-            <p class="fi-desc">Platform-native strategy that turns your LinkedIn presence into a lead engine, not a broadcast channel.</p>
-            <div class="fi-progress-track"><div class="fi-progress-bar"></div></div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Right: image display -->
-      <div class="features-image-wrap">
-        <div class="features-image-frame" id="featuresImageFrame">
-          <img class="features-img" src="/wild%20to%20replace.png" alt="Brand Strategy" style="object-position:center top;">
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- WHAT WE ACTUALLY COVER -->
-  <section class="section-cover">
-    <p class="cover-label reveal">What we actually cover</p>
-    <h2 class="cover-heading reveal" style="transition-delay:.08s">Strategy is only useful if someone implements it.</h2>
-    <div class="services-full-grid">
-      <div>
-        <p class="services-col-label">Online</p>
-        <ul class="services-full-list">
-          <li class="services-full-item reveal"><p class="services-full-name">Brand Strategy</p></li>
-          <li class="services-full-item reveal" style="transition-delay:.05s"><p class="services-full-name">Social Media</p></li>
-          <li class="services-full-item reveal" style="transition-delay:.1s"><p class="services-full-name">Website Strategy</p></li>
-          <li class="services-full-item reveal" style="transition-delay:.15s"><p class="services-full-name">Content and Copywriting</p></li>
-          <li class="services-full-item reveal" style="transition-delay:.2s"><p class="services-full-name">Online Events</p></li>
-        </ul>
-      </div>
-      <div class="services-col-divider"></div>
-      <div>
-        <p class="services-col-label">Offline</p>
-        <ul class="services-full-list">
-          <li class="services-full-item reveal"><p class="services-full-name">Conference and Event Marketing</p></li>
-          <li class="services-full-item reveal" style="transition-delay:.05s"><p class="services-full-name">Booth Design and Collateral</p></li>
-          <li class="services-full-item reveal" style="transition-delay:.1s"><p class="services-full-name">Community Outreach</p></li>
-          <li class="services-full-item reveal" style="transition-delay:.15s"><p class="services-full-name">Experiential Strategy</p></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- PITCH COMPETITION PHOTO — scroll-driven sticky reveal -->
+  <!-- PITCH COMPETITION PHOTO -->
   <div class="clip-hero-wrap">
     <section class="clip-hero-sticky">
-      <img src="/georgetown-postcard.png" alt="Georgetown University — If you want to go fast, go alone. If you want to go far, go together">
+      <img src="/georgetown-postcard.png" alt="Georgetown University. If you want to go fast, go alone. If you want to go far, go together.">
     </section>
   </div>
 
@@ -659,12 +717,12 @@
         <h3 class="case-card-client">Georgetown<br>University</h3>
         <p class="case-card-sub">Brand Refresh · DEI Communications · Campaign Strategy</p>
       </div>
-      <div style="padding-top:6px">
+      <div>
         <p class="case-card-body">Brand refresh, event marketing, and campaign strategy for Georgetown University. From the ground up.</p>
       </div>
     </div>
     <div class="georgetown-strip">
-      <img src="/georgetown-action-figure.png" alt="Georgetown Student Action Figure — O.S.O. campaign">
+      <img src="/georgetown-action-figure.png" alt="Georgetown Student Action Figure. O.S.O. campaign">
       <img src="/3e205807-38b9-4a25-9e87-3f578d0bcfc3.jpg" alt="We're All Ears Georgetown event collateral">
       <div class="georgetown-stat-block">
         <div class="g-stat">
@@ -717,6 +775,110 @@
     </div>
   </div>
 
+  <!-- WHAT WE ACTUALLY DO — animated features -->
+  <section class="section-features" id="services">
+    <div class="features-header">
+      <span class="features-section-label">Services</span>
+      <h2 class="features-heading reveal">What we actually do</h2>
+    </div>
+    <div class="features-grid">
+
+      <div class="features-list" id="featuresList">
+
+        <div class="feature-item active" data-index="0">
+          <div class="fi-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          </div>
+          <div class="fi-content">
+            <h3 class="fi-title">Brand Strategy</h3>
+            <p class="fi-desc">We build the narrative architecture your brand has been missing, positioning, voice, and message hierarchy that makes every touchpoint count.</p>
+            <div class="fi-progress-track"><div class="fi-progress-bar"></div></div>
+          </div>
+        </div>
+
+        <div class="feature-item" data-index="1">
+          <div class="fi-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          </div>
+          <div class="fi-content">
+            <h3 class="fi-title">Audience Growth</h3>
+            <p class="fi-desc">Real growth through the right platforms, the right cadence, and content your audience actually wants to engage with.</p>
+            <div class="fi-progress-track"><div class="fi-progress-bar"></div></div>
+          </div>
+        </div>
+
+        <div class="feature-item" data-index="2">
+          <div class="fi-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          </div>
+          <div class="fi-content">
+            <h3 class="fi-title">Storytelling &amp; Voice</h3>
+            <p class="fi-desc">Every organization has a story worth telling. We dig it out, sharpen it, and turn it into content that moves people.</p>
+            <div class="fi-progress-track"><div class="fi-progress-bar"></div></div>
+          </div>
+        </div>
+
+        <div class="feature-item" data-index="3">
+          <div class="fi-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <div class="fi-content">
+            <h3 class="fi-title">Content &amp; Copywriting</h3>
+            <p class="fi-desc">From campaign copy to thought leadership to email sequences, written in your voice, built for conversion.</p>
+            <div class="fi-progress-track"><div class="fi-progress-bar"></div></div>
+          </div>
+        </div>
+
+        <div class="feature-item" data-index="4">
+          <div class="fi-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          </div>
+          <div class="fi-content">
+            <h3 class="fi-title">LinkedIn Growth</h3>
+            <p class="fi-desc">Platform-native strategy that turns your LinkedIn presence into a lead engine, not a broadcast channel.</p>
+            <div class="fi-progress-track"><div class="fi-progress-bar"></div></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="features-image-wrap">
+        <div class="features-image-frame" id="featuresImageFrame">
+          <img class="features-img" src="/wild%20to%20replace.png" alt="Brand Strategy" style="object-position:center top;">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WHAT WE ACTUALLY COVER -->
+  <section class="section-cover">
+    <p class="cover-label reveal">What we actually cover</p>
+    <h2 class="cover-heading reveal" style="transition-delay:.08s">Strategy is only useful if someone implements it.</h2>
+    <div class="services-full-grid">
+      <div>
+        <p class="services-col-label">Online</p>
+        <ul class="services-full-list">
+          <li class="services-full-item reveal"><p class="services-full-name">Brand Strategy</p></li>
+          <li class="services-full-item reveal" style="transition-delay:.05s"><p class="services-full-name">Social Media</p></li>
+          <li class="services-full-item reveal" style="transition-delay:.1s"><p class="services-full-name">Website Strategy</p></li>
+          <li class="services-full-item reveal" style="transition-delay:.15s"><p class="services-full-name">Content and Copywriting</p></li>
+          <li class="services-full-item reveal" style="transition-delay:.2s"><p class="services-full-name">Online Events</p></li>
+        </ul>
+      </div>
+      <div class="services-col-divider"></div>
+      <div>
+        <p class="services-col-label">Offline</p>
+        <ul class="services-full-list">
+          <li class="services-full-item reveal"><p class="services-full-name">Conference and Event Marketing</p></li>
+          <li class="services-full-item reveal" style="transition-delay:.05s"><p class="services-full-name">Booth Design and Collateral</p></li>
+          <li class="services-full-item reveal" style="transition-delay:.1s"><p class="services-full-name">Community Outreach</p></li>
+          <li class="services-full-item reveal" style="transition-delay:.15s"><p class="services-full-name">Experiential Strategy</p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <!-- FOUNDER -->
   <section class="section-founder" id="founder">
     <div class="founder-text reveal">
@@ -725,34 +887,34 @@
       <div class="founder-body">
         <p>In 2019 I was diagnosed with dyslexia. I was 21.</p>
         <p>So I went to Georgetown. Built an AI tool. Won a pitch competition. Piloted it in real classrooms.</p>
-        <p>Now I help organisations find the story they've been sitting on.</p>
+        <p>Now I help organisations find the story they have been sitting on.</p>
       </div>
       <p class="founder-name">Riya Mittal, Founder</p>
-      <p class="founder-featured">As featured in Georgetown University CCT</p>
+      <p class="founder-featured">As featured in Georgetown University CCT, Disability Pride Month.</p>
     </div>
     <div class="founder-img reveal" style="transition-delay:.2s">
       <img src="/IMG_4734.jpeg" alt="Riya Mittal at Georgetown University event">
     </div>
   </section>
 
-  <!-- PURPOSE -->
+  <!-- HOW WE WORK -->
   <section class="section-strategy">
     <div class="strategy-inner">
       <div class="strategy-left">
-        <p class="strategy-eyebrow">Our practice</p>
+        <p class="strategy-eyebrow">How we work</p>
         <h2 class="strategy-heading reveal">PURPOSE</h2>
         <div class="strategy-services">
           <div class="strategy-item">
-            <p class="strategy-item-name">Brand Strategy</p>
+            <p class="strategy-item-name">Discovery</p>
           </div>
           <div class="strategy-item">
-            <p class="strategy-item-name">Audience Growth</p>
+            <p class="strategy-item-name">Strategy</p>
           </div>
           <div class="strategy-item">
-            <p class="strategy-item-name">Narrative Architecture</p>
+            <p class="strategy-item-name">Execution</p>
           </div>
           <div class="strategy-item">
-            <p class="strategy-item-name">Content and Copywriting</p>
+            <p class="strategy-item-name">Measure</p>
           </div>
         </div>
       </div>
@@ -767,12 +929,12 @@
     <div class="contact-inner">
       <p class="contact-label reveal">Let's talk</p>
       <h2 class="contact-heading reveal" style="transition-delay:.08s">You probably already know you need this.</h2>
-      <p class="contact-body reveal" style="transition-delay:.16s">No sales call. Just an honest conversation about what you're building and whether we can help.</p>
+      <p class="contact-body reveal" style="transition-delay:.16s">No sales call. Just an honest conversation about what you are building and whether we can help.</p>
       <button class="contact-cta reveal" style="transition-delay:.22s" onclick="window.location='mailto:rmittal.works@gmail.com'">
         <span class="contact-cta-icon">
           <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </span>
-        Start that conversation
+        <span class="contact-cta-label">Start that conversation</span>
       </button>
       <p class="contact-details reveal" style="transition-delay:.28s">
         <a href="mailto:rmittal.works@gmail.com">rmittal.works@gmail.com</a>
@@ -841,22 +1003,23 @@
       const heroWrap   = document.querySelector('.clip-hero-wrap');
       const heroSticky = document.querySelector('.clip-hero-sticky');
       const heroImg    = heroSticky ? heroSticky.querySelector('img') : null;
-      const SCROLL_DRIVE = 700;
+      const isMobile = window.innerWidth <= 720;
+      const SCROLL_DRIVE = isMobile ? 280 : 700;
+      const INIT_X = isMobile ? 4 : 18;
+      const INIT_Y = isMobile ? 4 : 11;
 
       const clipEls = document.querySelectorAll('.clip-reveal');
 
       function tick() {
-        // Full sticky hero — pitch photo
         if (heroWrap && heroSticky) {
           const rect = heroWrap.getBoundingClientRect();
           const progress = clamp(-rect.top / SCROLL_DRIVE, 0, 1);
-          const ix = lerp(18, 0, progress);
-          const iy = lerp(11, 0, progress);
+          const ix = lerp(INIT_X, 0, progress);
+          const iy = lerp(INIT_Y, 0, progress);
           heroSticky.style.clipPath = poly(ix, iy, 100 - ix, 100 - iy);
           if (heroImg) heroImg.style.transform = `scale(${lerp(1.15, 1.0, progress)})`;
         }
 
-        // Inline reveals — Payro image, philosophy image
         clipEls.forEach(el => {
           const rect = el.getBoundingClientRect();
           const vh = window.innerHeight;
@@ -874,11 +1037,11 @@
     // ── FEATURES SECTION ──
     (function() {
       const featureData = [
-        { src: '/wild%20to%20replace.png',  alt: 'Brand Strategy',         pos: 'center top'    },
-        { src: '/ombuds-instagram-page.png',      alt: 'Audience Growth',        pos: 'center top'    },
-        { src: '/ombuds-event-photo.jpg',         alt: 'Storytelling and Voice', pos: 'center 30%'    },
-        { src: '/wild-donor-email.png',           alt: 'Content and Copywriting',pos: 'center top'    },
-        { src: '/payro-linkedin-page.png',        alt: 'LinkedIn Growth',        pos: 'center top'    },
+        { src: '/wild%20to%20replace.png',       alt: 'Brand Strategy',         pos: 'center top'  },
+        { src: '/ombuds-instagram-page.png',      alt: 'Audience Growth',        pos: 'center top'  },
+        { src: '/ombuds-event-photo.jpg',         alt: 'Storytelling and Voice', pos: 'center 30%'  },
+        { src: '/wild-donor-email.png',           alt: 'Content and Copywriting',pos: 'center top'  },
+        { src: '/payro-linkedin-page.png',        alt: 'LinkedIn Growth',        pos: 'center top'  },
       ];
 
       const items      = document.querySelectorAll('.feature-item');
@@ -897,6 +1060,12 @@
         img.style.objectPosition = d.pos;
         imageFrame.innerHTML = '';
         imageFrame.appendChild(img);
+        // Blur overlay to hide connection name on LinkedIn screenshot
+        if (index === 4) {
+          const overlay = document.createElement('div');
+          overlay.style.cssText = 'position:absolute;left:0;top:0;right:0;height:72px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);background:rgba(232,196,176,0.55);z-index:2;';
+          imageFrame.appendChild(overlay);
+        }
       }
 
       function setActive(index) {
@@ -905,7 +1074,6 @@
           item.classList.toggle('active', i === index);
           if (bar) bar.style.width = '0%';
         });
-        // Mobile: scroll active item into center
         if (listEl && items[index] && window.innerWidth <= 1100) {
           listEl.scrollTo({
             left: items[index].offsetLeft - (listEl.offsetWidth - items[index].offsetWidth) / 2,
@@ -944,28 +1112,77 @@
       startTicker();
     })();
 
-    // ── SPOOL CURSOR ──
+    // ── THROUGHLINE SVG SCROLL TRACKER ──
+    (function() {
+      const tlNav = document.getElementById('tlNav');
+      const tlFill = document.getElementById('tlFill');
+      const tlTip = document.getElementById('tlTip');
+      if (!tlNav || !tlFill || window.innerWidth < 900) return;
+
+      const sectionIds = ['work', 'services', 'founder', 'contact'];
+      const dotEls = [];
+
+      sectionIds.forEach((id) => {
+        const sec = document.getElementById(id);
+        if (!sec) return;
+        const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        c.setAttribute('cx', '6');
+        c.setAttribute('cy', '-100');
+        c.setAttribute('r', id === 'contact' ? '5' : '3.5');
+        c.setAttribute('fill', '#C2714F');
+        c.setAttribute('opacity', '0.2');
+        tlNav.appendChild(c);
+        dotEls.push({ c, sec });
+      });
+
+      let currentY2 = 0;
+      let rafId;
+
+      function lerp(a, b, t) { return a + (b - a) * t; }
+
+      function frame() {
+        const totalH = document.body.scrollHeight - window.innerHeight;
+        const scrollPct = totalH > 0 ? Math.min(window.scrollY / totalH, 1) : 0;
+        const vh = window.innerHeight;
+        const targetY2 = scrollPct * vh;
+
+        // Smooth lerp so the line glides, not jumps
+        currentY2 = lerp(currentY2, targetY2, 0.12);
+        tlFill.setAttribute('y2', currentY2);
+        if (tlTip) {
+          tlTip.setAttribute('cy', currentY2);
+          tlTip.setAttribute('opacity', scrollPct > 0.01 ? '1' : '0');
+        }
+
+        dotEls.forEach(({ c, sec }) => {
+          const rect = sec.getBoundingClientRect();
+          // Clamp dot to visible area of the SVG
+          const vy = Math.max(8, Math.min(vh - 8, rect.top + 24));
+          c.setAttribute('cy', vy);
+          const active = rect.top < vh * 0.75 && rect.bottom > 0;
+          // Smooth opacity transition via attribute (CSS transition handles it)
+          c.style.transition = 'opacity 0.6s';
+          c.setAttribute('opacity', active ? '1' : '0.18');
+        });
+
+        rafId = requestAnimationFrame(frame);
+      }
+
+      frame();
+
+      window.addEventListener('resize', () => {
+        cancelAnimationFrame(rafId);
+        currentY2 = 0;
+        frame();
+      }, { passive: true });
+    })();
+
+    // ── DOT CURSOR ──
     (function() {
       if (!matchMedia('(pointer:fine) and (hover:hover)').matches) return;
 
       const cur = document.createElement('div');
-      cur.style.cssText = 'position:fixed;pointer-events:none;z-index:9999;left:-60px;top:-60px;transform:translate(-50%,-50%);transition:transform .22s cubic-bezier(.34,1.56,.64,1),opacity .18s;opacity:0;will-change:left,top;';
-      cur.innerHTML = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Top flange -->
-        <rect x="3" y="2" width="26" height="6" rx="3" fill="#2C3E35"/>
-        <!-- Thread body -->
-        <rect x="7" y="8" width="18" height="16" fill="#8BA888"/>
-        <!-- Thread wrap lines -->
-        <line x1="7" y1="12" x2="25" y2="12" stroke="#3D6B4F" stroke-width="0.9" opacity="0.55"/>
-        <line x1="7" y1="16" x2="25" y2="16" stroke="#3D6B4F" stroke-width="0.9" opacity="0.55"/>
-        <line x1="7" y1="20" x2="25" y2="20" stroke="#3D6B4F" stroke-width="0.9" opacity="0.55"/>
-        <!-- Centre post -->
-        <circle cx="16" cy="16" r="3" fill="#2C3E35" opacity="0.35"/>
-        <!-- Bottom flange -->
-        <rect x="3" y="24" width="26" height="6" rx="3" fill="#2C3E35"/>
-        <!-- Thread tail coming off spool -->
-        <path d="M25 10 Q30 6 32 2" stroke="#C2714F" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.8"/>
-      </svg>`;
+      cur.style.cssText = 'position:fixed;pointer-events:none;z-index:9999;width:10px;height:10px;border-radius:50%;background:#C2714F;transform:translate(-50%,-50%);opacity:0;will-change:left,top;left:-20px;top:-20px;';
       document.body.appendChild(cur);
 
       document.addEventListener('mousemove', e => {
@@ -975,11 +1192,6 @@
       }, { passive: true });
 
       document.addEventListener('mouseleave', () => { cur.style.opacity = '0'; });
-
-      document.querySelectorAll('a, button, .feature-item, .strategy-item, .services-full-item').forEach(el => {
-        el.addEventListener('mouseenter', () => { cur.style.transform = 'translate(-50%,-50%) scale(1.3) rotate(12deg)'; });
-        el.addEventListener('mouseleave', () => { cur.style.transform = 'translate(-50%,-50%) scale(1) rotate(0deg)'; });
-      });
     })();
   </script>
 </body>

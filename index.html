@@ -1109,7 +1109,24 @@
       });
 
       goTo(0);
-      startTicker();
+
+      // Only start (and reset to Brand Strategy) when section scrolls into view
+      const sectionEl = document.getElementById('services');
+      if (sectionEl && 'IntersectionObserver' in window) {
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              goTo(0);
+              startTicker();
+            } else {
+              clearInterval(ticker);
+            }
+          });
+        }, { threshold: 0.25 });
+        obs.observe(sectionEl);
+      } else {
+        startTicker();
+      }
     })();
 
     // ── THROUGHLINE SVG SCROLL TRACKER ──

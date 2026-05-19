@@ -67,7 +67,7 @@ class handler(BaseHTTPRequestHandler):
         body["submitted_at"] = datetime.datetime.now().isoformat()
         print("New form submission:", json.dumps(body, indent=2))
         send_email(body)
-        self._json(200, {"ok": True})
+        self._json(200, {"ok": True, "resend_key_set": bool(RESEND_API_KEY)})
 
     def _json(self, code, data):
         b = json.dumps(data).encode()

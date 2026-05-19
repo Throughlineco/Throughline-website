@@ -8,7 +8,7 @@ FROM_EMAIL = "Throughline Co <onboarding@resend.dev>"
 
 def send_email(body):
     if not RESEND_API_KEY:
-        return
+        return "no_key"
 
     name    = body.get("name", "—")
     org     = body.get("org", "—")
@@ -45,12 +45,15 @@ def send_email(body):
         },
     )
     try:
-        urllib.request.urlopen(req, timeout=10)
-        print("Email sent successfully")
+        resp = urllib.request.urlopen(req, timeout=10)
+        return "sent"
     except urllib.error.HTTPError as e:
-        print(f"Resend error: {e.read().decode()}")
+        err = e.read().decode()
+        print(f"Resend error: {err}")
+        return err
     except Exception as e:
         print(f"Email error: {e}")
+        return str(e)
 
 
 class handler(BaseHTTPRequestHandler):
@@ -66,8 +69,8 @@ class handler(BaseHTTPRequestHandler):
         body = json.loads(self.rfile.read(length)) if length else {}
         body["submitted_at"] = datetime.datetime.now().isoformat()
         print("New form submission:", json.dumps(body, indent=2))
-        send_email(body)
-        self._json(200, {"ok": True, "resend_key_set": bool(RESEND_API_KEY)})
+        email_result = send_email(body)
+        self._json(200, {"ok": True, "email": email_result})
 
     def _json(self, code, data):
         b = json.dumps(data).encode()

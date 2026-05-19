@@ -526,7 +526,7 @@
     /* SCROLL-DRIVEN BLUR REVEAL */
     .blur-reveal-container { height: 150vh; background: var(--cream); position: relative; }
     .blur-reveal-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; pointer-events: none; }
-    .blur-reveal-heading { font-family: 'Courier New', Courier, monospace; font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 700; color: var(--deep-forest); text-align: center; padding: 0 24px; opacity: 0; filter: blur(8px); transform: translateY(-10px); will-change: opacity, filter, transform; }
+    .blur-reveal-heading { font-family: 'Courier New', Courier, monospace; font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 700; color: var(--deep-forest); text-align: center; padding: 0 24px; opacity: 1; filter: blur(0); transform: translateY(0); will-change: opacity, filter, transform; }
 
     /* SCROLL REVEAL */
     .js-ready .reveal { opacity: 0; transform: translateY(32px); transition: opacity .95s cubic-bezier(.215,.61,.355,1), transform .95s cubic-bezier(.215,.61,.355,1); }
@@ -1124,16 +1124,10 @@
         const p = Math.max(0, Math.min(1, scrolled / total)); // 0 → 1 across full container
 
         let opacity, blur, ty;
-        if (p < 0.25) {
-          // Blur IN — quick
-          const t = ease(p / 0.25);
-          opacity = t; blur = 8 * (1 - t); ty = -10 * (1 - t);
-        } else if (p < 0.78) {
-          // Hold clear — the breather
+        if (p < 0.72) {
           opacity = 1; blur = 0; ty = 0;
         } else {
-          // Blur OUT — quick exit
-          const t = ease((p - 0.78) / 0.22);
+          const t = ease((p - 0.72) / 0.28);
           opacity = 1 - t; blur = 8 * t; ty = 10 * t;
         }
 

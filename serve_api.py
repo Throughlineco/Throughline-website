@@ -10,7 +10,7 @@ import http.server, json, os, socketserver, urllib.request, urllib.error, dateti
 
 SUBMISSIONS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "submissions.json")
 
-PORT = 3000
+PORT = int(os.environ.get("PORT", 3000))
 ROOT = os.path.dirname(os.path.abspath(__file__))
 API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 

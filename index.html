@@ -145,6 +145,7 @@
       width: 44px; border-radius: 9999px; background: var(--deep-forest);
       display: flex; align-items: center; justify-content: center;
       transition: width 480ms cubic-bezier(0.4,0,0.2,1); overflow: hidden;
+      z-index: 1;
     }
     .hero-cta:hover .hero-cta-icon { width: calc(100% - 8px); }
     .hero-cta-icon svg {
@@ -154,11 +155,12 @@
     }
     .hero-cta:hover .hero-cta-icon svg { transform: translateX(4px); }
     .hero-cta-label {
-      position: absolute; top: 50%; left: calc(50% + 14px);
+      position: absolute; top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       font-family: var(--font-body); font-size: 13px; font-weight: 700;
       color: var(--deep-forest); white-space: nowrap;
-      transition: color 480ms cubic-bezier(0.4,0,0.2,1);
+      transition: color 80ms linear;
+      z-index: 2;
     }
     .hero-cta:hover .hero-cta-label { color: var(--cream); }
 
@@ -250,6 +252,11 @@
       transition: background .3s;
     }
     .wild-dot.active { background: var(--cream); }
+    .wild-click-prev, .wild-click-next {
+      position: absolute; top: 0; width: 50%; height: 100%; z-index: 10; cursor: pointer;
+    }
+    .wild-click-prev { left: 0; cursor: w-resize; }
+    .wild-click-next { right: 0; cursor: e-resize; }
     .wild-content { padding: 56px 52px; display: flex; flex-direction: column; justify-content: space-between; }
 
     /* PAYRO NUMBERS SECTION */
@@ -426,6 +433,7 @@
       width: 44px; border-radius: 9999px; background: var(--deep-forest);
       display: flex; align-items: center; justify-content: center;
       transition: width 480ms cubic-bezier(0.4,0,0.2,1); overflow: hidden;
+      z-index: 1;
     }
     .contact-cta:hover .contact-cta-icon { width: calc(100% - 10px); }
     .contact-cta-icon svg {
@@ -435,11 +443,12 @@
     }
     .contact-cta:hover .contact-cta-icon svg { transform: translateX(4px); }
     .contact-cta-label {
-      position: absolute; top: 50%; left: calc(50% + 14px);
+      position: absolute; top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       font-family: var(--font-body); font-size: 14px; font-weight: 700;
       color: var(--deep-forest); white-space: nowrap;
-      transition: color 480ms cubic-bezier(0.4,0,0.2,1);
+      transition: color 80ms linear;
+      z-index: 2;
     }
     .contact-cta:hover .contact-cta-label { color: var(--cream); }
     .contact-details { font-size: 12px; font-weight: 400; letter-spacing: .06em; color: rgba(245,240,232,.5); }
@@ -452,6 +461,72 @@
     .footer-links { display: flex; gap: 28px; }
     .footer-links a { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,232,.3); transition: color .25s; }
     .footer-links a:hover { color: rgba(245,240,232,.7); }
+
+    /* ── CLOSING SEQUENCE ── */
+    .cs-footer { background: var(--deep-forest); padding: 100px 52px 80px; position: relative; overflow: hidden; }
+
+    .cs-hero { text-align: center; max-width: 680px; margin: 0 auto; }
+    .cs-question { font-family: var(--font-display); font-size: clamp(32px, 4.5vw, 64px); font-weight: 400; font-style: italic; color: var(--cream); line-height: 1.15; margin-bottom: 14px; letter-spacing: -.01em; }
+    .cs-sub { font-size: 13px; font-weight: 300; color: var(--muted-sage); letter-spacing: .04em; margin-bottom: 48px; }
+
+    .cs-input-zone { transition: opacity .5s ease, transform .5s ease; }
+    .cs-input-zone.fading { opacity: 0; transform: translateY(-8px); pointer-events: none; }
+    .cs-input-row { display: flex; align-items: center; gap: 12px; justify-content: center; }
+    .cs-input { background: transparent; border: 1px solid rgba(245,240,232,.3); border-radius: 9999px; padding: 14px 28px; font-family: var(--font-body); font-size: 15px; font-weight: 300; color: var(--cream); width: min(440px, 100%); outline: none; transition: border-color .3s, box-shadow .3s; }
+    .cs-input::placeholder { color: rgba(245,240,232,.3); }
+    .cs-input:focus { border-color: var(--terracotta); box-shadow: 0 0 0 3px rgba(194,113,79,.15), 0 0 20px rgba(194,113,79,.08); }
+    .cs-submit { width: 48px; height: 48px; border-radius: 50%; background: var(--terracotta); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background .2s, transform .2s; }
+    .cs-submit:hover { background: #b8603f; transform: scale(1.07); }
+    .cs-submit:active { transform: scale(.94); }
+    .cs-submit svg { stroke: var(--cream); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .cs-submit.loading { pointer-events: none; opacity: .55; }
+
+    .cs-response-zone { opacity: 0; transform: translateY(14px); transition: opacity .8s ease, transform .8s ease; pointer-events: none; display: flex; flex-direction: column; align-items: center; gap: 28px; min-height: 0; }
+    .cs-response-zone.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .cs-response-wrap { display: flex; flex-direction: column; align-items: center; }
+    .cs-response-text { font-family: var(--font-display); font-size: clamp(22px, 2.6vw, 36px); font-weight: 400; font-style: italic; color: var(--cream); line-height: 1.5; text-align: center; max-width: 580px; }
+    .cs-response-mirror { font-family: var(--font-display); font-size: clamp(22px, 2.6vw, 36px); font-weight: 400; font-style: italic; color: var(--cream); line-height: 1.5; text-align: center; max-width: 580px; transform: scaleY(-1); opacity: 0; -webkit-mask-image: linear-gradient(to bottom, rgba(255,255,255,.18) 0%, transparent 72%); mask-image: linear-gradient(to bottom, rgba(255,255,255,.18) 0%, transparent 72%); user-select: none; pointer-events: none; margin-top: 2px; border-top: 1px solid rgba(245,240,232,.06); transition: opacity 1.2s ease .7s; }
+    .cs-response-zone.visible .cs-response-mirror { opacity: 1; }
+    .cs-find-cta { display: inline-block; background: var(--terracotta); color: var(--cream); font-family: var(--font-body); font-size: 13px; font-weight: 700; letter-spacing: .04em; padding: 14px 36px; border-radius: 9999px; text-decoration: none; opacity: 0; transform: translateY(8px); transition: opacity .6s ease 1s, transform .6s ease 1s, background .2s; }
+    .cs-find-cta.visible { opacity: 1; transform: translateY(0); }
+    .cs-find-cta:hover { background: #b8603f; }
+    .cs-try-again { background: none; border: none; color: rgba(245,240,232,.45); font-family: var(--font-body); font-size: 12px; letter-spacing: .06em; cursor: pointer; padding: 4px 0; opacity: 0; transition: opacity .6s ease 1.4s, color .2s; }
+    .cs-response-zone.visible .cs-try-again { opacity: 1; }
+    .cs-try-again:hover { color: rgba(245,240,232,.8); }
+    .cs-meta { text-align: center; font-size: 11px; font-weight: 400; letter-spacing: .07em; color: var(--muted-sage); margin-top: 80px; opacity: .6; }
+
+    /* PART 2 — CONTACT FORM */
+    .cs-form-section { background: var(--cream); padding: 80px 52px 64px; }
+    .cs-form-heading { font-family: var(--font-display); font-size: clamp(28px, 3.5vw, 52px); font-weight: 700; font-style: italic; color: var(--deep-forest); text-align: center; margin-bottom: 56px; letter-spacing: -.01em; }
+    .cs-form { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px; transition: opacity .5s ease, transform .5s ease; }
+    .cs-form.fading { opacity: 0; transform: translateY(-8px); pointer-events: none; }
+    .cs-field { display: flex; flex-direction: column; gap: 10px; }
+    .cs-label { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--deep-forest); opacity: .6; transition: color .25s, opacity .25s; }
+    .cs-field:focus-within .cs-label { color: var(--terracotta); opacity: 1; }
+    .cs-text-input { background: transparent; border: none; border-bottom: 1px solid rgba(44,62,53,.18); padding: 12px 0; font-family: var(--font-body); font-size: 15px; font-weight: 300; color: var(--deep-forest); outline: none; transition: border-color .3s; }
+    .cs-text-input::placeholder { color: rgba(44,62,53,.28); }
+    .cs-text-input:focus { border-bottom-color: var(--terracotta); }
+    .cs-textarea { background: transparent; border: none; border-bottom: 1px solid rgba(44,62,53,.18); border-left: 2px solid rgba(194,113,79,.22); padding: 12px 0 12px 14px; font-family: var(--font-body); font-size: 15px; font-weight: 300; color: var(--deep-forest); outline: none; resize: vertical; min-height: 120px; line-height: 1.75; transition: border-color .3s; }
+    .cs-textarea::placeholder { color: rgba(44,62,53,.28); }
+    .cs-textarea:focus { border-bottom-color: var(--terracotta); border-left-color: var(--terracotta); }
+    .cs-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+    .cs-pill { padding: 8px 18px; border-radius: 9999px; border: 1px solid var(--sage-green); background: transparent; color: var(--sage-green); font-family: var(--font-body); font-size: 12px; font-weight: 700; letter-spacing: .03em; cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+    .cs-pill:hover:not(.selected) { background: rgba(61,107,79,.07); }
+    .cs-pill.selected { background: var(--terracotta); border-color: var(--terracotta); color: var(--cream); }
+    .cs-form-submit { align-self: center; background: var(--terracotta); color: var(--cream); font-family: var(--font-body); font-size: 14px; font-weight: 700; letter-spacing: .04em; padding: 16px 52px; border-radius: 9999px; border: none; cursor: pointer; transition: background .2s, transform .2s; margin-top: 8px; }
+    .cs-form-submit:hover { background: #b8603f; transform: scale(1.03); }
+    .cs-form-submit:active { transform: scale(.97); }
+    .cs-form-success { display: none; text-align: center; max-width: 600px; margin: 0 auto; opacity: 0; transition: opacity .7s ease; }
+    .cs-form-success.visible { opacity: 1; }
+    .cs-success-line { font-family: var(--font-display); font-size: clamp(22px, 2.8vw, 38px); font-weight: 400; font-style: italic; color: var(--deep-forest); line-height: 1.55; opacity: 0; transform: translateY(12px); transition: opacity .7s ease, transform .7s ease; }
+    .cs-form-success.visible .cs-success-line:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: .1s; }
+    .cs-form-success.visible .cs-success-line:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: .4s; }
+    .cs-form-legal { text-align: center; font-size: 10px; font-weight: 400; letter-spacing: .1em; color: rgba(44,62,53,.3); margin-top: 64px; }
+
+    /* SCROLL-DRIVEN BLUR REVEAL */
+    .blur-reveal-container { height: 150vh; background: var(--cream); position: relative; }
+    .blur-reveal-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+    .blur-reveal-heading { font-family: 'Courier New', Courier, monospace; font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 700; color: var(--deep-forest); text-align: center; padding: 0 24px; opacity: 0; filter: blur(8px); transform: translateY(-10px); will-change: opacity, filter, transform; }
 
     /* SCROLL REVEAL */
     .js-ready .reveal { opacity: 0; transform: translateY(32px); transition: opacity .95s cubic-bezier(.215,.61,.355,1), transform .95s cubic-bezier(.215,.61,.355,1); }
@@ -489,6 +564,9 @@
       .section-throughline, .section-payro, .section-philosophy,
       .section-founder, .section-strategy,
       .section-contact { padding-left: 24px; padding-right: 24px; }
+      .cs-footer { padding: 72px 24px 60px; }
+      .cs-form-section { padding: 60px 24px 48px; }
+      .cs-form-submit { width: 100%; }
       .tl-orbit-wrap { display: none; }
       .throughline-inner { width: 100%; min-width: 0; }
       .hero-content { grid-template-columns: 1fr; padding: 0 24px 28px; }
@@ -512,7 +590,7 @@
   <!-- THROUGHLINE SVG TRACKER -->
   <svg id="tlNav" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <line x1="6" y1="0" x2="6" y2="10000" stroke="#3D6B4F" stroke-width="1" opacity="0.18" stroke-dasharray="5 7"/>
-    <line id="tlFill" x1="6" y1="0" x2="6" y2="0" stroke="#3D6B4F" stroke-width="1.5" stroke-linecap="round"/>
+    <line id="tlFill" x1="6" y1="0" x2="6" y2="0" stroke="#3D6B4F" stroke-width="2" stroke-linecap="round"/>
     <circle id="tlTip" cx="6" cy="0" r="4" fill="#C2714F" opacity="0" style="filter:drop-shadow(0 0 4px rgba(194,113,79,0.8));"/>
   </svg>
 
@@ -634,6 +712,8 @@
         <div class="wild-fade-slide"><img src="/wild_shenandoah_slide_04.png" alt="Shenandoah Campaign slide 4"></div>
         <div class="wild-fade-slide"><img src="/wild_shenandoah_slide_05.png" alt="Shenandoah Campaign slide 5"></div>
         <div class="wild-fade-slide"><img src="/wild_shenandoah_slide_06.png" alt="Shenandoah Campaign slide 6"></div>
+        <div class="wild-click-prev" id="wildPrev" role="button" aria-label="Previous slide"></div>
+        <div class="wild-click-next" id="wildNext" role="button" aria-label="Next slide"></div>
         <div class="wild-dots" id="wildDots">
           <button class="wild-dot" data-idx="0"></button>
           <button class="wild-dot" data-idx="1"></button>
@@ -940,35 +1020,85 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <section class="section-contact" id="contact">
-    <div class="contact-inner">
-      <p class="contact-label reveal">Let's talk</p>
-      <h2 class="contact-heading reveal" style="transition-delay:.08s">You probably already know you need this.</h2>
-      <p class="contact-body reveal" style="transition-delay:.16s">No sales call. Just an honest conversation about what you are building and whether we can help.</p>
-      <button class="contact-cta reveal" style="transition-delay:.22s" onclick="window.location='mailto:rmittal.works@gmail.com'">
-        <span class="contact-cta-icon">
-          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </span>
-        <span class="contact-cta-label">Start that conversation</span>
-      </button>
-      <p class="contact-details reveal" style="transition-delay:.28s">
-        <a href="mailto:rmittal.works@gmail.com">rmittal.works@gmail.com</a>
-        &nbsp;&nbsp;/&nbsp;&nbsp;Washington D.C.
-      </p>
+  <!-- SCROLL-DRIVEN BLUR REVEAL -->
+  <div class="blur-reveal-container" id="blurRevealContainer">
+    <div class="blur-reveal-sticky">
+      <h2 class="blur-reveal-heading" id="blurRevealHeading">You've seen the work. You know what's possible. Now....</h2>
+    </div>
+  </div>
+
+  <!-- CLOSING SEQUENCE: PART 1 — INTERACTIVE FOOTER -->
+  <section class="cs-footer" id="contact">
+    <div class="cs-hero">
+      <h2 class="cs-question">Type your brand name and we'll show you.</h2>
+
+      <div class="cs-input-zone" id="csInputZone">
+        <div class="cs-input-row">
+          <input type="text" class="cs-input" id="csBrandInput"
+            placeholder="Your brand or organisation name" autocomplete="off" spellcheck="false">
+          <button class="cs-submit" id="csSubmit" aria-label="Find throughline">
+            <svg viewBox="0 0 24 24" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="cs-response-zone" id="csResponseZone">
+        <div class="cs-response-wrap">
+          <p class="cs-response-text" id="csResponseText"></p>
+          <p class="cs-response-mirror" id="csResponseMirror" aria-hidden="true"></p>
+        </div>
+        <a href="#throughline-form" class="cs-find-cta" id="csFindCta">Let's find it →</a>
+        <button class="cs-try-again" id="csTryAgain">Try another name</button>
+      </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <p class="footer-copy">© 2026 Throughline Co. All rights reserved.</p>
-    <nav class="footer-links">
-      <a href="#services">Services</a>
-      <a href="#work">Work</a>
-      <a href="#founder">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </footer>
+  <!-- CLOSING SEQUENCE: PART 2 — CONTACT FORM -->
+  <section class="cs-form-section" id="throughline-form">
+    <h2 class="cs-form-heading">Let's find your throughline.</h2>
+
+    <form class="cs-form" id="csForm" novalidate>
+      <div class="cs-field">
+        <label class="cs-label" for="csName">Who are you?</label>
+        <input type="text" class="cs-text-input" id="csName" name="name" placeholder="Your name">
+      </div>
+      <div class="cs-field">
+        <label class="cs-label" for="csOrg">What are you building?</label>
+        <input type="text" class="cs-text-input" id="csOrg" name="org" placeholder="Your organisation or project name">
+      </div>
+      <div class="cs-field">
+        <label class="cs-label" for="csStory">What's the story you haven't been able to tell yet?</label>
+        <textarea class="cs-textarea" id="csStory" name="story" placeholder="Tell us what feels stuck. Your messaging, your audience, your brand. No need to have it figured out. That is what we are here for."></textarea>
+      </div>
+      <div class="cs-field">
+        <label class="cs-label">How would you describe your organisation?</label>
+        <div class="cs-pills">
+          <button type="button" class="cs-pill" data-value="Women-Owned">Women-Owned</button>
+          <button type="button" class="cs-pill" data-value="Black-Owned">Black-Owned</button>
+          <button type="button" class="cs-pill" data-value="LGBTQ+-Owned">LGBTQ+-Owned</button>
+          <button type="button" class="cs-pill" data-value="Veteran-Owned">Veteran-Owned</button>
+          <button type="button" class="cs-pill" data-value="Nonprofit">Nonprofit</button>
+          <button type="button" class="cs-pill" data-value="Social Enterprise">Social Enterprise</button>
+          <button type="button" class="cs-pill" data-value="Sustainable Brand">Sustainable Brand</button>
+          <button type="button" class="cs-pill" data-value="Purpose-Driven">Purpose-Driven</button>
+          <button type="button" class="cs-pill" data-value="Other">Other</button>
+        </div>
+        <input type="hidden" name="org_type" id="csPillsValue">
+      </div>
+      <div class="cs-field">
+        <label class="cs-label" for="csSource">How did you find us?</label>
+        <input type="text" class="cs-text-input" id="csSource" name="source" placeholder="LinkedIn, referral, search, word of mouth, other">
+      </div>
+      <button type="submit" class="cs-form-submit">Send the thread →</button>
+    </form>
+
+    <div class="cs-form-success" id="csFormSuccess">
+      <p class="cs-success-line">Your thread is on its way to us.</p>
+      <p class="cs-success-line">We will be in touch soon.</p>
+    </div>
+
+    <p class="cs-form-legal">Throughline Co. · © 2026 · All rights reserved</p>
+  </section>
 
   <script>
     document.body.classList.add('js-ready');
@@ -976,6 +1106,45 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
     }, { threshold: 0.04, rootMargin: '0px 0px -24px 0px' });
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // Scroll-driven blur reveal: fades in on enter, fades out on exit
+    (function() {
+      const container = document.getElementById('blurRevealContainer');
+      const heading   = document.getElementById('blurRevealHeading');
+      if (!container || !heading) return;
+
+      function ease(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+
+      function update() {
+        const rect     = container.getBoundingClientRect();
+        const scrolled = -rect.top;                        // px scrolled into container
+        const total    = container.offsetHeight - window.innerHeight; // total scrollable range
+        if (total <= 0) return;
+
+        const p = Math.max(0, Math.min(1, scrolled / total)); // 0 → 1 across full container
+
+        let opacity, blur, ty;
+        if (p < 0.25) {
+          // Blur IN — quick
+          const t = ease(p / 0.25);
+          opacity = t; blur = 8 * (1 - t); ty = -10 * (1 - t);
+        } else if (p < 0.78) {
+          // Hold clear — the breather
+          opacity = 1; blur = 0; ty = 0;
+        } else {
+          // Blur OUT — quick exit
+          const t = ease((p - 0.78) / 0.22);
+          opacity = 1 - t; blur = 8 * t; ty = 10 * t;
+        }
+
+        heading.style.opacity   = opacity;
+        heading.style.filter    = `blur(${blur.toFixed(2)}px)`;
+        heading.style.transform = `translateY(${ty.toFixed(2)}px)`;
+      }
+
+      window.addEventListener('scroll', update, { passive: true });
+      update();
+    })();
 
     const nav = document.getElementById('mainNav');
     window.addEventListener('scroll', () => {
@@ -999,13 +1168,31 @@
       function startTimer() { timer = setInterval(() => { if (!paused) goTo(cur + 1); }, 4500); }
 
       goTo(0);
-      startTimer();
 
       car.addEventListener('mouseenter', () => { paused = true; });
       car.addEventListener('mouseleave', () => { paused = false; });
+
+      // Reset to slide 1 and start only when carousel scrolls into view
+      if ('IntersectionObserver' in window) {
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) { goTo(0); clearInterval(timer); startTimer(); }
+            else { clearInterval(timer); }
+          });
+        }, { threshold: 0.25 });
+        obs.observe(car);
+      } else {
+        startTimer();
+      }
       dots.forEach((d, i) => d.addEventListener('click', () => {
         clearInterval(timer); goTo(i); startTimer();
       }));
+      document.getElementById('wildPrev').addEventListener('click', () => {
+        clearInterval(timer); goTo(cur - 1); startTimer();
+      });
+      document.getElementById('wildNext').addEventListener('click', () => {
+        clearInterval(timer); goTo(cur + 1); startTimer();
+      });
     })();
 
     // ── SCROLL-DRIVEN CLIP REVEALS ──
@@ -1152,22 +1339,6 @@
       const tlTip = document.getElementById('tlTip');
       if (!tlNav || !tlFill || window.innerWidth < 900) return;
 
-      const sectionIds = ['work', 'services', 'founder', 'contact'];
-      const dotEls = [];
-
-      sectionIds.forEach((id) => {
-        const sec = document.getElementById(id);
-        if (!sec) return;
-        const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        c.setAttribute('cx', '6');
-        c.setAttribute('cy', '-100');
-        c.setAttribute('r', id === 'contact' ? '5' : '3.5');
-        c.setAttribute('fill', '#C2714F');
-        c.setAttribute('opacity', '0.2');
-        tlNav.appendChild(c);
-        dotEls.push({ c, sec });
-      });
-
       let currentY2 = 0;
       let rafId;
 
@@ -1179,24 +1350,12 @@
         const vh = window.innerHeight;
         const targetY2 = scrollPct * vh;
 
-        // Smooth lerp so the line glides, not jumps
         currentY2 = lerp(currentY2, targetY2, 0.12);
         tlFill.setAttribute('y2', currentY2);
         if (tlTip) {
           tlTip.setAttribute('cy', currentY2);
-          tlTip.setAttribute('opacity', scrollPct > 0.01 ? '1' : '0');
+          tlTip.setAttribute('opacity', currentY2 > 4 ? '1' : '0');
         }
-
-        dotEls.forEach(({ c, sec }) => {
-          const rect = sec.getBoundingClientRect();
-          // Clamp dot to visible area of the SVG
-          const vy = Math.max(8, Math.min(vh - 8, rect.top + 24));
-          c.setAttribute('cy', vy);
-          const active = rect.top < vh * 0.75 && rect.bottom > 0;
-          // Smooth opacity transition via attribute (CSS transition handles it)
-          c.style.transition = 'opacity 0.6s';
-          c.setAttribute('opacity', active ? '1' : '0.18');
-        });
 
         rafId = requestAnimationFrame(frame);
       }
@@ -1208,6 +1367,115 @@
         currentY2 = 0;
         frame();
       }, { passive: true });
+    })();
+
+    // ── CLOSING SEQUENCE ──
+    (function() {
+
+      // BRAND INPUT → API
+      const brandInput   = document.getElementById('csBrandInput');
+      const submitBtn    = document.getElementById('csSubmit');
+      const inputZone    = document.getElementById('csInputZone');
+      const responseZone = document.getElementById('csResponseZone');
+      const responseText = document.getElementById('csResponseText');
+      const responseMirror = document.getElementById('csResponseMirror');
+      const findCta      = document.getElementById('csFindCta');
+
+      const FALLBACKS = [
+        'has a throughline. Naming it makes your best work impossible to ignore.',
+        'has a throughline. Finding it amplifies everything you are already building.',
+        'has a throughline. Once named, every message you send will land with more power.',
+        'has a throughline. Telling it turns quiet impact into undeniable presence.',
+        'has a throughline. Revealing it brings your whole body of work into focus.',
+      ];
+
+      function brandHash(str) {
+        let h = 5381;
+        for (let i = 0; i < str.length; i++) h = ((h << 5) + h) ^ str.charCodeAt(i);
+        return Math.abs(h);
+      }
+
+      const tryAgainBtn = document.getElementById('csTryAgain');
+
+      function resetInput() {
+        if (responseZone) { responseZone.classList.remove('visible'); }
+        if (findCta) findCta.classList.remove('visible');
+        setTimeout(() => {
+          if (inputZone) inputZone.classList.remove('fading');
+          if (brandInput) { brandInput.disabled = false; brandInput.value = ''; brandInput.focus(); }
+          if (submitBtn) submitBtn.classList.remove('loading');
+        }, 400);
+      }
+
+      if (tryAgainBtn) tryAgainBtn.addEventListener('click', resetInput);
+
+      async function fetchThoughline(brand) {
+        try {
+          const res = await fetch('/api/throughline', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ brand })
+          });
+          if (!res.ok) throw new Error();
+          const data = await res.json();
+          return data.sentence || (brand + ' ' + FALLBACKS[brandHash(brand) % FALLBACKS.length]);
+        } catch {
+          return brand + ' ' + FALLBACKS[brandHash(brand) % FALLBACKS.length];
+        }
+      }
+
+      async function handleSubmit() {
+        const brand = brandInput ? brandInput.value.trim() : '';
+        if (!brand) { if (brandInput) brandInput.focus(); return; }
+
+        if (submitBtn) submitBtn.classList.add('loading');
+        if (brandInput) brandInput.disabled = true;
+
+        const sentence = await fetchThoughline(brand);
+
+        if (inputZone) inputZone.classList.add('fading');
+        if (responseText) responseText.textContent = sentence;
+        if (responseMirror) responseMirror.textContent = sentence;
+
+        setTimeout(() => {
+          if (responseZone) responseZone.classList.add('visible');
+          setTimeout(() => { if (findCta) findCta.classList.add('visible'); }, 1000);
+        }, 500);
+      }
+
+      if (submitBtn) submitBtn.addEventListener('click', handleSubmit);
+      if (brandInput) brandInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleSubmit(); });
+
+      // PILL TOGGLE
+      const selectedPills = new Set();
+      const pillsValue = document.getElementById('csPillsValue');
+      document.querySelectorAll('.cs-pill').forEach(pill => {
+        pill.addEventListener('click', () => {
+          const val = pill.dataset.value;
+          if (selectedPills.has(val)) { selectedPills.delete(val); pill.classList.remove('selected'); }
+          else { selectedPills.add(val); pill.classList.add('selected'); }
+          if (pillsValue) pillsValue.value = [...selectedPills].join(', ');
+        });
+      });
+
+      // FORM SUBMIT
+      const form = document.getElementById('csForm');
+      const formSuccess = document.getElementById('csFormSuccess');
+      if (form) {
+        form.addEventListener('submit', e => {
+          e.preventDefault();
+          const data = Object.fromEntries(new FormData(form));
+          fetch('/api/form', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).catch(() => {});
+          form.classList.add('fading');
+          setTimeout(() => {
+            if (formSuccess) {
+              formSuccess.style.display = 'block';
+              requestAnimationFrame(() => requestAnimationFrame(() => formSuccess.classList.add('visible')));
+            }
+          }, 500);
+        });
+      }
+
     })();
 
     // ── DOT CURSOR ──

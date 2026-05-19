@@ -57,8 +57,9 @@ class handler(BaseHTTPRequestHandler):
             sentence = data["content"][0]["text"].strip()
             self._json(200, {"sentence": sentence})
         except urllib.error.HTTPError as e:
-            print(f"Anthropic error: {e.read().decode()}")
-            self._json(500, {"error": "API error"})
+            err = e.read().decode()
+            print(f"Anthropic error: {err}")
+            self._json(500, {"error": "API error", "detail": err})
         except Exception as e:
             print(f"Error: {e}")
             self._json(500, {"error": str(e)})

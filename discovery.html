@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brand Discovery — Throughline Co.</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream:       #F5F0E8;
+      --cream-d:     #EDE8DC;
+      --deep-forest: #2C3E35;
+      --sage-green:  #3D6B4F;
+      --muted-sage:  #8BA888;
+      --terracotta:  #C2714F;
+      --border:      rgba(44,62,53,.12);
+      --text-sec:    rgba(44,62,53,.55);
+      --font-display:'Merriweather', Georgia, serif;
+      --font-body:   'Lato', Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--cream); scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body); font-weight: 300; font-size: 14px;
+      background: var(--cream); color: var(--deep-forest);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* LAYOUT */
+    .page-wrap {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr minmax(0, 620px) 1fr;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    /* TOP BAR */
+    .top-bar {
+      grid-column: 1 / -1;
+      background: var(--deep-forest);
+      padding: 0;
+      display: flex;
+      align-items: stretch;
+    }
+    .top-bar-inner {
+      width: 100%; max-width: 1200px; margin: 0 auto;
+      padding: 0 52px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .top-logo { display: flex; align-items: center; gap: 10px; }
+    .top-logo svg { flex-shrink: 0; }
+    .top-logo-text { font-size: 13px; font-weight: 700; letter-spacing: .06em; color: var(--cream); }
+    .top-logo-text span { color: var(--terracotta); }
+    .top-back {
+      font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(245,240,232,.4); transition: color .2s;
+    }
+    .top-back:hover { color: rgba(245,240,232,.8); }
+
+    /* PROGRESS BAR */
+    .prog-bar-wrap {
+      grid-column: 1 / -1;
+      height: 3px; background: var(--border);
+    }
+    .prog-bar-fill {
+      height: 100%; background: var(--terracotta);
+      transition: width .4s ease; width: 0%;
+    }
+
+    /* MAIN CONTENT */
+    .main {
+      grid-column: 2;
+      padding: 56px 0 80px;
+    }
+
+    /* SCREENS */
+    .tl-screen { display: none; }
+    .tl-screen.on { display: block; animation: tl-up .4s ease both; }
+    @keyframes tl-up {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* EYEBROW / SECTION LABELS */
+    .tl-eyebrow {
+      font-size: 10px; letter-spacing: .28em; text-transform: uppercase;
+      color: var(--terracotta); font-weight: 700; margin-bottom: 12px;
+    }
+    .tl-sec-eyebrow {
+      font-size: 10px; letter-spacing: .28em; text-transform: uppercase;
+      color: var(--sage-green); font-weight: 700; margin-bottom: 6px;
+    }
+
+    /* HEADINGS */
+    .tl-h1 {
+      font-family: var(--font-display); font-size: clamp(26px, 3.5vw, 36px);
+      line-height: 1.2; color: var(--deep-forest); margin-bottom: 18px; font-weight: 700;
+    }
+    .tl-h1 em { font-style: italic; color: var(--terracotta); font-weight: 400; }
+    .tl-sec-h2 {
+      font-family: var(--font-display); font-size: 22px;
+      color: var(--deep-forest); font-weight: 700; margin-bottom: 4px;
+    }
+    .tl-sec-sub {
+      font-size: 13px; color: var(--text-sec); font-style: italic;
+      margin-bottom: 36px; font-family: var(--font-display);
+    }
+
+    /* BODY TEXT */
+    .tl-body {
+      font-size: 15px; line-height: 1.85; color: var(--text-sec);
+      margin-bottom: 36px; max-width: 520px;
+    }
+
+    /* META STRIP */
+    .tl-meta {
+      display: flex; border: 1px solid var(--border);
+      background: var(--cream-d); margin-bottom: 44px;
+    }
+    .tl-meta-item {
+      flex: 1; padding: 16px 20px;
+      border-right: 1px solid var(--border);
+    }
+    .tl-meta-item:last-child { border-right: none; }
+    .tl-meta-label {
+      font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--text-sec); font-weight: 700; margin-bottom: 4px;
+    }
+    .tl-meta-val { font-size: 13px; color: var(--deep-forest); font-weight: 400; }
+
+    /* STEP DOTS */
+    .tl-dots {
+      display: flex; align-items: center; gap: 6px; margin-bottom: 32px;
+    }
+    .tl-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--border); transition: all .3s;
+    }
+    .tl-dot.done { background: var(--sage-green); }
+    .tl-dot.cur  { background: var(--terracotta); width: 20px; border-radius: 4px; }
+    .tl-dot-lbl  { font-size: 11px; color: var(--text-sec); letter-spacing: .06em; margin-left: 4px; }
+
+    /* QUESTION CARDS */
+    .tl-qs { display: flex; flex-direction: column; gap: 24px; }
+    .tl-q {
+      background: var(--cream-d); border: 1px solid var(--border);
+      padding: 24px 28px;
+      border-left: 3px solid var(--border); transition: border-left-color .2s;
+    }
+    .tl-q:focus-within { border-left-color: var(--terracotta); }
+    .tl-q-lbl {
+      font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--terracotta); font-weight: 700; margin-bottom: 8px;
+    }
+    .tl-q-txt {
+      font-family: var(--font-display); font-size: 15px; line-height: 1.55;
+      color: var(--deep-forest); margin-bottom: 6px;
+    }
+    .tl-q-hint {
+      font-size: 12px; color: var(--text-sec); font-style: italic;
+      margin-bottom: 14px; line-height: 1.6;
+    }
+    textarea.tl-ta {
+      width: 100%; background: var(--cream); border: 1px solid var(--border);
+      color: var(--deep-forest); font-family: var(--font-body); font-size: 13px;
+      font-weight: 300; line-height: 1.7; padding: 12px 14px;
+      resize: vertical; min-height: 80px; outline: none;
+      border-radius: 0; transition: border-color .2s;
+    }
+    textarea.tl-ta:focus { border-color: var(--sage-green); }
+    textarea.tl-ta::placeholder { color: var(--text-sec); opacity: .6; }
+
+    /* NAV BUTTONS */
+    .tl-nav {
+      display: flex; gap: 10px; margin-top: 44px; padding-top: 28px;
+      border-top: 1px solid var(--border); align-items: center;
+    }
+    .tl-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px; font-family: var(--font-body); font-size: 11px;
+      font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      cursor: pointer; border: none; transition: all .18s;
+    }
+    .tl-btn-p { background: var(--terracotta); color: #fff; }
+    .tl-btn-p:hover { background: #a85c3c; }
+    .tl-btn-p:disabled { opacity: .5; cursor: not-allowed; }
+    .tl-btn-s {
+      background: transparent; color: var(--text-sec);
+      border: 1px solid var(--border);
+    }
+    .tl-btn-s:hover { border-color: var(--sage-green); color: var(--sage-green); }
+
+    /* THANK YOU */
+    .tl-ty-check {
+      width: 48px; height: 48px; background: var(--cream-d); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; margin-bottom: 28px;
+      border: 1px solid var(--border);
+    }
+    .tl-ty-check svg { width: 20px; height: 20px; stroke: var(--sage-green); stroke-width: 2.5; fill: none; }
+    .tl-ty-h1 {
+      font-family: var(--font-display); font-size: clamp(24px, 3vw, 32px);
+      line-height: 1.2; color: var(--deep-forest); margin-bottom: 16px; font-weight: 700;
+    }
+    .tl-ty-body {
+      font-size: 15px; color: var(--text-sec); line-height: 1.85;
+      margin-bottom: 36px; max-width: 480px;
+    }
+    .tl-ty-card {
+      background: var(--cream-d); border: 1px solid var(--border);
+      padding: 24px 28px; margin-bottom: 32px; border-left: 3px solid var(--sage-green);
+    }
+    .tl-ty-card-lbl {
+      font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--sage-green); font-weight: 700; margin-bottom: 14px;
+    }
+    .tl-ty-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .tl-ty-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 14px; color: var(--text-sec); line-height: 1.6;
+    }
+    .tl-ty-list li::before {
+      content: ''; width: 5px; height: 5px; background: var(--terracotta);
+      border-radius: 50%; margin-top: 6px; flex-shrink: 0;
+    }
+
+    /* ERROR STATE */
+    .tl-error {
+      display: none; background: #fdf0eb; border: 1px solid rgba(194,113,79,.3);
+      padding: 14px 18px; margin-top: 16px;
+      font-size: 13px; color: var(--terracotta); line-height: 1.5;
+    }
+    .tl-error.visible { display: block; }
+
+    /* FOOTER */
+    .page-footer {
+      grid-column: 1 / -1;
+      background: var(--deep-forest); padding: 20px 52px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-brand {
+      font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(245,240,232,.3); font-weight: 700;
+    }
+    .footer-brand span { color: var(--terracotta); }
+    .footer-url { font-size: 10px; color: rgba(245,240,232,.3); letter-spacing: .06em; }
+
+    /* RESPONSIVE */
+    @media (max-width: 720px) {
+      .page-wrap { grid-template-columns: 1fr; }
+      .main { padding: 40px 24px 64px; }
+      .top-bar-inner { padding: 0 24px; }
+      .page-footer { padding: 20px 24px; }
+      .tl-meta { flex-direction: column; }
+      .tl-meta-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .tl-meta-item:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- TOP BAR -->
+  <header class="top-bar">
+    <div class="top-bar-inner">
+      <a href="/" class="top-logo">
+        <svg width="24" height="14" viewBox="0 0 28 16" fill="none">
+          <path d="M2 8 C5 3,9 3,14 8 C19 13,23 13,26 8" stroke="#8BA888" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="26" cy="8" r="2.5" fill="#C2714F"/>
+        </svg>
+        <span class="top-logo-text">Throughline <span>Co.</span></span>
+      </a>
+      <a href="/" class="top-back">← throughline.community</a>
+    </div>
+  </header>
+
+  <!-- PROGRESS BAR -->
+  <div class="prog-bar-wrap">
+    <div class="prog-bar-fill" id="progFill"></div>
+  </div>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- INTRO -->
+    <div class="tl-screen on" id="pg-intro">
+      <div class="tl-eyebrow">Brand discovery</div>
+      <h1 class="tl-h1">Let's find the<br><em>throughline</em> of your brand.</h1>
+      <p class="tl-body">Before we build anything, we need to understand who you are, who you serve, and what makes you the only right choice. There are no wrong answers — just honest ones.</p>
+      <div class="tl-meta">
+        <div class="tl-meta-item">
+          <div class="tl-meta-label">Questions</div>
+          <div class="tl-meta-val">8 total</div>
+        </div>
+        <div class="tl-meta-item">
+          <div class="tl-meta-label">Time needed</div>
+          <div class="tl-meta-val">Under 10 min</div>
+        </div>
+        <div class="tl-meta-item">
+          <div class="tl-meta-label">Format</div>
+          <div class="tl-meta-val">Open answers</div>
+        </div>
+      </div>
+      <button class="tl-btn tl-btn-p" onclick="go('s1')">Begin →</button>
+    </div>
+
+    <!-- SECTION 1: YOUR BRAND -->
+    <div class="tl-screen" id="pg-s1">
+      <div class="tl-dots" id="d1"></div>
+      <div class="tl-sec-eyebrow">Section 01 of 03</div>
+      <h2 class="tl-sec-h2">Your brand</h2>
+      <p class="tl-sec-sub">Who you are and what you stand for.</p>
+      <div class="tl-qs">
+        <div class="tl-q">
+          <div class="tl-q-lbl">Q 01</div>
+          <div class="tl-q-txt">If your brand disappeared tomorrow, what would your clients actually miss?</div>
+          <div class="tl-q-hint">Not the service. The specific thing only you do that they can't get anywhere else.</div>
+          <textarea class="tl-ta" id="q1" placeholder="Be as specific as you can."></textarea>
+        </div>
+        <div class="tl-q">
+          <div class="tl-q-lbl">Q 02</div>
+          <div class="tl-q-txt">What do you believe about your industry that most people won't say out loud?</div>
+          <div class="tl-q-hint">The thing that makes you roll your eyes at how it's usually done.</div>
+          <textarea class="tl-ta" id="q2" placeholder="Your contrarian take. The thing you'd defend in an argument."></textarea>
+        </div>
+        <div class="tl-q">
+          <div class="tl-q-lbl">Q 03</div>
+          <div class="tl-q-txt">What would you never do as a brand, even if it made you more money?</div>
+          <div class="tl-q-hint">Your non-negotiables define your brand as much as your values do.</div>
+          <textarea class="tl-ta" id="q3" placeholder="The line you won't cross."></textarea>
+        </div>
+      </div>
+      <div class="tl-nav">
+        <button class="tl-btn tl-btn-p" onclick="go('s2')">Next →</button>
+      </div>
+    </div>
+
+    <!-- SECTION 2: YOUR CLIENT -->
+    <div class="tl-screen" id="pg-s2">
+      <div class="tl-dots" id="d2"></div>
+      <div class="tl-sec-eyebrow">Section 02 of 03</div>
+      <h2 class="tl-sec-h2">Your client</h2>
+      <p class="tl-sec-sub">The person you're building this for.</p>
+      <div class="tl-qs">
+        <div class="tl-q">
+          <div class="tl-q-lbl">Q 04</div>
+          <div class="tl-q-txt">Describe the client you'd clone if you could. What made them the perfect fit?</div>
+          <div class="tl-q-hint">A real person if you can picture one. Where were they in their business? What did they care about?</div>
+          <textarea class="tl-ta" id="q4" placeholder="The client you wish you could work with over and over."></textarea>
+        </div>
+        <div class="tl-q">
+          <div class="tl-q-lbl">Q 05</div>
+          <div class="tl-q-txt">What is your client's real problem — the one underneath the one they tell you about?</div>
+          <div class="tl-q-hint">They come to you saying one thing. What's actually keeping them up at night?</div>
+          <textarea class="tl-ta" id="q5" placeholder="The fear or frustration beneath the surface request."></textarea>
+        </div>
+        <div class="tl-q">
+          <div class="tl-q-lbl">Q 06</div>
+          <div class="tl-q-txt">Who is the wrong client for you — and why?</div>
+          <div class="tl-q-hint">Be honest. This protects your time and theirs.</div>
+          <textarea class="tl-ta" id="q6" placeholder="The type that never gets results or drains your energy."></textarea>
+        </div>
+      </div>
+      <div class="tl-nav">
+        <button class="tl-btn tl-btn-s" onclick="go('s1')">← Back</button>
+        <button class="tl-btn tl-btn-p" onclick="go('s3')">Next →</button>
+      </div>
+    </div>
+
+    <!-- SECTION 3: YOUR PROOF -->
+    <div class="tl-screen" id="pg-s3">
+      <div class="tl-dots" id="d3"></div>
+      <div class="tl-sec-eyebrow">Section 03 of 03</div>
+      <h2 class="tl-sec-h2">Your proof</h2>
+      <p class="tl-sec-sub">The results and the thing only you do.</p>
+      <div class="tl-qs">
+        <div class="tl-q">
+          <div class="tl-q-lbl">Q 07</div>
+          <div class="tl-q-txt">What's the best result you've ever created for a client? What specifically changed for them?</div>
+          <div class="tl-q-hint">Numbers if you have them. Story if you don't. Both is best.</div>
+          <textarea class="tl-ta" id="q7" placeholder="Before and after. As specific as you can."></textarea>
+        </div>
+        <div class="tl-q">
+          <div class="tl-q-lbl">Q 08</div>
+          <div class="tl-q-txt">What is the one thing about how you work that no one else does — that you've never quite figured out how to put on a website?</div>
+          <div class="tl-q-hint">A process, a question you ask, a way you see things. The thing clients mention that you didn't expect.</div>
+          <textarea class="tl-ta" id="q8" placeholder="Take your time with this one."></textarea>
+        </div>
+      </div>
+      <div class="tl-nav">
+        <button class="tl-btn tl-btn-s" onclick="go('s2')">← Back</button>
+        <button class="tl-btn tl-btn-p" id="submitBtn" onclick="submitAnswers()">Submit answers →</button>
+      </div>
+      <div class="tl-error" id="submitError">Something went wrong sending your answers. Please try again, or email them directly to rmittal.works@gmail.com.</div>
+    </div>
+
+    <!-- THANK YOU -->
+    <div class="tl-screen" id="pg-ty">
+      <div class="tl-ty-check">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h2 class="tl-ty-h1">That's everything<br>we needed.</h2>
+      <p class="tl-ty-body">Thank you for taking the time to do this properly. These answers are the foundation of your brand. The rawer and more honest, the stronger the work we build together.</p>
+      <div class="tl-ty-card">
+        <div class="tl-ty-card-lbl">What happens next</div>
+        <ul class="tl-ty-list">
+          <li>Riya reviews your answers before your first session</li>
+          <li>Your positioning and brand voice come directly from what you wrote here</li>
+          <li>First draft copy will reflect your exact words back to you</li>
+        </ul>
+      </div>
+      <button class="tl-btn tl-btn-s" onclick="copyAll()" id="cpBtn">Copy my answers</button>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="page-footer">
+    <div class="footer-brand">Throughline <span>Co.</span></div>
+    <div class="footer-url">throughline.community</div>
+  </footer>
+
+</div>
+<script>
+  const sNames = ['Your brand', 'Your client', 'Your proof'];
+  const TOTAL = 8;
+
+  function dots(sec) {
+    const el = document.getElementById('d' + sec);
+    if (!el) return;
+    let h = '';
+    for (let i = 1; i <= 3; i++) {
+      let c = 'tl-dot';
+      if (i < sec) c += ' done';
+      else if (i === sec) c += ' cur';
+      h += `<div class="${c}"></div>`;
+    }
+    h += `<span class="tl-dot-lbl">${sNames[sec - 1]}</span>`;
+    el.innerHTML = h;
+  }
+
+  function progress() {
+    const n = Array.from(document.querySelectorAll('textarea.tl-ta'))
+      .filter(t => t.value.trim().length > 0).length;
+    document.getElementById('progFill').style.width = Math.round(n / TOTAL * 100) + '%';
+  }
+
+  function go(id) {
+    document.querySelectorAll('.tl-screen').forEach(s => s.classList.remove('on'));
+    document.getElementById('pg-' + id).classList.add('on');
+    const num = id === 's1' ? 1 : id === 's2' ? 2 : id === 's3' ? 3 : null;
+    if (num) dots(num);
+    progress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  async function submitAnswers() {
+    const btn = document.getElementById('submitBtn');
+    const errEl = document.getElementById('submitError');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    errEl.classList.remove('visible');
+
+    const labels = [
+      'Q1 — What clients would miss',
+      'Q2 — Contrarian industry belief',
+      'Q3 — What you would never do',
+      'Q4 — Ideal client description',
+      'Q5 — Client real underlying problem',
+      'Q6 — Wrong client and why',
+      'Q7 — Best result for a client',
+      'Q8 — Secret differentiator',
+    ];
+
+    const data = { _subject: 'Brand Discovery — Throughline Co.' };
+    for (let i = 1; i <= 8; i++) {
+      data[labels[i - 1]] = document.getElementById('q' + i)?.value?.trim() || '(not answered)';
+    }
+
+    try {
+      const res = await fetch('https://formspree.io/f/mqejepke', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (res.ok) {
+        go('ty');
+      } else {
+        throw new Error('Server error');
+      }
+    } catch (e) {
+      btn.disabled = false;
+      btn.textContent = 'Submit answers →';
+      errEl.classList.add('visible');
+    }
+  }
+
+  function copyAll() {
+    const labels = [
+      'Q1 — What clients would miss',
+      'Q2 — Contrarian industry belief',
+      'Q3 — What you would never do',
+      'Q4 — Ideal client description',
+      'Q5 — Client real underlying problem',
+      'Q6 — Wrong client and why',
+      'Q7 — Best result for a client',
+      'Q8 — Secret differentiator',
+    ];
+    let out = 'BRAND DISCOVERY · Throughline Co.\n' + '─'.repeat(48) + '\n\n';
+    for (let i = 1; i <= 8; i++) {
+      const v = document.getElementById('q' + i)?.value?.trim() || '(not answered)';
+      out += labels[i - 1] + '\n\n' + v + '\n\n' + '─'.repeat(48) + '\n\n';
+    }
+    navigator.clipboard.writeText(out).then(() => {
+      const b = document.getElementById('cpBtn');
+      const orig = b.textContent;
+      b.textContent = 'Copied ✓';
+      setTimeout(() => { b.textContent = orig; }, 3000);
+    });
+  }
+
+  document.addEventListener('input', e => {
+    if (e.target.classList.contains('tl-ta')) progress();
+  });
+</script>
+</body>
+</html>

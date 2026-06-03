@@ -834,11 +834,17 @@
       if (res.ok) {
         go('ty');
       } else {
-        throw new Error('Server error');
+        const body = await res.json().catch(() => ({}));
+        const msg = body.error || body.errors?.[0]?.message || ('Error ' + res.status);
+        errEl.textContent = 'Submission failed: ' + msg + '. Please email rmittal.works@gmail.com directly.';
+        errEl.classList.add('visible');
+        btn.disabled = false;
+        btn.textContent = 'Submit →';
       }
     } catch (e) {
       btn.disabled = false;
       btn.textContent = 'Submit →';
+      errEl.textContent = 'Something went wrong (' + e.message + '). Please email rmittal.works@gmail.com directly.';
       errEl.classList.add('visible');
     }
   }

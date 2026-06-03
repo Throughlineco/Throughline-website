@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brand Discovery — Throughline Co.</title>
+  <title>Client Onboarding — Throughline Co.</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,8 +16,11 @@
       --sage-green:  #3D6B4F;
       --muted-sage:  #8BA888;
       --terracotta:  #C2714F;
+      --gold:        #C49A3C;
       --border:      rgba(44,62,53,.12);
+      --border-solid:#DDD8CE;
       --text-sec:    rgba(44,62,53,.55);
+      --card:        #FDFBF7;
       --font-display:'Merriweather', Georgia, serif;
       --font-body:   'Lato', Arial, sans-serif;
     }
@@ -35,17 +38,15 @@
     .page-wrap {
       min-height: 100vh;
       display: grid;
-      grid-template-columns: 1fr minmax(0, 620px) 1fr;
-      grid-template-rows: auto 1fr auto;
+      grid-template-columns: 1fr minmax(0, 640px) 1fr;
+      grid-template-rows: auto auto 1fr auto;
     }
 
     /* TOP BAR */
     .top-bar {
       grid-column: 1 / -1;
       background: var(--deep-forest);
-      padding: 0;
-      display: flex;
-      align-items: stretch;
+      display: flex; align-items: stretch;
     }
     .top-bar-inner {
       width: 100%; max-width: 1200px; margin: 0 auto;
@@ -74,10 +75,7 @@
     }
 
     /* MAIN CONTENT */
-    .main {
-      grid-column: 2;
-      padding: 56px 0 80px;
-    }
+    .main { grid-column: 2; padding: 56px 0 80px; }
 
     /* SCREENS */
     .tl-screen { display: none; }
@@ -87,7 +85,7 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* EYEBROW / SECTION LABELS */
+    /* EYEBROWS */
     .tl-eyebrow {
       font-size: 10px; letter-spacing: .28em; text-transform: uppercase;
       color: var(--terracotta); font-weight: 700; margin-bottom: 12px;
@@ -120,13 +118,10 @@
 
     /* META STRIP */
     .tl-meta {
-      display: flex; border: 1px solid var(--border);
+      display: flex; border: 1px solid var(--border-solid);
       background: var(--cream-d); margin-bottom: 44px;
     }
-    .tl-meta-item {
-      flex: 1; padding: 16px 20px;
-      border-right: 1px solid var(--border);
-    }
+    .tl-meta-item { flex: 1; padding: 16px 20px; border-right: 1px solid var(--border-solid); }
     .tl-meta-item:last-child { border-right: none; }
     .tl-meta-label {
       font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
@@ -135,23 +130,98 @@
     .tl-meta-val { font-size: 13px; color: var(--deep-forest); font-weight: 400; }
 
     /* STEP DOTS */
-    .tl-dots {
-      display: flex; align-items: center; gap: 6px; margin-bottom: 32px;
-    }
+    .tl-dots { display: flex; align-items: center; gap: 6px; margin-bottom: 32px; }
     .tl-dot {
       width: 7px; height: 7px; border-radius: 50%;
-      background: var(--border); transition: all .3s;
+      background: var(--border-solid); transition: all .3s;
     }
     .tl-dot.done { background: var(--sage-green); }
     .tl-dot.cur  { background: var(--terracotta); width: 20px; border-radius: 4px; }
     .tl-dot-lbl  { font-size: 11px; color: var(--text-sec); letter-spacing: .06em; margin-left: 4px; }
 
+    /* FIELDS */
+    .tl-fields { display: flex; flex-direction: column; gap: 24px; }
+    .tl-field { display: flex; flex-direction: column; gap: 6px; }
+    .tl-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    label.tl-lbl {
+      font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--terracotta); font-weight: 700;
+    }
+    label.tl-lbl.req::after { content: ' *'; color: var(--terracotta); }
+    .tl-hint { font-size: 11px; color: var(--text-sec); font-style: italic; margin-top: 2px; }
+
+    input[type=text],
+    input[type=email],
+    input[type=url],
+    select,
+    textarea {
+      width: 100%; background: var(--card);
+      border: 1px solid var(--border-solid);
+      color: var(--deep-forest); font-family: var(--font-body);
+      font-size: 13px; font-weight: 300;
+      padding: 11px 14px; outline: none;
+      transition: border-color .2s; border-radius: 0; appearance: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--sage-green); background: var(--cream);
+    }
+    input::placeholder, textarea::placeholder { color: #BBBBBB; }
+    textarea { resize: vertical; min-height: 88px; line-height: 1.7; }
+    select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239A9A9A' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px;
+    }
+
+    /* BRANCH BUTTONS */
+    .tl-branch { display: flex; gap: 12px; margin-top: 10px; }
+    .tl-branch-btn {
+      flex: 1; padding: 14px; border: 1px solid var(--border-solid);
+      background: var(--card); color: var(--text-sec);
+      font-family: var(--font-body); font-size: 13px; font-weight: 400;
+      cursor: pointer; text-align: center; transition: all .2s;
+    }
+    .tl-branch-btn:hover { border-color: var(--sage-green); color: var(--sage-green); }
+    .tl-branch-btn.sel { border-color: var(--terracotta); background: var(--terracotta); color: #fff; font-weight: 700; }
+
+    /* COLOR PICKER */
+    .color-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .color-input-wrap {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--card); border: 1px solid var(--border-solid);
+      padding: 8px 12px; flex: 1; min-width: 140px;
+    }
+    .color-swatch {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 1px solid var(--border-solid); cursor: pointer; flex-shrink: 0;
+    }
+    .color-hex { font-size: 12px; color: var(--text-sec); font-family: monospace; }
+    .add-color-btn {
+      font-size: 11px; color: var(--sage-green); font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase; cursor: pointer;
+      padding: 8px 0; border: none; background: none;
+      font-family: var(--font-body); transition: color .2s;
+    }
+    .add-color-btn:hover { color: var(--terracotta); }
+
+    /* UPLOAD AREA */
+    .tl-upload {
+      border: 1px dashed var(--border-solid); padding: 24px;
+      text-align: center; cursor: pointer; transition: all .2s; background: var(--card);
+    }
+    .tl-upload:hover { border-color: var(--sage-green); }
+    .tl-upload input { display: none; }
+    .tl-upload-main { font-size: 13px; color: var(--text-sec); font-weight: 400; }
+    .tl-upload-sub { font-size: 11px; color: var(--text-sec); font-style: italic; display: block; margin-top: 4px; opacity: .7; }
+    .tl-upload-name { font-size: 12px; color: var(--sage-green); margin-top: 6px; font-weight: 700; }
+
     /* QUESTION CARDS */
     .tl-qs { display: flex; flex-direction: column; gap: 24px; }
     .tl-q {
-      background: var(--cream-d); border: 1px solid var(--border);
+      background: var(--cream-d); border: 1px solid var(--border-solid);
       padding: 24px 28px;
-      border-left: 3px solid var(--border); transition: border-left-color .2s;
+      border-left: 3px solid var(--border-solid); transition: border-left-color .2s;
     }
     .tl-q:focus-within { border-left-color: var(--terracotta); }
     .tl-q-lbl {
@@ -167,7 +237,7 @@
       margin-bottom: 14px; line-height: 1.6;
     }
     textarea.tl-ta {
-      width: 100%; background: var(--cream); border: 1px solid var(--border);
+      width: 100%; background: var(--cream); border: 1px solid var(--border-solid);
       color: var(--deep-forest); font-family: var(--font-body); font-size: 13px;
       font-weight: 300; line-height: 1.7; padding: 12px 14px;
       resize: vertical; min-height: 80px; outline: none;
@@ -176,10 +246,10 @@
     textarea.tl-ta:focus { border-color: var(--sage-green); }
     textarea.tl-ta::placeholder { color: var(--text-sec); opacity: .6; }
 
-    /* NAV BUTTONS */
+    /* NAV */
     .tl-nav {
       display: flex; gap: 10px; margin-top: 44px; padding-top: 28px;
-      border-top: 1px solid var(--border); align-items: center;
+      border-top: 1px solid var(--border-solid); align-items: center;
     }
     .tl-btn {
       display: inline-flex; align-items: center; gap: 8px;
@@ -192,15 +262,23 @@
     .tl-btn-p:disabled { opacity: .5; cursor: not-allowed; }
     .tl-btn-s {
       background: transparent; color: var(--text-sec);
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-solid);
     }
     .tl-btn-s:hover { border-color: var(--sage-green); color: var(--sage-green); }
+
+    /* ERROR */
+    .tl-error {
+      display: none; background: #fdf0eb; border: 1px solid rgba(194,113,79,.3);
+      padding: 14px 18px; margin-top: 16px;
+      font-size: 13px; color: var(--terracotta); line-height: 1.5;
+    }
+    .tl-error.visible { display: block; }
 
     /* THANK YOU */
     .tl-ty-check {
       width: 48px; height: 48px; background: var(--cream-d); border-radius: 50%;
       display: flex; align-items: center; justify-content: center; margin-bottom: 28px;
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-solid);
     }
     .tl-ty-check svg { width: 20px; height: 20px; stroke: var(--sage-green); stroke-width: 2.5; fill: none; }
     .tl-ty-h1 {
@@ -212,7 +290,7 @@
       margin-bottom: 36px; max-width: 480px;
     }
     .tl-ty-card {
-      background: var(--cream-d); border: 1px solid var(--border);
+      background: var(--cream-d); border: 1px solid var(--border-solid);
       padding: 24px 28px; margin-bottom: 32px; border-left: 3px solid var(--sage-green);
     }
     .tl-ty-card-lbl {
@@ -228,14 +306,6 @@
       content: ''; width: 5px; height: 5px; background: var(--terracotta);
       border-radius: 50%; margin-top: 6px; flex-shrink: 0;
     }
-
-    /* ERROR STATE */
-    .tl-error {
-      display: none; background: #fdf0eb; border: 1px solid rgba(194,113,79,.3);
-      padding: 14px 18px; margin-top: 16px;
-      font-size: 13px; color: var(--terracotta); line-height: 1.5;
-    }
-    .tl-error.visible { display: block; }
 
     /* FOOTER */
     .page-footer {
@@ -257,8 +327,10 @@
       .top-bar-inner { padding: 0 24px; }
       .page-footer { padding: 20px 24px; }
       .tl-meta { flex-direction: column; }
-      .tl-meta-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .tl-meta-item { border-right: none; border-bottom: 1px solid var(--border-solid); }
       .tl-meta-item:last-child { border-bottom: none; }
+      .tl-field-row { grid-template-columns: 1fr; }
+      .tl-branch { flex-direction: column; }
     }
   </style>
 </head>
@@ -289,44 +361,202 @@
 
     <!-- INTRO -->
     <div class="tl-screen on" id="pg-intro">
-      <div class="tl-eyebrow">Brand discovery</div>
+      <div class="tl-eyebrow">Client onboarding</div>
       <h1 class="tl-h1">Let's find the<br><em>throughline</em> of your brand.</h1>
-      <p class="tl-body">Before we build anything, we need to understand who you are, who you serve, and what makes you the only right choice. There are no wrong answers — just honest ones.</p>
+      <p class="tl-body">Before we build anything, we need to understand who you are, who you serve, and what makes you the only right choice. Fill this out before our first session — the more honest and specific, the better the work.</p>
       <div class="tl-meta">
         <div class="tl-meta-item">
-          <div class="tl-meta-label">Questions</div>
-          <div class="tl-meta-val">8 total</div>
+          <div class="tl-meta-label">Sections</div>
+          <div class="tl-meta-val">4 total</div>
         </div>
         <div class="tl-meta-item">
           <div class="tl-meta-label">Time needed</div>
-          <div class="tl-meta-val">Under 10 min</div>
+          <div class="tl-meta-val">10 – 15 min</div>
         </div>
         <div class="tl-meta-item">
-          <div class="tl-meta-label">Format</div>
-          <div class="tl-meta-val">Open answers</div>
+          <div class="tl-meta-label">Responses sent to</div>
+          <div class="tl-meta-val">Riya · Throughline Co.</div>
         </div>
       </div>
       <button class="tl-btn tl-btn-p" onclick="go('s1')">Begin →</button>
     </div>
 
-    <!-- SECTION 1: YOUR BRAND -->
+    <!-- SECTION 1: ABOUT YOU -->
     <div class="tl-screen" id="pg-s1">
       <div class="tl-dots" id="d1"></div>
-      <div class="tl-sec-eyebrow">Section 01 of 03</div>
-      <h2 class="tl-sec-h2">Your brand</h2>
-      <p class="tl-sec-sub">Who you are and what you stand for.</p>
+      <div class="tl-sec-eyebrow">Section 01 of 04</div>
+      <h2 class="tl-sec-h2">About you</h2>
+      <p class="tl-sec-sub">The basics before we get into the good stuff.</p>
+
+      <div class="tl-fields">
+        <div class="tl-field-row">
+          <div class="tl-field">
+            <label class="tl-lbl req" for="fname">Your name</label>
+            <input type="text" id="fname" placeholder="First and last name" required>
+          </div>
+          <div class="tl-field">
+            <label class="tl-lbl req" for="email">Email address</label>
+            <input type="email" id="email" placeholder="you@yourbrand.com" required>
+          </div>
+        </div>
+
+        <div class="tl-field-row">
+          <div class="tl-field">
+            <label class="tl-lbl req" for="bname">Brand or business name</label>
+            <input type="text" id="bname" placeholder="What do you trade as?" required>
+          </div>
+          <div class="tl-field">
+            <label class="tl-lbl" for="industry">Industry</label>
+            <input type="text" id="industry" placeholder="e.g. Video production, Consulting">
+          </div>
+        </div>
+
+        <div class="tl-field">
+          <label class="tl-lbl" for="website">Website (if you have one)</label>
+          <input type="url" id="website" placeholder="https://yourbrand.com">
+        </div>
+
+        <div class="tl-field">
+          <label class="tl-lbl req">Do you have an existing brand?</label>
+          <div class="tl-hint">Logo, colors, fonts — even a rough version counts.</div>
+          <div class="tl-branch">
+            <button class="tl-branch-btn" id="bb-yes" type="button" onclick="setBranch('yes')">Yes, I have a brand</button>
+            <button class="tl-branch-btn" id="bb-no" type="button" onclick="setBranch('no')">No, starting fresh</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-nav">
+        <button class="tl-btn tl-btn-p" onclick="nextFromS1()">Next →</button>
+      </div>
+    </div>
+
+    <!-- SECTION 2A: EXISTING BRAND ASSETS -->
+    <div class="tl-screen" id="pg-s2a">
+      <div class="tl-dots" id="d2a"></div>
+      <div class="tl-sec-eyebrow">Section 02 of 04</div>
+      <h2 class="tl-sec-h2">Your brand assets</h2>
+      <p class="tl-sec-sub">Share what you already have. Rough is fine.</p>
+
+      <div class="tl-fields">
+
+        <div class="tl-field">
+          <label class="tl-lbl">Brand colors</label>
+          <div class="tl-hint">Add your hex codes. Click the swatch to pick a color.</div>
+          <div style="margin-top:10px">
+            <div class="color-row" id="colorRow">
+              <div class="color-input-wrap">
+                <input type="color" class="color-swatch" value="#3D6B4F" oninput="syncHex(this)">
+                <span class="color-hex">#3D6B4F</span>
+                <input type="hidden" class="color-val" value="#3D6B4F">
+              </div>
+              <div class="color-input-wrap">
+                <input type="color" class="color-swatch" value="#C2714F" oninput="syncHex(this)">
+                <span class="color-hex">#C2714F</span>
+                <input type="hidden" class="color-val" value="#C2714F">
+              </div>
+            </div>
+            <button class="add-color-btn" type="button" onclick="addColor()">+ Add another color</button>
+          </div>
+        </div>
+
+        <div class="tl-field">
+          <label class="tl-lbl" for="fonts">Fonts</label>
+          <input type="text" id="fonts" placeholder="e.g. Merriweather for headings, Lato for body">
+        </div>
+
+        <div class="tl-field">
+          <label class="tl-lbl" for="logo-upload">Logo file</label>
+          <div class="tl-hint">PNG, SVG, or PDF. If you don't have the file, describe it below.</div>
+          <div class="tl-upload" onclick="document.getElementById('logo-upload').click()">
+            <input type="file" id="logo-upload" accept=".png,.svg,.pdf,.jpg,.ai,.eps">
+            <div class="tl-upload-main">Click to upload your logo</div>
+            <span class="tl-upload-sub">or drag and drop</span>
+            <div class="tl-upload-name" id="logo-name"></div>
+          </div>
+        </div>
+
+        <div class="tl-field">
+          <label class="tl-lbl" for="guidelines-upload">Brand guidelines or style guide</label>
+          <div class="tl-hint">Upload a PDF if you have one.</div>
+          <div class="tl-upload" onclick="document.getElementById('guidelines-upload').click()">
+            <input type="file" id="guidelines-upload" accept=".pdf,.doc,.docx">
+            <div class="tl-upload-main">Click to upload guidelines</div>
+            <span class="tl-upload-sub">PDF or Word doc</span>
+            <div class="tl-upload-name" id="guidelines-name"></div>
+          </div>
+        </div>
+
+        <div class="tl-field">
+          <label class="tl-lbl" for="brand-notes">Anything about your current brand you want to keep, change, or move away from?</label>
+          <textarea id="brand-notes" class="tl-ta" placeholder="What's working, what isn't, what feels off."></textarea>
+        </div>
+
+      </div>
+
+      <div class="tl-nav">
+        <button class="tl-btn tl-btn-s" onclick="go('s1')">← Back</button>
+        <button class="tl-btn tl-btn-p" onclick="go('s3')">Next →</button>
+      </div>
+    </div>
+
+    <!-- SECTION 2B: NO EXISTING BRAND -->
+    <div class="tl-screen" id="pg-s2b">
+      <div class="tl-dots" id="d2b"></div>
+      <div class="tl-sec-eyebrow">Section 02 of 04</div>
+      <h2 class="tl-sec-h2">Brand direction</h2>
+      <p class="tl-sec-sub">No brand yet — let's capture your instincts.</p>
+
+      <div class="tl-fields">
+
+        <div class="tl-q">
+          <div class="tl-q-lbl">Brands you admire</div>
+          <div class="tl-q-txt">Name 2 or 3 brands you admire — in any industry.</div>
+          <div class="tl-q-hint">What draws you to them?</div>
+          <textarea class="tl-ta" id="ref-brands" placeholder="e.g. Apple — clean and confident. Patagonia — mission-driven without being preachy."></textarea>
+        </div>
+
+        <div class="tl-q">
+          <div class="tl-q-lbl">Brand feel</div>
+          <div class="tl-q-txt">How should your brand feel when someone lands on it?</div>
+          <div class="tl-q-hint">Think emotion, not aesthetics. Reassured? Excited? Challenged?</div>
+          <textarea class="tl-ta" id="brand-feel" placeholder="The feeling you want to create in the first 10 seconds."></textarea>
+        </div>
+
+        <div class="tl-q">
+          <div class="tl-q-lbl">What to avoid</div>
+          <div class="tl-q-txt">What do you want to avoid — visually or tonally?</div>
+          <div class="tl-q-hint">The look, feel, or language that would make you cringe.</div>
+          <textarea class="tl-ta" id="brand-avoid" placeholder="Corporate jargon? Overly casual? Generic startup fonts?"></textarea>
+        </div>
+
+      </div>
+
+      <div class="tl-nav">
+        <button class="tl-btn tl-btn-s" onclick="go('s1')">← Back</button>
+        <button class="tl-btn tl-btn-p" onclick="go('s3')">Next →</button>
+      </div>
+    </div>
+
+    <!-- SECTION 3: DISCOVERY -->
+    <div class="tl-screen" id="pg-s3">
+      <div class="tl-dots" id="d3"></div>
+      <div class="tl-sec-eyebrow">Section 03 of 04</div>
+      <h2 class="tl-sec-h2">Brand discovery</h2>
+      <p class="tl-sec-sub">The questions that change how you think about your brand.</p>
+
       <div class="tl-qs">
         <div class="tl-q">
           <div class="tl-q-lbl">Q 01</div>
           <div class="tl-q-txt">If your brand disappeared tomorrow, what would your clients actually miss?</div>
-          <div class="tl-q-hint">Not the service. The specific thing only you do that they can't get anywhere else.</div>
+          <div class="tl-q-hint">Not the service. The specific thing only you do.</div>
           <textarea class="tl-ta" id="q1" placeholder="Be as specific as you can."></textarea>
         </div>
         <div class="tl-q">
           <div class="tl-q-lbl">Q 02</div>
           <div class="tl-q-txt">What do you believe about your industry that most people won't say out loud?</div>
-          <div class="tl-q-hint">The thing that makes you roll your eyes at how it's usually done.</div>
-          <textarea class="tl-ta" id="q2" placeholder="Your contrarian take. The thing you'd defend in an argument."></textarea>
+          <div class="tl-q-hint">Your contrarian take. The thing you'd defend in an argument.</div>
+          <textarea class="tl-ta" id="q2" placeholder="The thing that makes you roll your eyes at how it's usually done."></textarea>
         </div>
         <div class="tl-q">
           <div class="tl-q-lbl">Q 03</div>
@@ -334,23 +564,10 @@
           <div class="tl-q-hint">Your non-negotiables define your brand as much as your values do.</div>
           <textarea class="tl-ta" id="q3" placeholder="The line you won't cross."></textarea>
         </div>
-      </div>
-      <div class="tl-nav">
-        <button class="tl-btn tl-btn-p" onclick="go('s2')">Next →</button>
-      </div>
-    </div>
-
-    <!-- SECTION 2: YOUR CLIENT -->
-    <div class="tl-screen" id="pg-s2">
-      <div class="tl-dots" id="d2"></div>
-      <div class="tl-sec-eyebrow">Section 02 of 03</div>
-      <h2 class="tl-sec-h2">Your client</h2>
-      <p class="tl-sec-sub">The person you're building this for.</p>
-      <div class="tl-qs">
         <div class="tl-q">
           <div class="tl-q-lbl">Q 04</div>
           <div class="tl-q-txt">Describe the client you'd clone if you could. What made them the perfect fit?</div>
-          <div class="tl-q-hint">A real person if you can picture one. Where were they in their business? What did they care about?</div>
+          <div class="tl-q-hint">A real person if you can picture one.</div>
           <textarea class="tl-ta" id="q4" placeholder="The client you wish you could work with over and over."></textarea>
         </div>
         <div class="tl-q">
@@ -361,42 +578,74 @@
         </div>
         <div class="tl-q">
           <div class="tl-q-lbl">Q 06</div>
-          <div class="tl-q-txt">Who is the wrong client for you — and why?</div>
+          <div class="tl-q-txt">Who is the wrong client for you, and why?</div>
           <div class="tl-q-hint">Be honest. This protects your time and theirs.</div>
           <textarea class="tl-ta" id="q6" placeholder="The type that never gets results or drains your energy."></textarea>
         </div>
-      </div>
-      <div class="tl-nav">
-        <button class="tl-btn tl-btn-s" onclick="go('s1')">← Back</button>
-        <button class="tl-btn tl-btn-p" onclick="go('s3')">Next →</button>
-      </div>
-    </div>
-
-    <!-- SECTION 3: YOUR PROOF -->
-    <div class="tl-screen" id="pg-s3">
-      <div class="tl-dots" id="d3"></div>
-      <div class="tl-sec-eyebrow">Section 03 of 03</div>
-      <h2 class="tl-sec-h2">Your proof</h2>
-      <p class="tl-sec-sub">The results and the thing only you do.</p>
-      <div class="tl-qs">
         <div class="tl-q">
           <div class="tl-q-lbl">Q 07</div>
-          <div class="tl-q-txt">What's the best result you've ever created for a client? What specifically changed for them?</div>
-          <div class="tl-q-hint">Numbers if you have them. Story if you don't. Both is best.</div>
+          <div class="tl-q-txt">What's the best result you've ever gotten for a client? What specifically changed for them?</div>
+          <div class="tl-q-hint">Numbers if you have them. Story if you don't.</div>
           <textarea class="tl-ta" id="q7" placeholder="Before and after. As specific as you can."></textarea>
         </div>
         <div class="tl-q">
           <div class="tl-q-lbl">Q 08</div>
-          <div class="tl-q-txt">What is the one thing about how you work that no one else does — that you've never quite figured out how to put on a website?</div>
-          <div class="tl-q-hint">A process, a question you ask, a way you see things. The thing clients mention that you didn't expect.</div>
+          <div class="tl-q-txt">What is the one thing about how you work that no one else does?</div>
+          <div class="tl-q-hint">The thing clients mention that you didn't expect.</div>
           <textarea class="tl-ta" id="q8" placeholder="Take your time with this one."></textarea>
         </div>
       </div>
+
       <div class="tl-nav">
-        <button class="tl-btn tl-btn-s" onclick="go('s2')">← Back</button>
-        <button class="tl-btn tl-btn-p" id="submitBtn" onclick="submitAnswers()">Submit answers →</button>
+        <button class="tl-btn tl-btn-s" id="back-s3" onclick="backFromS3()">← Back</button>
+        <button class="tl-btn tl-btn-p" onclick="go('s4')">Next →</button>
       </div>
-      <div class="tl-error" id="submitError">Something went wrong sending your answers. Please try again, or email them directly to rmittal.works@gmail.com.</div>
+    </div>
+
+    <!-- SECTION 4: GOALS -->
+    <div class="tl-screen" id="pg-s4">
+      <div class="tl-dots" id="d4"></div>
+      <div class="tl-sec-eyebrow">Section 04 of 04</div>
+      <h2 class="tl-sec-h2">Goals & context</h2>
+      <p class="tl-sec-sub">What success looks like for this project.</p>
+
+      <div class="tl-fields">
+
+        <div class="tl-field">
+          <label class="tl-lbl req" for="goal">What's the one thing you most want to walk away with from working with Throughline Co.?</label>
+          <textarea class="tl-ta" id="goal" placeholder="A website that converts? A positioning statement? A full brand identity?"></textarea>
+        </div>
+
+        <div class="tl-field">
+          <label class="tl-lbl" for="timeline">Do you have a deadline or timeline in mind?</label>
+          <input type="text" id="timeline" placeholder="e.g. Launch by August, or no hard deadline">
+        </div>
+
+        <div class="tl-field">
+          <label class="tl-lbl" for="budget">Budget range</label>
+          <select id="budget">
+            <option value="" disabled selected>Select a range</option>
+            <option>Under $1,000</option>
+            <option>$1,000 – $3,000</option>
+            <option>$3,000 – $5,000</option>
+            <option>$5,000 – $10,000</option>
+            <option>$10,000+</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+
+        <div class="tl-field">
+          <label class="tl-lbl" for="anything-else">Anything else you want Riya to know before your first session?</label>
+          <textarea class="tl-ta" id="anything-else" placeholder="Context, concerns, things you're excited or nervous about."></textarea>
+        </div>
+
+      </div>
+
+      <div class="tl-nav">
+        <button class="tl-btn tl-btn-s" onclick="go('s3')">← Back</button>
+        <button class="tl-btn tl-btn-p" id="submitBtn" onclick="submitForm()">Submit →</button>
+      </div>
+      <div class="tl-error" id="submitError">Something went wrong. Please try again, or email directly to rmittal.works@gmail.com.</div>
     </div>
 
     <!-- THANK YOU -->
@@ -404,17 +653,17 @@
       <div class="tl-ty-check">
         <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
-      <h2 class="tl-ty-h1">That's everything<br>we needed.</h2>
-      <p class="tl-ty-body">Thank you for taking the time to do this properly. These answers are the foundation of your brand. The rawer and more honest, the stronger the work we build together.</p>
+      <h2 class="tl-ty-h1">You're all set.</h2>
+      <p class="tl-ty-body">Thank you for taking the time to do this properly. Riya will review everything before your first session and your work together will start from exactly what you wrote here.</p>
       <div class="tl-ty-card">
         <div class="tl-ty-card-lbl">What happens next</div>
         <ul class="tl-ty-list">
           <li>Riya reviews your answers before your first session</li>
-          <li>Your positioning and brand voice come directly from what you wrote here</li>
+          <li>Your positioning and brand voice come directly from what you wrote</li>
           <li>First draft copy will reflect your exact words back to you</li>
+          <li>Expect a calendar invite or follow-up within 48 hours</li>
         </ul>
       </div>
-      <button class="tl-btn tl-btn-s" onclick="copyAll()" id="cpBtn">Copy my answers</button>
     </div>
 
   </main>
@@ -427,66 +676,160 @@
 
 </div>
 <script>
-  const sNames = ['Your brand', 'Your client', 'Your proof'];
-  const TOTAL = 8;
+  let branch = null;
 
-  function dots(sec) {
-    const el = document.getElementById('d' + sec);
+  const SEC_NAMES = ['About you', 'Brand assets', 'Discovery', 'Goals'];
+  const SEC_NAMES_FRESH = ['About you', 'Brand direction', 'Discovery', 'Goals'];
+
+  function dots(secId) {
+    const map = { s1: 1, s2a: 2, s2b: 2, s3: 3, s4: 4 };
+    const cur = map[secId];
+    if (!cur) return;
+    const key = secId.replace('s', '');
+    const el = document.getElementById('d' + key);
     if (!el) return;
+    const names = branch === 'no' ? SEC_NAMES_FRESH : SEC_NAMES;
     let h = '';
-    for (let i = 1; i <= 3; i++) {
+    for (let i = 1; i <= 4; i++) {
       let c = 'tl-dot';
-      if (i < sec) c += ' done';
-      else if (i === sec) c += ' cur';
+      if (i < cur) c += ' done';
+      else if (i === cur) c += ' cur';
       h += `<div class="${c}"></div>`;
     }
-    h += `<span class="tl-dot-lbl">${sNames[sec - 1]}</span>`;
+    h += `<span class="tl-dot-lbl">${names[cur - 1]}</span>`;
     el.innerHTML = h;
   }
 
   function progress() {
-    const n = Array.from(document.querySelectorAll('textarea.tl-ta'))
-      .filter(t => t.value.trim().length > 0).length;
-    document.getElementById('progFill').style.width = Math.round(n / TOTAL * 100) + '%';
+    const textareas = Array.from(document.querySelectorAll('textarea.tl-ta'));
+    const inputs = Array.from(document.querySelectorAll('input[type=text], input[type=email], input[type=url]'));
+    const all = [...textareas, ...inputs];
+    const filled = all.filter(el => el.value.trim().length > 0).length;
+    document.getElementById('progFill').style.width = Math.round(filled / Math.max(all.length, 1) * 100) + '%';
   }
 
   function go(id) {
     document.querySelectorAll('.tl-screen').forEach(s => s.classList.remove('on'));
     document.getElementById('pg-' + id).classList.add('on');
-    const num = id === 's1' ? 1 : id === 's2' ? 2 : id === 's3' ? 3 : null;
-    if (num) dots(num);
+    dots(id);
     progress();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  async function submitAnswers() {
+  function setBranch(val) {
+    branch = val;
+    document.getElementById('bb-yes').classList.toggle('sel', val === 'yes');
+    document.getElementById('bb-no').classList.toggle('sel', val === 'no');
+  }
+
+  function nextFromS1() {
+    const name = document.getElementById('fname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const bname = document.getElementById('bname').value.trim();
+    if (!name || !email || !bname) {
+      const first = !name ? 'fname' : !email ? 'email' : 'bname';
+      const el = document.getElementById(first);
+      el.focus();
+      el.style.borderColor = '#C2714F';
+      setTimeout(() => { el.style.borderColor = ''; }, 2000);
+      return;
+    }
+    if (!branch) {
+      const btns = document.querySelectorAll('.tl-branch-btn');
+      btns.forEach(b => { b.style.borderColor = '#C2714F'; });
+      setTimeout(() => btns.forEach(b => { b.style.borderColor = ''; }), 2000);
+      return;
+    }
+    go(branch === 'yes' ? 's2a' : 's2b');
+  }
+
+  function backFromS3() {
+    go(branch === 'yes' ? 's2a' : 's2b');
+  }
+
+  function addColor() {
+    const row = document.getElementById('colorRow');
+    const wrap = document.createElement('div');
+    wrap.className = 'color-input-wrap';
+    wrap.innerHTML = `<input type="color" class="color-swatch" value="#C49A3C" oninput="syncHex(this)"><span class="color-hex">#C49A3C</span><input type="hidden" class="color-val" value="#C49A3C">`;
+    row.appendChild(wrap);
+  }
+
+  function syncHex(input) {
+    const hex = input.value.toUpperCase();
+    const wrap = input.parentElement;
+    wrap.querySelector('.color-hex').textContent = hex;
+    wrap.querySelector('.color-val').value = hex;
+  }
+
+  document.getElementById('logo-upload').addEventListener('change', function() {
+    if (this.files[0]) document.getElementById('logo-name').textContent = '✓ ' + this.files[0].name;
+  });
+  document.getElementById('guidelines-upload').addEventListener('change', function() {
+    if (this.files[0]) document.getElementById('guidelines-name').textContent = '✓ ' + this.files[0].name;
+  });
+
+  async function submitForm() {
+    const goalEl = document.getElementById('goal');
+    if (!goalEl.value.trim()) {
+      goalEl.focus();
+      goalEl.style.borderColor = '#C2714F';
+      setTimeout(() => { goalEl.style.borderColor = ''; }, 2000);
+      return;
+    }
+
     const btn = document.getElementById('submitBtn');
     const errEl = document.getElementById('submitError');
     btn.disabled = true;
     btn.textContent = 'Sending…';
     errEl.classList.remove('visible');
 
-    const labels = [
+    const colors = Array.from(document.querySelectorAll('.color-val')).map(i => i.value).join(', ');
+
+    const data = {
+      _subject: 'Client Onboarding — Throughline Co.',
+      'Name':          document.getElementById('fname').value.trim(),
+      'Email':         document.getElementById('email').value.trim(),
+      'Brand name':    document.getElementById('bname').value.trim(),
+      'Industry':      document.getElementById('industry').value.trim(),
+      'Website':       document.getElementById('website').value.trim(),
+      'Existing brand': branch === 'yes' ? 'Yes' : 'No, starting fresh',
+    };
+
+    if (branch === 'yes') {
+      data['Brand colors']   = colors;
+      data['Fonts']          = document.getElementById('fonts').value.trim();
+      data['Brand notes']    = document.getElementById('brand-notes').value.trim();
+    } else {
+      data['Reference brands'] = document.getElementById('ref-brands').value.trim();
+      data['Brand feel']       = document.getElementById('brand-feel').value.trim();
+      data['What to avoid']    = document.getElementById('brand-avoid').value.trim();
+    }
+
+    const qLabels = [
       'Q1 — What clients would miss',
       'Q2 — Contrarian industry belief',
-      'Q3 — What you would never do',
-      'Q4 — Ideal client description',
-      'Q5 — Client real underlying problem',
-      'Q6 — Wrong client and why',
-      'Q7 — Best result for a client',
-      'Q8 — Secret differentiator',
+      'Q3 — Would never do',
+      'Q4 — Ideal client',
+      'Q5 — Client real problem',
+      'Q6 — Wrong client',
+      'Q7 — Best client result',
+      'Q8 — Differentiator',
     ];
-
-    const data = { _subject: 'Brand Discovery — Throughline Co.' };
     for (let i = 1; i <= 8; i++) {
-      data[labels[i - 1]] = document.getElementById('q' + i)?.value?.trim() || '(not answered)';
+      data[qLabels[i - 1]] = document.getElementById('q' + i)?.value?.trim() || '(not answered)';
     }
+
+    data['Primary goal'] = document.getElementById('goal').value.trim();
+    data['Timeline']     = document.getElementById('timeline').value.trim();
+    data['Budget']       = document.getElementById('budget').value;
+    data['Anything else']= document.getElementById('anything-else').value.trim();
 
     try {
       const res = await fetch('https://formspree.io/f/mqejepke', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
       });
       if (res.ok) {
         go('ty');
@@ -495,38 +838,14 @@
       }
     } catch (e) {
       btn.disabled = false;
-      btn.textContent = 'Submit answers →';
+      btn.textContent = 'Submit →';
       errEl.classList.add('visible');
     }
   }
 
-  function copyAll() {
-    const labels = [
-      'Q1 — What clients would miss',
-      'Q2 — Contrarian industry belief',
-      'Q3 — What you would never do',
-      'Q4 — Ideal client description',
-      'Q5 — Client real underlying problem',
-      'Q6 — Wrong client and why',
-      'Q7 — Best result for a client',
-      'Q8 — Secret differentiator',
-    ];
-    let out = 'BRAND DISCOVERY · Throughline Co.\n' + '─'.repeat(48) + '\n\n';
-    for (let i = 1; i <= 8; i++) {
-      const v = document.getElementById('q' + i)?.value?.trim() || '(not answered)';
-      out += labels[i - 1] + '\n\n' + v + '\n\n' + '─'.repeat(48) + '\n\n';
-    }
-    navigator.clipboard.writeText(out).then(() => {
-      const b = document.getElementById('cpBtn');
-      const orig = b.textContent;
-      b.textContent = 'Copied ✓';
-      setTimeout(() => { b.textContent = orig; }, 3000);
-    });
-  }
-
-  document.addEventListener('input', e => {
-    if (e.target.classList.contains('tl-ta')) progress();
-  });
+  document.addEventListener('input', progress);
+  document.addEventListener('change', progress);
+  progress();
 </script>
 </body>
 </html>

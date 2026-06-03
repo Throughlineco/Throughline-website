@@ -809,11 +809,11 @@
 
     const colors = Array.from(document.querySelectorAll('.color-val')).map(i => i.value).join(', ');
 
+    const emailVal = document.getElementById('email').value.trim();
     const data = {
-      _subject: 'Client Onboarding — Throughline Co.',
-      _replyto:        document.getElementById('email').value.trim(),
+      _subject: 'Client Onboarding - Throughline Co.',
+      email:           emailVal,
       'Name':          document.getElementById('fname').value.trim(),
-      'Email':         document.getElementById('email').value.trim(),
       'Brand name':    document.getElementById('bname').value.trim(),
       'Industry':      document.getElementById('industry').value.trim(),
       'Website':       document.getElementById('website').value.trim(),
@@ -821,9 +821,9 @@
     };
 
     if (branch === 'yes') {
-      data['Brand colors']   = colors;
-      data['Fonts']          = document.getElementById('fonts').value.trim();
-      data['Brand notes']    = document.getElementById('brand-notes').value.trim();
+      data['Brand colors'] = colors;
+      data['Fonts']        = document.getElementById('fonts').value.trim();
+      data['Brand notes']  = document.getElementById('brand-notes').value.trim();
     } else {
       data['Reference brands'] = document.getElementById('ref-brands').value.trim();
       data['Brand feel']       = document.getElementById('brand-feel').value.trim();
@@ -831,23 +831,23 @@
     }
 
     const qLabels = [
-      'Q1 — What clients would miss',
-      'Q2 — Contrarian industry belief',
-      'Q3 — Would never do',
-      'Q4 — Ideal client',
-      'Q5 — Client real problem',
-      'Q6 — Wrong client',
-      'Q7 — Best client result',
-      'Q8 — Differentiator',
+      'Q1 - What clients would miss',
+      'Q2 - Contrarian industry belief',
+      'Q3 - Would never do',
+      'Q4 - Ideal client',
+      'Q5 - Client real problem',
+      'Q6 - Wrong client',
+      'Q7 - Best client result',
+      'Q8 - Differentiator',
     ];
     for (let i = 1; i <= 8; i++) {
       data[qLabels[i - 1]] = document.getElementById('q' + i)?.value?.trim() || '(not answered)';
     }
 
-    data['Primary goal'] = document.getElementById('goal').value.trim();
-    data['Timeline']     = document.getElementById('timeline').value.trim();
-    data['Budget']       = document.getElementById('budget').value;
-    data['Anything else']= document.getElementById('anything-else').value.trim();
+    data['Primary goal']  = document.getElementById('goal').value.trim();
+    data['Timeline']      = document.getElementById('timeline').value.trim();
+    data['Budget']        = document.getElementById('budget').value || 'Not specified';
+    data['Anything else'] = document.getElementById('anything-else').value.trim();
 
     try {
       const res = await fetch('https://formspree.io/f/mqejepke', {
@@ -859,8 +859,9 @@
         go('ty');
       } else {
         const body = await res.json().catch(() => ({}));
-        const msg = body.error || body.errors?.[0]?.message || ('Error ' + res.status);
-        errEl.textContent = 'Submission failed: ' + msg + '. Please email rmittal.works@gmail.com directly.';
+        const fieldErrors = (body.errors || []).map(e => e.field + ': ' + e.message).join(', ');
+        const msg = fieldErrors || body.error || ('Error ' + res.status);
+        errEl.textContent = 'Submission failed (' + msg + '). Please email rmittal.works@gmail.com directly.';
         errEl.classList.add('visible');
         btn.disabled = false;
         btn.textContent = 'Submit →';
@@ -868,7 +869,7 @@
     } catch (e) {
       btn.disabled = false;
       btn.textContent = 'Submit →';
-      errEl.textContent = 'Something went wrong (' + e.message + '). Please email rmittal.works@gmail.com directly.';
+      errEl.textContent = 'Something went wrong. Please email rmittal.works@gmail.com directly.';
       errEl.classList.add('visible');
     }
   }

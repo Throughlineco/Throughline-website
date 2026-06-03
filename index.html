@@ -579,7 +579,7 @@
       .throughline-inner { width: 100%; min-width: 0; }
       .hero-content { grid-template-columns: 1fr; padding: 0 24px 28px; }
       .hero-title { font-size: clamp(44px, 11vw, 72px); }
-      .hero-subhead { font-size: 15px; line-height: 1.4; display: block; width: 100%; overflow-wrap: break-word; }
+      .hero-subhead { font-size: 16px; line-height: 1.4; text-shadow: 0 1px 6px rgba(0,0,0,0.4); }
       .hero-body { font-size: 13px; }
       .hero-right { width: 100%; max-width: 100%; min-width: 0; overflow-x: hidden; }
       .wild-content, .dyslex-content, .payro-card-content { padding: 36px 28px; }
@@ -638,7 +638,7 @@
     <div class="hero-content">
       <h1 class="hero-title">Throughline<br>Co.</h1>
       <div class="hero-right">
-        <p class="hero-subhead">Stop shouting to nobody. Start speaking to somebody.</p>
+        <p class="hero-subhead" id="heroSubhead">Stop shouting to nobody.<br> Start speaking to somebody.</p>
         <p class="hero-body">If your brand is ready for a fresh perspective, we are here for real results.</p>
         <button class="hero-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
           <span class="hero-cta-icon">
@@ -1081,6 +1081,10 @@
 
   <script>
     document.body.classList.add('js-ready');
+    if (window.innerWidth <= 480) {
+      const s = document.getElementById('heroSubhead');
+      if (s) s.innerHTML = 'Stop shouting to nobody.<br>Start speaking to somebody.';
+    }
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
     }, { threshold: 0.04, rootMargin: '0px 0px -24px 0px' });

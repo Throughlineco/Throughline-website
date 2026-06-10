@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services — Throughline Co.</title>
+  <meta property="og:title" content="Services — Throughline Co.">
+  <meta property="og:description" content="Strategy only works if someone actually uses it. We build it and we implement it.">
+  <meta property="og:url" content="https://throughline.community/services">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Merriweather:ital,wght@0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream:       #F5F0E8;
+      --cream-d:     #EDE8DC;
+      --deep-forest: #2C3E35;
+      --sage-green:  #3D6B4F;
+      --muted-sage:  #8BA888;
+      --terracotta:  #C2714F;
+      --peach:       #E8C4B0;
+      --font-display:'Merriweather', Georgia, serif;
+      --font-body:   'Lato', Arial, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--cream); scroll-behavior: smooth; }
+    body { font-family: var(--font-body); font-weight: 300; font-size: 14px; line-height: 1; background: var(--cream); color: var(--deep-forest); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 28px 64px; display: flex; justify-content: space-between; align-items: center; background: rgba(245,240,232,.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(44,62,53,.08); }
+    .nav-logo-svg { height: 64px; width: auto; display: block; }
+    .nav-logo-svg .logo-wave { stroke: var(--muted-sage); }
+    .nav-logo-svg .logo-dot { fill: var(--terracotta); }
+    .nav-logo-svg .logo-text { fill: var(--deep-forest); }
+    .nav-logo-svg .logo-line { stroke: var(--sage-green); opacity: .45; }
+    .nav-logo-svg .logo-tagline { fill: var(--muted-sage); }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { font-size: 9.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--deep-forest); transition: opacity .25s; white-space: nowrap; }
+    .nav-links a:hover { opacity: .5; }
+    .nav-links a.active { color: var(--terracotta); }
+
+    /* PAGE HERO */
+    .page-hero { background: var(--deep-forest); padding: 140px 52px 96px; }
+    .page-hero-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--muted-sage); margin-bottom: 24px; }
+    .page-hero-heading { font-family: var(--font-body); font-size: clamp(40px, 6vw, 88px); font-weight: 900; letter-spacing: -.05em; line-height: .9; color: var(--cream); margin-bottom: 28px; max-width: 800px; }
+    .page-hero-sub { font-size: 16px; font-weight: 300; line-height: 1.72; color: rgba(245,240,232,.65); max-width: 520px; }
+
+    /* WHAT WE DO */
+    .section-what { background: var(--cream); padding: 96px 52px; }
+    .section-what-inner { max-width: 820px; margin: 0 auto; }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 28px; }
+    .section-heading { font-family: var(--font-body); font-size: clamp(28px, 3.5vw, 48px); font-weight: 900; letter-spacing: -.03em; line-height: 1.05; color: var(--deep-forest); margin-bottom: 56px; }
+    .services-list { display: flex; flex-direction: column; gap: 0; }
+    .service-item { padding: 36px 0; border-bottom: 1px solid rgba(44,62,53,.1); }
+    .service-item:first-child { border-top: 1px solid rgba(44,62,53,.1); }
+    .service-name { font-family: var(--font-body); font-size: clamp(18px, 2vw, 24px); font-weight: 900; letter-spacing: -.02em; color: var(--deep-forest); margin-bottom: 12px; }
+    .service-desc { font-size: 15px; font-weight: 300; line-height: 1.78; color: rgba(44,62,53,.65); max-width: 600px; }
+
+    /* HOW IT WORKS */
+    .section-how { background: var(--cream-d); border-top: 1px solid rgba(44,62,53,.08); padding: 96px 52px; }
+    .section-how-inner { max-width: 820px; margin: 0 auto; }
+    .steps-list { display: flex; flex-direction: column; gap: 0; margin-top: 56px; }
+    .step-item { display: grid; grid-template-columns: 56px 1fr; gap: 32px; padding: 40px 0; border-bottom: 1px solid rgba(44,62,53,.1); align-items: start; }
+    .step-item:first-child { border-top: 1px solid rgba(44,62,53,.1); }
+    .step-num { font-family: var(--font-body); font-size: 13px; font-weight: 900; letter-spacing: -.01em; color: var(--terracotta); padding-top: 4px; }
+    .step-heading { font-family: var(--font-body); font-size: clamp(16px, 1.8vw, 20px); font-weight: 700; color: var(--deep-forest); margin-bottom: 12px; line-height: 1.3; }
+    .step-body { font-size: 15px; font-weight: 300; line-height: 1.78; color: rgba(44,62,53,.65); }
+    .steps-cta { margin-top: 56px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--deep-forest); color: var(--cream); font-family: var(--font-body); font-size: 13px; font-weight: 700; letter-spacing: .04em; padding: 16px 36px; border-radius: 9999px; transition: opacity .25s, transform .2s; }
+    .btn-primary:hover { opacity: .82; transform: translateY(-1px); }
+
+    /* WHY IT'S DIFFERENT */
+    .section-diff { background: var(--deep-forest); padding: 96px 52px; }
+    .section-diff-inner { max-width: 820px; margin: 0 auto; }
+    .diff-label { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--muted-sage); margin-bottom: 28px; }
+    .diff-heading { font-family: var(--font-body); font-size: clamp(24px, 3vw, 40px); font-weight: 900; letter-spacing: -.03em; line-height: 1.1; color: var(--cream); margin-bottom: 32px; }
+    .diff-body { font-size: 15px; font-weight: 300; line-height: 1.82; color: rgba(245,240,232,.65); margin-bottom: 20px; }
+    .diff-thesis { font-family: var(--font-display); font-size: clamp(16px, 1.8vw, 20px); font-weight: 400; font-style: italic; color: var(--terracotta); line-height: 1.5; margin-bottom: 36px; }
+    .btn-secondary { display: inline-flex; align-items: center; gap: 10px; color: var(--cream); font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; border-bottom: 1px solid rgba(245,240,232,.3); padding-bottom: 4px; transition: border-color .25s; }
+    .btn-secondary:hover { border-color: var(--terracotta); }
+
+    /* FOOTER */
+    .site-footer { background: var(--deep-forest); border-top: 1px solid rgba(245,240,232,.08); padding: 24px 52px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 10px; font-weight: 400; letter-spacing: .1em; color: rgba(245,240,232,.3); }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,232,.3); transition: color .25s; }
+    .footer-links a:hover { color: rgba(245,240,232,.7); }
+
+    /* SCROLL REVEAL */
+    .js-ready .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s cubic-bezier(.215,.61,.355,1), transform .9s cubic-bezier(.215,.61,.355,1); }
+    .js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 720px) {
+      .nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .nav-logo-svg { height: 52px; }
+      .page-hero, .section-what, .section-how, .section-diff { padding-left: 24px; padding-right: 24px; }
+      .page-hero { padding-top: 100px; padding-bottom: 64px; }
+      .step-item { grid-template-columns: 1fr; gap: 8px; }
+      .site-footer { padding: 20px 24px; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html">
+      <svg class="nav-logo-svg" viewBox="0 0 520 140" xmlns="http://www.w3.org/2000/svg" aria-label="Throughline Co.">
+        <path class="logo-wave" d="M32 68 C48 44, 72 44, 88 68 C104 92, 128 92, 144 68 C160 44, 184 44, 200 68" fill="none" stroke-width="2.8" stroke-linecap="round"/>
+        <circle class="logo-dot" cx="200" cy="68" r="5"/>
+        <text class="logo-text" x="228" y="78" font-family="Georgia, serif" font-size="42" font-weight="400" letter-spacing="-0.5">Throughline Co.</text>
+        <line class="logo-line" x1="228" y1="90" x2="498" y2="90" stroke-width="0.8"/>
+        <text class="logo-tagline" x="228" y="108" font-family="Georgia, serif" font-size="11" letter-spacing="1.8">PURPOSE-DRIVEN BRAND STRATEGY</text>
+      </svg>
+    </a>
+    <ul class="nav-links">
+      <li><a href="for-emerging-brands.html">For Emerging Brands</a></li>
+      <li><a href="for-nonprofits.html">For Nonprofits</a></li>
+      <li><a href="for-established-brands.html">For Established Brands</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="https://www.linkedin.com/company/throughline-co/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <p class="page-hero-eyebrow">Services</p>
+    <h1 class="page-hero-heading">Strategy only works if someone actually uses it.</h1>
+    <p class="page-hero-sub">We build it and we implement it. Here is what that looks like.</p>
+  </section>
+
+  <!-- WHAT WE DO -->
+  <section class="section-what">
+    <div class="section-what-inner">
+      <p class="section-label">What we actually do</p>
+      <h2 class="section-heading reveal">What we actually do.</h2>
+      <div class="services-list">
+        <div class="service-item reveal">
+          <h3 class="service-name">Brand Strategy</h3>
+          <p class="service-desc">Positioning, voice, message hierarchy. We find the thread that connects your mission to your audience and make sure every touchpoint pulls on it. You leave knowing exactly what to say, who to say it to, and why it lands.</p>
+        </div>
+        <div class="service-item reveal" style="transition-delay:.05s">
+          <h3 class="service-name">Audience Growth</h3>
+          <p class="service-desc">Not follower counts. Real people who care about what you do and come back. We build the kind of presence that earns attention over time, on the platforms that actually matter for your audience.</p>
+        </div>
+        <div class="service-item reveal" style="transition-delay:.1s">
+          <h3 class="service-name">Storytelling and Content</h3>
+          <p class="service-desc">You have a story worth telling. Most organizations do. The problem is it usually lives in the founder's head, or in a grant report nobody reads. We dig it out, make it sharp, and turn it into content that moves people.</p>
+        </div>
+        <div class="service-item reveal" style="transition-delay:.15s">
+          <h3 class="service-name">LinkedIn Strategy</h3>
+          <p class="service-desc">For founders and organizations where LinkedIn is the primary growth channel. We build a presence that generates real conversations, not just impressions.</p>
+        </div>
+        <div class="service-item reveal" style="transition-delay:.2s">
+          <h3 class="service-name">Online and Offline Marketing</h3>
+          <p class="service-desc">Social campaigns, donor communications, conference presence, community events. We build strategies that work in the room and outside it.</p>
+        </div>
+        <div class="service-item reveal" style="transition-delay:.25s">
+          <h3 class="service-name">Website Strategy</h3>
+          <p class="service-desc">Audience audits, message audits, conversion direction. We do not build websites. We make sure the one you have is actually doing its job.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section-how">
+    <div class="section-how-inner">
+      <p class="section-label">The process</p>
+      <h2 class="section-heading reveal">What working together actually looks like.</h2>
+      <div class="steps-list">
+        <div class="step-item reveal">
+          <p class="step-num">01</p>
+          <div>
+            <h3 class="step-heading">We start with your audience, not your org.</h3>
+            <p class="step-body">Before we write a single word, we build a real picture of who you are trying to reach. Not a demographic. A person. What they are afraid of. What they are searching for. What would make them stop and read. That is what drives everything else.</p>
+          </div>
+        </div>
+        <div class="step-item reveal" style="transition-delay:.06s">
+          <p class="step-num">02</p>
+          <div>
+            <h3 class="step-heading">We find the story you have been sitting on.</h3>
+            <p class="step-body">Every organization has one. The founding moment nobody knows about. The client whose life changed because of the work. The reason this exists that never makes it into the marketing. We find it. That becomes your throughline.</p>
+          </div>
+        </div>
+        <div class="step-item reveal" style="transition-delay:.12s">
+          <p class="step-num">03</p>
+          <div>
+            <h3 class="step-heading">We build the infrastructure.</h3>
+            <p class="step-body">Messaging, voice, content, platform presence. Not a strategy deck that sits in a folder. Real, working assets your team can use this week.</p>
+          </div>
+        </div>
+        <div class="step-item reveal" style="transition-delay:.18s">
+          <p class="step-num">04</p>
+          <div>
+            <h3 class="step-heading">We measure whether it is working.</h3>
+            <p class="step-body">Audience growth, engagement, conversions. We watch the numbers and adjust when something is not landing. Data is not a quarterly check-in. It is how we know we are building the right thing.</p>
+          </div>
+        </div>
+        <div class="step-item reveal" style="transition-delay:.24s">
+          <p class="step-num">05</p>
+          <div>
+            <h3 class="step-heading">We make sure you do not need us forever.</h3>
+            <p class="step-body">We train the person inside your organization who will own this when we leave. That is not a disclaimer. That is the goal. Most clients get there within six months. That is how you know the strategy actually works.</p>
+          </div>
+        </div>
+      </div>
+      <div class="steps-cta reveal" style="transition-delay:.28s">
+        <a href="https://calendly.com/rmittal-works/30min" target="_blank" rel="noopener" class="btn-primary">Book a free 30-min call →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY IT'S DIFFERENT -->
+  <section class="section-diff">
+    <div class="section-diff-inner">
+      <p class="diff-label">Why impact marketing is different</p>
+      <h2 class="diff-heading reveal">Anyone can run ads. Not everyone can do this.</h2>
+      <p class="diff-body reveal" style="transition-delay:.08s">Product marketing is about features, comparisons, price points. Impact marketing is about trust.</p>
+      <p class="diff-body reveal" style="transition-delay:.12s">Your audience — whether that is donors, community members, or customers who buy because they believe in what you stand for — they do not convert on a clever headline. They convert when they feel something real. When they see themselves in your story. When they believe you are actually doing what you say you are doing.</p>
+      <p class="diff-body reveal" style="transition-delay:.16s">That takes more than good copy. It takes community building, persona-level research, and emotional storytelling that is backed by data on what is actually working. It takes someone who has done this for mission-driven organizations specifically, not someone who will try a product playbook and wonder why the numbers are not moving.</p>
+      <p class="diff-thesis reveal" style="transition-delay:.2s">This is the work we were built for.</p>
+      <a href="work.html" class="btn-secondary reveal" style="transition-delay:.24s">See the work →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p class="footer-copy">Throughline Co. · © 2026 · All rights reserved</p>
+    <nav class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="https://www.linkedin.com/company/throughline-co/" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
+  </footer>
+
+  <script>
+    document.body.classList.add('js-ready');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>

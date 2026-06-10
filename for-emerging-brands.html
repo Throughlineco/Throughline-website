@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Emerging Brands — Throughline Co.</title>
+  <meta property="og:title" content="For Emerging Brands — Throughline Co.">
+  <meta property="og:description" content="You built something real. The right people still cannot find it. That is not a budget problem. It is a story problem.">
+  <meta property="og:url" content="https://throughline.community/for-emerging-brands">
+  <meta property="og:image" content="https://throughline.community/og-image.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Merriweather:ital,wght@0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream:       #F5F0E8;
+      --cream-d:     #EDE8DC;
+      --deep-forest: #2C3E35;
+      --sage-green:  #3D6B4F;
+      --muted-sage:  #8BA888;
+      --terracotta:  #C2714F;
+      --font-display:'Merriweather', Georgia, serif;
+      --font-body:   'Lato', Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--cream); scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body); font-weight: 300; font-size: 14px; line-height: 1;
+      background: var(--cream); color: var(--deep-forest);
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    ::selection { background: #ffccc1; color: var(--deep-forest); }
+    a { color: inherit; text-decoration: none; }
+
+    /* CURSOR */
+    @media (pointer: fine) and (hover: hover) { * { cursor: none !important; } }
+
+    /* THROUGHLINE SVG TRACKER */
+    #tlNav {
+      position: fixed; left: 20px; top: 0; width: 12px; height: 100vh;
+      z-index: 90; pointer-events: none; overflow: visible; display: none;
+    }
+    @media (min-width: 900px) { #tlNav { display: block; } }
+    #tlFill { filter: drop-shadow(0 0 4px rgba(61,107,79,0.9)) drop-shadow(0 0 8px rgba(61,107,79,0.5)); }
+
+    /* NAV */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 24px 64px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(245,240,232,.93); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(44,62,53,.08);
+    }
+    .nav-logo-svg { height: 60px; width: auto; display: block; }
+    .nav-logo-svg .logo-wave    { stroke: var(--muted-sage); }
+    .nav-logo-svg .logo-dot     { fill: var(--terracotta); }
+    .nav-logo-svg .logo-text    { fill: var(--deep-forest); }
+    .nav-logo-svg .logo-line    { stroke: var(--sage-green); opacity: .45; }
+    .nav-logo-svg .logo-tagline { fill: var(--muted-sage); }
+    .nav-links { display: flex; gap: 24px; list-style: none; align-items: center; }
+    .nav-links a {
+      font-size: 9.5px; font-weight: 700; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--deep-forest);
+      transition: opacity .25s; white-space: nowrap;
+    }
+    .nav-links a:hover { opacity: .5; }
+    .nav-links a.active { color: var(--terracotta); }
+    .nav-linkedin { display: flex; align-items: center; opacity: .5; transition: opacity .2s; }
+    .nav-linkedin:hover { opacity: 1; }
+
+    /* REVEAL */
+    .js-ready .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s cubic-bezier(.215,.61,.355,1), transform .9s cubic-bezier(.215,.61,.355,1); }
+    .js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── HERO ── */
+    .s-hero {
+      background: var(--cream); padding: 136px 80px 96px;
+      min-height: 92vh; display: flex; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .s-hero::before {
+      content: ''; position: absolute; bottom: -60px; left: -80px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(61,107,79,.038) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 72px; align-items: center;
+      width: 100%; position: relative; z-index: 1;
+    }
+    .hero-text-col { display: flex; flex-direction: column; }
+    .hero-eyebrow {
+      font-size: 10px; font-weight: 700; letter-spacing: .22em;
+      text-transform: uppercase; color: var(--terracotta);
+      margin-bottom: 28px; display: block;
+    }
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(34px, 4.6vw, 62px);
+      font-weight: 400; line-height: 1.24;
+      color: var(--deep-forest); margin-bottom: 28px;
+      letter-spacing: -.025em;
+    }
+    .hero-subhead {
+      font-size: clamp(15px, 1.6vw, 18px); font-weight: 300; line-height: 1.78;
+      color: rgba(44,62,53,.68); margin-bottom: 44px;
+    }
+    .hero-ctas {
+      display: flex; flex-direction: row; gap: 14px; flex-wrap: wrap;
+    }
+    .btn-terra {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--terracotta); color: var(--cream);
+      font-family: var(--font-body); font-size: 12px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: 16px 36px; border-radius: 9999px; border: none;
+      transition: opacity .25s, transform .2s;
+    }
+    .btn-terra:hover { opacity: .85; transform: translateY(-2px); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--deep-forest);
+      font-family: var(--font-body); font-size: 12px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: 15px 28px; border-radius: 9999px;
+      border: 1.5px solid rgba(44,62,53,.22);
+      transition: border-color .25s, transform .2s;
+    }
+    .btn-ghost:hover { border-color: rgba(44,62,53,.55); transform: translateY(-2px); }
+
+    /* Hero image */
+    .hero-image-col { position: relative; }
+    .hero-image-wrap {
+      position: relative; border-radius: 10px; overflow: hidden;
+      aspect-ratio: 4/5;
+      box-shadow: 0 40px 100px rgba(44,62,53,.16), 0 10px 28px rgba(44,62,53,.09);
+    }
+    .hero-image-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center 22%;
+      display: block;
+    }
+    .hero-image-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(44,62,53,.42) 0%, transparent 52%);
+    }
+    .hero-image-tint {
+      position: absolute; inset: 0;
+      background: rgba(194,113,79,.09);
+      mix-blend-mode: multiply;
+    }
+
+    /* ── GUT PUNCH ── */
+    .s-gut {
+      background: var(--cream-d);
+      border-top: 1px solid rgba(44,62,53,.08);
+      padding: 100px 80px;
+    }
+    .section-eyebrow {
+      font-size: 10px; font-weight: 700; letter-spacing: .22em;
+      text-transform: uppercase; color: var(--terracotta);
+      margin-bottom: 28px; display: block;
+    }
+    .gut-headline {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 2.8vw, 42px);
+      font-weight: 400; font-style: italic;
+      line-height: 1.35; color: var(--deep-forest);
+      max-width: 600px; margin-bottom: 72px;
+    }
+    .gut-cards {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-bottom: 64px;
+    }
+    .gut-card {
+      background: var(--cream); border-radius: 16px;
+      padding: 36px 32px;
+      display: flex; flex-direction: column; gap: 20px;
+      box-shadow: 0 2px 16px rgba(44,62,53,.06), 0 1px 4px rgba(44,62,53,.04);
+      transition: transform .28s cubic-bezier(0.34,1.56,0.64,1), box-shadow .28s;
+    }
+    .gut-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(44,62,53,.11), 0 4px 12px rgba(44,62,53,.07);
+    }
+    .gut-card-icon {
+      width: 56px; height: 56px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .gut-card-icon--terra  { background: rgba(194,113,79,.13); color: var(--terracotta); }
+    .gut-card-icon--sage   { background: rgba(61,107,79,.11);  color: var(--sage-green); }
+    .gut-card-icon--forest { background: rgba(44,62,53,.09);   color: var(--deep-forest); }
+    .gut-card-icon svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .gut-card-body {
+      font-size: clamp(14px, 1.4vw, 17px); font-weight: 300; line-height: 1.68;
+      color: rgba(44,62,53,.8);
+    }
+    .gut-footer { }
+    .gut-truth {
+      font-family: var(--font-display);
+      font-size: clamp(15px, 1.55vw, 19px); font-weight: 400; font-style: italic;
+      line-height: 1.65; color: var(--deep-forest); margin-bottom: 28px;
+    }
+    .gut-soft-cta {
+      display: inline-block;
+      font-size: 13px; font-weight: 700; color: var(--terracotta);
+      letter-spacing: .05em; border-bottom: 1.5px solid rgba(194,113,79,.38); padding-bottom: 3px;
+      transition: border-color .2s, opacity .2s;
+    }
+    .gut-soft-cta:hover { opacity: .72; border-color: var(--terracotta); }
+
+    /* ── HOW WE WORK ── */
+    .s-process {
+      background: var(--sage-green);
+      padding: 100px 80px 104px;
+      position: relative; overflow: hidden;
+    }
+    .s-process::before {
+      content: ''; position: absolute; bottom: -160px; left: -80px;
+      width: 480px; height: 480px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(44,62,53,.28) 0%, transparent 68%);
+      pointer-events: none;
+    }
+    .s-process::after {
+      content: ''; position: absolute; top: -120px; right: -60px;
+      width: 360px; height: 360px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(245,240,232,.04) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .process-header { margin-bottom: 80px; }
+    .process-eyebrow {
+      font-size: 10px; font-weight: 700; letter-spacing: .22em;
+      text-transform: uppercase; color: rgba(245,240,232,.62); margin-bottom: 20px; display: block;
+    }
+    .process-headline {
+      font-family: var(--font-body);
+      font-size: clamp(34px, 4.2vw, 58px);
+      font-weight: 900; letter-spacing: -.04em; line-height: .95; color: var(--cream);
+    }
+
+    /* Process step grid */
+    .process-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; position: relative;
+    }
+    .process-line-track {
+      position: absolute; top: 8px;
+      left: calc(12.5%); right: calc(12.5%);
+      height: 1.5px; background: rgba(245,240,232,.18);
+      z-index: 0; overflow: hidden;
+    }
+    .process-line-fill {
+      height: 100%; width: 0%;
+      background: linear-gradient(to right, var(--terracotta), rgba(194,113,79,.6));
+      border-radius: 9999px;
+      transition: width 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .process-step { padding: 0 20px 0 0; position: relative; z-index: 1; }
+    .step-dot {
+      width: 16px; height: 16px; border-radius: 50%;
+      border: 2px solid rgba(245,240,232,.22); background: var(--sage-green);
+      margin: 0 auto 32px;
+      position: relative; z-index: 2;
+      transition: border-color .35s, background .35s, box-shadow .35s;
+    }
+    .process-step.activated .step-dot {
+      border-color: var(--terracotta); background: var(--terracotta);
+      box-shadow: 0 0 0 5px rgba(194,113,79,.16), 0 0 14px rgba(194,113,79,.4);
+    }
+    .step-num {
+      font-family: var(--font-display);
+      font-size: clamp(52px, 7vw, 88px);
+      font-weight: 400; letter-spacing: -.04em; line-height: 1;
+      color: rgba(245,240,232,.08); display: block; margin-bottom: 14px;
+      transition: color .55s;
+    }
+    .process-step.activated .step-num { color: rgba(245,240,232,.22); }
+    .step-title {
+      font-family: var(--font-body);
+      font-size: clamp(15px, 1.5vw, 20px);
+      font-weight: 900; letter-spacing: -.02em;
+      color: var(--cream); margin-bottom: 12px;
+    }
+    .step-body {
+      font-size: 13px; font-weight: 300; line-height: 1.74;
+      color: rgba(245,240,232,.68);
+    }
+    .process-tagline {
+      margin-top: 68px; padding-top: 36px;
+      border-top: 1px solid rgba(245,240,232,.18);
+      font-family: var(--font-display);
+      font-size: clamp(14px, 1.45vw, 18px);
+      font-weight: 400; font-style: italic;
+      color: rgba(245,240,232,.65); line-height: 1.6;
+    }
+    .process-tagline strong {
+      font-weight: 400; font-style: normal; color: var(--terracotta);
+    }
+
+    /* ── LIVE CASE STUDY ── */
+    .s-casestudy {
+      background: #141f1a;
+      padding: 100px 80px 108px;
+      position: relative; overflow: hidden;
+    }
+    .s-casestudy::before {
+      content: ''; position: absolute; top: -100px; right: -60px;
+      width: 640px; height: 640px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(194,113,79,.09) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .s-casestudy::after {
+      content: ''; position: absolute; bottom: -100px; left: -80px;
+      width: 480px; height: 480px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(61,107,79,.14) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .cs-header { margin-bottom: 64px; }
+    .cs-eyebrow {
+      font-size: 10px; font-weight: 700; letter-spacing: .22em;
+      text-transform: uppercase; color: var(--terracotta);
+      margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+    }
+    .live-dot {
+      display: inline-block; flex-shrink: 0;
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--terracotta);
+      animation: pulse-live 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse-live {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(194,113,79,0); opacity: 1; }
+      50%       { box-shadow: 0 0 0 6px rgba(194,113,79,.22), 0 0 10px rgba(194,113,79,.1); opacity: .7; }
+    }
+    .cs-headline {
+      font-family: var(--font-display);
+      font-size: clamp(30px, 4.4vw, 58px);
+      font-weight: 400; line-height: 1.22;
+      color: var(--cream); margin-bottom: 24px; letter-spacing: -.025em;
+    }
+    .cs-intro {
+      font-size: clamp(15px, 1.55vw, 18px); font-weight: 300; line-height: 1.74;
+      color: rgba(245,240,232,.58); max-width: 600px; margin-bottom: 22px;
+    }
+    .cs-intro:last-of-type { margin-bottom: 0; }
+
+    /* Tracker card */
+    .tracker-wrap {
+      background: rgba(245,240,232,.055);
+      border: 1px solid rgba(245,240,232,.12);
+      border-top: 2px solid rgba(194,113,79,.55);
+      border-radius: 14px; padding: 52px 48px;
+      position: relative; overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(194,113,79,.06) inset, 0 32px 80px rgba(0,0,0,.25);
+    }
+    .tracker-phases {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; position: relative;
+    }
+    .tracker-line-track {
+      position: absolute; top: 20px;
+      left: calc(12.5%); right: calc(12.5%);
+      height: 2px; background: rgba(245,240,232,.1);
+      z-index: 0; overflow: hidden;
+    }
+    .tracker-line-fill {
+      height: 100%; width: 0%;
+      background: linear-gradient(to right, var(--terracotta), rgba(194,113,79,.5));
+      border-radius: 9999px;
+      transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .tracker-phase {
+      padding: 0 12px; position: relative; z-index: 1;
+    }
+
+    /* Phase indicator circle */
+    .phase-indicator {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 22px; position: relative; z-index: 2;
+    }
+    .phase-indicator.complete {
+      background: var(--terracotta); border: 2px solid var(--terracotta);
+    }
+    .phase-indicator.in-progress {
+      background: rgba(194,113,79,.14); border: 2px solid var(--terracotta);
+    }
+    .phase-indicator.next {
+      background: transparent; border: 2px solid rgba(61,107,79,.45);
+    }
+    .phase-indicator.upcoming {
+      background: transparent; border: 2px solid rgba(245,240,232,.15);
+    }
+    @keyframes pulse-phase {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(194,113,79,0); }
+      50%       { box-shadow: 0 0 0 8px rgba(194,113,79,.2), 0 0 18px rgba(194,113,79,.07); }
+    }
+    .phase-indicator.in-progress { animation: pulse-phase 2.2s ease-in-out infinite; }
+
+    /* Checkmark for complete */
+    .phase-indicator.complete::after {
+      content: ''; width: 13px; height: 7px;
+      border-left: 2.5px solid var(--cream); border-bottom: 2.5px solid var(--cream);
+      transform: rotate(-45deg) translate(1px, -2px); display: block;
+    }
+    /* Dot for in-progress */
+    .phase-indicator.in-progress::after {
+      content: ''; width: 10px; height: 10px; border-radius: 50%;
+      background: var(--terracotta); display: block;
+    }
+    /* Ring for next */
+    .phase-indicator.next::after {
+      content: ''; width: 10px; height: 10px; border-radius: 50%;
+      border: 2px solid rgba(61,107,79,.45); display: block;
+    }
+    /* Ring for upcoming */
+    .phase-indicator.upcoming::after {
+      content: ''; width: 10px; height: 10px; border-radius: 50%;
+      border: 2px solid rgba(245,240,232,.2); display: block;
+    }
+
+    .phase-label {
+      font-size: 9px; font-weight: 700; letter-spacing: .13em;
+      text-transform: uppercase; color: rgba(245,240,232,.32);
+      margin-bottom: 7px; text-align: center; white-space: nowrap;
+    }
+    .phase-title {
+      font-family: var(--font-body);
+      font-size: clamp(13px, 1.3vw, 16px);
+      font-weight: 700; color: var(--cream);
+      margin-bottom: 6px; text-align: center;
+    }
+    .phase-status {
+      font-size: 9px; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; text-align: center; margin-bottom: 18px;
+    }
+    .phase-status.complete   { color: var(--terracotta); }
+    .phase-status.in-progress { color: var(--terracotta); }
+    .phase-status.next       { color: rgba(61,107,79,.65); }
+    .phase-status.upcoming   { color: rgba(245,240,232,.22); }
+    .phase-body {
+      font-size: 13px; font-weight: 300; line-height: 1.68;
+      color: rgba(245,240,232,.42);
+      padding-top: 18px; border-top: 1px solid rgba(245,240,232,.08);
+    }
+    .phase-body.active-phase { color: rgba(245,240,232,.75); }
+
+    .tracker-meta {
+      margin-top: 36px; display: flex; gap: 32px;
+      font-size: 11px; font-weight: 300; color: rgba(245,240,232,.28);
+      border-top: 1px solid rgba(245,240,232,.07); padding-top: 24px;
+    }
+    .tracker-meta span { font-weight: 700; color: rgba(245,240,232,.48); }
+
+    .cs-soft-cta {
+      display: inline-block; margin-top: 48px;
+      font-size: 13px; font-weight: 700; color: var(--terracotta);
+      letter-spacing: .05em; border-bottom: 1.5px solid rgba(194,113,79,.35); padding-bottom: 3px;
+      transition: border-color .2s, opacity .2s;
+    }
+    .cs-soft-cta:hover { opacity: .72; border-color: var(--terracotta); }
+
+    /* ── FINAL CTA ── */
+    .s-final {
+      background: var(--cream); padding: 124px 80px;
+      text-align: center; border-top: 1px solid rgba(44,62,53,.08);
+      position: relative; overflow: hidden;
+    }
+    .s-final::before {
+      content: ''; position: absolute; top: 50%; left: 50%;
+      width: 700px; height: 380px;
+      background: radial-gradient(ellipse at center, rgba(194,113,79,.055) 0%, transparent 65%);
+      transform: translate(-50%, -50%); pointer-events: none;
+    }
+    .final-headline {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4.5vw, 60px);
+      font-weight: 400; font-style: italic; line-height: 1.25;
+      color: var(--deep-forest); margin-bottom: 24px; letter-spacing: -.02em;
+    }
+    .final-body {
+      font-size: clamp(15px, 1.55vw, 18px); font-weight: 300; line-height: 1.74;
+      color: rgba(44,62,53,.65); max-width: 460px; margin: 0 auto 52px;
+    }
+
+    /* FOOTER */
+    .site-footer {
+      background: var(--deep-forest); border-top: 1px solid rgba(245,240,232,.08);
+      padding: 24px 52px; display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .footer-copy { font-size: 10px; font-weight: 400; letter-spacing: .1em; color: rgba(245,240,232,.3); }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,232,.3); transition: color .25s; }
+    .footer-links a:hover { color: rgba(245,240,232,.7); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) {
+      .process-step { padding: 0 12px 0 0; }
+      .step-num { font-size: clamp(40px, 5vw, 64px); }
+    }
+    @media (max-width: 900px) {
+      .nav { padding: 20px 36px; }
+      .nav-links { gap: 18px; }
+      .nav-links a { font-size: 8.5px; }
+      .s-hero { padding: 120px 40px 72px; min-height: auto; }
+      .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+      .hero-image-wrap { aspect-ratio: 3/2; }
+      .s-gut, .s-process, .s-casestudy, .s-final { padding-left: 40px; padding-right: 40px; }
+      .gut-cards { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: repeat(2, 1fr); gap: 48px 32px; }
+      .process-line-track { display: none; }
+      .process-step { padding: 0; }
+      .step-dot { margin: 0 0 24px 0; }
+      .tracker-phases { grid-template-columns: repeat(2, 1fr); gap: 32px 24px; }
+      .tracker-line-track { display: none; }
+      .tracker-wrap { padding: 36px 32px; }
+    }
+    @media (max-width: 720px) {
+      .nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .nav-logo-svg { height: 52px; }
+      .s-hero { padding: 108px 24px 64px; min-height: auto; }
+      .hero-ctas { flex-direction: column; }
+      .btn-terra, .btn-ghost { text-align: center; justify-content: center; }
+      .s-gut { padding: 72px 24px; }
+      .gut-cards { grid-template-columns: 1fr; gap: 16px; }
+      .s-final { padding: 72px 24px; }
+      .s-process, .s-casestudy { padding: 72px 24px; }
+      .process-steps { grid-template-columns: 1fr; gap: 36px; }
+      .tracker-phases { grid-template-columns: 1fr; gap: 28px; }
+      .tracker-meta { flex-direction: column; gap: 8px; }
+      .tracker-wrap { padding: 28px 24px; }
+      .site-footer { padding: 20px 24px; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- THROUGHLINE SVG TRACKER -->
+  <svg id="tlNav" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <line x1="6" y1="0" x2="6" y2="10000" stroke="#3D6B4F" stroke-width="1" opacity="0.18" stroke-dasharray="5 7"/>
+    <line id="tlFill" x1="6" y1="0" x2="6" y2="0" stroke="#3D6B4F" stroke-width="2" stroke-linecap="round"/>
+    <circle id="tlTip" cx="6" cy="0" r="4" fill="#C2714F" opacity="0" style="filter:drop-shadow(0 0 4px rgba(194,113,79,0.8));"/>
+  </svg>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="index.html">
+      <svg class="nav-logo-svg" viewBox="0 0 520 140" xmlns="http://www.w3.org/2000/svg" aria-label="Throughline Co.">
+        <path class="logo-wave" d="M32 68 C48 44, 72 44, 88 68 C104 92, 128 92, 144 68 C160 44, 184 44, 200 68" fill="none" stroke-width="2.8" stroke-linecap="round"/>
+        <circle class="logo-dot" cx="200" cy="68" r="5"/>
+        <text class="logo-text" x="228" y="78" font-family="Georgia, serif" font-size="42" font-weight="400" letter-spacing="-0.5">Throughline Co.</text>
+        <line class="logo-line" x1="228" y1="90" x2="498" y2="90" stroke-width="0.8"/>
+        <text class="logo-tagline" x="228" y="108" font-family="Georgia, serif" font-size="11" letter-spacing="1.8">PURPOSE-DRIVEN BRAND STRATEGY</text>
+      </svg>
+    </a>
+    <ul class="nav-links">
+      <li><a href="for-emerging-brands.html" class="active">For Emerging Brands</a></li>
+      <li><a href="for-nonprofits.html">For Nonprofits</a></li>
+      <li><a href="for-established-brands.html">For Established Brands</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="https://www.linkedin.com/company/throughline-co/" target="_blank" rel="noopener" aria-label="LinkedIn" class="nav-linkedin"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></li>
+    </ul>
+  </nav>
+
+  <!-- SECTION 1: HERO -->
+  <section class="s-hero">
+    <div class="hero-grid">
+
+      <!-- Text column -->
+      <div class="hero-text-col">
+        <span class="hero-eyebrow reveal">For emerging brands</span>
+        <h1 class="hero-headline reveal" style="transition-delay:.07s">You built something real.<br>The right people still cannot find it.</h1>
+        <p class="hero-subhead reveal" style="transition-delay:.14s">That is not a budget problem. It is a story problem. We find the thread that makes your audience care, then build everything around it.</p>
+        <div class="hero-ctas reveal" style="transition-delay:.21s">
+          <a href="contact.html" class="btn-terra">Book a discovery call</a>
+        </div>
+      </div>
+
+      <!-- Image column -->
+      <div class="hero-image-col reveal" style="transition-delay:.32s">
+        <div class="hero-image-wrap">
+          <img src="/emerging brand image.JPG" alt="Throughline Co. in the field">
+          <div class="hero-image-overlay"></div>
+          <div class="hero-image-tint"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 2: THE RELATABLE GUT PUNCH -->
+  <section class="s-gut">
+    <span class="section-eyebrow reveal">If this sounds familiar</span>
+    <h2 class="gut-headline reveal" style="transition-delay:.07s">You have explained your business 100 times. It still does not land.</h2>
+
+    <div class="gut-cards">
+
+      <!-- Card 1 -->
+      <div class="gut-card reveal" style="transition-delay:.1s">
+        <div class="gut-card-icon gut-card-icon--terra">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <p class="gut-card-body">The post you were proud of got four likes.</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="gut-card reveal" style="transition-delay:.18s">
+        <div class="gut-card-icon gut-card-icon--sage">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <p class="gut-card-body">A friend asked, again, what you actually do.</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="gut-card reveal" style="transition-delay:.26s">
+        <div class="gut-card-icon gut-card-icon--forest">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <p class="gut-card-body">You are doing the work. You just cannot make people feel why it matters.</p>
+      </div>
+
+    </div>
+
+    <div class="gut-footer">
+      <p class="gut-truth reveal">Here is the truth. The work was never the problem. The story is.</p>
+      <a href="contact.html" class="gut-soft-cta reveal" style="transition-delay:.08s">Let's fix the story. Book a call.</a>
+    </div>
+  </section>
+
+  <!-- SECTION 3: HOW WE WORK -->
+  <section class="s-process" id="process">
+    <div class="process-header">
+      <span class="process-eyebrow reveal">Our process</span>
+      <h2 class="process-headline reveal" style="transition-delay:.07s">Four steps.<br>No guessing.</h2>
+    </div>
+
+    <div class="process-steps" id="processSteps">
+      <div class="process-line-track">
+        <div class="process-line-fill" id="processLineFill"></div>
+      </div>
+
+      <div class="process-step">
+        <div class="step-dot"></div>
+        <span class="step-num">01</span>
+        <h3 class="step-title">Discovery</h3>
+        <p class="step-body">We find the story you have not been able to tell yet.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-dot"></div>
+        <span class="step-num">02</span>
+        <h3 class="step-title">Diagnosis</h3>
+        <p class="step-body">We pinpoint what is actually broken. It is rarely what you think.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-dot"></div>
+        <span class="step-num">03</span>
+        <h3 class="step-title">Execution</h3>
+        <p class="step-body">Organic first, so we learn what works before you spend on ads.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-dot"></div>
+        <span class="step-num">04</span>
+        <h3 class="step-title">Measure</h3>
+        <p class="step-body">Real outcomes, not vanity metrics. We train your team to run it.</p>
+      </div>
+    </div>
+
+    <p class="process-tagline reveal">By month six, you own the engine. <strong>We build ourselves out of a job.</strong></p>
+  </section>
+
+  <!-- SECTION 4: LIVE CASE STUDY -->
+  <section class="s-casestudy">
+    <div class="cs-header">
+      <span class="cs-eyebrow reveal"><span class="live-dot" aria-hidden="true"></span>Live case study</span>
+      <h2 class="cs-headline reveal" style="transition-delay:.07s">Watch us build a brand in real time.</h2>
+      <p class="cs-intro reveal" style="transition-delay:.14s">Josh Harris makes video for B2B SaaS founders. Good video. The kind that actually moves people. But like a lot of skilled people, he was selling the thing he did, not the result it created. The brand said videographer. The work said so much more.</p>
+      <p class="cs-intro reveal" style="transition-delay:.21s">He came to us to fix that gap. So we are building Josh Harris Media from the name up, and we are documenting it as we go. Most case studies show you the polished after. We are showing you the during. Come back and watch it move.</p>
+    </div>
+
+    <div class="tracker-wrap reveal" style="transition-delay:.28s" id="trackerWrap">
+      <div class="tracker-phases" id="trackerPhases">
+        <div class="tracker-line-track">
+          <div class="tracker-line-fill" id="trackerLineFill"></div>
+        </div>
+        <!-- Phases rendered by JS from TRACKER_CONFIG below -->
+      </div>
+      <div class="tracker-meta" id="trackerMeta"></div>
+    </div>
+
+    <a href="contact.html" class="cs-soft-cta reveal" style="transition-delay:.34s">Want this for your brand? Book a call.</a>
+  </section>
+
+  <!-- SECTION 5: FINAL CTA -->
+  <section class="s-final">
+    <h2 class="final-headline reveal">Ready to find yours?</h2>
+    <p class="final-body reveal" style="transition-delay:.08s">No sales pitch. Just an honest conversation about what you are building and whether we can help.</p>
+    <a href="contact.html" class="btn-terra reveal" style="transition-delay:.16s">Book a discovery call</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p class="footer-copy">Throughline Co. &middot; &copy; 2026 &middot; All rights reserved</p>
+    <nav class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="https://www.linkedin.com/company/throughline-co/" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
+  </footer>
+
+  <script>
+    // ============================================================
+    //  EDITABLE TRACKER CONFIG
+    //  Update this object to advance the Josh Harris case study.
+    //
+    //  state options:
+    //    'complete'    : phase done, shows checkmark + filled dot
+    //    'in-progress' : current phase, pulses gently
+    //    'next'        : next up, outlined in sage
+    //    'upcoming'    : not yet started, dim outline
+    //
+    //  To move the progress marker forward:
+    //    1. Change the current 'in-progress' phase to 'complete'
+    //    2. Change the next 'next' phase to 'in-progress'
+    //    3. Change the following 'upcoming' to 'next'
+    //    4. Update lastUpdated and nextUpdate dates
+    // ============================================================
+    var TRACKER_CONFIG = {
+      phases: [
+        {
+          label:      'Week 1-2',
+          title:      'Discovery',
+          state:      'complete',
+          statusText: 'Complete',
+          body:       'His buyers were showing up to calls already convinced. The video had done the selling before Josh said a word. That was the insight everything else is built on.'
+        },
+        {
+          label:      'Week 3-4',
+          title:      'Diagnosis',
+          state:      'complete',
+          statusText: 'Complete',
+          body:       'Not a content business. A sales tool that happens to use video. Once we saw it that way, the name, the voice, and the positioning all fell into place. Josh Harris Media was born.'
+        },
+        {
+          label:      'Week 5-6',
+          title:      'Execution',
+          state:      'in-progress',
+          statusText: 'In progress',
+          body:       'Building the brand book, the website, and the tools that will do the pre-selling for him automatically.'
+        },
+        {
+          label:      'Week 7 onward',
+          title:      'Measure',
+          state:      'upcoming',
+          statusText: 'Upcoming',
+          body:       'Qualified leads, shorter sales cycles, closed deals. Nothing else.'
+        }
+      ],
+      lastUpdated: 'June 10, 2026',
+      nextUpdate:  'June 24, 2026'
+    };
+    // ============================================================
+    //  END EDITABLE CONFIG
+    // ============================================================
+
+    // Build tracker from config
+    (function () {
+      var phasesEl = document.getElementById('trackerPhases');
+      var metaEl   = document.getElementById('trackerMeta');
+      if (!phasesEl) return;
+
+      // Preserve the line track element
+      var lineTrack = phasesEl.querySelector('.tracker-line-track');
+
+      // Calculate fill percentage: fill line to the in-progress phase's dot
+      var totalPhases = TRACKER_CONFIG.phases.length;
+      var inProgIdx   = -1;
+      var completeCount = 0;
+      TRACKER_CONFIG.phases.forEach(function (p, i) {
+        if (p.state === 'in-progress') inProgIdx = i;
+        if (p.state === 'complete')    completeCount++;
+      });
+      var fillPct = inProgIdx >= 0
+        ? (inProgIdx / (totalPhases - 1)) * 100
+        : (completeCount / (totalPhases - 1)) * 100;
+      fillPct = Math.max(0, Math.min(100, fillPct));
+
+      // Build phase HTML
+      var html = '';
+      TRACKER_CONFIG.phases.forEach(function (phase) {
+        var isActive = phase.state === 'complete' || phase.state === 'in-progress';
+        html += '<div class="tracker-phase">';
+        html += '<div class="phase-indicator ' + phase.state + '"></div>';
+        html += '<p class="phase-label">' + phase.label + '</p>';
+        html += '<h3 class="phase-title">' + phase.title + '</h3>';
+        html += '<p class="phase-status ' + phase.state + '">' + phase.statusText + '</p>';
+        html += '<p class="phase-body' + (isActive ? ' active-phase' : '') + '">' + phase.body + '</p>';
+        html += '</div>';
+      });
+
+      // Remove old phase nodes, keep line track, append new phases
+      Array.from(phasesEl.querySelectorAll('.tracker-phase')).forEach(function (el) { el.remove(); });
+      phasesEl.insertAdjacentHTML('beforeend', html);
+      if (lineTrack) phasesEl.insertBefore(lineTrack, phasesEl.firstChild);
+
+      // Animate fill on scroll reveal
+      var fill = document.getElementById('trackerLineFill');
+      if (fill) {
+        fill.style.width = '0%';
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              setTimeout(function () { fill.style.width = fillPct + '%'; }, 350);
+              obs.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.3 });
+        var wrap = document.getElementById('trackerWrap');
+        if (wrap) obs.observe(wrap);
+      }
+
+      // Render meta
+      if (metaEl) {
+        metaEl.innerHTML =
+          '<p>Last updated: <span>' + TRACKER_CONFIG.lastUpdated + '</span></p>' +
+          '<p>Next update: <span>'  + TRACKER_CONFIG.nextUpdate  + '</span></p>';
+      }
+    }());
+
+    // Process section: animate line + dots on scroll
+    (function () {
+      var fill    = document.getElementById('processLineFill');
+      var steps   = document.querySelectorAll('#processSteps .process-step');
+      var section = document.getElementById('process');
+      if (!fill || !section || !steps.length) return;
+
+      var triggered = false;
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting && !triggered) {
+            triggered = true;
+            fill.style.width = '100%';
+            var delays = [0, 467, 933, 1400];
+            steps.forEach(function (step, i) {
+              setTimeout(function () { step.classList.add('activated'); }, delays[i]);
+            });
+          }
+        });
+      }, { threshold: 0.3 });
+      obs.observe(section);
+    }());
+
+    // Scroll reveal
+    document.body.classList.add('js-ready');
+    var revealObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.04, rootMargin: '0px 0px -24px 0px' });
+    document.querySelectorAll('.reveal').forEach(function (el) { revealObs.observe(el); });
+
+    // Throughline SVG scroll tracker
+    (function () {
+      var tlNav  = document.getElementById('tlNav');
+      var tlFill = document.getElementById('tlFill');
+      var tlTip  = document.getElementById('tlTip');
+      if (!tlNav || !tlFill || window.innerWidth < 900) return;
+      var currentY2 = 0, rafId;
+      function lerp(a, b, t) { return a + (b - a) * t; }
+      function frame() {
+        var totalH  = document.body.scrollHeight - window.innerHeight;
+        var pct     = totalH > 0 ? Math.min(window.scrollY / totalH, 1) : 0;
+        var targetY = pct * window.innerHeight;
+        currentY2   = lerp(currentY2, targetY, 0.12);
+        tlFill.setAttribute('y2', currentY2);
+        if (tlTip) {
+          tlTip.setAttribute('cy', currentY2);
+          tlTip.setAttribute('opacity', currentY2 > 4 ? '1' : '0');
+        }
+        rafId = requestAnimationFrame(frame);
+      }
+      frame();
+      window.addEventListener('resize', function () { cancelAnimationFrame(rafId); currentY2 = 0; frame(); }, { passive: true });
+    }());
+
+    // Dot cursor
+    (function () {
+      if (!matchMedia('(pointer:fine) and (hover:hover)').matches) return;
+      var cur = document.createElement('div');
+      cur.style.cssText = 'position:fixed;pointer-events:none;z-index:9999;width:10px;height:10px;border-radius:50%;background:#C2714F;transform:translate(-50%,-50%);opacity:0;will-change:left,top;left:-20px;top:-20px;';
+      document.body.appendChild(cur);
+      document.addEventListener('mousemove', function (e) { cur.style.opacity = '1'; cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px'; }, { passive: true });
+      document.addEventListener('mouseleave', function () { cur.style.opacity = '0'; });
+    }());
+  </script>
+</body>
+</html>

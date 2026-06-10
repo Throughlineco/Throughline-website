@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work — Throughline Co.</title>
+  <meta property="og:title" content="Work — Throughline Co.">
+  <meta property="og:description" content="Real organizations. Real numbers. No vanity metrics.">
+  <meta property="og:url" content="https://throughline.community/work">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Merriweather:ital,wght@0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream:       #F5F0E8;
+      --cream-d:     #EDE8DC;
+      --deep-forest: #2C3E35;
+      --sage-green:  #3D6B4F;
+      --muted-sage:  #8BA888;
+      --terracotta:  #C2714F;
+      --peach:       #E8C4B0;
+      --font-display:'Merriweather', Georgia, serif;
+      --font-body:   'Lato', Arial, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--cream); scroll-behavior: smooth; }
+    body { font-family: var(--font-body); font-weight: 300; font-size: 14px; line-height: 1; background: var(--cream); color: var(--deep-forest); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 28px 64px; display: flex; justify-content: space-between; align-items: center; background: rgba(245,240,232,.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(44,62,53,.08); }
+    .nav-logo-svg { height: 64px; width: auto; display: block; }
+    .nav-logo-svg .logo-wave { stroke: var(--muted-sage); }
+    .nav-logo-svg .logo-dot { fill: var(--terracotta); }
+    .nav-logo-svg .logo-text { fill: var(--deep-forest); }
+    .nav-logo-svg .logo-line { stroke: var(--sage-green); opacity: .45; }
+    .nav-logo-svg .logo-tagline { fill: var(--muted-sage); }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { font-size: 9.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--deep-forest); transition: opacity .25s; white-space: nowrap; }
+    .nav-links a:hover { opacity: .5; }
+    .nav-links a.active { color: var(--terracotta); }
+
+    /* PAGE HERO */
+    .page-hero { background: var(--deep-forest); padding: 140px 52px 96px; }
+    .page-hero-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--muted-sage); margin-bottom: 24px; }
+    .page-hero-heading { font-family: var(--font-body); font-size: clamp(56px, 9vw, 140px); font-weight: 900; letter-spacing: -.05em; line-height: .88; color: var(--cream); margin-bottom: 24px; }
+    .page-hero-sub { font-size: 16px; font-weight: 300; line-height: 1.72; color: rgba(245,240,232,.55); max-width: 420px; }
+
+    /* CASE STUDY */
+    .case-study { padding: 96px 52px; border-bottom: 1px solid rgba(44,62,53,.1); }
+    .case-study:nth-child(odd) { background: var(--cream); }
+    .case-study:nth-child(even) { background: var(--cream-d); }
+    .case-study-inner { max-width: 900px; margin: 0 auto; }
+    .cs-label { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 12px; }
+    .cs-client { font-family: var(--font-body); font-size: clamp(40px, 6vw, 88px); font-weight: 900; letter-spacing: -.045em; line-height: .9; color: var(--deep-forest); margin-bottom: 12px; }
+    .cs-tags { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(44,62,53,.4); margin-bottom: 32px; }
+    .cs-hook { font-family: var(--font-display); font-size: clamp(16px, 1.8vw, 22px); font-weight: 400; font-style: italic; line-height: 1.45; color: var(--deep-forest); margin-bottom: 24px; max-width: 680px; }
+    .cs-body { font-size: 15px; font-weight: 300; line-height: 1.82; color: rgba(44,62,53,.72); max-width: 680px; margin-bottom: 48px; }
+    .cs-media { border-radius: 8px; overflow: hidden; margin-bottom: 48px; }
+    .cs-media img { width: 100%; display: block; object-fit: cover; max-height: 520px; }
+    .cs-carousel { position: relative; border-radius: 8px; overflow: hidden; background: var(--sage-green); aspect-ratio: 16/9; margin-bottom: 48px; }
+    .cs-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease-in-out; display: flex; align-items: center; justify-content: center; }
+    .cs-slide.active { opacity: 1; }
+    .cs-slide img { width: 100%; height: 100%; object-fit: contain; }
+    .cs-dots { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 10; }
+    .cs-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.35); border: none; padding: 0; cursor: pointer; transition: background .3s; }
+    .cs-dot.active { background: var(--cream); }
+    .cs-prev, .cs-next { position: absolute; top: 0; width: 50%; height: 100%; z-index: 10; cursor: pointer; }
+    .cs-prev { left: 0; cursor: w-resize; }
+    .cs-next { right: 0; cursor: e-resize; }
+    .cs-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; padding: 36px 0; border-top: 1px solid rgba(44,62,53,.1); border-bottom: 1px solid rgba(44,62,53,.1); margin-bottom: 24px; }
+    .cs-stat-val { font-family: var(--font-body); font-size: 13px; font-weight: 900; letter-spacing: -.01em; color: var(--deep-forest); line-height: 1.3; margin-bottom: 6px; }
+    .cs-stat-ctx { font-size: 11px; font-weight: 300; color: rgba(44,62,53,.5); line-height: 1.5; }
+    .cs-disclaimer { font-size: 11px; font-weight: 300; font-style: italic; color: rgba(44,62,53,.4); margin-top: 12px; }
+
+    /* DARK CASE STUDY (Wild Foundation) */
+    .case-study-dark { background: var(--sage-green); border-bottom: none; }
+    .case-study-dark .cs-client { color: var(--cream); }
+    .case-study-dark .cs-hook { color: var(--cream); }
+    .case-study-dark .cs-body { color: rgba(245,240,232,.72); }
+    .case-study-dark .cs-tags { color: rgba(245,240,232,.4); }
+    .case-study-dark .cs-stat-val { color: var(--cream); }
+    .case-study-dark .cs-stat-ctx { color: rgba(245,240,232,.5); }
+    .case-study-dark .cs-stats { border-color: rgba(245,240,232,.15); }
+    .case-study-dark .cs-disclaimer { color: rgba(245,240,232,.35); }
+    .case-study-dark .cs-label { color: rgba(245,240,232,.55); }
+
+    /* BOTTOM CTA */
+    .section-cta { background: var(--deep-forest); padding: 96px 52px; text-align: center; }
+    .cta-heading { font-family: var(--font-body); font-size: clamp(32px, 4.5vw, 64px); font-weight: 900; letter-spacing: -.04em; line-height: .92; color: var(--cream); margin-bottom: 20px; }
+    .cta-body { font-size: 15px; font-weight: 300; color: rgba(245,240,232,.6); margin-bottom: 36px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--cream); color: var(--deep-forest); font-family: var(--font-body); font-size: 13px; font-weight: 700; letter-spacing: .04em; padding: 16px 36px; border-radius: 9999px; transition: opacity .25s, transform .2s; }
+    .btn-primary:hover { opacity: .88; transform: translateY(-1px); }
+
+    /* FOOTER */
+    .site-footer { background: var(--deep-forest); border-top: 1px solid rgba(245,240,232,.08); padding: 24px 52px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 10px; font-weight: 400; letter-spacing: .1em; color: rgba(245,240,232,.3); }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,232,.3); transition: color .25s; }
+    .footer-links a:hover { color: rgba(245,240,232,.7); }
+
+    .js-ready .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s cubic-bezier(.215,.61,.355,1), transform .9s cubic-bezier(.215,.61,.355,1); }
+    .js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 720px) {
+      .nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .nav-logo-svg { height: 52px; }
+      .page-hero, .case-study, .section-cta { padding-left: 24px; padding-right: 24px; }
+      .page-hero { padding-top: 100px; padding-bottom: 64px; }
+      .cs-stats { grid-template-columns: 1fr 1fr; }
+      .site-footer { padding: 20px 24px; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html">
+      <svg class="nav-logo-svg" viewBox="0 0 520 140" xmlns="http://www.w3.org/2000/svg" aria-label="Throughline Co.">
+        <path class="logo-wave" d="M32 68 C48 44, 72 44, 88 68 C104 92, 128 92, 144 68 C160 44, 184 44, 200 68" fill="none" stroke-width="2.8" stroke-linecap="round"/>
+        <circle class="logo-dot" cx="200" cy="68" r="5"/>
+        <text class="logo-text" x="228" y="78" font-family="Georgia, serif" font-size="42" font-weight="400" letter-spacing="-0.5">Throughline Co.</text>
+        <line class="logo-line" x1="228" y1="90" x2="498" y2="90" stroke-width="0.8"/>
+        <text class="logo-tagline" x="228" y="108" font-family="Georgia, serif" font-size="11" letter-spacing="1.8">PURPOSE-DRIVEN BRAND STRATEGY</text>
+      </svg>
+    </a>
+    <ul class="nav-links">
+      <li><a href="for-emerging-brands.html">For Emerging Brands</a></li>
+      <li><a href="for-nonprofits.html">For Nonprofits</a></li>
+      <li><a href="for-established-brands.html">For Established Brands</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="https://www.linkedin.com/company/throughline-co/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <p class="page-hero-eyebrow">Work</p>
+    <h1 class="page-hero-heading">The work.</h1>
+    <p class="page-hero-sub">Real organizations. Real numbers. No vanity metrics.</p>
+  </section>
+
+  <!-- WILD FOUNDATION -->
+  <section class="case-study case-study-dark">
+    <div class="case-study-inner">
+      <p class="cs-label">Case study 01</p>
+      <h2 class="cs-client reveal">Wild<br>Foundation</h2>
+      <p class="cs-tags reveal" style="transition-delay:.04s">Conservation Nonprofit · Social Strategy · Data Storytelling · AI Build</p>
+      <p class="cs-hook reveal" style="transition-delay:.08s">Fifty years of conservation impact. A digital presence that was not keeping up.</p>
+      <p class="cs-body reveal" style="transition-delay:.12s">Wild Foundation had the story. They always did. Fifty years of it. What they did not have was a communications infrastructure that let people find it, understand it, and act on it.<br><br>We rebuilt it. Donor email, social strategy, a six-slide Shenandoah campaign built and designed end to end, an AI bot that turned their website into a real resource, and a data story that turned conservation research into content people actually share.</p>
+      <div class="cs-carousel reveal" style="transition-delay:.16s" id="wildCarousel">
+        <div class="cs-slide active"><img src="/wild_shenandoah_slide_01.png" alt="Shenandoah Campaign slide 1"></div>
+        <div class="cs-slide"><img src="/wild_shenandoah_slide_02.png" alt="Shenandoah Campaign slide 2"></div>
+        <div class="cs-slide"><img src="/wild_shenandoah_slide_03.png" alt="Shenandoah Campaign slide 3"></div>
+        <div class="cs-slide"><img src="/wild_shenandoah_slide_04.png" alt="Shenandoah Campaign slide 4"></div>
+        <div class="cs-slide"><img src="/wild_shenandoah_slide_05.png" alt="Shenandoah Campaign slide 5"></div>
+        <div class="cs-slide"><img src="/wild_shenandoah_slide_06.png" alt="Shenandoah Campaign slide 6"></div>
+        <div class="cs-prev" id="wildPrev"></div>
+        <div class="cs-next" id="wildNext"></div>
+        <div class="cs-dots" id="wildDots">
+          <button class="cs-dot active" data-idx="0"></button>
+          <button class="cs-dot" data-idx="1"></button>
+          <button class="cs-dot" data-idx="2"></button>
+          <button class="cs-dot" data-idx="3"></button>
+          <button class="cs-dot" data-idx="4"></button>
+          <button class="cs-dot" data-idx="5"></button>
+        </div>
+      </div>
+      <div class="cs-stats reveal" style="transition-delay:.2s">
+        <div><p class="cs-stat-val">Shenandoah campaign live</p><p class="cs-stat-ctx">6-slide campaign built and designed</p></div>
+        <div><p class="cs-stat-val">Donor email redesigned</p><p class="cs-stat-ctx">Communications rebuilt from scratch</p></div>
+        <div><p class="cs-stat-val">AI bot deployed</p><p class="cs-stat-ctx">Website now a genuine source of truth</p></div>
+      </div>
+      <p class="cs-disclaimer reveal" style="transition-delay:.22s">Strategic spec work. In conversation with Wild Foundation on next steps.</p>
+    </div>
+  </section>
+
+  <!-- PAYRO FINANCE -->
+  <section class="case-study">
+    <div class="case-study-inner">
+      <p class="cs-label">Case study 02</p>
+      <h2 class="cs-client reveal">Payro<br>Finance</h2>
+      <p class="cs-tags reveal" style="transition-delay:.04s">Fintech · Brand Infrastructure · Audience Growth · LinkedIn Strategy</p>
+      <p class="cs-hook reveal" style="transition-delay:.08s">We did not go viral. We got specific.</p>
+      <p class="cs-body reveal" style="transition-delay:.12s">Payro Finance needed a LinkedIn presence that talked to real small business owners in real language. Not finance-speak. Not startup-speak. The actual language of someone who has made payroll on a Friday and is already thinking about the next one.<br><br>We rebuilt the content strategy around that person. In under three months: +118% LinkedIn audience growth. Website visits from 12 to 161 per month. Click-to-apply followed.</p>
+      <div class="cs-media reveal" style="transition-delay:.16s">
+        <img src="/payro%20groundhog%20.png" alt="Payro Finance Groundhog Day LinkedIn post">
+      </div>
+      <div class="cs-stats reveal" style="transition-delay:.2s">
+        <div><p class="cs-stat-val">+118%</p><p class="cs-stat-ctx">LinkedIn audience growth</p></div>
+        <div><p class="cs-stat-val">12 → 161</p><p class="cs-stat-ctx">Monthly click-to-apply</p></div>
+        <div><p class="cs-stat-val">1,861 → 2,839</p><p class="cs-stat-ctx">Website visits per month</p></div>
+      </div>
+      <p class="cs-disclaimer reveal" style="transition-delay:.22s">In under 3 months.</p>
+    </div>
+  </section>
+
+  <!-- GEORGETOWN UNIVERSITY -->
+  <section class="case-study">
+    <div class="case-study-inner">
+      <p class="cs-label">Case study 03</p>
+      <h2 class="cs-client reveal">Georgetown<br>University</h2>
+      <p class="cs-tags reveal" style="transition-delay:.04s">Higher Education · Brand Refresh · DEI Communications · Campaign Strategy</p>
+      <p class="cs-hook reveal" style="transition-delay:.08s">The kind of brand presence a university this good deserved to have.</p>
+      <p class="cs-body reveal" style="transition-delay:.12s">Brand refresh, DEI communications, and campaign strategy built from scratch. Event collateral reaching 500 or more students per activation.</p>
+      <div class="cs-media reveal" style="transition-delay:.16s" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <img src="/georgetown-action-figure.png" alt="Georgetown Student Action Figure campaign" style="border-radius:8px;max-height:380px;object-fit:cover;width:100%;">
+      </div>
+      <div class="cs-stats reveal" style="transition-delay:.2s">
+        <div><p class="cs-stat-val">+40%</p><p class="cs-stat-ctx">Website traffic</p></div>
+        <div><p class="cs-stat-val">+70%</p><p class="cs-stat-ctx">Brand visibility</p></div>
+        <div><p class="cs-stat-val">500+</p><p class="cs-stat-ctx">Students per campaign</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DYSLEX-AID -->
+  <section class="case-study">
+    <div class="case-study-inner">
+      <p class="cs-label" style="color:var(--terracotta)">Founder project</p>
+      <h2 class="cs-client reveal" style="color:var(--muted-sage)">Dyslex-Aid</h2>
+      <p class="cs-tags reveal" style="transition-delay:.04s">AI Product · GTM Strategy · Pitch and Pilot</p>
+      <p class="cs-hook reveal" style="transition-delay:.08s">I built this one.</p>
+      <p class="cs-body reveal" style="transition-delay:.12s">Dyslex-Aid is an AI reading intervention tool for children with dyslexia. I took it from an idea to a pitch to real K-12 classrooms. Won $6,500 at a global pitch competition. Piloted in two schools. Featured in Georgetown University CCT Disability Pride Month publication.<br><br>This is where I learned what it means to build something that actually matters, and what it costs when the right people cannot find it.</p>
+      <div class="cs-media reveal" style="transition-delay:.16s">
+        <img src="/pitch-cheque.jpg" alt="Riya Mittal holding the $6,500 Dyslex-Aid pitch competition cheque">
+      </div>
+      <div class="cs-stats reveal" style="transition-delay:.2s">
+        <div><p class="cs-stat-val">$6,500 won</p><p class="cs-stat-ctx">Global pitch competition</p></div>
+        <div><p class="cs-stat-val">2 K-12 schools</p><p class="cs-stat-ctx">Real classrooms piloted</p></div>
+        <div><p class="cs-stat-val">Featured</p><p class="cs-stat-ctx">Georgetown CCT, Disability Pride Month</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM CTA -->
+  <section class="section-cta">
+    <h2 class="cta-heading reveal">Work with us.</h2>
+    <p class="cta-body reveal" style="transition-delay:.08s">Four proof points deep. You know what we can do.</p>
+    <a href="contact.html" class="btn-primary reveal" style="transition-delay:.14s">Get in touch →</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p class="footer-copy">Throughline Co. · © 2026 · All rights reserved</p>
+    <nav class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="https://www.linkedin.com/company/throughline-co/" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
+  </footer>
+
+  <script>
+    document.body.classList.add('js-ready');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.04, rootMargin: '0px 0px -16px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // Wild Foundation carousel
+    (function() {
+      const slides = document.querySelectorAll('#wildCarousel .cs-slide');
+      const dots = document.querySelectorAll('#wildDots .cs-dot');
+      let cur = 0, timer;
+      function go(n) {
+        slides[cur].classList.remove('active'); dots[cur].classList.remove('active');
+        cur = (n + slides.length) % slides.length;
+        slides[cur].classList.add('active'); dots[cur].classList.add('active');
+        reset();
+      }
+      function reset() { clearInterval(timer); timer = setInterval(() => go(cur + 1), 4000); }
+      document.getElementById('wildPrev').addEventListener('click', () => go(cur - 1));
+      document.getElementById('wildNext').addEventListener('click', () => go(cur + 1));
+      dots.forEach(d => d.addEventListener('click', () => go(+d.dataset.idx)));
+      reset();
+    })();
+  </script>
+</body>
+</html>

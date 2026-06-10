@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Established Brands — Throughline Co.</title>
+  <meta property="og:title" content="For Established Brands — Throughline Co.">
+  <meta property="og:description" content="Brand strategy for organizations ready to sharpen their story and scale what works.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Merriweather:ital,wght@0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream:       #F5F0E8;
+      --cream-d:     #EDE8DC;
+      --deep-forest: #2C3E35;
+      --sage-green:  #3D6B4F;
+      --muted-sage:  #8BA888;
+      --terracotta:  #C2714F;
+      --font-display:'Merriweather', Georgia, serif;
+      --font-body:   'Lato', Arial, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--cream); scroll-behavior: smooth; }
+    body { font-family: var(--font-body); font-weight: 300; font-size: 14px; line-height: 1; background: var(--cream); color: var(--deep-forest); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    @media (pointer: fine) and (hover: hover) { * { cursor: none !important; } }
+
+    #tlNav { position: fixed; left: 20px; top: 0; width: 12px; height: 100vh; z-index: 90; pointer-events: none; overflow: visible; display: none; }
+    @media (min-width: 900px) { #tlNav { display: block; } }
+    #tlFill { filter: drop-shadow(0 0 4px rgba(61,107,79,0.9)) drop-shadow(0 0 8px rgba(61,107,79,0.5)); }
+
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 24px 64px; display: flex; justify-content: space-between; align-items: center; background: rgba(245,240,232,.93); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(44,62,53,.08); }
+    .nav-logo-svg { height: 60px; width: auto; display: block; }
+    .nav-logo-svg .logo-wave    { stroke: var(--muted-sage); }
+    .nav-logo-svg .logo-dot     { fill: var(--terracotta); }
+    .nav-logo-svg .logo-text    { fill: var(--deep-forest); }
+    .nav-logo-svg .logo-line    { stroke: var(--sage-green); opacity: .45; }
+    .nav-logo-svg .logo-tagline { fill: var(--muted-sage); }
+    .nav-links { display: flex; gap: 24px; list-style: none; align-items: center; }
+    .nav-links a { font-size: 9.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--deep-forest); transition: opacity .25s; white-space: nowrap; }
+    .nav-links a:hover { opacity: .5; }
+    .nav-links a.active { color: var(--terracotta); }
+    .nav-linkedin { display: flex; align-items: center; opacity: .5; transition: opacity .2s; }
+    .nav-linkedin:hover { opacity: 1; }
+
+    .page-body { padding: 152px 80px 120px; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; }
+    .coming-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 32px; display: block; }
+    .coming-headline { font-family: var(--font-display); font-size: clamp(36px, 5vw, 68px); font-weight: 400; line-height: 1.25; color: var(--deep-forest); margin-bottom: 32px; letter-spacing: -.025em; }
+    .coming-body { font-size: clamp(16px, 1.65vw, 19px); font-weight: 300; line-height: 1.76; color: rgba(44,62,53,.65); max-width: 520px; margin-bottom: 52px; }
+    .btn-terra { display: inline-flex; align-items: center; gap: 10px; background: var(--terracotta); color: var(--cream); font-family: var(--font-body); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 16px 36px; border-radius: 9999px; border: none; transition: opacity .25s, transform .2s; }
+    .btn-terra:hover { opacity: .85; transform: translateY(-2px); }
+
+    .site-footer { background: var(--deep-forest); border-top: 1px solid rgba(245,240,232,.08); padding: 24px 52px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 10px; font-weight: 400; letter-spacing: .1em; color: rgba(245,240,232,.3); }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,232,.3); transition: color .25s; }
+    .footer-links a:hover { color: rgba(245,240,232,.7); }
+
+    @media (max-width: 720px) {
+      .nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .nav-logo-svg { height: 52px; }
+      .page-body { padding: 116px 24px 80px; }
+      .site-footer { padding: 20px 24px; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <svg id="tlNav" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <line x1="6" y1="0" x2="6" y2="10000" stroke="#3D6B4F" stroke-width="1" opacity="0.18" stroke-dasharray="5 7"/>
+    <line id="tlFill" x1="6" y1="0" x2="6" y2="0" stroke="#3D6B4F" stroke-width="2" stroke-linecap="round"/>
+    <circle id="tlTip" cx="6" cy="0" r="4" fill="#C2714F" opacity="0" style="filter:drop-shadow(0 0 4px rgba(194,113,79,0.8));"/>
+  </svg>
+
+  <nav class="nav">
+    <a href="index.html">
+      <svg class="nav-logo-svg" viewBox="0 0 520 140" xmlns="http://www.w3.org/2000/svg" aria-label="Throughline Co.">
+        <path class="logo-wave" d="M32 68 C48 44, 72 44, 88 68 C104 92, 128 92, 144 68 C160 44, 184 44, 200 68" fill="none" stroke-width="2.8" stroke-linecap="round"/>
+        <circle class="logo-dot" cx="200" cy="68" r="5"/>
+        <text class="logo-text" x="228" y="78" font-family="Georgia, serif" font-size="42" font-weight="400" letter-spacing="-0.5">Throughline Co.</text>
+        <line class="logo-line" x1="228" y1="90" x2="498" y2="90" stroke-width="0.8"/>
+        <text class="logo-tagline" x="228" y="108" font-family="Georgia, serif" font-size="11" letter-spacing="1.8">PURPOSE-DRIVEN BRAND STRATEGY</text>
+      </svg>
+    </a>
+    <ul class="nav-links">
+      <li><a href="for-emerging-brands.html">For Emerging Brands</a></li>
+      <li><a href="for-nonprofits.html">For Nonprofits</a></li>
+      <li><a href="for-established-brands.html" class="active">For Established Brands</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="https://www.linkedin.com/company/throughline-co/" target="_blank" rel="noopener" aria-label="LinkedIn" class="nav-linkedin"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></li>
+    </ul>
+  </nav>
+
+  <div class="page-body">
+    <span class="coming-eyebrow">For established brands</span>
+    <h1 class="coming-headline">This page is on its way.</h1>
+    <p class="coming-body">We work with established brands to sharpen their story, find what is actually working, and build the systems to scale it. That page is being built. In the meantime, let's talk.</p>
+    <a href="contact.html" class="btn-terra">Book a discovery call</a>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-copy">Throughline Co. &middot; &copy; 2026 &middot; All rights reserved</p>
+    <nav class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="https://www.linkedin.com/company/throughline-co/" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
+  </footer>
+
+  <script>
+    (function () {
+      var tlNav = document.getElementById('tlNav'), tlFill = document.getElementById('tlFill'), tlTip = document.getElementById('tlTip');
+      if (!tlNav || !tlFill || window.innerWidth < 900) return;
+      var y = 0, raf;
+      function frame() { var h = document.body.scrollHeight - window.innerHeight; var p = h > 0 ? Math.min(window.scrollY / h, 1) : 0; y = y + (p * window.innerHeight - y) * 0.12; tlFill.setAttribute('y2', y); if (tlTip) { tlTip.setAttribute('cy', y); tlTip.setAttribute('opacity', y > 4 ? '1' : '0'); } raf = requestAnimationFrame(frame); }
+      frame();
+      window.addEventListener('resize', function () { cancelAnimationFrame(raf); y = 0; frame(); }, { passive: true });
+    }());
+    (function () {
+      if (!matchMedia('(pointer:fine) and (hover:hover)').matches) return;
+      var c = document.createElement('div');
+      c.style.cssText = 'position:fixed;pointer-events:none;z-index:9999;width:10px;height:10px;border-radius:50%;background:#C2714F;transform:translate(-50%,-50%);opacity:0;left:-20px;top:-20px;';
+      document.body.appendChild(c);
+      document.addEventListener('mousemove', function (e) { c.style.opacity = '1'; c.style.left = e.clientX + 'px'; c.style.top = e.clientY + 'px'; }, { passive: true });
+      document.addEventListener('mouseleave', function () { c.style.opacity = '0'; });
+    }());
+  </script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Throughline Co.</title>
+  <meta property="og:title" content="Contact — Throughline Co.">
+  <meta property="og:description" content="Thirty minutes. No pitch, no prep required.">
+  <meta property="og:url" content="https://throughline.community/contact">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Merriweather:ital,wght@0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream:       #F5F0E8;
+      --cream-d:     #EDE8DC;
+      --deep-forest: #2C3E35;
+      --sage-green:  #3D6B4F;
+      --muted-sage:  #8BA888;
+      --terracotta:  #C2714F;
+      --font-display:'Merriweather', Georgia, serif;
+      --font-body:   'Lato', Arial, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--cream); scroll-behavior: smooth; }
+    body { font-family: var(--font-body); font-weight: 300; font-size: 14px; line-height: 1; background: var(--cream); color: var(--deep-forest); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 28px 64px; display: flex; justify-content: space-between; align-items: center; background: rgba(245,240,232,.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(44,62,53,.08); }
+    .nav-logo-svg { height: 64px; width: auto; display: block; }
+    .nav-logo-svg .logo-wave { stroke: var(--muted-sage); }
+    .nav-logo-svg .logo-dot { fill: var(--terracotta); }
+    .nav-logo-svg .logo-text { fill: var(--deep-forest); }
+    .nav-logo-svg .logo-line { stroke: var(--sage-green); opacity: .45; }
+    .nav-logo-svg .logo-tagline { fill: var(--muted-sage); }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { font-size: 9.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--deep-forest); transition: opacity .25s; white-space: nowrap; }
+    .nav-links a:hover { opacity: .5; }
+    .nav-links a.active { color: var(--terracotta); }
+
+    /* HERO */
+    .page-hero { background: var(--sage-green); padding: 140px 52px 96px; }
+    .page-hero-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: rgba(245,240,232,.5); margin-bottom: 24px; }
+    .page-hero-heading { font-family: var(--font-body); font-size: clamp(40px, 6vw, 88px); font-weight: 900; letter-spacing: -.05em; line-height: .92; color: var(--cream); margin-bottom: 28px; max-width: 700px; }
+    .page-hero-sub { font-size: 16px; font-weight: 300; line-height: 1.72; color: rgba(245,240,232,.7); max-width: 480px; margin-bottom: 40px; }
+    .hero-book-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--cream); color: var(--deep-forest); font-family: var(--font-body); font-size: 14px; font-weight: 700; letter-spacing: .03em; padding: 18px 40px; border-radius: 9999px; transition: opacity .25s, transform .2s; }
+    .hero-book-btn:hover { opacity: .88; transform: translateY(-1px); }
+
+    /* DIVIDER */
+    .section-divider { background: var(--cream); padding: 72px 52px; text-align: center; border-bottom: 1px solid rgba(44,62,53,.08); }
+    .divider-label { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: rgba(44,62,53,.3); }
+
+    /* FORM SECTION */
+    .section-form { background: var(--cream); padding: 80px 52px 64px; }
+    .form-inner { max-width: 640px; margin: 0 auto; }
+    .form-heading { font-family: var(--font-display); font-size: clamp(24px, 3vw, 40px); font-weight: 400; font-style: italic; color: var(--deep-forest); margin-bottom: 12px; }
+    .form-subhead { font-size: 14px; font-weight: 300; line-height: 1.65; color: rgba(44,62,53,.55); margin-bottom: 48px; }
+    .form-field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
+    .form-label { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(44,62,53,.55); transition: color .25s; }
+    .form-field:focus-within .form-label { color: var(--deep-forest); }
+    .form-input { background: transparent; border: none; border-bottom: 1px solid rgba(44,62,53,.18); padding: 12px 0; font-family: var(--font-body); font-size: 15px; font-weight: 300; color: var(--deep-forest); outline: none; transition: border-color .3s; }
+    .form-input:focus { border-color: var(--sage-green); }
+    .form-textarea { background: transparent; border: none; border-bottom: 1px solid rgba(44,62,53,.18); border-left: 2px solid rgba(194,113,79,.22); padding: 12px 0 12px 14px; font-family: var(--font-body); font-size: 15px; font-weight: 300; color: var(--deep-forest); outline: none; resize: vertical; min-height: 120px; line-height: 1.75; transition: border-color .3s; }
+    .form-textarea:focus { border-color: var(--sage-green); }
+    .form-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+    .form-pill { font-size: 11px; font-weight: 700; letter-spacing: .06em; padding: 7px 16px; border-radius: 9999px; border: 1.5px solid rgba(44,62,53,.2); color: rgba(44,62,53,.55); background: transparent; cursor: pointer; transition: border-color .2s, color .2s, background .2s; }
+    .form-pill.selected { border-color: var(--sage-green); color: var(--deep-forest); background: rgba(61,107,79,.08); }
+    .form-pill:focus-visible { outline: 2px solid var(--sage-green); outline-offset: 2px; }
+    .form-submit { display: inline-flex; align-items: center; gap: 10px; background: var(--deep-forest); color: var(--cream); font-family: var(--font-body); font-size: 14px; font-weight: 700; letter-spacing: .04em; padding: 16px 40px; border-radius: 9999px; border: none; cursor: pointer; transition: opacity .25s, transform .2s; margin-top: 8px; }
+    .form-submit:hover { opacity: .82; transform: translateY(-1px); }
+    .form-submit:active { transform: scale(.97); }
+    .form-success { display: none; text-align: center; padding: 48px 0; }
+    .form-success.visible { display: block; }
+    .form-success-line { font-family: var(--font-display); font-size: clamp(20px, 2.4vw, 32px); font-weight: 400; font-style: italic; color: var(--deep-forest); line-height: 1.55; margin-bottom: 12px; }
+
+    /* FOOTER */
+    .site-footer { background: var(--deep-forest); border-top: 1px solid rgba(245,240,232,.08); padding: 24px 52px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 10px; font-weight: 400; letter-spacing: .1em; color: rgba(245,240,232,.3); }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,232,.3); transition: color .25s; }
+    .footer-links a:hover { color: rgba(245,240,232,.7); }
+
+    @media (max-width: 720px) {
+      .nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .nav-logo-svg { height: 52px; }
+      .page-hero, .section-form, .section-divider { padding-left: 24px; padding-right: 24px; }
+      .page-hero { padding-top: 100px; padding-bottom: 64px; }
+      .form-submit { width: 100%; justify-content: center; }
+      .site-footer { padding: 20px 24px; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html">
+      <svg class="nav-logo-svg" viewBox="0 0 520 140" xmlns="http://www.w3.org/2000/svg" aria-label="Throughline Co.">
+        <path class="logo-wave" d="M32 68 C48 44, 72 44, 88 68 C104 92, 128 92, 144 68 C160 44, 184 44, 200 68" fill="none" stroke-width="2.8" stroke-linecap="round"/>
+        <circle class="logo-dot" cx="200" cy="68" r="5"/>
+        <text class="logo-text" x="228" y="78" font-family="Georgia, serif" font-size="42" font-weight="400" letter-spacing="-0.5">Throughline Co.</text>
+        <line class="logo-line" x1="228" y1="90" x2="498" y2="90" stroke-width="0.8"/>
+        <text class="logo-tagline" x="228" y="108" font-family="Georgia, serif" font-size="11" letter-spacing="1.8">PURPOSE-DRIVEN BRAND STRATEGY</text>
+      </svg>
+    </a>
+    <ul class="nav-links">
+      <li><a href="for-emerging-brands.html">For Emerging Brands</a></li>
+      <li><a href="for-nonprofits.html">For Nonprofits</a></li>
+      <li><a href="for-established-brands.html">For Established Brands</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+      <li><a href="https://www.linkedin.com/company/throughline-co/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <p class="page-hero-eyebrow">Contact</p>
+    <h1 class="page-hero-heading">Let's find your throughline.</h1>
+    <p class="page-hero-sub">Thirty minutes. No pitch, no prep required. Tell us what you are building and where the story keeps getting stuck.</p>
+    <a href="https://calendly.com/rmittal-works/30min" target="_blank" rel="noopener" class="hero-book-btn">Book a free 30-min call →</a>
+  </section>
+
+  <!-- DIVIDER -->
+  <div class="section-divider">
+    <p class="divider-label">Or write to us</p>
+  </div>
+
+  <!-- FORM -->
+  <section class="section-form">
+    <div class="form-inner">
+      <h2 class="form-heading">Prefer to write? Send us the thread.</h2>
+      <p class="form-subhead">Tell us who you are, what you are building, and the story you have not been able to tell yet. We read everything and respond within two business days.</p>
+
+      <form id="contactForm" novalidate>
+        <div class="form-field">
+          <label class="form-label" for="name">Who are you?</label>
+          <input type="text" class="form-input" id="name" name="name" placeholder="Your name">
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="org">What are you building?</label>
+          <input type="text" class="form-input" id="org" name="org" placeholder="Your organisation or project name">
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="story">What is the story you have not been able to tell yet?</label>
+          <textarea class="form-textarea" id="story" name="story" placeholder="Tell us what feels stuck. Your messaging, your audience, your brand. No need to have it figured out. That is what we are here for."></textarea>
+        </div>
+        <div class="form-field">
+          <label class="form-label">How would you describe your organisation?</label>
+          <div class="form-pills">
+            <button type="button" class="form-pill" data-value="Women-Owned">Women-Owned</button>
+            <button type="button" class="form-pill" data-value="Black-Owned">Black-Owned</button>
+            <button type="button" class="form-pill" data-value="LGBTQ+-Owned">LGBTQ+-Owned</button>
+            <button type="button" class="form-pill" data-value="Veteran-Owned">Veteran-Owned</button>
+            <button type="button" class="form-pill" data-value="Nonprofit">Nonprofit</button>
+            <button type="button" class="form-pill" data-value="Social Enterprise">Social Enterprise</button>
+            <button type="button" class="form-pill" data-value="Sustainable Brand">Sustainable Brand</button>
+            <button type="button" class="form-pill" data-value="Purpose-Driven">Purpose-Driven</button>
+            <button type="button" class="form-pill" data-value="Other">Other</button>
+          </div>
+          <input type="hidden" name="org_type" id="pillsValue">
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="source">How did you find us?</label>
+          <input type="text" class="form-input" id="source" name="source" placeholder="LinkedIn, referral, search, word of mouth, other">
+        </div>
+        <button type="submit" class="form-submit">Send the thread →</button>
+      </form>
+
+      <div class="form-success" id="formSuccess">
+        <p class="form-success-line">Your thread is on its way to us.</p>
+        <p class="form-success-line">We will be in touch soon.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p class="footer-copy">Throughline Co. · © 2026 · All rights reserved</p>
+    <nav class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="https://www.linkedin.com/company/throughline-co/" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
+  </footer>
+
+  <script>
+    // Pills
+    document.querySelectorAll('.form-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        pill.classList.toggle('selected');
+        const vals = [...document.querySelectorAll('.form-pill.selected')].map(p => p.dataset.value);
+        document.getElementById('pillsValue').value = vals.join(', ');
+      });
+    });
+
+    // Form submit
+    document.getElementById('contactForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target));
+      fetch('/api/form', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).catch(() => {});
+      e.target.style.opacity = '0';
+      e.target.style.transition = 'opacity .4s';
+      setTimeout(() => {
+        e.target.style.display = 'none';
+        const success = document.getElementById('formSuccess');
+        success.classList.add('visible');
+      }, 400);
+    });
+  </script>
+</body>
+</html>

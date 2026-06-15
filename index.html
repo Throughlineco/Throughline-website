@@ -1003,7 +1003,7 @@
 
       <div class="features-image-wrap">
         <div class="features-image-frame" id="featuresImageFrame">
-          <img class="features-img" src="https://images.unsplash.com/photo-1675352162363-ac40c3bb8265?auto=format&fit=crop&w=900&q=80" alt="Organic first, then paid" style="object-position:center top;" loading="lazy" decoding="async">
+          <img class="features-img" src="https://images.unsplash.com/photo-1675352162363-ac40c3bb8265?auto=format&fit=crop&w=900&q=80" alt="Organic first, then paid" style="object-position:center top;" fetchpriority="high" decoding="sync">
         </div>
       </div>
 
@@ -1286,7 +1286,7 @@
       const featureData = [
         { src: 'https://images.unsplash.com/photo-1675352162363-ac40c3bb8265?auto=format&fit=crop&w=900&q=80', alt: 'Organic first, then paid',            pos: 'center top'    },
         { src: 'https://images.unsplash.com/photo-1563279699-4c5dfcab048c?auto=format&fit=crop&w=900&q=80',    alt: 'Story finding, not strategy theater', pos: 'center center' },
-        { src: '/ombuds-event-photo.jpg', alt: 'Independence in six months', pos: 'center 30%' },
+        { src: '/ombuds-event-photo.webp', alt: 'Independence in six months', pos: 'center 30%' },
       ];
 
       const items      = document.querySelectorAll('.feature-item');

@@ -1312,9 +1312,23 @@
           img.className = 'features-img';
           imageFrame.appendChild(img);
         }
-        img.src = d.src;
+        // Hide immediately so old image doesn't linger while new one loads
+        img.style.transition = 'opacity .15s';
+        img.style.opacity = '0';
         img.alt = d.alt;
         img.style.objectPosition = d.pos;
+        img.onload = function() {
+          img.className = 'features-img'; // re-triggers featureImgIn animation
+          img.style.opacity = '';
+          img.style.transition = '';
+        };
+        img.src = d.src;
+        // If already cached, onload won't fire — show immediately
+        if (img.complete && img.naturalWidth) {
+          img.className = 'features-img';
+          img.style.opacity = '';
+          img.style.transition = '';
+        }
       }
 
       function setActive(index) {

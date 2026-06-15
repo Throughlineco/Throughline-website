@@ -12,6 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Merriweather:ital,wght@0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="/emerging%20brand%20image.JPG">
   <style>
     :root {
       --cream:       #F5F0E8;
@@ -669,7 +670,7 @@
       <!-- Image column -->
       <div class="hero-image-col reveal" style="transition-delay:.32s">
         <div class="hero-image-wrap">
-          <img src="/emerging brand image.JPG" alt="Throughline Co. in the field">
+          <img src="/emerging brand image.JPG" alt="Throughline Co. in the field" fetchpriority="high" decoding="sync">
           <div class="hero-image-overlay"></div>
           <div class="hero-image-tint"></div>
         </div>

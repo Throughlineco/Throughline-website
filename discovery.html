@@ -668,7 +668,7 @@
         <button class="tl-btn tl-btn-s" onclick="go('s3')">← Back</button>
         <button class="tl-btn tl-btn-p" id="submitBtn" onclick="submitForm()">Submit →</button>
       </div>
-      <div class="tl-error" id="submitError">Something went wrong. Please try again, or email directly to rmittal.works@gmail.com.</div>
+      <div class="tl-error" id="submitError">Something went wrong. Please try again, or email directly to info@throughline.community.</div>
     </div>
 
     <!-- THANK YOU -->
@@ -861,7 +861,7 @@
         const body = await res.json().catch(() => ({}));
         const fieldErrors = (body.errors || []).map(e => e.field + ': ' + e.message).join(', ');
         const msg = fieldErrors || body.error || ('Error ' + res.status);
-        errEl.textContent = 'Submission failed (' + msg + '). Please email rmittal.works@gmail.com directly.';
+        errEl.textContent = 'Submission failed (' + msg + '). Please email info@throughline.community directly.';
         errEl.classList.add('visible');
         btn.disabled = false;
         btn.textContent = 'Submit →';
@@ -869,7 +869,7 @@
     } catch (e) {
       btn.disabled = false;
       btn.textContent = 'Submit →';
-      errEl.textContent = 'Something went wrong. Please email rmittal.works@gmail.com directly.';
+      errEl.textContent = 'Something went wrong. Please email info@throughline.community directly.';
       errEl.classList.add('visible');
     }
   }

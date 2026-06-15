@@ -67,8 +67,20 @@
       padding: 36px 64px;
       display: flex; justify-content: space-between; align-items: center;
       pointer-events: none;
+      background: transparent;
+      backdrop-filter: blur(0px);
+      border-bottom: 1px solid transparent;
+      transition: background .35s ease, backdrop-filter .35s ease, border-color .35s ease, padding .35s ease;
     }
-    .nav-logo-svg { height: 80px; width: auto; display: block; pointer-events: all; }
+    .nav.scrolled {
+      background: rgba(245,240,232,.95);
+      backdrop-filter: blur(14px);
+      border-bottom-color: rgba(44,62,53,.08);
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+    .nav-logo-svg { height: 80px; width: auto; display: block; pointer-events: all; transition: height .35s ease; }
+    .nav.scrolled .nav-logo-svg { height: 52px; }
     .nav-logo-svg .logo-wave    { stroke: rgba(245,240,232,0.6); transition: stroke .35s; }
     .nav-logo-svg .logo-dot     { fill: var(--terracotta); }
     .nav-logo-svg .logo-text    { fill: var(--cream); transition: fill .35s; }

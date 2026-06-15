@@ -109,6 +109,20 @@
     .nav-mobile.open a:nth-child(3) { transition-delay: .14s; }
     .nav-mobile.open a:nth-child(4) { transition-delay: .19s; }
     .nav-mobile.open a:nth-child(5) { transition-delay: .24s; }
+  
+    /* COOKIE CONSENT BANNER */
+    .cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:9000;background:var(--deep-forest);border-top:1px solid rgba(245,240,232,.12);padding:20px 40px;transform:translateY(100%);transition:transform .4s cubic-bezier(.215,.61,.355,1);}
+    .cookie-banner.visible{transform:translateY(0);}
+    .cookie-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+    .cookie-text{font-size:12px;font-weight:300;color:rgba(245,240,232,.7);line-height:1.65;}
+    .cookie-text a{color:var(--muted-sage);text-decoration:underline;}
+    .cookie-actions{display:flex;gap:10px;flex-shrink:0;}
+    .cookie-btn{font-family:var(--font-body);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:10px 22px;border-radius:9999px;border:none;transition:opacity .2s;}
+    .cookie-btn-decline{background:transparent;color:rgba(245,240,232,.55);border:1px solid rgba(245,240,232,.2);}
+    .cookie-btn-decline:hover{color:rgba(245,240,232,.9);border-color:rgba(245,240,232,.5);}
+    .cookie-btn-accept{background:var(--terracotta);color:var(--cream);}
+    .cookie-btn-accept:hover{opacity:.85;}
+    @media(max-width:720px){.cookie-banner{padding:20px 24px;}.cookie-inner{flex-direction:column;align-items:flex-start;gap:16px;}}
   </style>
 </head>
 <body>
@@ -207,6 +221,7 @@
     <p class="footer-copy">Throughline Co. · © 2026 · All rights reserved</p>
     <nav class="footer-links">
       <a href="privacy.html">Privacy Policy</a>
+      <a href="#" onclick="window.tlcoOpenConsent&&window.tlcoOpenConsent();return false;">Cookie settings</a>
       <a href="https://www.linkedin.com/company/throughline-co/" target="_blank" rel="noopener">LinkedIn</a>
     </nav>
   </footer>
@@ -236,4 +251,6 @@
     });
 
     (function(){var b=document.getElementById('navHamburger'),o=document.getElementById('navMobile');if(!b||!o)return;function t(open){b.classList.toggle('open',open);o.classList.toggle('open',open);b.setAttribute('aria-expanded',String(open));o.setAttribute('aria-hidden',String(!open));document.body.style.overflow=open?'hidden':'';}b.addEventListener('click',function(){t(!b.classList.contains('open'));});o.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){t(false);});});document.addEventListener('keydown',function(e){if(e.key==='Escape')t(false);});}());
+  
+    (function(){var KEY='tlco_consent_v1',stored=localStorage.getItem(KEY);function loadAnalytics(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-XB1J0CMTXV';document.head.appendChild(s);window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','G-XB1J0CMTXV');}if(stored==='accepted'){loadAnalytics();}document.addEventListener('DOMContentLoaded',function(){var banner=document.getElementById('cookieBanner');function show(){if(banner)banner.classList.add('visible');}function hide(){if(banner)banner.classList.remove('visible');}window.tlcoOpenConsent=function(){localStorage.removeItem(KEY);show();};if(!stored){show();}var ac=document.getElementById('cookieAccept'),dc=document.getElementById('cookieDecline');if(ac)ac.addEventListener('click',function(){localStorage.setItem(KEY,'accepted');hide();loadAnalytics();});if(dc)dc.addEventListener('click',function(){localStorage.setItem(KEY,'declined');hide();});});}());
   </script>

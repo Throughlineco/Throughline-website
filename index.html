@@ -434,6 +434,31 @@
     .strategy-right { overflow: hidden; }
     .strategy-right img { width: 100%; height: 520px; object-fit: cover; display: block; }
 
+    /* CLIENT TESTIMONIAL */
+    .section-testimonial { background: #141f1a; border-top: 1px solid rgba(245,240,232,.08); padding: 100px 52px; position: relative; overflow: hidden; }
+    .section-testimonial::before { content: ''; position: absolute; top: -110px; right: -70px; width: 560px; height: 560px; border-radius: 50%; background: radial-gradient(circle, rgba(194,113,79,.09) 0%, transparent 60%); pointer-events: none; }
+    .testimonial-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 44px; display: flex; align-items: center; justify-content: center; gap: 14px; position: relative; z-index: 1; }
+    .testimonial-eyebrow::before, .testimonial-eyebrow::after { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--terracotta); opacity: .5; }
+    .testimonial-inner { max-width: 1040px; margin: 0 auto; position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .testimonial-quote-wrap { background: rgba(245,240,232,.045); border: 1px solid rgba(245,240,232,.12); border-radius: 14px; padding: 36px 36px 32px; }
+    .testimonial-mark { font-family: var(--font-display); font-style: italic; font-size: 44px; line-height: 1; color: var(--terracotta); display: block; margin-bottom: 8px; }
+    .testimonial-quote { font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(15px, 1.6vw, 19px); line-height: 1.72; color: rgba(245,240,232,.85); margin-bottom: 20px; }
+    .testimonial-attrib { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(245,240,232,.42); }
+    .testimonial-video-frame { padding: 10px; background: rgba(245,240,232,.05); border: 1px solid rgba(245,240,232,.14); border-radius: 18px; box-shadow: 0 30px 70px rgba(0,0,0,.35), 0 8px 20px rgba(0,0,0,.25); }
+    .testimonial-video-wrap { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 11px; overflow: hidden; background: #000; cursor: pointer; }
+    .testimonial-video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .testimonial-video-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s cubic-bezier(.215,.61,.355,1); }
+    .testimonial-video-wrap:hover .testimonial-video-poster { transform: scale(1.03); }
+    .testimonial-video-wrap::after { content: ''; position: absolute; inset: 0; background: rgba(20,31,26,.18); transition: background .25s; }
+    .testimonial-video-wrap:hover::after { background: rgba(20,31,26,.28); }
+    .testimonial-video-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 64px; height: 64px; border-radius: 50%; z-index: 2; background: var(--terracotta); color: var(--cream); display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(194,113,79,.45), 0 0 0 7px rgba(245,240,232,.07); transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .25s; }
+    .testimonial-video-play svg { margin-left: 3px; }
+    .testimonial-video-wrap:hover .testimonial-video-play { transform: translate(-50%,-50%) scale(1.08); }
+    .testimonial-video-wrap:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 4px; }
+    .testimonial-video-wrap.playing .testimonial-video-poster,
+    .testimonial-video-wrap.playing .testimonial-video-play,
+    .testimonial-video-wrap.playing::after { display: none; }
+
     /* CONTACT */
     .section-contact { background: var(--sage-green); padding: 100px 52px 80px; }
     .contact-inner { max-width: 700px; }
@@ -572,6 +597,7 @@
       .wild-carousel { min-height: 340px; }
       .section-founder { grid-template-columns: 1fr; }
       .strategy-inner { grid-template-columns: 1fr; }
+      .testimonial-inner { grid-template-columns: 1fr; }
       .georgetown-content { padding: 36px 28px 24px; }
       .georgetown-strip { grid-template-columns: 1fr 1fr; }
       .case-card-stats, .case-card-stats.four-col { grid-template-columns: 1fr 1fr; }
@@ -584,7 +610,7 @@
       .callout-left { position: static; }
       .section-features, .section-cover,
       .section-throughline, .section-payro, .section-philosophy,
-      .section-founder, .section-strategy,
+      .section-founder, .section-strategy, .section-testimonial,
       .section-contact { padding-left: 24px; padding-right: 24px; }
       .cs-footer { padding: 72px 24px 60px; }
       .cs-form-section { padding: 60px 24px 48px; }
@@ -1104,6 +1130,26 @@
     </div>
   </section>
 
+  <!-- CLIENT TESTIMONIAL -->
+  <section class="section-testimonial">
+    <span class="testimonial-eyebrow reveal">In his words</span>
+    <div class="testimonial-inner">
+      <div class="testimonial-quote-wrap reveal">
+        <span class="testimonial-mark" aria-hidden="true">&ldquo;</span>
+        <p class="testimonial-quote">Working with Riya took a huge weight off my shoulders. She helped me make decisions I'd been putting off for weeks and somehow understood my vision even when I couldn't fully explain it. Halfway through, I completely changed directions, and instead of pushing back, she redid the research and copy to match. It was a pleasure working with her.</p>
+        <p class="testimonial-attrib">Josh Harris, Josh Harris Media</p>
+      </div>
+      <div class="testimonial-video-frame reveal" style="transition-delay:.15s">
+        <div class="testimonial-video-wrap" data-video-id="vOZbuVr-QVo" data-video-title="Josh Harris video testimonial" tabindex="0" role="button" aria-label="Play Josh Harris video testimonial">
+          <img class="testimonial-video-poster" src="https://img.youtube.com/vi/vOZbuVr-QVo/maxresdefault.jpg" alt="" loading="lazy">
+          <span class="testimonial-video-play" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20"><polygon points="6,4 20,12 6,20" fill="currentColor"/></svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- SCROLL-DRIVEN BLUR REVEAL -->
   <div class="blur-reveal-container" id="blurRevealContainer">
     <div class="blur-reveal-sticky">
@@ -1158,6 +1204,23 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
     }, { threshold: 0.04, rootMargin: '0px 0px -24px 0px' });
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // Facade video embeds: swap poster + play button for the real iframe on click,
+    // so no YouTube branding/title overlay shows before the visitor chooses to play.
+    document.querySelectorAll('[data-video-id]').forEach(wrap => {
+      function play() {
+        if (wrap.classList.contains('playing')) return;
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube-nocookie.com/embed/${wrap.dataset.videoId}?autoplay=1&rel=0&modestbranding=1`;
+        iframe.title = wrap.dataset.videoTitle || 'Video';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        iframe.allowFullscreen = true;
+        wrap.appendChild(iframe);
+        wrap.classList.add('playing');
+      }
+      wrap.addEventListener('click', play);
+      wrap.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(); } });
+    });
 
     // Scroll-driven blur reveal: fades in on enter, fades out on exit
     (function() {

@@ -473,9 +473,12 @@
     /* Testimonial */
     .cs-testimonial { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
     .cs-testimonial-quote-wrap {
-      background: rgba(245,240,232,.045); border: 1px solid rgba(245,240,232,.1);
-      border-left: 2px solid rgba(194,113,79,.5); border-radius: 4px 12px 12px 4px;
-      padding: 32px 36px;
+      background: rgba(245,240,232,.045); border: 1px solid rgba(245,240,232,.12);
+      border-radius: 14px; padding: 36px 36px 32px;
+    }
+    .cs-testimonial-mark {
+      font-family: var(--font-display); font-style: italic; font-size: 44px; line-height: 1;
+      color: var(--terracotta); display: block; margin-bottom: 8px;
     }
     .cs-testimonial-quote {
       font-family: var(--font-display); font-style: italic; font-weight: 400;
@@ -483,12 +486,33 @@
       margin-bottom: 18px;
     }
     .cs-testimonial-attrib { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(245,240,232,.4); }
+    .cs-video-frame {
+      padding: 10px; background: rgba(245,240,232,.05); border: 1px solid rgba(245,240,232,.14);
+      border-radius: 18px; box-shadow: 0 30px 70px rgba(0,0,0,.35), 0 8px 20px rgba(0,0,0,.25);
+    }
     .cs-video-wrap {
-      position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden;
-      background: rgba(0,0,0,.3); border: 1px solid rgba(245,240,232,.1);
-      box-shadow: 0 20px 50px rgba(0,0,0,.3);
+      position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 11px; overflow: hidden;
+      background: #000; cursor: pointer;
     }
     .cs-video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .cs-video-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s cubic-bezier(.215,.61,.355,1); }
+    .cs-video-wrap:hover .cs-video-poster { transform: scale(1.03); }
+    .cs-video-wrap::after { content: ''; position: absolute; inset: 0; background: rgba(20,31,26,.18); transition: background .25s; }
+    .cs-video-wrap:hover::after { background: rgba(20,31,26,.28); }
+    .cs-video-play {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 64px; height: 64px; border-radius: 50%; z-index: 2;
+      background: var(--terracotta); color: var(--cream);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 10px 30px rgba(194,113,79,.45), 0 0 0 7px rgba(245,240,232,.07);
+      transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .25s;
+    }
+    .cs-video-play svg { margin-left: 3px; }
+    .cs-video-wrap:hover .cs-video-play { transform: translate(-50%,-50%) scale(1.08); }
+    .cs-video-wrap:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 4px; }
+    .cs-video-wrap.playing .cs-video-poster,
+    .cs-video-wrap.playing .cs-video-play,
+    .cs-video-wrap.playing::after { display: none; }
 
     /* ── FINAL CTA ── */
     .s-final {
@@ -794,7 +818,7 @@
     <div class="cs-header">
       <span class="cs-eyebrow reveal"><span class="live-dot" aria-hidden="true"></span>Live case studies</span>
       <h2 class="cs-headline reveal" style="transition-delay:.07s">Watch us build brands in real time.</h2>
-      <p class="cs-intro reveal" style="transition-delay:.14s">Most case studies show you the polished after. We show you the during. Two brands, two very different builds, documented as we go.</p>
+      <p class="cs-intro reveal" style="transition-delay:.14s">Most case studies show you the polished after. We show you the during. Three brands, three very different builds, documented as we go.</p>
     </div>
 
     <div class="cs-cases">
@@ -815,26 +839,32 @@
 
         <div class="cs-testimonial">
           <div class="cs-testimonial-quote-wrap">
-            <p class="cs-testimonial-quote">"Working with Riya took a huge weight off my shoulders. She helped me make decisions I'd been putting off for weeks and somehow understood my vision even when I couldn't fully explain it. Halfway through, I completely changed directions, and instead of pushing back, she redid the research and copy to match. It was a pleasure working with her."</p>
+            <span class="cs-testimonial-mark" aria-hidden="true">&ldquo;</span>
+            <p class="cs-testimonial-quote">Working with Riya took a huge weight off my shoulders. She helped me make decisions I'd been putting off for weeks and somehow understood my vision even when I couldn't fully explain it. Halfway through, I completely changed directions, and instead of pushing back, she redid the research and copy to match. It was a pleasure working with her.</p>
             <p class="cs-testimonial-attrib">Josh Harris, Josh Harris Media</p>
           </div>
-          <div class="cs-video-wrap">
-            <iframe src="https://www.youtube.com/embed/vOZbuVr-QVo" title="Josh Harris video testimonial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          <div class="cs-video-frame">
+            <div class="cs-video-wrap" data-video-id="vOZbuVr-QVo" data-video-title="Josh Harris video testimonial" tabindex="0" role="button" aria-label="Play Josh Harris video testimonial">
+              <img class="cs-video-poster" src="https://img.youtube.com/vi/vOZbuVr-QVo/maxresdefault.jpg" alt="" loading="lazy">
+              <span class="cs-video-play" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20"><polygon points="6,4 20,12 6,20" fill="currentColor"/></svg>
+              </span>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- MANUSMRITI BOOK PROJECT -->
+      <!-- SANJAY MITTAL — AUTHOR PLATFORM (Manusmriti is the first of three books) -->
       <div class="cs-case reveal" style="transition-delay:.24s">
         <div class="cs-case-head">
-          <h3 class="cs-case-name">Manusmriti Book Project</h3>
-          <p class="cs-case-intro">An ancient Sanskrit text, a stubborn Kindle converter, and the fight to get the formatting right.</p>
+          <h3 class="cs-case-name">Sanjay Mittal, Author Platform</h3>
+          <p class="cs-case-intro">Three books of Vedic wisdom, starting with the Manusmriti: an ancient Sanskrit text, a stubborn Kindle converter, and a readership waiting to be found.</p>
         </div>
-        <div class="tracker-wrap" id="manusmriti-wrap">
-          <div class="tracker-phases" id="manusmriti-phases">
+        <div class="tracker-wrap" id="sanjay-wrap">
+          <div class="tracker-phases" id="sanjay-phases">
             <div class="tracker-line-track"><div class="tracker-line-fill"></div></div>
           </div>
-          <div class="tracker-meta" id="manusmriti-meta"></div>
+          <div class="tracker-meta" id="sanjay-meta"></div>
         </div>
       </div>
 
@@ -959,34 +989,24 @@
       nextUpdate:  'Complete'
     };
 
-    // Update this object to advance the Manusmriti book project.
-    var MANUSMRITI_CONFIG = {
+    // Update this object to advance the Sanjay Mittal author platform.
+    // (Manusmriti is the first of his three books; this tracker covers that book's
+    // full arc, then rolls into the next book once this one is out in the world.)
+    var SANJAY_CONFIG = {
       phases: [
-        {
-          title:      'Content Preparation &amp; Formatting',
-          state:      'in-progress',
-          statusText: 'In progress',
-          body:       'Getting a centuries-old Sanskrit text to render correctly on modern e-readers turned into its own project: fixing Devanagari script rendering, correcting language encoding, rebuilding the file structure so Kindle could process it properly. Ebook version approved and live. Print formatting in its final stretch.'
-        },
-        {
-          title:      'Publish',
-          state:      'next',
-          statusText: 'Next',
-          body:       'Once print formatting is locked, the print and ebook editions go live together.'
-        },
-        {
-          title:      'Community Outreach',
-          state:      'upcoming',
-          statusText: 'Upcoming',
-          body:       'Finding the readers already looking for this text, once it’s out.'
-        }
+        { title: 'Discovery', state: 'complete', statusText: 'Complete', body: '' },
+        { title: 'Publishing &amp; Platform Build', state: 'complete', statusText: 'Complete',
+          body: 'Getting a centuries-old Sanskrit text, the Manusmriti, to render correctly on modern e-readers turned into its own project: fixing Devanagari script rendering, correcting language encoding, rebuilding the file structure so Kindle could process it properly. Ebook and print editions are both live, and the book is already getting orders.' },
+        { title: 'Community Outreach', state: 'in-progress', statusText: 'In progress',
+          body: 'Reaching out to the readers already looking for this text: schools and temples first. Outreach materials are still in progress.' },
+        { title: 'Measure', state: 'upcoming', statusText: 'Upcoming', body: '' }
       ],
       lastUpdated: 'July 20, 2026',
       nextUpdate:  'TBD'
     };
 
     renderTracker('josh', JOSH_CONFIG);
-    renderTracker('manusmriti', MANUSMRITI_CONFIG);
+    renderTracker('sanjay', SANJAY_CONFIG);
 
     // Process section: animate line + dots on scroll
     (function () {
@@ -1010,6 +1030,23 @@
       }, { threshold: 0.3 });
       obs.observe(section);
     }());
+
+    // Facade video embeds: swap poster + play button for the real iframe on click,
+    // so no YouTube branding/title overlay shows before the visitor chooses to play.
+    document.querySelectorAll('.cs-video-wrap[data-video-id]').forEach(function (wrap) {
+      function play() {
+        if (wrap.classList.contains('playing')) return;
+        var iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube-nocookie.com/embed/' + wrap.dataset.videoId + '?autoplay=1&rel=0&modestbranding=1';
+        iframe.title = wrap.dataset.videoTitle || 'Video';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        iframe.allowFullscreen = true;
+        wrap.appendChild(iframe);
+        wrap.classList.add('playing');
+      }
+      wrap.addEventListener('click', play);
+      wrap.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(); } });
+    });
 
     // Scroll reveal
     document.body.classList.add('js-ready');

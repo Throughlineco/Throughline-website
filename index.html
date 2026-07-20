@@ -442,7 +442,7 @@
     .testimonial-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 44px; display: flex; align-items: center; justify-content: center; gap: 14px; position: relative; z-index: 1; }
     .testimonial-eyebrow::before, .testimonial-eyebrow::after { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--terracotta); opacity: .5; }
 
-    .testimonial-inner { max-width: 960px; margin: 0 auto; position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; }
+    .testimonial-inner { max-width: 1040px; margin: 0 auto; position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; }
 
     .testimonial-video-frame {
       width: 480px; aspect-ratio: 16/9; flex-shrink: 0; border-radius: 20px; overflow: hidden;
@@ -464,13 +464,13 @@
     .testimonial-video-frame:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 4px; }
 
     .testimonial-card {
-      background: var(--cream-d); border-radius: 24px; padding: 44px 48px 44px 116px;
-      margin-left: -110px; max-width: 340px; position: relative; z-index: 1;
+      background: var(--cream-d); border-radius: 20px; padding: 36px 40px 36px 88px;
+      margin-left: -70px; width: 520px; flex-shrink: 0; position: relative; z-index: 1;
       box-shadow: 0 20px 50px rgba(0,0,0,.3);
     }
-    .testimonial-card-name { font-family: var(--font-display); font-size: clamp(20px, 2.2vw, 26px); font-weight: 400; color: var(--deep-forest); margin-bottom: 6px; letter-spacing: -.01em; }
-    .testimonial-card-role { font-size: 12px; font-weight: 700; letter-spacing: .06em; color: var(--terracotta); margin-bottom: 20px; }
-    .testimonial-card-quote { font-size: 15px; font-weight: 300; line-height: 1.76; color: rgba(44,62,53,.8); }
+    .testimonial-card-name { font-family: var(--font-display); font-size: clamp(19px, 2vw, 23px); font-weight: 400; color: var(--deep-forest); margin-bottom: 4px; letter-spacing: -.01em; }
+    .testimonial-card-role { font-size: 11px; font-weight: 700; letter-spacing: .06em; color: var(--terracotta); margin-bottom: 16px; }
+    .testimonial-card-quote { font-size: 14px; font-weight: 300; line-height: 1.62; color: rgba(44,62,53,.8); }
     .testimonial-video-frame.playing .testimonial-video-wrap { display: none; }
 
     /* CONTACT */
@@ -618,7 +618,7 @@
       .strategy-inner { grid-template-columns: 1fr; }
       .testimonial-inner { flex-direction: column; align-items: stretch; gap: 28px; }
       .testimonial-video-frame { width: 100%; height: auto; aspect-ratio: 16/9; }
-      .testimonial-card { margin-left: 0; max-width: none; padding: 32px 28px; }
+      .testimonial-card { margin-left: 0; width: 100%; padding: 32px 28px; }
       .georgetown-content { padding: 36px 28px 24px; }
       .georgetown-strip { grid-template-columns: 1fr 1fr; }
       .case-card-stats, .case-card-stats.four-col { grid-template-columns: 1fr 1fr; }

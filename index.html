@@ -441,22 +441,22 @@
     .section-testimonial::before { content: ''; position: absolute; top: -110px; right: -70px; width: 560px; height: 560px; border-radius: 50%; background: radial-gradient(circle, rgba(194,113,79,.09) 0%, transparent 60%); pointer-events: none; }
     .testimonial-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 44px; display: flex; align-items: center; justify-content: center; gap: 14px; position: relative; z-index: 1; }
     .testimonial-eyebrow::before, .testimonial-eyebrow::after { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--terracotta); opacity: .5; }
-    .testimonial-inner { max-width: 1040px; margin: 0 auto; position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .testimonial-inner { max-width: 1040px; margin: 0 auto; position: relative; z-index: 1; display: grid; grid-template-columns: 1fr auto; gap: 56px; align-items: center; }
     .testimonial-tag { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(245,240,232,.5); display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
     .testimonial-tag::before { content: ''; width: 26px; height: 1px; background: rgba(245,240,232,.35); }
-    .testimonial-context-body { font-family: var(--font-display); font-size: clamp(21px, 2.5vw, 32px); font-weight: 300; font-style: italic; line-height: 1.4; letter-spacing: -.01em; color: var(--cream); max-width: 20ch; margin-bottom: 32px; }
+    .testimonial-context-body { font-family: var(--font-body); font-size: clamp(22px, 2.4vw, 30px); font-weight: 300; font-style: normal; line-height: 1.35; letter-spacing: -.015em; color: var(--cream); max-width: 34ch; margin-bottom: 32px; }
     .testimonial-author { display: flex; align-items: center; gap: 14px; }
     .testimonial-author-rule { width: 30px; height: 1px; background: rgba(245,240,232,.25); flex-shrink: 0; }
     .testimonial-author-name { font-size: 13px; font-weight: 700; color: var(--cream); }
     .testimonial-author-role { font-size: 12px; font-weight: 300; color: rgba(245,240,232,.5); margin-top: 2px; }
     .testimonial-video-frame {
-      padding: 10px; background: rgba(245,240,232,.05); border: 1px solid rgba(245,240,232,.14); border-radius: 18px;
-      box-shadow: 0 30px 70px rgba(0,0,0,.35), 0 8px 20px rgba(0,0,0,.25);
+      width: 220px; padding: 8px; background: rgba(245,240,232,.05); border: 1px solid rgba(245,240,232,.14); border-radius: 16px;
+      box-shadow: 0 24px 56px rgba(0,0,0,.35), 0 6px 16px rgba(0,0,0,.25);
       filter: blur(0); transition: filter .7s cubic-bezier(.215,.61,.355,1);
     }
     .js-ready .reveal.testimonial-video-frame { filter: blur(14px); }
     .js-ready .reveal.testimonial-video-frame.visible { filter: blur(0); }
-    .testimonial-video-wrap { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 11px; overflow: hidden; background: #000; cursor: pointer; }
+    .testimonial-video-wrap { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; background: #000; cursor: pointer; }
     .testimonial-video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
     .testimonial-video-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s cubic-bezier(.215,.61,.355,1); }
     .testimonial-video-wrap:hover .testimonial-video-poster { transform: scale(1.03); }
@@ -613,7 +613,8 @@
       .wild-carousel { min-height: 340px; }
       .section-founder { grid-template-columns: 1fr; }
       .strategy-inner { grid-template-columns: 1fr; }
-      .testimonial-inner { grid-template-columns: 1fr; }
+      .testimonial-inner { grid-template-columns: 1fr; justify-items: start; }
+      .testimonial-video-frame { width: 100%; max-width: 260px; }
       .georgetown-content { padding: 36px 28px 24px; }
       .georgetown-strip { grid-template-columns: 1fr 1fr; }
       .case-card-stats, .case-card-stats.four-col { grid-template-columns: 1fr 1fr; }
@@ -1152,7 +1153,7 @@
     <div class="testimonial-inner">
       <div class="testimonial-context reveal">
         <p class="testimonial-tag">Josh Harris Media</p>
-        <p class="testimonial-context-body">Josh makes video for founders, the kind that actually moves people. We rebuilt Josh Harris Media from the name up.</p>
+        <p class="testimonial-context-body">Working with Riya took a huge weight off my shoulders. She helped me make decisions I'd been putting off for weeks and somehow understood my vision even when I couldn't fully explain it. Halfway through, I completely changed directions, and instead of pushing back, she redid the research and copy to match. It was a pleasure working with her.</p>
         <div class="testimonial-author">
           <span class="testimonial-author-rule" aria-hidden="true"></span>
           <div>

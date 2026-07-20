@@ -8,7 +8,7 @@
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Merriweather:ital,wght@0,400;1,300;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
       --cream:       #F5F0E8;
@@ -88,6 +88,9 @@
       from { opacity: 0; transform: translateY(12px); }
       to   { opacity: 1; transform: translateY(0); }
     }
+    @media (prefers-reduced-motion: reduce) {
+      .tl-screen.on { animation: none; }
+    }
 
     /* EYEBROWS */
     .tl-eyebrow {
@@ -107,10 +110,10 @@
     .tl-h1 em { font-style: italic; color: var(--terracotta); font-weight: 400; }
     .tl-sec-h2 {
       font-family: var(--font-display); font-size: 22px;
-      color: var(--deep-forest); font-weight: 700; margin-bottom: 4px;
+      color: var(--deep-forest); font-weight: 400; margin-bottom: 4px;
     }
     .tl-sec-sub {
-      font-size: 13px; color: var(--text-sec); font-style: italic;
+      font-size: 15px; color: var(--text-sec); font-style: italic;
       margin-bottom: 36px; font-family: var(--font-display);
     }
 
@@ -215,6 +218,7 @@
       text-align: center; cursor: pointer; transition: all .2s; background: var(--card);
     }
     .tl-upload:hover { border-color: var(--sage-green); }
+    .tl-upload:focus-visible { outline: 2px solid var(--sage-green); outline-offset: 2px; border-color: var(--sage-green); }
     .tl-upload input { display: none; }
     .tl-upload-main { font-size: 13px; color: var(--text-sec); font-weight: 400; }
     .tl-upload-sub { font-size: 11px; color: var(--text-sec); font-style: italic; display: block; margin-top: 4px; opacity: .7; }
@@ -287,7 +291,7 @@
     .tl-ty-check svg { width: 20px; height: 20px; stroke: var(--sage-green); stroke-width: 2.5; fill: none; }
     .tl-ty-h1 {
       font-family: var(--font-display); font-size: clamp(24px, 3vw, 32px);
-      line-height: 1.2; color: var(--deep-forest); margin-bottom: 16px; font-weight: 700;
+      line-height: 1.2; color: var(--deep-forest); margin-bottom: 16px; font-weight: 400;
     }
     .tl-ty-body {
       font-size: 15px; color: var(--text-sec); line-height: 1.85;
@@ -492,8 +496,8 @@
         <div class="tl-field">
           <label class="tl-lbl" for="logo-upload">Logo file</label>
           <div class="tl-hint">PNG, SVG, or PDF. If you don't have the file, describe it below.</div>
-          <div class="tl-upload" onclick="document.getElementById('logo-upload').click()">
-            <input type="file" id="logo-upload" accept=".png,.svg,.pdf,.jpg,.ai,.eps">
+          <div class="tl-upload" tabindex="0" role="button" aria-label="Upload your logo file" onclick="document.getElementById('logo-upload').click()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('logo-upload').click();}">
+            <input type="file" id="logo-upload" accept=".png,.svg,.pdf,.jpg,.ai,.eps" tabindex="-1">
             <div class="tl-upload-main">Click to upload your logo</div>
             <span class="tl-upload-sub">or drag and drop</span>
             <div class="tl-upload-name" id="logo-name"></div>
@@ -503,8 +507,8 @@
         <div class="tl-field">
           <label class="tl-lbl" for="guidelines-upload">Brand guidelines or style guide</label>
           <div class="tl-hint">Upload a PDF if you have one.</div>
-          <div class="tl-upload" onclick="document.getElementById('guidelines-upload').click()">
-            <input type="file" id="guidelines-upload" accept=".pdf,.doc,.docx">
+          <div class="tl-upload" tabindex="0" role="button" aria-label="Upload your brand guidelines file" onclick="document.getElementById('guidelines-upload').click()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('guidelines-upload').click();}">
+            <input type="file" id="guidelines-upload" accept=".pdf,.doc,.docx" tabindex="-1">
             <div class="tl-upload-main">Click to upload guidelines</div>
             <span class="tl-upload-sub">PDF or Word doc</span>
             <div class="tl-upload-name" id="guidelines-name"></div>
@@ -810,25 +814,37 @@
 
     const colors = Array.from(document.querySelectorAll('.color-val')).map(i => i.value).join(', ');
 
+    // File attachments: validate size client-side before sending (Formspree caps attachments at 10MB each)
+    const MAX_FILE_BYTES = 10 * 1024 * 1024;
+    const logoFile = document.getElementById('logo-upload').files[0];
+    const guidelinesFile = document.getElementById('guidelines-upload').files[0];
+    const oversized = [logoFile, guidelinesFile].filter(f => f && f.size > MAX_FILE_BYTES);
+    if (oversized.length) {
+      errEl.textContent = 'One of your files is over 10MB (' + oversized.map(f => f.name).join(', ') + '). Please attach a smaller file, or email it to info@throughline.community directly.';
+      errEl.classList.add('visible');
+      btn.disabled = false;
+      btn.textContent = 'Submit →';
+      return;
+    }
+
     const emailVal = document.getElementById('email').value.trim();
-    const data = {
-      _subject: 'Client Onboarding - Throughline Co.',
-      email:           emailVal,
-      'Name':          document.getElementById('fname').value.trim(),
-      'Brand name':    document.getElementById('bname').value.trim(),
-      'Industry':      document.getElementById('industry').value.trim(),
-      'Website':       document.getElementById('website').value.trim(),
-      'Existing brand': branch === 'yes' ? 'Yes' : 'No, starting fresh',
-    };
+    const formData = new FormData();
+    formData.append('_subject', 'Client Onboarding - Throughline Co.');
+    formData.append('email', emailVal);
+    formData.append('Name', document.getElementById('fname').value.trim());
+    formData.append('Brand name', document.getElementById('bname').value.trim());
+    formData.append('Industry', document.getElementById('industry').value.trim());
+    formData.append('Website', document.getElementById('website').value.trim());
+    formData.append('Existing brand', branch === 'yes' ? 'Yes' : 'No, starting fresh');
 
     if (branch === 'yes') {
-      data['Brand colors'] = colors;
-      data['Fonts']        = document.getElementById('fonts').value.trim();
-      data['Brand notes']  = document.getElementById('brand-notes').value.trim();
+      formData.append('Brand colors', colors);
+      formData.append('Fonts', document.getElementById('fonts').value.trim());
+      formData.append('Brand notes', document.getElementById('brand-notes').value.trim());
     } else {
-      data['Reference brands'] = document.getElementById('ref-brands').value.trim();
-      data['Brand feel']       = document.getElementById('brand-feel').value.trim();
-      data['What to avoid']    = document.getElementById('brand-avoid').value.trim();
+      formData.append('Reference brands', document.getElementById('ref-brands').value.trim());
+      formData.append('Brand feel', document.getElementById('brand-feel').value.trim());
+      formData.append('What to avoid', document.getElementById('brand-avoid').value.trim());
     }
 
     const qLabels = [
@@ -842,19 +858,24 @@
       'Q8 - Differentiator',
     ];
     for (let i = 1; i <= 8; i++) {
-      data[qLabels[i - 1]] = document.getElementById('q' + i)?.value?.trim() || '(not answered)';
+      formData.append(qLabels[i - 1], document.getElementById('q' + i)?.value?.trim() || '(not answered)');
     }
 
-    data['Primary goal']  = document.getElementById('goal').value.trim();
-    data['Timeline']      = document.getElementById('timeline').value.trim();
-    data['Budget']        = document.getElementById('budget').value || 'Not specified';
-    data['Anything else'] = document.getElementById('anything-else').value.trim();
+    formData.append('Primary goal', document.getElementById('goal').value.trim());
+    formData.append('Timeline', document.getElementById('timeline').value.trim());
+    formData.append('Budget', document.getElementById('budget').value || 'Not specified');
+    formData.append('Anything else', document.getElementById('anything-else').value.trim());
+
+    if (logoFile) formData.append('Logo file', logoFile);
+    if (guidelinesFile) formData.append('Brand guidelines file', guidelinesFile);
 
     try {
+      // Note: no Content-Type header here on purpose. The browser sets the
+      // multipart/form-data boundary itself; setting it manually breaks the upload.
       const res = await fetch('https://formspree.io/f/mqejepke', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(data),
+        headers: { 'Accept': 'application/json' },
+        body: formData,
       });
       if (res.ok) {
         go('ty');
@@ -878,6 +899,10 @@
   document.addEventListener('input', progress);
   document.addEventListener('change', progress);
   progress();
+</script>
+<script>
+  console.log('%cLooking for the throughline?', 'font-size:16px;font-weight:bold;color:#C2714F;');
+  console.log('%cWe find them for brands like yours. throughline.community/contact', 'font-size:12px;color:#2C3E35;');
 </script>
 </body>
 </html>

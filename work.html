@@ -33,8 +33,10 @@
     /* NAV */
     .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 28px 64px; display: flex; justify-content: space-between; align-items: center; background: rgba(245,240,232,.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(44,62,53,.08); }
     .nav-logo-svg { height: 64px; width: auto; display: block; }
-    .nav-logo-svg .logo-wave { stroke: var(--muted-sage); }
-    .nav-logo-svg .logo-dot { fill: var(--terracotta); }
+    .nav-logo-svg .logo-wave { stroke: var(--muted-sage); transition: stroke-width .3s ease; }
+    .nav-logo-svg .logo-dot { fill: var(--terracotta); transition: transform .4s cubic-bezier(.34,1.56,.64,1); transform-box: fill-box; transform-origin: center; }
+    a:hover .nav-logo-svg .logo-dot  { transform: scale(1.35); }
+    a:hover .nav-logo-svg .logo-wave { stroke-width: 3.6; }
     .nav-logo-svg .logo-text { fill: var(--deep-forest); }
     .nav-logo-svg .logo-line { stroke: var(--sage-green); opacity: .45; }
     .nav-logo-svg .logo-tagline { fill: var(--muted-sage); }
@@ -58,7 +60,7 @@
     .cs-client { font-family: var(--font-body); font-size: clamp(40px, 6vw, 88px); font-weight: 900; letter-spacing: -.045em; line-height: .9; color: var(--deep-forest); margin-bottom: 12px; }
     .cs-tags { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(44,62,53,.4); margin-bottom: 32px; }
     .cs-hook { font-family: var(--font-display); font-size: clamp(16px, 1.8vw, 22px); font-weight: 400; font-style: italic; line-height: 1.45; color: var(--deep-forest); margin-bottom: 24px; max-width: 680px; }
-    .cs-body { font-size: 15px; font-weight: 300; line-height: 1.82; color: rgba(44,62,53,.72); max-width: 680px; margin-bottom: 48px; }
+    .cs-body { font-size: 15px; font-weight: 300; line-height: 1.82; color: rgba(44,62,53,.78); max-width: 680px; margin-bottom: 48px; }
     .cs-media { border-radius: 8px; overflow: hidden; margin-bottom: 48px; }
     .cs-media img { width: 100%; display: block; object-fit: cover; max-height: 520px; }
     .cs-carousel { position: relative; border-radius: 8px; overflow: hidden; background: var(--sage-green); aspect-ratio: 16/9; margin-bottom: 48px; }
@@ -104,6 +106,10 @@
 
     .js-ready .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s cubic-bezier(.215,.61,.355,1), transform .9s cubic-bezier(.215,.61,.355,1); }
     .js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .js-ready .reveal { opacity: 1; transform: none; transition: none; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+    }
 
     @media (max-width: 720px) {
       .nav { padding: 16px 24px; }
@@ -339,3 +345,9 @@
   
     (function(){var KEY='tlco_consent_v1',stored=localStorage.getItem(KEY);function grantAnalytics(){if(window.gtag)gtag('consent','update',{analytics_storage:'granted',ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted'});if(!window._liLoaded){window._liLoaded=true;window._linkedin_partner_id='9504276';window._linkedin_data_partner_ids=window._linkedin_data_partner_ids||[];window._linkedin_data_partner_ids.push('9504276');(function(l){if(!l){window.lintrk=function(a,b){window.lintrk.q.push([a,b])};window.lintrk.q=[];}var s=document.getElementsByTagName('script')[0],b=document.createElement('script');b.type='text/javascript';b.async=true;b.src='https://snap.licdn.com/li.lms-analytics/insight.min.js';s.parentNode.insertBefore(b,s);})(window.lintrk);}}if(stored==='accepted'){grantAnalytics();}document.addEventListener('DOMContentLoaded',function(){var banner=document.getElementById('cookieBanner');function show(){if(banner)banner.classList.add('visible');}function hide(){if(banner)banner.classList.remove('visible');}window.tlcoOpenConsent=function(){localStorage.removeItem(KEY);show();};if(!stored){show();}var ac=document.getElementById('cookieAccept'),dc=document.getElementById('cookieDecline');if(ac)ac.addEventListener('click',function(){localStorage.setItem(KEY,'accepted');hide();grantAnalytics();});if(dc)dc.addEventListener('click',function(){localStorage.setItem(KEY,'declined');hide();});});}());
   </script>
+  <script>
+    console.log('%cLooking for the throughline?', 'font-size:16px;font-weight:bold;color:#C2714F;');
+    console.log('%cWe find them for brands like yours. throughline.community/contact', 'font-size:12px;color:#2C3E35;');
+  </script>
+</body>
+</html>

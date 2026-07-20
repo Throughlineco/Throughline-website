@@ -58,8 +58,10 @@
     /* NAV */
     .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 24px 64px; display: flex; justify-content: space-between; align-items: center; background: rgba(245,240,232,.93); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(44,62,53,.08); }
     .nav-logo-svg { height: 60px; width: auto; display: block; }
-    .nav-logo-svg .logo-wave    { stroke: var(--muted-sage); }
-    .nav-logo-svg .logo-dot     { fill: var(--terracotta); }
+    .nav-logo-svg .logo-wave    { stroke: var(--muted-sage); transition: stroke-width .3s ease; }
+    .nav-logo-svg .logo-dot     { fill: var(--terracotta); transition: transform .4s cubic-bezier(.34,1.56,.64,1); transform-box: fill-box; transform-origin: center; }
+    a:hover .nav-logo-svg .logo-dot  { transform: scale(1.35); }
+    a:hover .nav-logo-svg .logo-wave { stroke-width: 3.6; }
     .nav-logo-svg .logo-text    { fill: var(--deep-forest); }
     .nav-logo-svg .logo-line    { stroke: var(--sage-green); opacity: .45; }
     .nav-logo-svg .logo-tagline { fill: var(--muted-sage); }
@@ -75,6 +77,7 @@
     .js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
     @media (prefers-reduced-motion: reduce) {
       .js-ready .reveal { opacity: 1; transform: none; transition: none; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
     }
 
     /* ── HERO (single column, centered) ── */
@@ -192,10 +195,10 @@
     .eb-legend-dot--c { background: var(--deep-forest); }
 
     .eb-tool-text-col { display: flex; flex-direction: column; gap: 18px; }
-    .eb-output-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--terracotta); }
+    .eb-output-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--terracotta); }
     .eb-output-text {
       font-family: var(--font-display); font-size: clamp(15px, 1.6vw, 19px); font-weight: 400; font-style: italic;
-      line-height: 1.7; color: var(--deep-forest);
+      line-height: 1.7; color: var(--deep-forest); overflow-wrap: break-word; word-break: break-word;
     }
     .eb-tool-again {
       align-self: flex-start; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
@@ -219,7 +222,7 @@
     .cs-cases { display: flex; flex-direction: column; gap: 56px; position: relative; z-index: 1; }
     .cs-case-head { margin-bottom: 26px; max-width: 640px; }
     .cs-case-name { font-family: var(--font-display); font-size: clamp(19px, 2vw, 25px); font-weight: 400; color: var(--cream); margin-bottom: 10px; letter-spacing: -.01em; }
-    .cs-case-intro { font-size: clamp(13px, 1.35vw, 15.5px); font-weight: 300; line-height: 1.72; color: rgba(245,240,232,.56); }
+    .cs-case-intro { font-size: clamp(14px, 1.35vw, 15.5px); font-weight: 300; line-height: 1.72; color: rgba(245,240,232,.56); }
 
     /* Tracker card (reused component, generalized for N phases) */
     .tracker-wrap { background: rgba(245,240,232,.055); border: 1px solid rgba(245,240,232,.12); border-top: 2px solid rgba(194,113,79,.55); border-radius: 14px; padding: 52px 48px; position: relative; overflow: hidden; box-shadow: 0 0 0 1px rgba(194,113,79,.06) inset, 0 32px 80px rgba(0,0,0,.25); }
@@ -247,7 +250,7 @@
     .phase-status.in-progress { color: var(--terracotta); }
     .phase-status.next { color: rgba(61,107,79,.65); }
     .phase-status.upcoming { color: rgba(245,240,232,.22); }
-    .phase-body { font-size: 13px; font-weight: 300; line-height: 1.68; color: rgba(245,240,232,.42); padding-top: 18px; border-top: 1px solid rgba(245,240,232,.08); }
+    .phase-body { font-size: 14px; font-weight: 300; line-height: 1.68; color: rgba(245,240,232,.42); padding-top: 18px; border-top: 1px solid rgba(245,240,232,.08); }
     .phase-body.active-phase { color: rgba(245,240,232,.75); }
 
     .tracker-meta { margin-top: 36px; display: flex; gap: 32px; font-size: 11px; font-weight: 300; color: rgba(245,240,232,.28); border-top: 1px solid rgba(245,240,232,.07); padding-top: 24px; }
@@ -419,23 +422,23 @@
       <div class="eb-tool-form">
         <div class="eb-tool-field">
           <label for="gapQ1">What were you known for 5 years ago?</label>
-          <input type="text" id="gapQ1" name="q1" placeholder="e.g. the best in town for..." autocomplete="off" required>
+          <input type="text" id="gapQ1" name="q1" placeholder="e.g. the best in town for..." autocomplete="off" maxlength="140" required>
         </div>
         <div class="eb-tool-field">
           <label for="gapQ2">What are you capable of now?</label>
-          <input type="text" id="gapQ2" name="q2" placeholder="e.g. we can now also..." autocomplete="off" required>
+          <input type="text" id="gapQ2" name="q2" placeholder="e.g. we can now also..." autocomplete="off" maxlength="140" required>
         </div>
         <div class="eb-tool-field">
           <label for="gapQ3">What are you trying to tell new market segments?</label>
-          <input type="text" id="gapQ3" name="q3" placeholder="e.g. that we're the modern choice for..." autocomplete="off" required>
+          <input type="text" id="gapQ3" name="q3" placeholder="e.g. that we're the modern choice for..." autocomplete="off" maxlength="140" required>
         </div>
         <div class="eb-tool-field">
           <label for="gapQ4">What do you think your old customers still believe about you?</label>
-          <input type="text" id="gapQ4" name="q4" placeholder="e.g. that we're still just..." autocomplete="off" required>
+          <input type="text" id="gapQ4" name="q4" placeholder="e.g. that we're still just..." autocomplete="off" maxlength="140" required>
         </div>
         <div class="eb-tool-field">
           <label for="gapQ5">What do you think new prospects believe about you?</label>
-          <input type="text" id="gapQ5" name="q5" placeholder="e.g. that we're only good for..." autocomplete="off" required>
+          <input type="text" id="gapQ5" name="q5" placeholder="e.g. that we're only good for..." autocomplete="off" maxlength="140" required>
         </div>
       </div>
       <div class="eb-tool-submit-row">
@@ -723,5 +726,9 @@
       </div>
     </div>
   </div>
+  <script>
+    console.log('%cLooking for the throughline?', 'font-size:16px;font-weight:bold;color:#C2714F;');
+    console.log('%cWe find them for brands like yours. throughline.community/contact', 'font-size:12px;color:#2C3E35;');
+  </script>
 </body>
 </html>

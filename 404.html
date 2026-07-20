@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found — Throughline Co.</title>
+  <meta name="robots" content="noindex">
+  <meta name="description" content="This page moved, or never existed. Find your way back to Throughline Co.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Merriweather:ital,wght@0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream:       #F5F0E8;
+      --cream-d:     #EDE8DC;
+      --deep-forest: #2C3E35;
+      --sage-green:  #3D6B4F;
+      --muted-sage:  #8BA888;
+      --terracotta:  #C2714F;
+      --font-display:'Merriweather', Georgia, serif;
+      --font-body:   'Lato', Arial, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--cream); scroll-behavior: smooth; }
+    body { font-family: var(--font-body); font-weight: 300; font-size: 14px; line-height: 1; background: var(--cream); color: var(--deep-forest); -webkit-font-smoothing: antialiased; overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; }
+    a { color: inherit; text-decoration: none; }
+    @media (pointer: fine) and (hover: hover) { * { cursor: none !important; } }
+
+    /* NAV */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 24px 64px; display: flex; justify-content: space-between; align-items: center; background: rgba(245,240,232,.93); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(44,62,53,.08); }
+    .nav-logo-svg { height: 60px; width: auto; display: block; }
+    .nav-logo-svg .logo-wave    { stroke: var(--muted-sage); transition: stroke-width .3s ease; }
+    .nav-logo-svg .logo-dot     { fill: var(--terracotta); transition: transform .4s cubic-bezier(.34,1.56,.64,1); transform-box: fill-box; transform-origin: center; }
+    .nav-logo-svg .logo-text    { fill: var(--deep-forest); }
+    .nav-logo-svg .logo-line    { stroke: var(--sage-green); opacity: .45; }
+    .nav-logo-svg .logo-tagline { fill: var(--muted-sage); }
+    a:hover .nav-logo-svg .logo-dot  { transform: scale(1.35); }
+    a:hover .nav-logo-svg .logo-wave { stroke-width: 3.6; }
+    .nav-links { display: flex; gap: 24px; list-style: none; align-items: center; }
+    .nav-links a { font-size: 9.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--deep-forest); transition: opacity .25s; white-space: nowrap; }
+    .nav-links a:hover { opacity: .5; }
+    .nav-linkedin { display: flex; align-items: center; opacity: .5; transition: opacity .2s; }
+    .nav-linkedin:hover { opacity: 1; }
+
+    /* 404 BODY */
+    .nf-body { flex: 1; padding: 152px 80px 100px; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; overflow: hidden; }
+    .nf-body::before {
+      content: ''; position: absolute; top: 50%; left: 50%; width: 720px; height: 720px;
+      background: radial-gradient(circle, rgba(61,107,79,.05) 0%, transparent 62%);
+      transform: translate(-50%, -50%); pointer-events: none;
+    }
+    .nf-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 32px; display: block; position: relative; z-index: 1; }
+    .nf-headline { font-family: var(--font-display); font-size: clamp(30px, 4.4vw, 54px); font-weight: 400; font-style: italic; line-height: 1.28; color: var(--deep-forest); max-width: 720px; margin-bottom: 24px; letter-spacing: -.02em; position: relative; z-index: 1; text-wrap: balance; }
+    .nf-body-text { font-size: clamp(15px, 1.5vw, 18px); font-weight: 300; line-height: 1.76; color: rgba(44,62,53,.68); max-width: 460px; margin-bottom: 44px; position: relative; z-index: 1; }
+    .nf-actions { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-bottom: 56px; position: relative; z-index: 1; }
+    .btn-terra {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--terracotta); color: var(--cream);
+      font-family: var(--font-body); font-size: 12px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: 16px 36px; border-radius: 9999px; border: none;
+      transition: opacity .25s, transform .2s; cursor: pointer;
+    }
+    .btn-terra:hover { opacity: .85; transform: translateY(-2px); }
+    .btn-terra:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 3px; }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--deep-forest);
+      font-family: var(--font-body); font-size: 12px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: 15px 28px; border-radius: 9999px;
+      border: 1.5px solid rgba(44,62,53,.22);
+      transition: border-color .25s, transform .2s;
+    }
+    .btn-ghost:hover { border-color: rgba(44,62,53,.55); transform: translateY(-2px); }
+    .nf-links { display: flex; gap: 28px; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; }
+    .nf-links a { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(44,62,53,.45); border-bottom: 1px solid transparent; transition: color .2s, border-color .2s; padding-bottom: 2px; }
+    .nf-links a:hover { color: var(--terracotta); border-color: rgba(194,113,79,.4); }
+
+    /* FOOTER */
+    .site-footer { background: var(--deep-forest); border-top: 1px solid rgba(245,240,232,.08); padding: 24px 52px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 10px; font-weight: 400; letter-spacing: .1em; color: rgba(245,240,232,.3); }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,232,.3); transition: color .25s; }
+    .footer-links a:hover { color: rgba(245,240,232,.7); }
+
+    @media (max-width: 720px) {
+      .nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .nav-logo-svg { height: 52px; }
+      .nf-body { padding: 120px 24px 72px; }
+      .nf-actions { flex-direction: column; width: 100%; }
+      .btn-terra, .btn-ghost { justify-content: center; }
+      .site-footer { padding: 20px 24px; flex-direction: column; align-items: flex-start; }
+    }
+
+    /* MOBILE NAV (kept for shell consistency, no links needed on this minimal page) */
+    .nav-hamburger { display: none; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="/">
+      <svg class="nav-logo-svg" viewBox="0 0 520 140" xmlns="http://www.w3.org/2000/svg" aria-label="Throughline Co.">
+        <path class="logo-wave" d="M32 68 C48 44, 72 44, 88 68 C104 92, 128 92, 144 68 C160 44, 184 44, 200 68" fill="none" stroke-width="2.8" stroke-linecap="round"/>
+        <circle class="logo-dot" cx="200" cy="68" r="5"/>
+        <text class="logo-text" x="228" y="78" font-family="Georgia, serif" font-size="42" font-weight="400" letter-spacing="-0.5">Throughline Co.</text>
+        <line class="logo-line" x1="228" y1="90" x2="498" y2="90" stroke-width="0.8"/>
+        <text class="logo-tagline" x="228" y="108" font-family="Georgia, serif" font-size="11" letter-spacing="1.8">PURPOSE-DRIVEN BRAND STRATEGY</text>
+      </svg>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/for-emerging-brands">For Emerging Brands</a></li>
+      <li><a href="/for-established-brands">For Established Brands</a></li>
+      <li><a href="/services">Services</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="https://www.linkedin.com/company/throughline-co/" target="_blank" rel="noopener" aria-label="LinkedIn" class="nav-linkedin"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></li>
+    </ul>
+  </nav>
+
+  <div class="nf-body">
+    <span class="nf-eyebrow">404</span>
+    <h1 class="nf-headline">Even we can't find the throughline on this one.</h1>
+    <p class="nf-body-text">The page you're looking for moved, or never existed. Let's get you back on track.</p>
+    <div class="nf-actions">
+      <a href="/" class="btn-terra">Back to home</a>
+      <a href="/contact" class="btn-ghost">Contact us</a>
+    </div>
+    <nav class="nf-links" aria-label="Popular pages">
+      <a href="/for-emerging-brands">For Emerging Brands</a>
+      <a href="/for-established-brands">For Established Brands</a>
+      <a href="/services">Services</a>
+      <a href="/about">About</a>
+    </nav>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-copy">Throughline Co. &middot; &copy; 2026 &middot; All rights reserved</p>
+    <nav class="footer-links">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="https://www.linkedin.com/company/throughline-co/" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
+  </footer>
+
+  <script>
+    (function () {
+      if (!matchMedia('(pointer:fine) and (hover:hover)').matches) return;
+      var c = document.createElement('div');
+      c.style.cssText = 'position:fixed;pointer-events:none;z-index:9999;width:10px;height:10px;border-radius:50%;background:#C2714F;transform:translate(-50%,-50%);opacity:0;left:-20px;top:-20px;';
+      document.body.appendChild(c);
+      document.addEventListener('mousemove', function (e) { c.style.opacity = '1'; c.style.left = e.clientX + 'px'; c.style.top = e.clientY + 'px'; }, { passive: true });
+      document.addEventListener('mouseleave', function () { c.style.opacity = '0'; });
+    }());
+    console.log('%cLooking for the throughline?', 'font-size:16px;font-weight:bold;color:#C2714F;');
+    console.log('%cWe find them for brands like yours. throughline.community/contact', 'font-size:12px;color:#2C3E35;');
+  </script>
+</body>
+</html>

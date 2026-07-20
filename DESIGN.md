@@ -15,14 +15,18 @@ Editorial brand-strategy studio site. Warm cream section backgrounds alternate w
 --terracotta:  #C2714F;  /* single active accent: CTAs, active phase, live-dot, cursor */
 ```
 
-Dark-section text uses `--cream` at opacity steps (`.75` primary body, `.42`-`.58` secondary, `.22`-`.32` labels/meta) rather than a separate token set. Light-section body text uses `--deep-forest` at `rgba(44,62,53,.65)`.
+Dark-section text uses `--cream` at opacity steps: `.75` primary body copy, `.42`-`.58` secondary/supporting text (stat captions, contact details), `.22`-`.32` eyebrows/section labels specifically (tight-tracked uppercase tags — not every small dark-section string, just that specific role).
+
+Light-section body text uses `--deep-forest` at two documented steps: `.68` for subheads/intros (shorter supporting text directly under a headline) and `.78` for reading body copy (longer paragraphs). One page (`index.html` `.founder-body`, `about.html` `.story-body`) deliberately runs darker at `.82` for long personal-narrative copy — a legitimate third tier, not drift. `index.html`'s hero body text over the photographic hero image is a deliberate exception at `.92` plus a text-shadow, since flat opacity steps calibrated for solid-color sections aren't legible over a busy photo background.
 
 ## Typography
 
-- Display/headings: `Merriweather` (serif), weight 400, `letter-spacing: -.025em`, `text-transform: none`
-- Body/UI: `Lato` (sans), weight 300 body copy / 700 labels & buttons
-- Eyebrows and labels: 9-10px, `font-weight: 700`, `letter-spacing: .13em`-`.22em`, uppercase
-- Both loaded via Google Fonts CDN, `display=swap`
+- Display/headings: `Merriweather` (serif), weight 400 (including italic emphasis lines), `letter-spacing: -.025em`, `text-transform: none`. Weight 700 Merriweather is not part of the system — if you see it, it's drift, not a variant.
+- Body/UI: `Lato` (sans), weight 300 body copy / 700 labels & buttons. This pairing is deliberate brand identity (documented here on purpose), not a generic-font reflex — don't swap it out based on a mechanical "overused font" scanner flag alone.
+- Eyebrows and labels: 10px, `font-weight: 700`, `letter-spacing: .22em` uppercase — one canonical value, not a range. (A few instances drifted to `.18em`/`.2em` over time; treat any new one that isn't `.22em` as a bug.)
+- Real reading copy (paragraphs, descriptions, case-study intros) has a 14px floor. Labels/eyebrows/meta text are the only things allowed below that.
+- Both loaded via Google Fonts CDN with the full weight/style set every page needs: `Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400` + `Merriweather:ital,wght@0,400;1,300;1,400`, `display=swap`. Keep every page's `<link>` identical to this even if a given page doesn't currently use every weight — a page-specific subset silently breaks the moment that page's copy needs a weight it didn't preload.
+- `discovery.html`'s `.color-hex` label uses `font-family: monospace` to display literal hex codes — an intentional, narrow exception for a technical/code-like value, not a second brand typeface.
 
 ## Layout & Spacing
 
@@ -54,5 +58,5 @@ Dark-section text uses `--cream` at opacity steps (`.75` primary body, `.42`-`.5
 
 ## Known Gaps
 
-- No `Donor Journey Mapper` component exists in the codebase (removed with the nonprofits page). The "5 inputs → 1 paragraph" interactive-tool pattern has no direct precedent to copy; closest analog is the homepage's single-input `.cs-input-zone` → `.cs-response-zone` reveal, one level simpler.
-- Tracker component's connecting-line math (`left/right: calc(12.5%)`) is hardcoded for 4 phases. Needs generalizing to `50/N %` for variable phase counts before reuse on 3-phase trackers.
+- No `Donor Journey Mapper` component exists in the codebase (removed with the nonprofits page). The Perception Gap Detector on `for-established-brands.html` (5 inputs → 1 templated paragraph + a 3-circle SVG diagram) is the current closest pattern for this kind of tool; copy its structure rather than the old homepage single-input tool if building another.
+- Tracker component (`renderTracker(prefix, config)`) is already generalized for variable phase counts (3 or 4), used across 5 independent instances on two pages. Grid columns and connecting-line position are set per-instance via JS (`50/N %`), not hardcoded.

@@ -32,8 +32,10 @@
     /* NAV */
     .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 28px 64px; display: flex; justify-content: space-between; align-items: center; background: rgba(245,240,232,.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(44,62,53,.08); }
     .nav-logo-svg { height: 64px; width: auto; display: block; }
-    .nav-logo-svg .logo-wave { stroke: var(--muted-sage); }
-    .nav-logo-svg .logo-dot { fill: var(--terracotta); }
+    .nav-logo-svg .logo-wave { stroke: var(--muted-sage); transition: stroke-width .3s ease; }
+    .nav-logo-svg .logo-dot { fill: var(--terracotta); transition: transform .4s cubic-bezier(.34,1.56,.64,1); transform-box: fill-box; transform-origin: center; }
+    a:hover .nav-logo-svg .logo-dot  { transform: scale(1.35); }
+    a:hover .nav-logo-svg .logo-wave { stroke-width: 3.6; }
     .nav-logo-svg .logo-text { fill: var(--deep-forest); }
     .nav-logo-svg .logo-line { stroke: var(--sage-green); opacity: .45; }
     .nav-logo-svg .logo-tagline { fill: var(--muted-sage); }
@@ -92,6 +94,10 @@
     /* SCROLL REVEAL */
     .js-ready .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s cubic-bezier(.215,.61,.355,1), transform .9s cubic-bezier(.215,.61,.355,1); }
     .js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .js-ready .reveal { opacity: 1; transform: none; transition: none; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+    }
 
     @media (max-width: 900px) {
       .page-hero { grid-template-columns: 1fr; gap: 40px; }
@@ -281,5 +287,9 @@
       </div>
     </div>
   </div>
+  <script>
+    console.log('%cLooking for the throughline?', 'font-size:16px;font-weight:bold;color:#C2714F;');
+    console.log('%cWe find them for brands like yours. throughline.community/contact', 'font-size:12px;color:#2C3E35;');
+  </script>
 </body>
 </html>

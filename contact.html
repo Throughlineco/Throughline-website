@@ -32,8 +32,10 @@
     /* NAV */
     .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 28px 64px; display: flex; justify-content: space-between; align-items: center; background: rgba(245,240,232,.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(44,62,53,.08); }
     .nav-logo-svg { height: 64px; width: auto; display: block; }
-    .nav-logo-svg .logo-wave { stroke: var(--muted-sage); }
-    .nav-logo-svg .logo-dot { fill: var(--terracotta); }
+    .nav-logo-svg .logo-wave { stroke: var(--muted-sage); transition: stroke-width .3s ease; }
+    .nav-logo-svg .logo-dot { fill: var(--terracotta); transition: transform .4s cubic-bezier(.34,1.56,.64,1); transform-box: fill-box; transform-origin: center; }
+    a:hover .nav-logo-svg .logo-dot  { transform: scale(1.35); }
+    a:hover .nav-logo-svg .logo-wave { stroke-width: 3.6; }
     .nav-logo-svg .logo-text { fill: var(--deep-forest); }
     .nav-logo-svg .logo-line { stroke: var(--sage-green); opacity: .45; }
     .nav-logo-svg .logo-tagline { fill: var(--muted-sage); }
@@ -58,9 +60,9 @@
     .section-form { background: var(--cream); padding: 80px 52px 64px; }
     .form-inner { max-width: 640px; margin: 0 auto; }
     .form-heading { font-family: var(--font-display); font-size: clamp(24px, 3vw, 40px); font-weight: 400; font-style: italic; color: var(--deep-forest); margin-bottom: 12px; }
-    .form-subhead { font-size: 14px; font-weight: 300; line-height: 1.65; color: rgba(44,62,53,.55); margin-bottom: 48px; }
+    .form-subhead { font-size: 14px; font-weight: 300; line-height: 1.65; color: rgba(44,62,53,.68); margin-bottom: 48px; }
     .form-field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
-    .form-label { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(44,62,53,.55); transition: color .25s; }
+    .form-label { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: rgba(44,62,53,.55); transition: color .25s; }
     .form-field:focus-within .form-label { color: var(--deep-forest); }
     .form-input { background: transparent; border: none; border-bottom: 1px solid rgba(44,62,53,.18); padding: 12px 0; font-family: var(--font-body); font-size: 15px; font-weight: 300; color: var(--deep-forest); outline: none; transition: border-color .3s; }
     .form-input:focus { border-color: var(--sage-green); }
@@ -73,6 +75,9 @@
     .form-submit { display: inline-flex; align-items: center; gap: 10px; background: var(--deep-forest); color: var(--cream); font-family: var(--font-body); font-size: 14px; font-weight: 700; letter-spacing: .04em; padding: 16px 40px; border-radius: 9999px; border: none; cursor: pointer; transition: opacity .25s, transform .2s; margin-top: 8px; }
     .form-submit:hover { opacity: .82; transform: translateY(-1px); }
     .form-submit:active { transform: scale(.97); }
+    .form-submit:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+    .form-error { display: none; background: #fdf0eb; border: 1px solid rgba(194,113,79,.3); padding: 14px 18px; margin-top: 16px; font-size: 13px; color: var(--terracotta); line-height: 1.5; }
+    .form-error.visible { display: block; }
     .form-success { display: none; text-align: center; padding: 48px 0; }
     .form-success.visible { display: block; }
     .form-success-line { font-family: var(--font-display); font-size: clamp(20px, 2.4vw, 32px); font-weight: 400; font-style: italic; color: var(--deep-forest); line-height: 1.55; margin-bottom: 12px; }
@@ -191,18 +196,18 @@
       <h2 class="form-heading">Prefer to write? Send us the thread.</h2>
       <p class="form-subhead">Tell us who you are, what you are building, and the story you have not been able to tell yet. We read everything and respond within two business days.</p>
 
-      <form id="contactForm" novalidate>
+      <form id="contactForm">
         <div class="form-field">
           <label class="form-label" for="name">Who are you?</label>
-          <input type="text" class="form-input" id="name" name="name" placeholder="Your name">
+          <input type="text" class="form-input" id="name" name="name" placeholder="Your name" maxlength="120" required>
         </div>
         <div class="form-field">
           <label class="form-label" for="org">What are you building?</label>
-          <input type="text" class="form-input" id="org" name="org" placeholder="Your organisation or project name">
+          <input type="text" class="form-input" id="org" name="org" placeholder="Your organisation or project name" maxlength="120">
         </div>
         <div class="form-field">
           <label class="form-label" for="story">What is the story you have not been able to tell yet?</label>
-          <textarea class="form-textarea" id="story" name="story" placeholder="Tell us what feels stuck. Your messaging, your audience, your brand. No need to have it figured out. That is what we are here for."></textarea>
+          <textarea class="form-textarea" id="story" name="story" placeholder="Tell us what feels stuck. Your messaging, your audience, your brand. No need to have it figured out. That is what we are here for." maxlength="4000" required></textarea>
         </div>
         <div class="form-field">
           <label class="form-label">How would you describe your organisation?</label>
@@ -221,9 +226,10 @@
         </div>
         <div class="form-field">
           <label class="form-label" for="source">How did you find us?</label>
-          <input type="text" class="form-input" id="source" name="source" placeholder="LinkedIn, referral, search, word of mouth, other">
+          <input type="text" class="form-input" id="source" name="source" placeholder="LinkedIn, referral, search, word of mouth, other" maxlength="200">
         </div>
         <button type="submit" class="form-submit">Send the thread →</button>
+        <p class="form-error" id="formError" role="alert"></p>
       </form>
 
       <div class="form-success" id="formSuccess">
@@ -254,20 +260,41 @@
     });
 
     // Form submit
-    document.getElementById('contactForm').addEventListener('submit', e => {
+    document.getElementById('contactForm').addEventListener('submit', async e => {
       e.preventDefault();
-      const data = Object.fromEntries(new FormData(e.target));
-      fetch('/api/form', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).catch(() => {});
-      e.target.style.opacity = '0';
-      e.target.style.transition = 'opacity .4s';
-      setTimeout(() => {
-        e.target.style.display = 'none';
-        const success = document.getElementById('formSuccess');
-        success.classList.add('visible');
-      }, 400);
+      const form = e.target;
+      const submitBtn = form.querySelector('.form-submit');
+      const errEl = document.getElementById('formError');
+      errEl.classList.remove('visible');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      const data = Object.fromEntries(new FormData(form));
+      try {
+        const res = await fetch('/api/form', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+        if (!res.ok) throw new Error('Request failed (' + res.status + ')');
+
+        form.style.opacity = '0';
+        form.style.transition = 'opacity .4s';
+        setTimeout(() => {
+          form.style.display = 'none';
+          document.getElementById('formSuccess').classList.add('visible');
+        }, 400);
+      } catch (err) {
+        errEl.textContent = 'Something went wrong sending this. Your answers are still here. Please try again, or email info@throughline.community directly.';
+        errEl.classList.add('visible');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send the thread →';
+      }
     });
 
     (function(){var b=document.getElementById('navHamburger'),o=document.getElementById('navMobile');if(!b||!o)return;function t(open){b.classList.toggle('open',open);o.classList.toggle('open',open);b.setAttribute('aria-expanded',String(open));o.setAttribute('aria-hidden',String(!open));document.body.style.overflow=open?'hidden':'';}b.addEventListener('click',function(){t(!b.classList.contains('open'));});o.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){t(false);});});document.addEventListener('keydown',function(e){if(e.key==='Escape')t(false);});}());
   
     (function(){var KEY='tlco_consent_v1',stored=localStorage.getItem(KEY);function grantAnalytics(){if(window.gtag)gtag('consent','update',{analytics_storage:'granted',ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted'});if(!window._liLoaded){window._liLoaded=true;window._linkedin_partner_id='9504276';window._linkedin_data_partner_ids=window._linkedin_data_partner_ids||[];window._linkedin_data_partner_ids.push('9504276');(function(l){if(!l){window.lintrk=function(a,b){window.lintrk.q.push([a,b])};window.lintrk.q=[];}var s=document.getElementsByTagName('script')[0],b=document.createElement('script');b.type='text/javascript';b.async=true;b.src='https://snap.licdn.com/li.lms-analytics/insight.min.js';s.parentNode.insertBefore(b,s);})(window.lintrk);}}if(stored==='accepted'){grantAnalytics();}document.addEventListener('DOMContentLoaded',function(){var banner=document.getElementById('cookieBanner');function show(){if(banner)banner.classList.add('visible');}function hide(){if(banner)banner.classList.remove('visible');}window.tlcoOpenConsent=function(){localStorage.removeItem(KEY);show();};if(!stored){show();}var ac=document.getElementById('cookieAccept'),dc=document.getElementById('cookieDecline');if(ac)ac.addEventListener('click',function(){localStorage.setItem(KEY,'accepted');hide();grantAnalytics();});if(dc)dc.addEventListener('click',function(){localStorage.setItem(KEY,'declined');hide();});});}());
   </script>
+  <script>
+    console.log('%cLooking for the throughline?', 'font-size:16px;font-weight:bold;color:#C2714F;');
+    console.log('%cWe find them for brands like yours. throughline.community/contact', 'font-size:12px;color:#2C3E35;');
+  </script>
+</body>
+</html>

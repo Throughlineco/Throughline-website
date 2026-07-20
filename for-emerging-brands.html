@@ -57,8 +57,10 @@
       border-bottom: 1px solid rgba(44,62,53,.08);
     }
     .nav-logo-svg { height: 60px; width: auto; display: block; }
-    .nav-logo-svg .logo-wave    { stroke: var(--muted-sage); }
-    .nav-logo-svg .logo-dot     { fill: var(--terracotta); }
+    .nav-logo-svg .logo-wave    { stroke: var(--muted-sage); transition: stroke-width .3s ease; }
+    .nav-logo-svg .logo-dot     { fill: var(--terracotta); transition: transform .4s cubic-bezier(.34,1.56,.64,1); transform-box: fill-box; transform-origin: center; }
+    a:hover .nav-logo-svg .logo-dot  { transform: scale(1.35); }
+    a:hover .nav-logo-svg .logo-wave { stroke-width: 3.6; }
     .nav-logo-svg .logo-text    { fill: var(--deep-forest); }
     .nav-logo-svg .logo-line    { stroke: var(--sage-green); opacity: .45; }
     .nav-logo-svg .logo-tagline { fill: var(--muted-sage); }
@@ -76,6 +78,10 @@
     /* REVEAL */
     .js-ready .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s cubic-bezier(.215,.61,.355,1), transform .9s cubic-bezier(.215,.61,.355,1); }
     .js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .js-ready .reveal { opacity: 1; transform: none; transition: none; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+    }
 
     /* ── HERO ── */
     .s-hero {
@@ -199,7 +205,7 @@
     .gut-card-icon svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .gut-card-body {
       font-size: clamp(14px, 1.4vw, 17px); font-weight: 300; line-height: 1.68;
-      color: rgba(44,62,53,.8);
+      color: rgba(44,62,53,.78);
     }
     .gut-footer { }
     .gut-truth {
@@ -288,7 +294,7 @@
       color: var(--cream); margin-bottom: 12px;
     }
     .step-body {
-      font-size: 13px; font-weight: 300; line-height: 1.74;
+      font-size: 15px; font-weight: 300; line-height: 1.74;
       color: rgba(245,240,232,.68);
     }
     .process-tagline {
@@ -442,7 +448,7 @@
     .phase-status.next       { color: rgba(61,107,79,.65); }
     .phase-status.upcoming   { color: rgba(245,240,232,.22); }
     .phase-body {
-      font-size: 13px; font-weight: 300; line-height: 1.68;
+      font-size: 14px; font-weight: 300; line-height: 1.68;
       color: rgba(245,240,232,.42);
       padding-top: 18px; border-top: 1px solid rgba(245,240,232,.08);
     }
@@ -467,13 +473,13 @@
     .cs-cases { display: flex; flex-direction: column; gap: 64px; position: relative; z-index: 1; }
     .cs-case-head { margin-bottom: 26px; max-width: 640px; }
     .cs-case-name { font-family: var(--font-display); font-size: clamp(19px, 2vw, 25px); font-weight: 400; color: var(--cream); margin-bottom: 10px; letter-spacing: -.01em; }
-    .cs-case-intro { font-size: clamp(13px, 1.35vw, 15.5px); font-weight: 300; line-height: 1.72; color: rgba(245,240,232,.56); margin-bottom: 14px; }
+    .cs-case-intro { font-size: clamp(14px, 1.35vw, 15.5px); font-weight: 300; line-height: 1.72; color: rgba(245,240,232,.56); margin-bottom: 14px; }
     .cs-case-intro:last-child { margin-bottom: 0; }
 
     /* Testimonial */
-    .cs-testimonial { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+    .cs-testimonial { margin-top: 40px; }
     .cs-testimonial-quote-wrap {
-      background: rgba(245,240,232,.045); border: 1px solid rgba(245,240,232,.12);
+      max-width: 640px; background: rgba(245,240,232,.045); border: 1px solid rgba(245,240,232,.12);
       border-radius: 14px; padding: 36px 36px 32px;
     }
     .cs-testimonial-mark {
@@ -486,33 +492,6 @@
       margin-bottom: 18px;
     }
     .cs-testimonial-attrib { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(245,240,232,.4); }
-    .cs-video-frame {
-      padding: 10px; background: rgba(245,240,232,.05); border: 1px solid rgba(245,240,232,.14);
-      border-radius: 18px; box-shadow: 0 30px 70px rgba(0,0,0,.35), 0 8px 20px rgba(0,0,0,.25);
-    }
-    .cs-video-wrap {
-      position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 11px; overflow: hidden;
-      background: #000; cursor: pointer;
-    }
-    .cs-video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-    .cs-video-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s cubic-bezier(.215,.61,.355,1); }
-    .cs-video-wrap:hover .cs-video-poster { transform: scale(1.03); }
-    .cs-video-wrap::after { content: ''; position: absolute; inset: 0; background: rgba(20,31,26,.18); transition: background .25s; }
-    .cs-video-wrap:hover::after { background: rgba(20,31,26,.28); }
-    .cs-video-play {
-      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-      width: 64px; height: 64px; border-radius: 50%; z-index: 2;
-      background: var(--terracotta); color: var(--cream);
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 10px 30px rgba(194,113,79,.45), 0 0 0 7px rgba(245,240,232,.07);
-      transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .25s;
-    }
-    .cs-video-play svg { margin-left: 3px; }
-    .cs-video-wrap:hover .cs-video-play { transform: translate(-50%,-50%) scale(1.08); }
-    .cs-video-wrap:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 4px; }
-    .cs-video-wrap.playing .cs-video-poster,
-    .cs-video-wrap.playing .cs-video-play,
-    .cs-video-wrap.playing::after { display: none; }
 
     /* ── FINAL CTA ── */
     .s-final {
@@ -569,7 +548,6 @@
       .tracker-phases { grid-template-columns: repeat(2, 1fr) !important; gap: 32px 24px; }
       .tracker-line-track { display: none; }
       .tracker-wrap { padding: 36px 32px; }
-      .cs-testimonial { grid-template-columns: 1fr; }
     }
     @media (max-width: 720px) {
       .nav { padding: 16px 24px; }
@@ -843,14 +821,6 @@
             <p class="cs-testimonial-quote">Working with Riya took a huge weight off my shoulders. She helped me make decisions I'd been putting off for weeks and somehow understood my vision even when I couldn't fully explain it. Halfway through, I completely changed directions, and instead of pushing back, she redid the research and copy to match. It was a pleasure working with her.</p>
             <p class="cs-testimonial-attrib">Josh Harris, Josh Harris Media</p>
           </div>
-          <div class="cs-video-frame">
-            <div class="cs-video-wrap" data-video-id="vOZbuVr-QVo" data-video-title="Josh Harris video testimonial" tabindex="0" role="button" aria-label="Play Josh Harris video testimonial">
-              <img class="cs-video-poster" src="https://img.youtube.com/vi/vOZbuVr-QVo/maxresdefault.jpg" alt="" loading="lazy">
-              <span class="cs-video-play" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="20" height="20"><polygon points="6,4 20,12 6,20" fill="currentColor"/></svg>
-              </span>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -1031,23 +1001,6 @@
       obs.observe(section);
     }());
 
-    // Facade video embeds: swap poster + play button for the real iframe on click,
-    // so no YouTube branding/title overlay shows before the visitor chooses to play.
-    document.querySelectorAll('.cs-video-wrap[data-video-id]').forEach(function (wrap) {
-      function play() {
-        if (wrap.classList.contains('playing')) return;
-        var iframe = document.createElement('iframe');
-        iframe.src = 'https://www.youtube-nocookie.com/embed/' + wrap.dataset.videoId + '?autoplay=1&rel=0&modestbranding=1';
-        iframe.title = wrap.dataset.videoTitle || 'Video';
-        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-        iframe.allowFullscreen = true;
-        wrap.appendChild(iframe);
-        wrap.classList.add('playing');
-      }
-      wrap.addEventListener('click', play);
-      wrap.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(); } });
-    });
-
     // Scroll reveal
     document.body.classList.add('js-ready');
     var revealObs = new IntersectionObserver(function (entries) {
@@ -1120,5 +1073,9 @@
       </div>
     </div>
   </div>
+  <script>
+    console.log('%cLooking for the throughline?', 'font-size:16px;font-weight:bold;color:#C2714F;');
+    console.log('%cWe find them for brands like yours. throughline.community/contact', 'font-size:12px;color:#2C3E35;');
+  </script>
 </body>
 </html>

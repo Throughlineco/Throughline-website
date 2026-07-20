@@ -359,12 +359,10 @@
       box-shadow: 0 0 0 1px rgba(194,113,79,.06) inset, 0 32px 80px rgba(0,0,0,.25);
     }
     .tracker-phases {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 0; position: relative;
+      display: grid; gap: 0; position: relative;
     }
     .tracker-line-track {
       position: absolute; top: 20px;
-      left: calc(12.5%); right: calc(12.5%);
       height: 2px; background: rgba(245,240,232,.1);
       z-index: 0; overflow: hidden;
     }
@@ -465,6 +463,33 @@
     }
     .cs-soft-cta:hover { opacity: .72; border-color: var(--terracotta); }
 
+    /* Multi-case layout */
+    .cs-cases { display: flex; flex-direction: column; gap: 64px; position: relative; z-index: 1; }
+    .cs-case-head { margin-bottom: 26px; max-width: 640px; }
+    .cs-case-name { font-family: var(--font-display); font-size: clamp(19px, 2vw, 25px); font-weight: 400; color: var(--cream); margin-bottom: 10px; letter-spacing: -.01em; }
+    .cs-case-intro { font-size: clamp(13px, 1.35vw, 15.5px); font-weight: 300; line-height: 1.72; color: rgba(245,240,232,.56); margin-bottom: 14px; }
+    .cs-case-intro:last-child { margin-bottom: 0; }
+
+    /* Testimonial */
+    .cs-testimonial { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+    .cs-testimonial-quote-wrap {
+      background: rgba(245,240,232,.045); border: 1px solid rgba(245,240,232,.1);
+      border-left: 2px solid rgba(194,113,79,.5); border-radius: 4px 12px 12px 4px;
+      padding: 32px 36px;
+    }
+    .cs-testimonial-quote {
+      font-family: var(--font-display); font-style: italic; font-weight: 400;
+      font-size: clamp(14px, 1.5vw, 17px); line-height: 1.72; color: rgba(245,240,232,.82);
+      margin-bottom: 18px;
+    }
+    .cs-testimonial-attrib { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(245,240,232,.4); }
+    .cs-video-wrap {
+      position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden;
+      background: rgba(0,0,0,.3); border: 1px solid rgba(245,240,232,.1);
+      box-shadow: 0 20px 50px rgba(0,0,0,.3);
+    }
+    .cs-video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
     /* ── FINAL CTA ── */
     .s-final {
       background: var(--cream); padding: 124px 80px;
@@ -517,9 +542,10 @@
       .process-line-track { display: none; }
       .process-step { padding: 0; }
       .step-dot { margin: 0 0 24px 0; }
-      .tracker-phases { grid-template-columns: repeat(2, 1fr); gap: 32px 24px; }
+      .tracker-phases { grid-template-columns: repeat(2, 1fr) !important; gap: 32px 24px; }
       .tracker-line-track { display: none; }
       .tracker-wrap { padding: 36px 32px; }
+      .cs-testimonial { grid-template-columns: 1fr; }
     }
     @media (max-width: 720px) {
       .nav { padding: 16px 24px; }
@@ -533,10 +559,12 @@
       .s-final { padding: 72px 24px; }
       .s-process, .s-casestudy { padding: 72px 24px; }
       .process-steps { grid-template-columns: 1fr; gap: 36px; }
-      .tracker-phases { grid-template-columns: 1fr; gap: 28px; }
+      .tracker-phases { grid-template-columns: 1fr !important; gap: 28px; }
       .tracker-meta { flex-direction: column; gap: 8px; }
       .tracker-wrap { padding: 28px 24px; }
       .site-footer { padding: 20px 24px; flex-direction: column; align-items: flex-start; }
+      .cs-cases { gap: 44px; }
+      .cs-testimonial-quote-wrap { padding: 24px 22px; }
     }
 
     /* ── MOBILE NAV ── */
@@ -761,23 +789,55 @@
     <p class="process-tagline reveal">By month six, you own the engine. <strong>We build ourselves out of a job.</strong></p>
   </section>
 
-  <!-- SECTION 4: LIVE CASE STUDY -->
+  <!-- SECTION 4: LIVE CASE STUDIES -->
   <section class="s-casestudy">
     <div class="cs-header">
-      <span class="cs-eyebrow reveal"><span class="live-dot" aria-hidden="true"></span>Live case study</span>
-      <h2 class="cs-headline reveal" style="transition-delay:.07s">Watch us build a brand in real time.</h2>
-      <p class="cs-intro reveal" style="transition-delay:.14s">Josh Harris makes video for B2B SaaS founders. Good video. The kind that actually moves people. But like a lot of skilled people, he was selling the thing he did, not the result it created. The brand said videographer. The work said so much more.</p>
-      <p class="cs-intro reveal" style="transition-delay:.21s">He came to us to fix that gap. So we are building Josh Harris Media from the name up, and we are documenting it as we go. Most case studies show you the polished after. We are showing you the during. Come back and watch it move.</p>
+      <span class="cs-eyebrow reveal"><span class="live-dot" aria-hidden="true"></span>Live case studies</span>
+      <h2 class="cs-headline reveal" style="transition-delay:.07s">Watch us build brands in real time.</h2>
+      <p class="cs-intro reveal" style="transition-delay:.14s">Most case studies show you the polished after. We show you the during. Two brands, two very different builds, documented as we go.</p>
     </div>
 
-    <div class="tracker-wrap reveal" style="transition-delay:.28s" id="trackerWrap">
-      <div class="tracker-phases" id="trackerPhases">
-        <div class="tracker-line-track">
-          <div class="tracker-line-fill" id="trackerLineFill"></div>
+    <div class="cs-cases">
+
+      <!-- JOSH HARRIS MEDIA -->
+      <div class="cs-case reveal" style="transition-delay:.2s">
+        <div class="cs-case-head">
+          <h3 class="cs-case-name">Josh Harris Media</h3>
+          <p class="cs-case-intro">Josh Harris makes video for B2B SaaS founders. Good video. The kind that actually moves people. But like a lot of skilled people, he was selling the thing he did, not the result it created. The brand said videographer. The work said so much more.</p>
+          <p class="cs-case-intro">He came to us to fix that gap. We built Josh Harris Media from the name up, and documented it as we went.</p>
         </div>
-        <!-- Phases rendered by JS from TRACKER_CONFIG below -->
+        <div class="tracker-wrap" id="josh-wrap">
+          <div class="tracker-phases" id="josh-phases">
+            <div class="tracker-line-track"><div class="tracker-line-fill"></div></div>
+          </div>
+          <div class="tracker-meta" id="josh-meta"></div>
+        </div>
+
+        <div class="cs-testimonial">
+          <div class="cs-testimonial-quote-wrap">
+            <p class="cs-testimonial-quote">"Working with Riya took a huge weight off my shoulders. She helped me make decisions I'd been putting off for weeks and somehow understood my vision even when I couldn't fully explain it. Halfway through, I completely changed directions, and instead of pushing back, she redid the research and copy to match. It was a pleasure working with her."</p>
+            <p class="cs-testimonial-attrib">Josh Harris, Josh Harris Media</p>
+          </div>
+          <div class="cs-video-wrap">
+            <iframe src="https://www.youtube.com/embed/vOZbuVr-QVo" title="Josh Harris video testimonial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>
       </div>
-      <div class="tracker-meta" id="trackerMeta"></div>
+
+      <!-- MANUSMRITI BOOK PROJECT -->
+      <div class="cs-case reveal" style="transition-delay:.24s">
+        <div class="cs-case-head">
+          <h3 class="cs-case-name">Manusmriti Book Project</h3>
+          <p class="cs-case-intro">An ancient Sanskrit text, a stubborn Kindle converter, and the fight to get the formatting right.</p>
+        </div>
+        <div class="tracker-wrap" id="manusmriti-wrap">
+          <div class="tracker-phases" id="manusmriti-phases">
+            <div class="tracker-line-track"><div class="tracker-line-fill"></div></div>
+          </div>
+          <div class="tracker-meta" id="manusmriti-meta"></div>
+        </div>
+      </div>
+
     </div>
 
     <a href="/contact" class="cs-soft-cta reveal" style="transition-delay:.34s">Want this for your brand? Book a call.</a>
@@ -802,101 +862,54 @@
 
   <script>
     // ============================================================
-    //  EDITABLE TRACKER CONFIG
-    //  Update this object to advance the Josh Harris case study.
+    //  SHARED TRACKER RENDERER
+    //  Each case study below is an independently editable config:
+    //  phase label/title/state/statusText/body, plus lastUpdated
+    //  and nextUpdate.
     //
     //  state options:
     //    'complete'    : phase done, shows checkmark + filled dot
     //    'in-progress' : current phase, pulses gently
     //    'next'        : next up, outlined in sage
     //    'upcoming'    : not yet started, dim outline
-    //
-    //  To move the progress marker forward:
-    //    1. Change the current 'in-progress' phase to 'complete'
-    //    2. Change the next 'next' phase to 'in-progress'
-    //    3. Change the following 'upcoming' to 'next'
-    //    4. Update lastUpdated and nextUpdate dates
     // ============================================================
-    var TRACKER_CONFIG = {
-      phases: [
-        {
-          label:      'June 1, 2026',
-          title:      'Discovery',
-          state:      'complete',
-          statusText: 'Complete',
-          body:       'Josh knew his work was good. His clients knew it too. But cold prospects could not see it fast enough, and the sales cycle was longer than it needed to be. We started by asking one question. What does your buyer already believe before they get on a call with you?'
-        },
-        {
-          label:      'June 15, 2026',
-          title:      'Diagnosis and Build',
-          state:      'complete',
-          statusText: 'Complete',
-          body:       'The answer changed everything. Josh’s video was not content. It was a pre-sales tool that qualified buyers before they ever spoke to him. Once we named that, the positioning, the brand voice, and the entire website architecture followed. We built and shipped the site.'
-        },
-        {
-          label:      'June 22, 2026',
-          title:      'Execution',
-          state:      'in-progress',
-          statusText: 'In progress',
-          body:       'The brand is live. Josh now has a website that does the selling before he picks up the phone, interactive tools that turn cold visitors into warm leads, and a brand book that keeps every touchpoint consistent as he scales.'
-        },
-        {
-          label:      'Coming next',
-          title:      'Measure',
-          state:      'upcoming',
-          statusText: 'Upcoming',
-          body:       'The only question that matters now. Is the right kind of founder finding Josh, trusting him faster, and converting at a higher rate? We will share the numbers here as they come in.'
-        }
-      ],
-      lastUpdated: 'June 24, 2026',
-      nextUpdate:  'June 29, 2026'
-    };
-    // ============================================================
-    //  END EDITABLE CONFIG
-    // ============================================================
-
-    // Build tracker from config
-    (function () {
-      var phasesEl = document.getElementById('trackerPhases');
-      var metaEl   = document.getElementById('trackerMeta');
+    function renderTracker(prefix, config) {
+      var wrap     = document.getElementById(prefix + '-wrap');
+      var phasesEl = document.getElementById(prefix + '-phases');
+      var metaEl   = document.getElementById(prefix + '-meta');
       if (!phasesEl) return;
 
-      // Preserve the line track element
       var lineTrack = phasesEl.querySelector('.tracker-line-track');
+      var n = config.phases.length;
+      var edge = (50 / n) + '%';
+      phasesEl.style.gridTemplateColumns = 'repeat(' + n + ', 1fr)';
+      if (lineTrack) { lineTrack.style.left = edge; lineTrack.style.right = edge; }
 
-      // Calculate fill percentage: fill line to the in-progress phase's dot
-      var totalPhases = TRACKER_CONFIG.phases.length;
-      var inProgIdx   = -1;
-      var completeCount = 0;
-      TRACKER_CONFIG.phases.forEach(function (p, i) {
+      var inProgIdx = -1, completeCount = 0;
+      config.phases.forEach(function (p, i) {
         if (p.state === 'in-progress') inProgIdx = i;
-        if (p.state === 'complete')    completeCount++;
+        if (p.state === 'complete') completeCount++;
       });
-      var fillPct = inProgIdx >= 0
-        ? (inProgIdx / (totalPhases - 1)) * 100
-        : (completeCount / (totalPhases - 1)) * 100;
+      var fillPct = inProgIdx >= 0 ? (inProgIdx / (n - 1)) * 100 : (completeCount / (n - 1)) * 100;
       fillPct = Math.max(0, Math.min(100, fillPct));
 
-      // Build phase HTML
       var html = '';
-      TRACKER_CONFIG.phases.forEach(function (phase) {
+      config.phases.forEach(function (phase) {
         var isActive = phase.state === 'complete' || phase.state === 'in-progress';
         html += '<div class="tracker-phase">';
         html += '<div class="phase-indicator ' + phase.state + '"></div>';
-        html += '<p class="phase-label">' + phase.label + '</p>';
+        if (phase.label) html += '<p class="phase-label">' + phase.label + '</p>';
         html += '<h3 class="phase-title">' + phase.title + '</h3>';
         html += '<p class="phase-status ' + phase.state + '">' + phase.statusText + '</p>';
-        html += '<p class="phase-body' + (isActive ? ' active-phase' : '') + '">' + phase.body + '</p>';
+        if (phase.body) html += '<p class="phase-body' + (isActive ? ' active-phase' : '') + '">' + phase.body + '</p>';
         html += '</div>';
       });
 
-      // Remove old phase nodes, keep line track, append new phases
       Array.from(phasesEl.querySelectorAll('.tracker-phase')).forEach(function (el) { el.remove(); });
       phasesEl.insertAdjacentHTML('beforeend', html);
       if (lineTrack) phasesEl.insertBefore(lineTrack, phasesEl.firstChild);
 
-      // Animate fill on scroll reveal
-      var fill = document.getElementById('trackerLineFill');
+      var fill = phasesEl.querySelector('.tracker-line-fill');
       if (fill) {
         fill.style.width = '0%';
         var obs = new IntersectionObserver(function (entries) {
@@ -907,17 +920,73 @@
             }
           });
         }, { threshold: 0.3 });
-        var wrap = document.getElementById('trackerWrap');
         if (wrap) obs.observe(wrap);
       }
 
-      // Render meta
       if (metaEl) {
         metaEl.innerHTML =
-          '<p>Last updated: <span>' + TRACKER_CONFIG.lastUpdated + '</span></p>' +
-          '<p>Next update: <span>'  + TRACKER_CONFIG.nextUpdate  + '</span></p>';
+          '<p>Last updated: <span>' + config.lastUpdated + '</span></p>' +
+          '<p>Next update: <span>'  + config.nextUpdate  + '</span></p>';
       }
-    }());
+    }
+
+    // Update this object to advance the Josh Harris case study.
+    var JOSH_CONFIG = {
+      phases: [
+        {
+          label:      'June 1, 2026',
+          title:      'Discovery',
+          state:      'complete',
+          statusText: 'Complete',
+          body:       'Josh knew his work was good. His clients knew it too. But cold prospects could not see it fast enough, and the sales cycle was longer than it needed to be. We started by asking one question. What does your buyer already believe before they get on a call with you?'
+        },
+        {
+          label:      'June 15, 2026',
+          title:      'Website &amp; Tools',
+          state:      'complete',
+          statusText: 'Complete',
+          body:       'Josh’s video was not content. It was a pre-sales tool that qualified buyers before they ever spoke to him. Once we named that, the positioning, the brand voice, and the entire website architecture followed. We built and shipped a website that does the selling before he picks up the phone, plus interactive tools that turn cold visitors into warm leads.'
+        },
+        {
+          label:      'June 24, 2026',
+          title:      'Handover',
+          state:      'complete',
+          statusText: 'Complete',
+          body:       'Site live, brand book delivered, Revenue Leak Calculator and Brand Audit tool deployed, full handover complete.'
+        }
+      ],
+      lastUpdated: 'June 24, 2026',
+      nextUpdate:  'Complete'
+    };
+
+    // Update this object to advance the Manusmriti book project.
+    var MANUSMRITI_CONFIG = {
+      phases: [
+        {
+          title:      'Content Preparation &amp; Formatting',
+          state:      'in-progress',
+          statusText: 'In progress',
+          body:       'Getting a centuries-old Sanskrit text to render correctly on modern e-readers turned into its own project: fixing Devanagari script rendering, correcting language encoding, rebuilding the file structure so Kindle could process it properly. Ebook version approved and live. Print formatting in its final stretch.'
+        },
+        {
+          title:      'Publish',
+          state:      'next',
+          statusText: 'Next',
+          body:       'Once print formatting is locked, the print and ebook editions go live together.'
+        },
+        {
+          title:      'Community Outreach',
+          state:      'upcoming',
+          statusText: 'Upcoming',
+          body:       'Finding the readers already looking for this text, once it’s out.'
+        }
+      ],
+      lastUpdated: 'July 20, 2026',
+      nextUpdate:  'TBD'
+    };
+
+    renderTracker('josh', JOSH_CONFIG);
+    renderTracker('manusmriti', MANUSMRITI_CONFIG);
 
     // Process section: animate line + dots on scroll
     (function () {

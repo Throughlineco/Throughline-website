@@ -4,11 +4,25 @@
   <meta charset="UTF-8">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>For Established Brands — Throughline Co.</title>
+  <title>For Established Brands | Throughline Co.</title>
   <link rel="canonical" href="https://throughline.community/for-established-brands">
-  <meta property="og:title" content="For Established Brands — Throughline Co.">
-  <meta name="description" content="Brand strategy for organizations ready to sharpen their story and scale what works.">
-  <meta property="og:description" content="Brand strategy for organizations ready to sharpen their story and scale what works.">
+
+  <!-- Open Graph / link preview -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://throughline.community/for-established-brands">
+  <meta property="og:title"       content="For Established Brands | Throughline Co.">
+  <meta name="description" content="Your business changed. Your story didn't catch up. Throughline Co. closes the gap between what established brands were, what they are now, and what new markets still believe.">
+  <meta property="og:description" content="Your business changed. Your story didn't catch up. Throughline Co. closes the gap between what established brands were, what they are now, and what new markets still believe.">
+  <meta property="og:image"       content="https://throughline.community/og-image.png">
+  <meta property="og:image:width"  content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="For Established Brands | Throughline Co.">
+  <meta name="twitter:description" content="Your business changed. Your story didn't catch up. Throughline Co. closes the gap between what established brands were, what they are now, and what new markets still believe.">
+  <meta name="twitter:image"       content="https://throughline.community/og-image.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Merriweather:ital,wght@0,400;1,300;1,400&display=swap" rel="stylesheet">
@@ -23,16 +37,25 @@
       --font-display:'Merriweather', Georgia, serif;
       --font-body:   'Lato', Arial, sans-serif;
     }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { background: var(--cream); scroll-behavior: smooth; }
-    body { font-family: var(--font-body); font-weight: 300; font-size: 14px; line-height: 1; background: var(--cream); color: var(--deep-forest); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    body {
+      font-family: var(--font-body); font-weight: 300; font-size: 14px; line-height: 1;
+      background: var(--cream); color: var(--deep-forest);
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    ::selection { background: #ffccc1; color: var(--deep-forest); }
     a { color: inherit; text-decoration: none; }
+
     @media (pointer: fine) and (hover: hover) { * { cursor: none !important; } }
 
+    /* THROUGHLINE SVG TRACKER */
     #tlNav { position: fixed; left: 20px; top: 0; width: 12px; height: 100vh; z-index: 90; pointer-events: none; overflow: visible; display: none; }
     @media (min-width: 900px) { #tlNav { display: block; } }
     #tlFill { filter: drop-shadow(0 0 4px rgba(61,107,79,0.9)) drop-shadow(0 0 8px rgba(61,107,79,0.5)); }
 
+    /* NAV */
     .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 24px 64px; display: flex; justify-content: space-between; align-items: center; background: rgba(245,240,232,.93); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(44,62,53,.08); }
     .nav-logo-svg { height: 60px; width: auto; display: block; }
     .nav-logo-svg .logo-wave    { stroke: var(--muted-sage); }
@@ -47,33 +70,246 @@
     .nav-linkedin { display: flex; align-items: center; opacity: .5; transition: opacity .2s; }
     .nav-linkedin:hover { opacity: 1; }
 
-    .page-body { padding: 152px 80px 120px; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; }
-    .coming-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 32px; display: block; }
-    .coming-headline { font-family: var(--font-display); font-size: clamp(36px, 5vw, 68px); font-weight: 400; line-height: 1.25; color: var(--deep-forest); margin-bottom: 32px; letter-spacing: -.025em; }
-    .coming-body { font-size: clamp(16px, 1.65vw, 19px); font-weight: 300; line-height: 1.76; color: rgba(44,62,53,.65); max-width: 520px; margin-bottom: 52px; }
-    .btn-terra { display: inline-flex; align-items: center; gap: 10px; background: var(--terracotta); color: var(--cream); font-family: var(--font-body); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 16px 36px; border-radius: 9999px; border: none; transition: opacity .25s, transform .2s; }
-    .btn-terra:hover { opacity: .85; transform: translateY(-2px); }
+    /* REVEAL */
+    .js-ready .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s cubic-bezier(.215,.61,.355,1), transform .9s cubic-bezier(.215,.61,.355,1); }
+    .js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .js-ready .reveal { opacity: 1; transform: none; transition: none; }
+    }
 
+    /* ── HERO (single column, centered) ── */
+    .eb-hero {
+      background: var(--cream); padding: 168px 80px 116px;
+      min-height: 76vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .eb-hero::before {
+      content: ''; position: absolute; top: -140px; left: 50%; transform: translateX(-50%);
+      width: 760px; height: 760px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(61,107,79,.045) 0%, transparent 62%);
+      pointer-events: none;
+    }
+    .eb-hero-inner { max-width: 760px; margin: 0 auto; position: relative; z-index: 1; }
+    .eb-hero-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 28px; display: block; }
+    .eb-hero-headline {
+      font-family: var(--font-display); font-size: clamp(34px, 4.8vw, 64px);
+      font-weight: 400; line-height: 1.22; color: var(--deep-forest);
+      margin-bottom: 28px; letter-spacing: -.025em; text-wrap: balance;
+    }
+    .eb-hero-subhead {
+      font-size: clamp(15px, 1.6vw, 18px); font-weight: 300; line-height: 1.78;
+      color: rgba(44,62,53,.68); max-width: 560px; margin: 0 auto 44px; text-wrap: pretty;
+    }
+    .btn-terra {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--terracotta); color: var(--cream);
+      font-family: var(--font-body); font-size: 12px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: 16px 36px; border-radius: 9999px; border: none;
+      transition: opacity .25s, transform .2s; cursor: pointer;
+    }
+    .btn-terra:hover { opacity: .85; transform: translateY(-2px); }
+    .btn-terra:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 3px; }
+    .btn-terra:active { transform: translateY(0); opacity: .78; }
+
+    /* ── THE REAL PROBLEM ── */
+    .eb-problem { background: var(--cream-d); border-top: 1px solid rgba(44,62,53,.08); padding: 100px 80px; }
+    .eb-problem-inner { max-width: 700px; margin: 0 auto; }
+    .section-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 28px; display: block; }
+    .eb-problem-body {
+      font-size: clamp(15px, 1.55vw, 18px); font-weight: 300; line-height: 1.78;
+      color: rgba(44,62,53,.78); margin-bottom: 32px;
+    }
+    .eb-problem-body:last-child { margin-bottom: 0; }
+    .eb-problem-key {
+      font-family: var(--font-display); font-size: clamp(18px, 1.9vw, 24px);
+      font-weight: 400; font-style: italic; line-height: 1.55; color: var(--deep-forest);
+    }
+    .eb-problem-key strong { font-weight: 400; font-style: normal; color: var(--terracotta); }
+
+    /* ── PERCEPTION GAP DETECTOR ── */
+    .eb-tool { background: var(--cream); padding: 100px 80px 112px; position: relative; overflow: hidden; }
+    .eb-tool::before {
+      content: ''; position: absolute; bottom: -120px; right: -100px;
+      width: 520px; height: 520px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(194,113,79,.05) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .eb-tool-header { max-width: 640px; margin: 0 auto 52px; text-align: center; position: relative; z-index: 1; }
+    .eb-tool-headline {
+      font-family: var(--font-display); font-size: clamp(28px, 3.6vw, 46px);
+      font-weight: 400; line-height: 1.25; color: var(--deep-forest);
+      margin-bottom: 20px; letter-spacing: -.02em;
+    }
+    .eb-tool-intro { font-size: clamp(14px, 1.4vw, 17px); font-weight: 300; line-height: 1.72; color: rgba(44,62,53,.66); }
+
+    .eb-tool-panel {
+      max-width: 880px; margin: 0 auto; background: var(--cream-d);
+      border: 1px solid rgba(44,62,53,.1); border-radius: 18px; padding: 52px;
+      box-shadow: 0 2px 20px rgba(44,62,53,.06), 0 1px 4px rgba(44,62,53,.04);
+      position: relative; z-index: 1;
+    }
+    .eb-tool-form { display: grid; gap: 26px; }
+    .eb-tool-field { display: flex; flex-direction: column; gap: 9px; }
+    .eb-tool-field label { font-size: 12.5px; font-weight: 700; color: var(--deep-forest); line-height: 1.5; }
+    .eb-tool-field input {
+      font-family: var(--font-body); font-size: 15px; font-weight: 300; color: var(--deep-forest);
+      background: var(--cream); border: 1.5px solid rgba(44,62,53,.18); border-radius: 9px;
+      padding: 14px 16px; transition: border-color .2s, box-shadow .2s;
+      min-height: 48px;
+    }
+    .eb-tool-field input::placeholder { color: rgba(44,62,53,.42); }
+    .eb-tool-field input:hover { border-color: rgba(44,62,53,.32); }
+    .eb-tool-field input:focus-visible { outline: none; border-color: var(--terracotta); box-shadow: 0 0 0 3px rgba(194,113,79,.15); }
+    .eb-tool-submit-row { margin-top: 8px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+    .eb-tool-hint { font-size: 12px; font-weight: 300; color: rgba(44,62,53,.5); }
+
+    /* Output */
+    .eb-tool-output {
+      max-width: 880px; margin: 0 auto; margin-top: 0; overflow: hidden;
+      max-height: 0; opacity: 0; transition: max-height .6s cubic-bezier(.215,.61,.355,1), opacity .5s ease, margin-top .6s cubic-bezier(.215,.61,.355,1);
+      position: relative; z-index: 1;
+    }
+    .eb-tool-output.visible { max-height: 900px; opacity: 1; margin-top: 44px; }
+    .eb-tool-output-inner {
+      display: grid; grid-template-columns: 300px 1fr; gap: 44px; align-items: center;
+      background: var(--cream-d); border: 1px solid rgba(44,62,53,.1); border-radius: 18px; padding: 44px;
+    }
+    .eb-diagram-wrap { display: flex; align-items: center; justify-content: center; }
+    .eb-diagram { width: 100%; max-width: 280px; height: auto; overflow: visible; }
+    .eb-diagram circle { transition: opacity .8s cubic-bezier(.215,.61,.355,1), transform .8s cubic-bezier(.215,.61,.355,1); transform-origin: center; opacity: 0; transform: scale(.82); mix-blend-mode: multiply; }
+    .eb-diagram.animate circle { opacity: 1; transform: scale(1); }
+    .eb-diagram.animate .circle-a { transition-delay: 0s; }
+    .eb-diagram.animate .circle-b { transition-delay: .14s; }
+    .eb-diagram.animate .circle-c { transition-delay: .28s; }
+    .eb-diagram text { font-family: var(--font-body); font-size: 9.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; fill: var(--deep-forest); opacity: 0; transition: opacity .6s ease .6s; }
+    .eb-diagram.animate text { opacity: .72; }
+    .eb-legend { display: flex; flex-wrap: wrap; gap: 14px 20px; justify-content: center; margin-top: 18px; }
+    .eb-legend-item { display: flex; align-items: center; gap: 7px; font-size: 10.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: rgba(44,62,53,.6); }
+    .eb-legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .eb-legend-dot--a { background: var(--sage-green); }
+    .eb-legend-dot--b { background: var(--terracotta); }
+    .eb-legend-dot--c { background: var(--deep-forest); }
+
+    .eb-tool-text-col { display: flex; flex-direction: column; gap: 18px; }
+    .eb-output-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--terracotta); }
+    .eb-output-text {
+      font-family: var(--font-display); font-size: clamp(15px, 1.6vw, 19px); font-weight: 400; font-style: italic;
+      line-height: 1.7; color: var(--deep-forest);
+    }
+    .eb-tool-again {
+      align-self: flex-start; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--terracotta); background: none; border: none; border-bottom: 1.5px solid rgba(194,113,79,.4);
+      padding: 2px 0; cursor: pointer; transition: opacity .2s, border-color .2s;
+    }
+    .eb-tool-again:hover { opacity: .72; border-color: var(--terracotta); }
+    .eb-tool-again:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 3px; }
+
+    /* ── LIVE CASE STUDIES (shared with tracker styles) ── */
+    .s-casestudy { background: #141f1a; padding: 100px 80px 108px; position: relative; overflow: hidden; }
+    .s-casestudy::before { content: ''; position: absolute; top: -100px; right: -60px; width: 640px; height: 640px; border-radius: 50%; background: radial-gradient(circle, rgba(194,113,79,.09) 0%, transparent 60%); pointer-events: none; }
+    .s-casestudy::after { content: ''; position: absolute; bottom: -100px; left: -80px; width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(circle, rgba(61,107,79,.14) 0%, transparent 65%); pointer-events: none; }
+    .cs-header { margin-bottom: 72px; position: relative; z-index: 1; max-width: 700px; }
+    .cs-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    .live-dot { display: inline-block; flex-shrink: 0; width: 7px; height: 7px; border-radius: 50%; background: var(--terracotta); animation: pulse-live 2.2s ease-in-out infinite; }
+    @keyframes pulse-live { 0%, 100% { box-shadow: 0 0 0 0 rgba(194,113,79,0); opacity: 1; } 50% { box-shadow: 0 0 0 6px rgba(194,113,79,.22), 0 0 10px rgba(194,113,79,.1); opacity: .7; } }
+    .cs-headline { font-family: var(--font-display); font-size: clamp(30px, 4.4vw, 58px); font-weight: 400; line-height: 1.22; color: var(--cream); margin-bottom: 24px; letter-spacing: -.025em; }
+    .cs-intro { font-size: clamp(15px, 1.55vw, 18px); font-weight: 300; line-height: 1.74; color: rgba(245,240,232,.58); max-width: 600px; }
+
+    .cs-cases { display: flex; flex-direction: column; gap: 56px; position: relative; z-index: 1; }
+    .cs-case-head { margin-bottom: 26px; max-width: 640px; }
+    .cs-case-name { font-family: var(--font-display); font-size: clamp(19px, 2vw, 25px); font-weight: 400; color: var(--cream); margin-bottom: 10px; letter-spacing: -.01em; }
+    .cs-case-intro { font-size: clamp(13px, 1.35vw, 15.5px); font-weight: 300; line-height: 1.72; color: rgba(245,240,232,.56); }
+
+    /* Tracker card (reused component, generalized for N phases) */
+    .tracker-wrap { background: rgba(245,240,232,.055); border: 1px solid rgba(245,240,232,.12); border-top: 2px solid rgba(194,113,79,.55); border-radius: 14px; padding: 52px 48px; position: relative; overflow: hidden; box-shadow: 0 0 0 1px rgba(194,113,79,.06) inset, 0 32px 80px rgba(0,0,0,.25); }
+    .tracker-phases { display: grid; gap: 0; position: relative; }
+    .tracker-line-track { position: absolute; top: 20px; height: 2px; background: rgba(245,240,232,.1); z-index: 0; overflow: hidden; }
+    .tracker-line-fill { height: 100%; width: 0%; background: linear-gradient(to right, var(--terracotta), rgba(194,113,79,.5)); border-radius: 9999px; transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1); }
+    .tracker-phase { padding: 0 12px; position: relative; z-index: 1; }
+
+    .phase-indicator { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 22px; position: relative; z-index: 2; }
+    .phase-indicator.complete { background: var(--terracotta); border: 2px solid var(--terracotta); }
+    .phase-indicator.in-progress { background: rgba(194,113,79,.14); border: 2px solid var(--terracotta); }
+    .phase-indicator.next { background: transparent; border: 2px solid rgba(61,107,79,.45); }
+    .phase-indicator.upcoming { background: transparent; border: 2px solid rgba(245,240,232,.15); }
+    @keyframes pulse-phase { 0%, 100% { box-shadow: 0 0 0 0 rgba(194,113,79,0); } 50% { box-shadow: 0 0 0 8px rgba(194,113,79,.2), 0 0 18px rgba(194,113,79,.07); } }
+    .phase-indicator.in-progress { animation: pulse-phase 2.2s ease-in-out infinite; }
+    .phase-indicator.complete::after { content: ''; width: 13px; height: 7px; border-left: 2.5px solid var(--cream); border-bottom: 2.5px solid var(--cream); transform: rotate(-45deg) translate(1px, -2px); display: block; }
+    .phase-indicator.in-progress::after { content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--terracotta); display: block; }
+    .phase-indicator.next::after { content: ''; width: 10px; height: 10px; border-radius: 50%; border: 2px solid rgba(61,107,79,.45); display: block; }
+    .phase-indicator.upcoming::after { content: ''; width: 10px; height: 10px; border-radius: 50%; border: 2px solid rgba(245,240,232,.2); display: block; }
+
+    .phase-label { font-size: 9px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: rgba(245,240,232,.32); margin-bottom: 7px; text-align: center; white-space: nowrap; }
+    .phase-title { font-family: var(--font-body); font-size: clamp(13px, 1.3vw, 16px); font-weight: 700; color: var(--cream); margin-bottom: 6px; text-align: center; }
+    .phase-status { font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; text-align: center; margin-bottom: 18px; }
+    .phase-status.complete { color: var(--terracotta); }
+    .phase-status.in-progress { color: var(--terracotta); }
+    .phase-status.next { color: rgba(61,107,79,.65); }
+    .phase-status.upcoming { color: rgba(245,240,232,.22); }
+    .phase-body { font-size: 13px; font-weight: 300; line-height: 1.68; color: rgba(245,240,232,.42); padding-top: 18px; border-top: 1px solid rgba(245,240,232,.08); }
+    .phase-body.active-phase { color: rgba(245,240,232,.75); }
+
+    .tracker-meta { margin-top: 36px; display: flex; gap: 32px; font-size: 11px; font-weight: 300; color: rgba(245,240,232,.28); border-top: 1px solid rgba(245,240,232,.07); padding-top: 24px; }
+    .tracker-meta span { font-weight: 700; color: rgba(245,240,232,.48); }
+
+    /* ── FINAL CTA ── */
+    .s-final { background: var(--cream); padding: 124px 80px; text-align: center; border-top: 1px solid rgba(44,62,53,.08); position: relative; overflow: hidden; }
+    .s-final::before { content: ''; position: absolute; top: 50%; left: 50%; width: 700px; height: 380px; background: radial-gradient(ellipse at center, rgba(194,113,79,.055) 0%, transparent 65%); transform: translate(-50%, -50%); pointer-events: none; }
+    .final-headline { font-family: var(--font-display); font-size: clamp(32px, 4.5vw, 60px); font-weight: 400; font-style: italic; line-height: 1.25; color: var(--deep-forest); margin-bottom: 24px; letter-spacing: -.02em; }
+    .final-body { font-size: clamp(15px, 1.55vw, 18px); font-weight: 300; line-height: 1.74; color: rgba(44,62,53,.65); max-width: 460px; margin: 0 auto 52px; }
+
+    /* FOOTER */
     .site-footer { background: var(--deep-forest); border-top: 1px solid rgba(245,240,232,.08); padding: 24px 52px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
     .footer-copy { font-size: 10px; font-weight: 400; letter-spacing: .1em; color: rgba(245,240,232,.3); }
     .footer-links { display: flex; gap: 28px; }
     .footer-links a { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,232,.3); transition: color .25s; }
     .footer-links a:hover { color: rgba(245,240,232,.7); }
 
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .nav { padding: 20px 36px; }
+      .nav-links { gap: 18px; }
+      .nav-links a { font-size: 8.5px; }
+      .eb-hero { padding: 132px 40px 80px; min-height: auto; }
+      .eb-problem, .eb-tool, .s-casestudy, .s-final { padding-left: 40px; padding-right: 40px; }
+      .eb-tool-panel { padding: 40px 32px; }
+      .eb-tool-output-inner { grid-template-columns: 1fr; text-align: center; }
+      .eb-legend { justify-content: center; }
+      .eb-tool-text-col { align-items: center; }
+      .eb-tool-again { align-self: center; }
+      .tracker-wrap { padding: 36px 32px; }
+    }
     @media (max-width: 720px) {
       .nav { padding: 16px 24px; }
       .nav-links { display: none; }
       .nav-logo-svg { height: 52px; }
-      .page-body { padding: 116px 24px 80px; }
+      .eb-hero { padding: 116px 24px 72px; }
+      .eb-problem { padding: 72px 24px; }
+      .eb-tool { padding: 72px 24px; }
+      .eb-tool-panel { padding: 32px 20px; border-radius: 14px; }
+      .eb-tool-output-inner { padding: 32px 24px; }
+      .s-casestudy { padding: 72px 24px; }
+      .s-final { padding: 72px 24px; }
+      .tracker-phases { grid-template-columns: 1fr !important; gap: 28px; }
+      .tracker-line-track { display: none; }
+      .tracker-wrap { padding: 28px 24px; }
+      .tracker-meta { flex-direction: column; gap: 8px; }
       .site-footer { padding: 20px 24px; flex-direction: column; align-items: flex-start; }
+      .cs-cases { gap: 44px; }
+    }
+    @media (max-width: 560px) {
+      .tracker-phases { grid-template-columns: 1fr !important; }
     }
 
+    /* ── MOBILE NAV ── */
     .nav-hamburger { display: none; flex-direction: column; gap: 5px; align-items: center; justify-content: center; background: none; border: none; padding: 6px; width: 36px; height: 36px; flex-shrink: 0; }
     .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--deep-forest); border-radius: 2px; transform-origin: center; transition: transform .32s cubic-bezier(.215,.61,.355,1), opacity .22s, background .22s; }
     .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); background: var(--terracotta); }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); background: var(--terracotta); }
     @media (max-width: 720px) { .nav-hamburger { display: flex; } }
+
     .nav-mobile { position: fixed; inset: 0; z-index: 195; background: var(--deep-forest); display: flex; flex-direction: column; justify-content: center; padding: 80px 40px 60px; opacity: 0; pointer-events: none; transition: opacity .32s cubic-bezier(.215,.61,.355,1); }
     .nav-mobile.open { opacity: 1; pointer-events: all; }
     .nav-mobile a { font-family: var(--font-body); font-size: 28px; font-weight: 900; letter-spacing: -.025em; color: rgba(245,240,232,.65); padding: 20px 0; display: block; border-bottom: 1px solid rgba(245,240,232,.08); opacity: 0; transform: translateY(14px); transition: opacity .38s cubic-bezier(.215,.61,.355,1), transform .38s cubic-bezier(.215,.61,.355,1), color .2s; }
@@ -86,7 +322,7 @@
     .nav-mobile.open a:nth-child(3) { transition-delay: .14s; }
     .nav-mobile.open a:nth-child(4) { transition-delay: .19s; }
     .nav-mobile.open a:nth-child(5) { transition-delay: .24s; }
-  
+
     /* COOKIE CONSENT BANNER */
     .cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:9000;background:var(--deep-forest);border-top:1px solid rgba(245,240,232,.12);padding:20px 40px;transform:translateY(100%);transition:transform .4s cubic-bezier(.215,.61,.355,1);}
     .cookie-banner.visible{transform:translateY(0);}
@@ -144,7 +380,7 @@
     </ul>
     <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </nav>
-  <div class="nav-mobile" id="navMobile" aria-hidden="true">
+  <div class="nav-mobile" id="navMobile" aria-label="Site navigation" aria-hidden="true">
     <a href="/for-emerging-brands">For Emerging Brands</a>
     <a href="/for-established-brands" class="active">For Established Brands</a>
     <a href="/services">Services</a>
@@ -152,13 +388,153 @@
     <a href="/contact">Contact</a>
   </div>
 
-  <div class="page-body">
-    <span class="coming-eyebrow">For established brands</span>
-    <h1 class="coming-headline">This page is on its way.</h1>
-    <p class="coming-body">We work with established brands to sharpen their story, find what is actually working, and build the systems to scale it. That page is being built. In the meantime, let's talk.</p>
-    <a href="/contact" class="btn-terra">Book a discovery call</a>
-  </div>
+  <!-- SECTION 1: HERO -->
+  <section class="eb-hero">
+    <div class="eb-hero-inner">
+      <span class="eb-hero-eyebrow reveal">For established brands</span>
+      <h1 class="eb-hero-headline reveal" style="transition-delay:.07s">Your business changed. Your story didn't catch up.</h1>
+      <p class="eb-hero-subhead reveal" style="transition-delay:.14s">You've evolved, your customers, your capabilities, your ambitions. But the market still sees who you used to be. That's not a logo problem. It's a perception gap.</p>
+      <a href="/contact" class="btn-terra reveal" style="transition-delay:.21s">Book a discovery call</a>
+    </div>
+  </section>
 
+  <!-- SECTION 2: THE REAL PROBLEM -->
+  <section class="eb-problem">
+    <div class="eb-problem-inner">
+      <span class="section-eyebrow reveal">The real problem</span>
+      <p class="eb-problem-body reveal" style="transition-delay:.07s">Established companies in mature industries face disruptive change. The business restructures, grows, and evolves, but the brand stays stuck in the past. Consistent messaging over time is what builds familiarity in new markets, and established brands struggle here because their perception hasn't kept pace with what they can actually do.</p>
+      <p class="eb-problem-key reveal" style="transition-delay:.14s"><strong>The gap isn't the logo.</strong> It's the space between what you were, what you are now, and what new markets still think you are. Most established brands respond with a visual refresh when what they actually need is a positioning shift.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 3: PERCEPTION GAP DETECTOR -->
+  <section class="eb-tool">
+    <div class="eb-tool-header">
+      <span class="section-eyebrow reveal">Try it yourself</span>
+      <h2 class="eb-tool-headline reveal" style="transition-delay:.07s">The Perception Gap Detector</h2>
+      <p class="eb-tool-intro reveal" style="transition-delay:.14s">Five quick questions. One honest paragraph. No sales pitch, just where your story and the market's belief split apart.</p>
+    </div>
+
+    <form class="eb-tool-panel reveal" id="gapForm" style="transition-delay:.2s" novalidate>
+      <div class="eb-tool-form">
+        <div class="eb-tool-field">
+          <label for="gapQ1">What were you known for 5 years ago?</label>
+          <input type="text" id="gapQ1" name="q1" placeholder="e.g. the best in town for..." autocomplete="off" required>
+        </div>
+        <div class="eb-tool-field">
+          <label for="gapQ2">What are you capable of now?</label>
+          <input type="text" id="gapQ2" name="q2" placeholder="e.g. we can now also..." autocomplete="off" required>
+        </div>
+        <div class="eb-tool-field">
+          <label for="gapQ3">What are you trying to tell new market segments?</label>
+          <input type="text" id="gapQ3" name="q3" placeholder="e.g. that we're the modern choice for..." autocomplete="off" required>
+        </div>
+        <div class="eb-tool-field">
+          <label for="gapQ4">What do you think your old customers still believe about you?</label>
+          <input type="text" id="gapQ4" name="q4" placeholder="e.g. that we're still just..." autocomplete="off" required>
+        </div>
+        <div class="eb-tool-field">
+          <label for="gapQ5">What do you think new prospects believe about you?</label>
+          <input type="text" id="gapQ5" name="q5" placeholder="e.g. that we're only good for..." autocomplete="off" required>
+        </div>
+      </div>
+      <div class="eb-tool-submit-row">
+        <button type="submit" class="btn-terra">Show me the gap</button>
+        <span class="eb-tool-hint">Takes about a minute. Nothing is saved or sent anywhere.</span>
+      </div>
+    </form>
+
+    <div class="eb-tool-output" id="gapOutput" aria-live="polite">
+      <div class="eb-tool-output-inner">
+        <div>
+          <div class="eb-diagram-wrap">
+            <svg class="eb-diagram" id="gapDiagram" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three overlapping circles showing past perception, current capability, and new market positioning">
+              <circle class="circle-a" cx="160" cy="130" r="100" fill="#3D6B4F" fill-opacity=".5"/>
+              <circle class="circle-b" cx="240" cy="130" r="100" fill="#C2714F" fill-opacity=".5"/>
+              <circle class="circle-c" cx="200" cy="205" r="100" fill="#2C3E35" fill-opacity=".5"/>
+              <text x="88" y="52" text-anchor="middle">Past perception</text>
+              <text x="312" y="52" text-anchor="middle">Current capability</text>
+              <text x="200" y="288" text-anchor="middle">New market positioning</text>
+            </svg>
+          </div>
+          <div class="eb-legend">
+            <span class="eb-legend-item"><span class="eb-legend-dot eb-legend-dot--a"></span>Past</span>
+            <span class="eb-legend-item"><span class="eb-legend-dot eb-legend-dot--b"></span>Capability</span>
+            <span class="eb-legend-item"><span class="eb-legend-dot eb-legend-dot--c"></span>New market</span>
+          </div>
+        </div>
+        <div class="eb-tool-text-col">
+          <span class="eb-output-eyebrow">This is a story problem, not a logo problem</span>
+          <p class="eb-output-text" id="gapText"></p>
+          <button type="button" class="eb-tool-again" id="gapReset">Try it again</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: LIVE CASE STUDIES -->
+  <section class="s-casestudy">
+    <div class="cs-header">
+      <span class="cs-eyebrow reveal"><span class="live-dot" aria-hidden="true"></span>Live case studies</span>
+      <h2 class="cs-headline reveal" style="transition-delay:.07s">Watch us close the gap in real time.</h2>
+      <p class="cs-intro reveal" style="transition-delay:.14s">Most case studies show you the polished after. These are still moving. Three established brands, three different gaps, documented as we close them.</p>
+    </div>
+
+    <div class="cs-cases">
+
+      <!-- A.R. MORRIS JEWELERS -->
+      <div class="cs-case reveal" style="transition-delay:.2s">
+        <div class="cs-case-head">
+          <h3 class="cs-case-name">A.R. Morris Jewelers</h3>
+          <p class="cs-case-intro">A 65-year family jeweler, a website that didn't match the brand, and a plan to fix that without losing what made it trustworthy in the first place.</p>
+        </div>
+        <div class="tracker-wrap" id="armorris-wrap">
+          <div class="tracker-phases" id="armorris-phases">
+            <div class="tracker-line-track"><div class="tracker-line-fill"></div></div>
+          </div>
+          <div class="tracker-meta" id="armorris-meta"></div>
+        </div>
+      </div>
+
+      <!-- WHITE ASH GLASS STUDIO -->
+      <div class="cs-case reveal" style="transition-delay:.2s">
+        <div class="cs-case-head">
+          <h3 class="cs-case-name">White Ash Glass Studio</h3>
+          <p class="cs-case-intro">A glass artist with real craft and zero digital presence, building the online home to match.</p>
+        </div>
+        <div class="tracker-wrap" id="wags-wrap">
+          <div class="tracker-phases" id="wags-phases">
+            <div class="tracker-line-track"><div class="tracker-line-fill"></div></div>
+          </div>
+          <div class="tracker-meta" id="wags-meta"></div>
+        </div>
+      </div>
+
+      <!-- SANJAY MITTAL — AUTHOR PLATFORM -->
+      <div class="cs-case reveal" style="transition-delay:.2s">
+        <div class="cs-case-head">
+          <h3 class="cs-case-name">Sanjay Mittal, Author Platform</h3>
+          <p class="cs-case-intro">Three books of Vedic wisdom. Decades of knowledge. A readership waiting to be found.</p>
+        </div>
+        <div class="tracker-wrap" id="sanjay-wrap">
+          <div class="tracker-phases" id="sanjay-phases">
+            <div class="tracker-line-track"><div class="tracker-line-fill"></div></div>
+          </div>
+          <div class="tracker-meta" id="sanjay-meta"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 5: FINAL CTA -->
+  <section class="s-final">
+    <h2 class="final-headline reveal">Ready to close the gap?</h2>
+    <p class="final-body reveal" style="transition-delay:.08s">No sales pitch. Just an honest conversation about where your brand is, where it should be, and whether we can help you get there.</p>
+    <a href="/contact" class="btn-terra reveal" style="transition-delay:.16s">Book a discovery call</a>
+  </section>
+
+  <!-- FOOTER -->
   <footer class="site-footer">
     <p class="footer-copy">Throughline Co. &middot; &copy; 2026 &middot; All rights reserved</p>
     <nav class="footer-links">
@@ -169,6 +545,171 @@
   </footer>
 
   <script>
+    // ============================================================
+    //  SHARED TRACKER RENDERER
+    //  Each case study below is an independently editable config:
+    //  phase label/title/state/statusText/body, plus lastUpdated
+    //  and nextUpdate. state options: complete / in-progress / next / upcoming
+    // ============================================================
+    function renderTracker(prefix, config) {
+      var wrap     = document.getElementById(prefix + '-wrap');
+      var phasesEl = document.getElementById(prefix + '-phases');
+      var metaEl   = document.getElementById(prefix + '-meta');
+      if (!phasesEl) return;
+
+      var lineTrack = phasesEl.querySelector('.tracker-line-track');
+      var n = config.phases.length;
+      var edge = (50 / n) + '%';
+      phasesEl.style.gridTemplateColumns = 'repeat(' + n + ', 1fr)';
+      if (lineTrack) { lineTrack.style.left = edge; lineTrack.style.right = edge; }
+
+      var inProgIdx = -1, completeCount = 0;
+      config.phases.forEach(function (p, i) {
+        if (p.state === 'in-progress') inProgIdx = i;
+        if (p.state === 'complete') completeCount++;
+      });
+      var fillPct = inProgIdx >= 0 ? (inProgIdx / (n - 1)) * 100 : (completeCount / (n - 1)) * 100;
+      fillPct = Math.max(0, Math.min(100, fillPct));
+
+      var html = '';
+      config.phases.forEach(function (phase) {
+        var isActive = phase.state === 'complete' || phase.state === 'in-progress';
+        html += '<div class="tracker-phase">';
+        html += '<div class="phase-indicator ' + phase.state + '"></div>';
+        if (phase.label) html += '<p class="phase-label">' + phase.label + '</p>';
+        html += '<h3 class="phase-title">' + phase.title + '</h3>';
+        html += '<p class="phase-status ' + phase.state + '">' + phase.statusText + '</p>';
+        if (phase.body) html += '<p class="phase-body' + (isActive ? ' active-phase' : '') + '">' + phase.body + '</p>';
+        html += '</div>';
+      });
+
+      Array.from(phasesEl.querySelectorAll('.tracker-phase')).forEach(function (el) { el.remove(); });
+      phasesEl.insertAdjacentHTML('beforeend', html);
+      if (lineTrack) phasesEl.insertBefore(lineTrack, phasesEl.firstChild);
+
+      var fill = phasesEl.querySelector('.tracker-line-fill');
+      if (fill) {
+        fill.style.width = '0%';
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              setTimeout(function () { fill.style.width = fillPct + '%'; }, 350);
+              obs.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.3 });
+        if (wrap) obs.observe(wrap);
+      }
+
+      if (metaEl) {
+        metaEl.innerHTML =
+          '<p>Last updated: <span>' + config.lastUpdated + '</span></p>' +
+          '<p>Next update: <span>'  + config.nextUpdate  + '</span></p>';
+      }
+    }
+
+    var ARMORRIS_CONFIG = {
+      phases: [
+        { title: 'Discovery &amp; Diagnosis', state: 'complete', statusText: 'Complete',
+          body: 'Audited the live site, resolved a false choice the client was stuck on (tax-free savings vs. a marketplace pitch, treated as competing ideas when they answer different questions), and ran a full cultural analysis of the ideal customer to find where the brand’s real story wasn’t landing.' },
+        { title: 'Strategy Presented', state: 'complete', statusText: 'Complete',
+          body: 'A full guided customer-journey strategy: a landing-page fork for two shopper types, a guided discovery quiz, category-specific creative concepts, and a tiered cart and wishlist recovery plan built to protect the brand’s trust-first positioning instead of discounting it away.' },
+        { title: 'Execution', state: 'next', statusText: 'Next',
+          body: 'Guided journey build, in progress.' },
+        { title: 'Measure', state: 'upcoming', statusText: 'Upcoming',
+          body: 'Once the guided journey ships, we’ll track whether it’s turning browsers into buyers without undercutting the brand’s trust-first position.' }
+      ],
+      lastUpdated: 'July 20, 2026',
+      nextUpdate:  'TBD'
+    };
+
+    var WAGS_CONFIG = {
+      phases: [
+        { title: 'Discovery', state: 'complete', statusText: 'Complete', body: '' },
+        { label: 'Shipped July 17, 2026', title: 'Website', state: 'complete', statusText: 'Complete', body: '' },
+        { title: 'Interactive Tool, Measurement &amp; Community Outreach', state: 'in-progress', statusText: 'In progress',
+          body: 'With the site live, this phase builds an interactive tool for visitors, analytics to see what’s working, and outreach into the glass art community to start growing an audience around it.' }
+      ],
+      lastUpdated: 'July 20, 2026',
+      nextUpdate:  'TBD'
+    };
+
+    var SANJAY_CONFIG = {
+      phases: [
+        { title: 'Discovery', state: 'complete', statusText: 'Complete', body: '' },
+        { title: 'Publishing &amp; Platform Build', state: 'in-progress', statusText: 'In progress',
+          body: 'The first book is in its final stages on Amazon: pricing locked, formatting validated across devices, keyword optimization underway. Author website and Goodreads page are next.' },
+        { title: 'Community Outreach', state: 'next', statusText: 'Next',
+          body: 'Finding the readers already looking for this kind of work, once the platform is live.' },
+        { title: 'Measure', state: 'upcoming', statusText: 'Upcoming', body: '' }
+      ],
+      lastUpdated: 'June 24, 2026',
+      nextUpdate:  'TBD'
+    };
+
+    renderTracker('armorris', ARMORRIS_CONFIG);
+    renderTracker('wags', WAGS_CONFIG);
+    renderTracker('sanjay', SANJAY_CONFIG);
+
+    // ============================================================
+    //  PERCEPTION GAP DETECTOR
+    // ============================================================
+    (function () {
+      var form    = document.getElementById('gapForm');
+      var output  = document.getElementById('gapOutput');
+      var textEl  = document.getElementById('gapText');
+      var diagram = document.getElementById('gapDiagram');
+      var resetBtn = document.getElementById('gapReset');
+      if (!form) return;
+
+      function lower(s) { return s.length ? s.charAt(0).toLowerCase() + s.slice(1) : s; }
+      function clean(s) { return s.trim().replace(/[.!?]+$/, ''); }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+
+        var q1 = clean(form.q1.value);
+        var q2 = clean(form.q2.value);
+        var q3 = clean(form.q3.value);
+        var q4 = clean(form.q4.value);
+        var q5 = clean(form.q5.value);
+
+        textEl.textContent =
+          'Five years ago, you were known for ' + lower(q1) + '. Today, you can ' + lower(q2) +
+          ', and what you actually want new markets to hear is that ' + lower(q3) +
+          '. But your old customers still believe ' + lower(q4) +
+          ', while new prospects are landing somewhere closer to ' + lower(q5) +
+          '. That gap, between where you started, where you are, and where the market thinks you are, is not a logo problem. It is a story problem. Here is how Throughline Co. closes it without alienating the customers who already trust you.';
+
+        output.classList.add('visible');
+        diagram.classList.add('animate');
+        setTimeout(function () {
+          output.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 80);
+      });
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', function () {
+          output.classList.remove('visible');
+          diagram.classList.remove('animate');
+          form.reset();
+          form.q1.focus();
+          form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+      }
+    }());
+
+    // Scroll reveal
+    document.body.classList.add('js-ready');
+    var revealObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.04, rootMargin: '0px 0px -24px 0px' });
+    document.querySelectorAll('.reveal').forEach(function (el) { revealObs.observe(el); });
+
+    // Throughline SVG scroll tracker
     (function () {
       var tlNav = document.getElementById('tlNav'), tlFill = document.getElementById('tlFill'), tlTip = document.getElementById('tlTip');
       if (!tlNav || !tlFill || window.innerWidth < 900) return;
@@ -177,6 +718,8 @@
       frame();
       window.addEventListener('resize', function () { cancelAnimationFrame(raf); y = 0; frame(); }, { passive: true });
     }());
+
+    // Dot cursor
     (function () {
       if (!matchMedia('(pointer:fine) and (hover:hover)').matches) return;
       var c = document.createElement('div');
@@ -186,7 +729,27 @@
       document.addEventListener('mouseleave', function () { c.style.opacity = '0'; });
     }());
 
-    (function(){var b=document.getElementById('navHamburger'),o=document.getElementById('navMobile');if(!b||!o)return;function t(open){b.classList.toggle('open',open);o.classList.toggle('open',open);b.setAttribute('aria-expanded',String(open));o.setAttribute('aria-hidden',String(!open));document.body.style.overflow=open?'hidden':'';}b.addEventListener('click',function(){t(!b.classList.contains('open'));});o.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){t(false);});});document.addEventListener('keydown',function(e){if(e.key==='Escape')t(false);});}());
-  
+    // Mobile hamburger nav
+    (function () {
+      var b = document.getElementById('navHamburger'), o = document.getElementById('navMobile');
+      if (!b || !o) return;
+      function t(open) { b.classList.toggle('open', open); o.classList.toggle('open', open); b.setAttribute('aria-expanded', String(open)); o.setAttribute('aria-hidden', String(!open)); document.body.style.overflow = open ? 'hidden' : ''; }
+      b.addEventListener('click', function () { t(!b.classList.contains('open')); });
+      o.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { t(false); }); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') t(false); });
+    }());
+
     (function(){var KEY='tlco_consent_v1',stored=localStorage.getItem(KEY);function grantAnalytics(){if(window.gtag)gtag('consent','update',{analytics_storage:'granted',ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted'});if(!window._liLoaded){window._liLoaded=true;window._linkedin_partner_id='9504276';window._linkedin_data_partner_ids=window._linkedin_data_partner_ids||[];window._linkedin_data_partner_ids.push('9504276');(function(l){if(!l){window.lintrk=function(a,b){window.lintrk.q.push([a,b])};window.lintrk.q=[];}var s=document.getElementsByTagName('script')[0],b=document.createElement('script');b.type='text/javascript';b.async=true;b.src='https://snap.licdn.com/li.lms-analytics/insight.min.js';s.parentNode.insertBefore(b,s);})(window.lintrk);}}if(stored==='accepted'){grantAnalytics();}document.addEventListener('DOMContentLoaded',function(){var banner=document.getElementById('cookieBanner');function show(){if(banner)banner.classList.add('visible');}function hide(){if(banner)banner.classList.remove('visible');}window.tlcoOpenConsent=function(){localStorage.removeItem(KEY);show();};if(!stored){show();}var ac=document.getElementById('cookieAccept'),dc=document.getElementById('cookieDecline');if(ac)ac.addEventListener('click',function(){localStorage.setItem(KEY,'accepted');hide();grantAnalytics();});if(dc)dc.addEventListener('click',function(){localStorage.setItem(KEY,'declined');hide();});});}());
   </script>
+
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie consent">
+    <div class="cookie-inner">
+      <p class="cookie-text">We use analytics cookies to understand how visitors use our site. Essential cookies are always on. <a href="/privacy">Learn more</a></p>
+      <div class="cookie-actions">
+        <button class="cookie-btn cookie-btn-decline" id="cookieDecline">Decline</button>
+        <button class="cookie-btn cookie-btn-accept" id="cookieAccept">Accept</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -442,17 +442,18 @@
     .testimonial-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 44px; display: flex; align-items: center; justify-content: center; gap: 14px; position: relative; z-index: 1; }
     .testimonial-eyebrow::before, .testimonial-eyebrow::after { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--terracotta); opacity: .5; }
 
-    .testimonial-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; display: flex; align-items: center; }
+    .testimonial-inner { max-width: 960px; margin: 0 auto; position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; }
 
     .testimonial-video-frame {
-      width: 380px; height: 380px; flex-shrink: 0; border-radius: 24px; overflow: hidden;
-      background: #000; position: relative; cursor: pointer;
+      width: 480px; aspect-ratio: 16/9; flex-shrink: 0; border-radius: 20px; overflow: hidden;
+      background: #000; position: relative; cursor: pointer; z-index: 2;
+      box-shadow: 0 40px 90px rgba(0,0,0,.45), 0 10px 26px rgba(0,0,0,.28);
       filter: blur(0); transition: filter .7s cubic-bezier(.215,.61,.355,1);
     }
     .js-ready .reveal.testimonial-video-frame { filter: blur(14px); }
     .js-ready .reveal.testimonial-video-frame.visible { filter: blur(0); }
     .testimonial-video-wrap { position: absolute; inset: 0; }
-    .testimonial-video-frame iframe { position: absolute; top: 50%; left: 50%; width: 178%; height: 100%; transform: translate(-50%,-50%); border: 0; z-index: 1; }
+    .testimonial-video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
     .testimonial-video-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s cubic-bezier(.215,.61,.355,1); }
     .testimonial-video-wrap:hover .testimonial-video-poster { transform: scale(1.03); }
     .testimonial-video-wrap::after { content: ''; position: absolute; inset: 0; background: rgba(20,31,26,.18); transition: background .25s; }
@@ -460,16 +461,16 @@
     .testimonial-video-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 64px; height: 64px; border-radius: 50%; z-index: 2; background: var(--terracotta); color: var(--cream); display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(194,113,79,.45), 0 0 0 7px rgba(245,240,232,.07); transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .25s; }
     .testimonial-video-play svg { margin-left: 3px; }
     .testimonial-video-wrap:hover .testimonial-video-play { transform: translate(-50%,-50%) scale(1.08); }
+    .testimonial-video-frame:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 4px; }
 
     .testimonial-card {
-      background: var(--cream); border-radius: 24px; padding: 44px 48px;
-      margin-left: -64px; flex: 1; position: relative; z-index: 1;
-      box-shadow: 0 40px 90px rgba(0,0,0,.4), 0 10px 26px rgba(0,0,0,.22);
+      background: var(--cream-d); border-radius: 24px; padding: 44px 48px 44px 116px;
+      margin-left: -110px; max-width: 340px; position: relative; z-index: 1;
+      box-shadow: 0 20px 50px rgba(0,0,0,.3);
     }
     .testimonial-card-name { font-family: var(--font-display); font-size: clamp(20px, 2.2vw, 26px); font-weight: 400; color: var(--deep-forest); margin-bottom: 6px; letter-spacing: -.01em; }
     .testimonial-card-role { font-size: 12px; font-weight: 700; letter-spacing: .06em; color: var(--terracotta); margin-bottom: 20px; }
     .testimonial-card-quote { font-size: 15px; font-weight: 300; line-height: 1.76; color: rgba(44,62,53,.8); }
-    .testimonial-video-frame:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 4px; }
     .testimonial-video-frame.playing .testimonial-video-wrap { display: none; }
 
     /* CONTACT */
@@ -616,8 +617,8 @@
       .section-founder { grid-template-columns: 1fr; }
       .strategy-inner { grid-template-columns: 1fr; }
       .testimonial-inner { flex-direction: column; align-items: stretch; gap: 28px; }
-      .testimonial-video-frame { width: 100%; height: auto; aspect-ratio: 1/1; }
-      .testimonial-card { margin-left: 0; padding: 32px 28px; }
+      .testimonial-video-frame { width: 100%; height: auto; aspect-ratio: 16/9; }
+      .testimonial-card { margin-left: 0; max-width: none; padding: 32px 28px; }
       .georgetown-content { padding: 36px 28px 24px; }
       .georgetown-strip { grid-template-columns: 1fr 1fr; }
       .case-card-stats, .case-card-stats.four-col { grid-template-columns: 1fr 1fr; }
@@ -1231,10 +1232,12 @@
       function play() {
         if (wrap.classList.contains('playing')) return;
         const iframe = document.createElement('iframe');
-        iframe.src = `https://www.youtube-nocookie.com/embed/${wrap.dataset.videoId}?autoplay=1&rel=0&modestbranding=1`;
-        iframe.title = wrap.dataset.videoTitle || 'Video';
+        // allow must be set before src: the permission policy has to be in place
+        // before the frame starts navigating, or autoplay-with-sound gets silently blocked.
         iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        iframe.title = wrap.dataset.videoTitle || 'Video';
         iframe.allowFullscreen = true;
+        iframe.src = `https://www.youtube-nocookie.com/embed/${wrap.dataset.videoId}?autoplay=1&rel=0&modestbranding=1`;
         wrap.appendChild(iframe);
         wrap.classList.add('playing');
       }

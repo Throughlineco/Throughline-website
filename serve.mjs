@@ -19,16 +19,23 @@ const MIME = {
   '.ico': 'image/x-icon',
 };
 
+async function tryRead(path) {
+  return readFile(join(__dirname, decodeURIComponent(path)));
+}
+
 createServer(async (req, res) => {
-  let url = req.url === '/' ? '/index.html' : req.url;
-  const filePath = join(__dirname, decodeURIComponent(url));
-  try {
-    const data = await readFile(filePath);
-    const ext = extname(filePath);
-    res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream' });
-    res.end(data);
-  } catch {
-    res.writeHead(404);
-    res.end('Not found');
+  const url = req.url === '/' ? '/index.html' : req.url;
+  // mimic Vercel's cleanUrls: /about -> about.html when there's no extension
+  const candidates = extname(url) ? [url] : [url, `${url}.html`];
+  for (const candidate of candidates) {
+    try {
+      const data = await tryRead(candidate);
+      const ext = extname(candidate);
+      res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream' });
+      res.end(data);
+      return;
+    } catch {}
   }
+  res.writeHead(404);
+  res.end('Not found');
 }).listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));

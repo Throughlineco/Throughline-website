@@ -442,9 +442,20 @@
     .testimonial-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 44px; display: flex; align-items: center; justify-content: center; gap: 14px; position: relative; z-index: 1; }
     .testimonial-eyebrow::before, .testimonial-eyebrow::after { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--terracotta); opacity: .5; }
     .testimonial-inner { max-width: 1040px; margin: 0 auto; position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
-    .testimonial-context-label { font-family: var(--font-display); font-size: clamp(20px, 2.2vw, 28px); font-weight: 400; color: var(--cream); margin-bottom: 16px; letter-spacing: -.01em; }
-    .testimonial-context-body { font-size: clamp(14px, 1.5vw, 16px); font-weight: 300; line-height: 1.76; color: rgba(245,240,232,.62); max-width: 46ch; }
-    .testimonial-video-frame { padding: 10px; background: rgba(245,240,232,.05); border: 1px solid rgba(245,240,232,.14); border-radius: 18px; box-shadow: 0 30px 70px rgba(0,0,0,.35), 0 8px 20px rgba(0,0,0,.25); }
+    .testimonial-tag { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(245,240,232,.5); display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+    .testimonial-tag::before { content: ''; width: 26px; height: 1px; background: rgba(245,240,232,.35); }
+    .testimonial-context-body { font-family: var(--font-display); font-size: clamp(21px, 2.5vw, 32px); font-weight: 300; font-style: italic; line-height: 1.4; letter-spacing: -.01em; color: var(--cream); max-width: 20ch; margin-bottom: 32px; }
+    .testimonial-author { display: flex; align-items: center; gap: 14px; }
+    .testimonial-author-rule { width: 30px; height: 1px; background: rgba(245,240,232,.25); flex-shrink: 0; }
+    .testimonial-author-name { font-size: 13px; font-weight: 700; color: var(--cream); }
+    .testimonial-author-role { font-size: 12px; font-weight: 300; color: rgba(245,240,232,.5); margin-top: 2px; }
+    .testimonial-video-frame {
+      padding: 10px; background: rgba(245,240,232,.05); border: 1px solid rgba(245,240,232,.14); border-radius: 18px;
+      box-shadow: 0 30px 70px rgba(0,0,0,.35), 0 8px 20px rgba(0,0,0,.25);
+      filter: blur(0); transition: filter .7s cubic-bezier(.215,.61,.355,1);
+    }
+    .js-ready .reveal.testimonial-video-frame { filter: blur(14px); }
+    .js-ready .reveal.testimonial-video-frame.visible { filter: blur(0); }
     .testimonial-video-wrap { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 11px; overflow: hidden; background: #000; cursor: pointer; }
     .testimonial-video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
     .testimonial-video-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s cubic-bezier(.215,.61,.355,1); }
@@ -578,6 +589,7 @@
     .js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
     @media (prefers-reduced-motion: reduce) {
       .js-ready .reveal { opacity: 1; transform: none; transition: none; }
+      .js-ready .reveal.testimonial-video-frame { filter: none; transition: none; }
       *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
     }
 
@@ -1139,8 +1151,15 @@
     <span class="testimonial-eyebrow reveal">In his words</span>
     <div class="testimonial-inner">
       <div class="testimonial-context reveal">
-        <p class="testimonial-context-label">Josh Harris Media</p>
-        <p class="testimonial-context-body">Josh makes video for B2B SaaS founders, the kind that actually moves people. We rebuilt Josh Harris Media from the name up: positioning, site, and the tools that turn cold visitors into warm leads. Here's Josh on what that process was like.</p>
+        <p class="testimonial-tag">Josh Harris Media</p>
+        <p class="testimonial-context-body">Josh makes video for founders, the kind that actually moves people. We rebuilt Josh Harris Media from the name up.</p>
+        <div class="testimonial-author">
+          <span class="testimonial-author-rule" aria-hidden="true"></span>
+          <div>
+            <p class="testimonial-author-name">Josh Harris</p>
+            <p class="testimonial-author-role">Founder, Josh Harris Media</p>
+          </div>
+        </div>
       </div>
       <div class="testimonial-video-frame reveal" style="transition-delay:.15s">
         <div class="testimonial-video-wrap" data-video-id="vOZbuVr-QVo" data-video-title="Josh Harris video testimonial" tabindex="0" role="button" aria-label="Play Josh Harris video testimonial">

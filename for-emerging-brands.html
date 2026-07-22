@@ -476,22 +476,27 @@
     .cs-case-intro { font-size: clamp(14px, 1.35vw, 15.5px); font-weight: 300; line-height: 1.72; color: rgba(245,240,232,.56); margin-bottom: 14px; }
     .cs-case-intro:last-child { margin-bottom: 0; }
 
-    /* Testimonial */
+    /* Testimonial: a continuation of the tracker above it, not a separate
+       floating card, so it shares its surface + accent. */
     .cs-testimonial { margin-top: 40px; }
-    .cs-testimonial-quote-wrap {
-      max-width: 640px; background: rgba(245,240,232,.045); border: 1px solid rgba(245,240,232,.12);
-      border-radius: 14px; padding: 36px 36px 32px;
-    }
-    .cs-testimonial-mark {
-      font-family: var(--font-display); font-style: italic; font-size: 44px; line-height: 1;
-      color: var(--terracotta); display: block; margin-bottom: 8px;
+    .cs-testimonial-panel {
+      max-width: 640px; position: relative;
+      background: rgba(245,240,232,.055); border: 1px solid rgba(245,240,232,.12);
+      border-top: 2px solid rgba(194,113,79,.55); border-radius: 14px;
+      padding: 44px 44px 34px;
     }
     .cs-testimonial-quote {
       font-family: var(--font-display); font-style: italic; font-weight: 400;
-      font-size: clamp(14px, 1.5vw, 17px); line-height: 1.72; color: rgba(245,240,232,.82);
-      margin-bottom: 18px;
+      font-size: clamp(15px, 1.6vw, 18px); line-height: 1.7; color: rgba(245,240,232,.82);
+      margin-bottom: 30px;
     }
-    .cs-testimonial-attrib { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(245,240,232,.4); }
+    .cs-testimonial-quote::before { content: '\201C'; color: var(--terracotta); font-style: normal; margin-right: 1px; }
+    .cs-testimonial-foot { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; padding-top: 22px; border-top: 1px solid rgba(245,240,232,.1); }
+    .cs-testimonial-who { display: flex; flex-direction: column; gap: 5px; }
+    .cs-testimonial-name { font-family: var(--font-display); font-size: 19px; font-weight: 400; color: var(--cream); letter-spacing: -.01em; }
+    .cs-testimonial-role { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--terracotta); }
+    .cs-testimonial-mark-badge { background: var(--cream); border-radius: 8px; padding: 9px 16px; display: inline-flex; align-items: center; flex-shrink: 0; }
+    .cs-testimonial-mark-badge img { height: 15px; width: auto; display: block; }
 
     /* ── FINAL CTA ── */
     .s-final {
@@ -566,7 +571,8 @@
       .tracker-wrap { padding: 28px 24px; }
       .site-footer { padding: 20px 24px; flex-direction: column; align-items: flex-start; }
       .cs-cases { gap: 44px; }
-      .cs-testimonial-quote-wrap { padding: 24px 22px; }
+      .cs-testimonial-panel { padding: 32px 26px 28px; }
+      .cs-testimonial-foot { align-items: flex-start; }
     }
 
     /* ── MOBILE NAV ── */
@@ -816,10 +822,14 @@
         </div>
 
         <div class="cs-testimonial">
-          <div class="cs-testimonial-quote-wrap">
-            <span class="cs-testimonial-mark" aria-hidden="true">&ldquo;</span>
+          <div class="cs-testimonial-panel">
             <p class="cs-testimonial-quote">Working with Riya took a huge weight off my shoulders. She helped me make decisions I'd been putting off for weeks and somehow understood my vision even when I couldn't fully explain it. Halfway through, I completely changed directions, and instead of pushing back, she redid the research and copy to match. It was a pleasure working with her.</p>
-            <p class="cs-testimonial-attrib">Josh Harris, Josh Harris Media</p>
+            <div class="cs-testimonial-foot">
+              <div class="cs-testimonial-who">
+                <p class="cs-testimonial-name">Josh Harris</p>
+                <p class="cs-testimonial-role">Founder, Josh Harris Media</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

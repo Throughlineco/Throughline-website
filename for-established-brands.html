@@ -256,6 +256,28 @@
     .tracker-meta { margin-top: 36px; display: flex; gap: 32px; font-size: 11px; font-weight: 300; color: rgba(245,240,232,.28); border-top: 1px solid rgba(245,240,232,.07); padding-top: 24px; }
     .tracker-meta span { font-weight: 700; color: rgba(245,240,232,.48); }
 
+    /* Testimonial (quote-only variant, no video): a continuation of the tracker
+       above it, not a separate floating card, so it shares its surface + accent. */
+    .cs-testimonial { margin-top: 40px; }
+    .cs-testimonial-panel {
+      max-width: 640px; position: relative;
+      background: rgba(245,240,232,.055); border: 1px solid rgba(245,240,232,.12);
+      border-top: 2px solid rgba(194,113,79,.55); border-radius: 14px;
+      padding: 44px 44px 34px;
+    }
+    .cs-testimonial-quote {
+      font-family: var(--font-display); font-style: italic; font-weight: 400;
+      font-size: clamp(15px, 1.6vw, 18px); line-height: 1.7; color: rgba(245,240,232,.82);
+      margin-bottom: 30px;
+    }
+    .cs-testimonial-quote::before { content: '\201C'; color: var(--terracotta); font-style: normal; margin-right: 1px; }
+    .cs-testimonial-foot { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; padding-top: 22px; border-top: 1px solid rgba(245,240,232,.1); }
+    .cs-testimonial-who { display: flex; flex-direction: column; gap: 5px; }
+    .cs-testimonial-name { font-family: var(--font-display); font-size: 19px; font-weight: 400; color: var(--cream); letter-spacing: -.01em; }
+    .cs-testimonial-role { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--terracotta); }
+    .cs-testimonial-mark-badge { background: var(--cream); border-radius: 8px; padding: 9px 16px; display: inline-flex; align-items: center; flex-shrink: 0; }
+    .cs-testimonial-mark-badge img { height: 15px; width: auto; display: block; }
+
     /* ── FINAL CTA ── */
     .s-final { background: var(--cream); padding: 124px 80px; text-align: center; border-top: 1px solid rgba(44,62,53,.08); position: relative; overflow: hidden; }
     .s-final::before { content: ''; position: absolute; top: 50%; left: 50%; width: 700px; height: 380px; background: radial-gradient(ellipse at center, rgba(194,113,79,.055) 0%, transparent 65%); transform: translate(-50%, -50%); pointer-events: none; }
@@ -300,6 +322,8 @@
       .tracker-meta { flex-direction: column; gap: 8px; }
       .site-footer { padding: 20px 24px; flex-direction: column; align-items: flex-start; }
       .cs-cases { gap: 44px; }
+      .cs-testimonial-panel { padding: 32px 26px 28px; }
+      .cs-testimonial-foot { align-items: flex-start; }
     }
     @media (max-width: 560px) {
       .tracker-phases { grid-template-columns: 1fr !important; }
@@ -497,6 +521,19 @@
           </div>
           <div class="tracker-meta" id="armorris-meta"></div>
         </div>
+
+        <div class="cs-testimonial">
+          <div class="cs-testimonial-panel">
+            <p class="cs-testimonial-quote">For our website development and positioning, Riya goes so incredibly above and beyond what she needs to do. Her work is fully comprehensive to an extent I never would have been able to reach myself. She's ingrained in our business as if it were her own, fully invested in getting it right and having the creativity to come up with incredible ideas for our users to make our online experience special. What stands out most is how she masters the balance between catching the finest details through every link, text, and design, while never losing sight of the bigger picture.</p>
+            <div class="cs-testimonial-foot">
+              <div class="cs-testimonial-who">
+                <p class="cs-testimonial-name">Cole Morris</p>
+                <p class="cs-testimonial-role">Owner, A.R. Morris Jewelers</p>
+              </div>
+              <span class="cs-testimonial-mark-badge"><img src="/AR_logo.png" alt="A.R. Morris Jewelers" loading="lazy"></span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- WHITE ASH GLASS STUDIO -->
@@ -603,8 +640,8 @@
           body: 'Audited the live site, resolved a false choice the client was stuck on (tax-free savings vs. a marketplace pitch, treated as competing ideas when they answer different questions), and ran a full cultural analysis of the ideal customer to find where the brand’s real story wasn’t landing.' },
         { title: 'Strategy Presented', state: 'complete', statusText: 'Complete',
           body: 'A full guided customer-journey strategy: a landing-page fork for two shopper types, a guided discovery quiz, category-specific creative concepts, and a tiered cart and wishlist recovery plan built to protect the brand’s trust-first positioning instead of discounting it away.' },
-        { title: 'Execution', state: 'next', statusText: 'Next',
-          body: 'Guided journey build, in progress.' },
+        { title: 'Execution', state: 'in-progress', statusText: 'In progress',
+          body: 'Guided journey build, underway now, based on the agreed strategy.' },
         { title: 'Measure', state: 'upcoming', statusText: 'Upcoming',
           body: 'Once the guided journey ships, we’ll track whether it’s turning browsers into buyers without undercutting the brand’s trust-first position.' }
       ],

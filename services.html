@@ -13,6 +13,54 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Merriweather:ital,wght@0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://throughline.community/#organization",
+        "name": "Throughline Co.",
+        "url": "https://throughline.community/",
+        "description": "Purpose-driven brand strategy agency helping nonprofits, emerging brands, and mission-driven organizations build the narrative architecture, positioning, and voice their story is missing.",
+        "sameAs": ["https://www.linkedin.com/company/throughline-co/"],
+        "founder": { "@id": "https://throughline.community/about#riya-mittal" },
+        "priceRange": "$500 - $5,000+",
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Throughline Co. Services",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Brand Strategy", "description": "Positioning, voice, and message hierarchy that connects your mission to your audience.", "provider": { "@id": "https://throughline.community/#organization" } } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Audience Growth", "description": "Real growth through the right platforms, cadence, and content your audience actually wants to engage with.", "provider": { "@id": "https://throughline.community/#organization" } } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Storytelling & Voice", "description": "Uncovering and sharpening an organization's core story into content that moves people.", "provider": { "@id": "https://throughline.community/#organization" } } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Content & Copywriting", "description": "Campaign copy, thought leadership, and email sequences written in-voice and built for conversion.", "provider": { "@id": "https://throughline.community/#organization" } } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "LinkedIn Growth", "description": "Platform-native LinkedIn strategy that turns a presence into a lead engine, not a broadcast channel.", "provider": { "@id": "https://throughline.community/#organization" } } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Experiential Strategy", "description": "Booth design, farmers market activations, and panel speaking opportunities that connect a brand to real-world audiences.", "provider": { "@id": "https://throughline.community/#organization" } } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Community Outreach", "description": "Strategic event partnerships, community tables, and live engagement that build loyalty.", "provider": { "@id": "https://throughline.community/#organization" } } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Website Design & Build", "description": "Clean static sites to fully animated, tool-integrated builds.", "provider": { "@id": "https://throughline.community/#organization" } }, "priceSpecification": { "@type": "PriceSpecification", "minPrice": 800, "maxPrice": 5000, "priceCurrency": "USD" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Social Media Management", "description": "Priced by hours against posting cadence and platform mix.", "provider": { "@id": "https://throughline.community/#organization" } }, "priceSpecification": { "@type": "PriceSpecification", "minPrice": 500, "priceCurrency": "USD" } }
+          ]
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://throughline.community/about#riya-mittal",
+        "name": "Riya Mittal",
+        "jobTitle": "Founder",
+        "url": "https://throughline.community/about",
+        "worksFor": { "@id": "https://throughline.community/#organization" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://throughline.community/" },
+          { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://throughline.community/services" }
+        ]
+      }
+    ]
+  }
+  </script>
+
   <style>
     :root {
       --cream:       #F5F0E8;
@@ -76,6 +124,15 @@
     .btn-primary:hover { opacity: .82; transform: translateY(-1px); }
 
     /* WHY IT'S DIFFERENT */
+    .section-pricing { background: var(--cream); padding: 96px 52px; }
+    .section-pricing-inner { max-width: 820px; margin: 0 auto; }
+    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 32px; }
+    .pricing-card { background: var(--cream-d); border-radius: 12px; padding: 36px 32px; box-shadow: 0 1px 2px rgba(44,62,53,.06), 0 12px 32px -12px rgba(44,62,53,.14); }
+    .pricing-service { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 14px; }
+    .pricing-range { font-family: var(--font-body); font-size: clamp(24px, 2.6vw, 32px); font-weight: 900; letter-spacing: -.02em; color: var(--deep-forest); margin-bottom: 14px; }
+    .pricing-desc { font-size: 14px; font-weight: 300; line-height: 1.7; color: rgba(44,62,53,.72); }
+    .pricing-note { font-size: 12px; font-weight: 300; font-style: italic; color: rgba(44,62,53,.5); margin-bottom: 28px; }
+    @media (max-width: 720px) { .pricing-grid { grid-template-columns: 1fr; } }
     .section-diff { background: var(--deep-forest); padding: 96px 52px; }
     .section-diff-inner { max-width: 820px; margin: 0 auto; }
     .diff-label { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--muted-sage); margin-bottom: 28px; }
@@ -100,9 +157,11 @@
       *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
     }
 
+    @media (max-width: 880px) {
+      .nav-links { display: none; }
+    }
     @media (max-width: 720px) {
       .nav { padding: 16px 24px; }
-      .nav-links { display: none; }
       .nav-logo-svg { height: 52px; }
       .page-hero, .section-what, .section-how, .section-diff { padding-left: 24px; padding-right: 24px; }
       .page-hero { padding-top: 100px; padding-bottom: 64px; }
@@ -115,7 +174,7 @@
     .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); background: var(--terracotta); }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); background: var(--terracotta); }
-    @media (max-width: 720px) { .nav-hamburger { display: flex; } }
+    @media (max-width: 880px) { .nav-hamburger { display: flex; } }
     .nav-mobile { position: fixed; inset: 0; z-index: 195; background: var(--deep-forest); display: flex; flex-direction: column; justify-content: center; padding: 80px 40px 60px; opacity: 0; pointer-events: none; transition: opacity .32s cubic-bezier(.215,.61,.355,1); }
     .nav-mobile.open { opacity: 1; pointer-events: all; }
     .nav-mobile a { font-family: var(--font-body); font-size: 28px; font-weight: 900; letter-spacing: -.025em; color: rgba(245,240,232,.65); padding: 20px 0; display: block; border-bottom: 1px solid rgba(245,240,232,.08); opacity: 0; transform: translateY(14px); transition: opacity .38s cubic-bezier(.215,.61,.355,1), transform .38s cubic-bezier(.215,.61,.355,1), color .2s; }
@@ -174,6 +233,7 @@
       <li><a href="/for-emerging-brands">For Emerging Brands</a></li>
       <li><a href="/for-established-brands">For Established Brands</a></li>
       <li><a href="/services" class="active">Services</a></li>
+      <li><a href="/work">Work</a></li>
       <li><a href="/about">About</a></li>
       <li><a href="/contact">Contact</a></li>
       <li><a href="https://www.linkedin.com/company/throughline-co/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></li>
@@ -184,6 +244,7 @@
     <a href="/for-emerging-brands">For Emerging Brands</a>
     <a href="/for-established-brands">For Established Brands</a>
     <a href="/services" class="active">Services</a>
+    <a href="/work">Work</a>
     <a href="/about">About</a>
     <a href="/contact">Contact</a>
   </div>
@@ -222,8 +283,8 @@
           <p class="service-desc">Social campaigns, donor communications, conference presence, community events. We build strategies that work in the room and outside it.</p>
         </div>
         <div class="service-item reveal" style="transition-delay:.25s">
-          <h3 class="service-name">Website Strategy</h3>
-          <p class="service-desc">Audience audits, message audits, conversion direction. We do not build websites. We make sure the one you have is actually doing its job.</p>
+          <h3 class="service-name">Website Design &amp; Build</h3>
+          <p class="service-desc">From clean static sites to fully animated, tool-integrated builds. We design and build the thing itself, then make sure it is actually doing its job — converting the right people, not just looking good.</p>
         </div>
       </div>
     </div>
@@ -274,6 +335,28 @@
       <div class="steps-cta reveal" style="transition-delay:.28s">
         <a href="https://calendly.com/rmittal-works/strategy-meet" target="_blank" rel="noopener" class="btn-primary">Book a free 30-min call →</a>
       </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section-pricing" id="pricing">
+    <div class="section-pricing-inner">
+      <p class="section-label">Investment</p>
+      <h2 class="section-heading reveal">Every project gets its own scope. Here's the range.</h2>
+      <div class="pricing-grid">
+        <div class="pricing-card reveal">
+          <p class="pricing-service">Website Design &amp; Build</p>
+          <p class="pricing-range">$800 – $5,000+</p>
+          <p class="pricing-desc">Clean static sites start at $800. Motion, custom tooling, and integrations move up from there depending on scope.</p>
+        </div>
+        <div class="pricing-card reveal" style="transition-delay:.06s">
+          <p class="pricing-service">Social Media Management</p>
+          <p class="pricing-range">From $500/mo</p>
+          <p class="pricing-desc">Priced by hours against your posting cadence and platform mix, not a flat package.</p>
+        </div>
+      </div>
+      <p class="pricing-note reveal" style="transition-delay:.1s">Custom pricing depending on scope. These are starting points — every engagement gets a real quote after a discovery call.</p>
+      <a href="https://calendly.com/rmittal-works/strategy-meet" target="_blank" rel="noopener" class="btn-primary reveal" style="transition-delay:.14s">Book a free 30-min call →</a>
     </div>
   </section>
 

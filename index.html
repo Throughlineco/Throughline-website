@@ -4,27 +4,61 @@
   <meta charset="UTF-8">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Throughline Co. — Purpose-Driven Brand Strategy</title>
+  <title>Throughline Co. — Brand Strategy Agency for Nonprofits & Purpose-Driven Brands</title>
   <link rel="canonical" href="https://throughline.community/">
 
   <!-- Open Graph / link preview -->
   <meta property="og:type"        content="website">
   <meta property="og:url"         content="https://throughline.community/">
-  <meta property="og:title"       content="Throughline Co. — Purpose-Driven Brand Strategy">
-  <meta name="description" content="We build the narrative architecture your brand has been missing. Positioning, voice, and message hierarchy that makes every touchpoint count.">
-  <meta property="og:description" content="We build the narrative architecture your brand has been missing. Positioning, voice, and message hierarchy that makes every touchpoint count.">
+  <meta property="og:title"       content="Throughline Co. — Brand Strategy Agency for Nonprofits & Purpose-Driven Brands">
+  <meta name="description" content="Brand strategy for nonprofits, emerging brands, and social enterprises. We build the narrative architecture your organization has been missing — positioning, voice, and message hierarchy that makes every touchpoint count.">
+  <meta property="og:description" content="Brand strategy for nonprofits, emerging brands, and social enterprises. We build the narrative architecture your organization has been missing — positioning, voice, and message hierarchy that makes every touchpoint count.">
   <meta property="og:image"       content="https://throughline.community/og-image.png">
   <meta property="og:image:width"  content="1200">
   <meta property="og:image:height" content="630">
 
   <!-- Twitter / X card -->
   <meta name="twitter:card"        content="summary_large_image">
-  <meta name="twitter:title"       content="Throughline Co. — Purpose-Driven Brand Strategy">
-  <meta name="twitter:description" content="We build the narrative architecture your brand has been missing. Positioning, voice, and message hierarchy that makes every touchpoint count.">
+  <meta name="twitter:title"       content="Throughline Co. — Brand Strategy Agency for Nonprofits & Purpose-Driven Brands">
+  <meta name="twitter:description" content="Brand strategy for nonprofits, emerging brands, and social enterprises. We build the narrative architecture your organization has been missing — positioning, voice, and message hierarchy that makes every touchpoint count.">
   <meta name="twitter:image"       content="https://throughline.community/og-image.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Merriweather:ital,wght@0,400;1,300;1,400&display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://throughline.community/#organization",
+        "name": "Throughline Co.",
+        "url": "https://throughline.community/",
+        "description": "Purpose-driven brand strategy agency helping nonprofits, emerging brands, and mission-driven organizations build the narrative architecture, positioning, and voice their story is missing.",
+        "sameAs": ["https://www.linkedin.com/company/throughline-co/"],
+        "founder": { "@id": "https://throughline.community/about#riya-mittal" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://throughline.community/about#riya-mittal",
+        "name": "Riya Mittal",
+        "jobTitle": "Founder",
+        "url": "https://throughline.community/about",
+        "worksFor": { "@id": "https://throughline.community/#organization" },
+        "alumniOf": { "@type": "CollegeOrUniversity", "name": "Georgetown University" }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://throughline.community/#website",
+        "url": "https://throughline.community/",
+        "name": "Throughline Co.",
+        "publisher": { "@id": "https://throughline.community/#organization" }
+      }
+    ]
+  }
+  </script>
+
   <style>
     :root {
       --cream:       #F5F0E8;
@@ -107,6 +141,7 @@
     /* HERO */
     .hero {
       position: relative; height: 100vh;
+      height: 100svh;
       min-height: 620px;
       overflow: hidden; background: #1a1a18;
     }
@@ -131,7 +166,8 @@
     }
     .hero-content {
       position: absolute; bottom: 0; left: 0; right: 0; z-index: 10;
-      padding: 0 52px 40px;
+      padding: 0 52px calc(40px + var(--cookie-banner-h, 0px));
+      transition: padding-bottom .4s cubic-bezier(.215,.61,.355,1);
       display: grid; grid-template-columns: 6fr 5fr; gap: 48px; align-items: end;
     }
     .hero-title {
@@ -266,9 +302,13 @@
       display: flex; gap: 7px; z-index: 10;
     }
     .wild-dot {
-      width: 7px; height: 7px; border-radius: 50%;
+      width: 7px; height: 7px; border-radius: 50%; position: relative;
       background: rgba(255,255,255,.35); border: none; padding: 0; cursor: pointer;
       transition: background .3s;
+    }
+    .wild-dot::before {
+      content: ''; position: absolute; top: 50%; left: 50%;
+      width: 22px; height: 22px; transform: translate(-50%, -50%);
     }
     .wild-dot.active { background: var(--cream); }
     .wild-click-prev, .wild-click-next {
@@ -361,6 +401,9 @@
     .case-card-client { font-family: var(--font-body); font-size: clamp(44px, 6vw, 88px); font-weight: 900; letter-spacing: -.045em; line-height: .88; margin-bottom: 16px; }
     .case-card-sub { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .5; margin-bottom: 28px; }
     .case-card-body { font-size: 15px; font-weight: 400; line-height: 1.75; opacity: .88; }
+    .case-card-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 18px; font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--terracotta); transition: gap .25s cubic-bezier(.215,.61,.355,1), opacity .25s; }
+    .case-card-link:hover, .case-card-link:focus-visible { gap: 10px; opacity: .8; }
+    .case-card-link:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 3px; }
     .case-card-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; padding-top: 32px; border-top: 1px solid rgba(0,0,0,.1); }
     .case-card-stats.four-col { grid-template-columns: repeat(4,1fr); }
     .case-stat-val { font-size: 10px; font-weight: 900; letter-spacing: .07em; text-transform: uppercase; line-height: 1.35; margin-bottom: 8px; }
@@ -408,6 +451,9 @@
     .dyslex-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .dyslex-content { padding: 56px 52px; display: flex; flex-direction: column; justify-content: space-between; }
     .dyslex-note { margin-top: 24px; font-size: 11px; font-weight: 300; font-style: italic; color: rgba(245,240,232,.4); line-height: 1.5; }
+    .dyslex-note a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+    .dyslex-note a:hover, .dyslex-note a:focus-visible { color: rgba(245,240,232,.75); }
+    .dyslex-note a:focus-visible { outline: 1px solid rgba(245,240,232,.6); outline-offset: 2px; }
 
     /* FOUNDER */
     .section-founder { background: var(--cream-d); border-top: 1px solid rgba(44,62,53,.08); padding: 100px 52px; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: stretch; }
@@ -485,8 +531,12 @@
     /* Dots, centered below the carousel */
     .testimonial-dots { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 40px; position: relative; z-index: 1; }
     .testimonial-dot {
-      width: 8px; height: 8px; border-radius: 50%; padding: 0; border: none; cursor: pointer;
+      width: 8px; height: 8px; border-radius: 50%; padding: 0; border: none; cursor: pointer; position: relative;
       background: rgba(245,240,232,.25); transition: background .3s ease, transform .3s cubic-bezier(.34,1.56,.64,1);
+    }
+    .testimonial-dot::before {
+      content: ''; position: absolute; top: 50%; left: 50%;
+      width: 28px; height: 28px; transform: translate(-50%, -50%);
     }
     .testimonial-dot:hover { background: rgba(245,240,232,.5); }
     .testimonial-dot[aria-current="true"] { background: var(--terracotta); transform: scale(1.35); }
@@ -504,6 +554,9 @@
     .testimonial-card[data-active="true"] { position: relative; opacity: 1; transform: translateY(0); pointer-events: auto; }
     .testimonial-card-name { font-family: var(--font-display); font-size: clamp(19px, 2vw, 23px); font-weight: 400; color: var(--deep-forest); margin-bottom: 4px; letter-spacing: -.01em; }
     .testimonial-card-role { font-size: 11px; font-weight: 700; letter-spacing: .06em; color: #9a4f30; margin-bottom: 16px; }
+    .testimonial-card-role a { color: inherit; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: rgba(154,79,48,.4); transition: text-decoration-color .2s; }
+    .testimonial-card-role a:hover, .testimonial-card-role a:focus-visible { text-decoration-color: #9a4f30; }
+    .testimonial-card-role a:focus-visible { outline: 2px solid #9a4f30; outline-offset: 2px; }
     .testimonial-card-quote { font-size: 14px; font-weight: 300; line-height: 1.62; color: rgba(44,62,53,.8); }
     .testimonial-card-quote .word { display: inline-block; opacity: 0; filter: blur(6px); transform: translateY(4px); transition: opacity .5s ease, filter .5s ease, transform .5s ease; }
     .testimonial-card-quote.blur-in .word { opacity: 1; filter: blur(0); transform: translateY(0); }
@@ -658,9 +711,11 @@
       .georgetown-strip { grid-template-columns: 1fr 1fr; }
       .case-card-stats, .case-card-stats.four-col { grid-template-columns: 1fr 1fr; }
     }
+    @media (max-width: 880px) {
+      .nav-links { display: none; }
+    }
     @media (max-width: 720px) {
       .nav { padding: 16px 24px; }
-      .nav-links { display: none; }
       .nav-logo-svg { height: 56px; }
       .section-callout { grid-template-columns: 1fr; gap: 32px; padding: 64px 24px; }
       .callout-left { position: static; }
@@ -673,7 +728,7 @@
       .cs-form-submit { width: 100%; }
       .tl-orbit-wrap { display: none; }
       .throughline-inner { width: 100%; min-width: 0; }
-      .hero-content { grid-template-columns: 1fr; padding: 0 24px 28px; }
+      .hero-content { grid-template-columns: 1fr; padding: 0 24px calc(28px + var(--cookie-banner-h, 0px)); }
       .hero-title { font-size: clamp(44px, 11vw, 72px); }
       .hero-subhead { font-size: 16px; line-height: 1.4; text-shadow: 0 1px 6px rgba(0,0,0,0.4); }
       .hero-body { font-size: 14px; }
@@ -697,7 +752,7 @@
     .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); background: var(--terracotta) !important; }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); background: var(--terracotta) !important; }
-    @media (max-width: 720px) { .nav-hamburger { display: flex; } }
+    @media (max-width: 880px) { .nav-hamburger { display: flex; } }
     .nav-mobile { position: fixed; inset: 0; z-index: 195; background: var(--deep-forest); display: flex; flex-direction: column; justify-content: center; padding: 80px 40px 60px; opacity: 0; pointer-events: none; transition: opacity .32s cubic-bezier(.215,.61,.355,1); }
     .nav-mobile.open { opacity: 1; pointer-events: all; }
     .nav-mobile a { font-family: var(--font-body); font-size: 28px; font-weight: 900; letter-spacing: -.025em; color: rgba(245,240,232,.65); padding: 20px 0; display: block; border-bottom: 1px solid rgba(245,240,232,.08); opacity: 0; transform: translateY(14px); transition: opacity .38s cubic-bezier(.215,.61,.355,1), transform .38s cubic-bezier(.215,.61,.355,1), color .2s; }
@@ -763,6 +818,7 @@
       <li><a href="/for-emerging-brands">For Emerging Brands</a></li>
       <li><a href="/for-established-brands">For Established Brands</a></li>
       <li><a href="/services">Services</a></li>
+      <li><a href="/work">Work</a></li>
       <li><a href="/about">About</a></li>
       <li><a href="/contact">Contact</a></li>
       <li><a href="https://www.linkedin.com/company/throughline-co/" target="_blank" rel="noopener" aria-label="LinkedIn" class="nav-linkedin"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></li>
@@ -773,6 +829,7 @@
     <a href="/for-emerging-brands">For Emerging Brands</a>
     <a href="/for-established-brands">For Established Brands</a>
     <a href="/services">Services</a>
+    <a href="/work">Work</a>
     <a href="/about">About</a>
     <a href="/contact">Contact</a>
   </div>
@@ -780,17 +837,17 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-img">
-      <video class="hero-video" autoplay loop muted playsinline>
-        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4" type="video/mp4">
+      <video class="hero-video" autoplay loop muted playsinline poster="/assets/video/hero-poster.jpg" preload="metadata">
+        <source src="/assets/video/hero.mp4" type="video/mp4">
       </video>
       <div class="hero-noise"></div>
       <div class="hero-gradient"></div>
     </div>
     <div class="hero-content">
-      <h1 class="hero-title">Throughline<br>Co.</h1>
+      <p class="hero-title" aria-label="Throughline Co.">Throughline<br>Co.</p>
       <div class="hero-right">
-        <p class="hero-subhead" id="heroSubhead">Stop shouting to nobody.<br> Start speaking to somebody.</p>
-        <p class="hero-body">If your brand is ready for a fresh perspective, we are here for real results.</p>
+        <h1 class="hero-subhead" id="heroSubhead">Stop shouting to nobody.<br> Start speaking to somebody.</h1>
+        <p class="hero-body">Brand strategy for nonprofits and purpose-driven brands ready for real results.</p>
         <button class="hero-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
           <span class="hero-cta-icon">
             <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -875,12 +932,12 @@
   <div class="case-card card-wild reveal" id="work">
     <div class="wild-layout">
       <div class="wild-carousel" id="wildCarousel">
-        <div class="wild-fade-slide"><img src="/wild_shenandoah_slide_01.webp" alt="Shenandoah Campaign slide 1" loading="lazy" decoding="async"></div>
-        <div class="wild-fade-slide"><img src="/wild_shenandoah_slide_02.webp" alt="Shenandoah Campaign slide 2" loading="lazy" decoding="async"></div>
-        <div class="wild-fade-slide"><img src="/wild_shenandoah_slide_03.webp" alt="Shenandoah Campaign slide 3" loading="lazy" decoding="async"></div>
-        <div class="wild-fade-slide"><img src="/wild_shenandoah_slide_04.webp" alt="Shenandoah Campaign slide 4" loading="lazy" decoding="async"></div>
-        <div class="wild-fade-slide"><img src="/wild_shenandoah_slide_05.webp" alt="Shenandoah Campaign slide 5" loading="lazy" decoding="async"></div>
-        <div class="wild-fade-slide"><img src="/wild_shenandoah_slide_06.webp" alt="Shenandoah Campaign slide 6" loading="lazy" decoding="async"></div>
+        <div class="wild-fade-slide"><img src="/wild_shenandoah_slide_01.webp" alt="Shenandoah Campaign slide 1" width="1080" height="1350" loading="lazy" decoding="async"></div>
+        <div class="wild-fade-slide"><img src="/wild_shenandoah_slide_02.webp" alt="Shenandoah Campaign slide 2" width="1080" height="1350" loading="lazy" decoding="async"></div>
+        <div class="wild-fade-slide"><img src="/wild_shenandoah_slide_03.webp" alt="Shenandoah Campaign slide 3" width="1080" height="1350" loading="lazy" decoding="async"></div>
+        <div class="wild-fade-slide"><img src="/wild_shenandoah_slide_04.webp" alt="Shenandoah Campaign slide 4" width="1080" height="1350" loading="lazy" decoding="async"></div>
+        <div class="wild-fade-slide"><img src="/wild_shenandoah_slide_05.webp" alt="Shenandoah Campaign slide 5" width="1080" height="1350" loading="lazy" decoding="async"></div>
+        <div class="wild-fade-slide"><img src="/wild_shenandoah_slide_06.webp" alt="Shenandoah Campaign slide 6" width="1080" height="1350" loading="lazy" decoding="async"></div>
         <div class="wild-click-prev" id="wildPrev" role="button" aria-label="Previous slide"></div>
         <div class="wild-click-next" id="wildNext" role="button" aria-label="Next slide"></div>
         <div class="wild-dots" id="wildDots">
@@ -898,6 +955,7 @@
           <h3 class="case-card-client">Wild<br>Foundation</h3>
           <p class="case-card-sub">Social Strategy · Data Storytelling · Shenandoah Campaign · AI Bot Build</p>
           <p class="case-card-body">A conservation nonprofit with 50 years of impact and a digital presence that wasn't keeping up.</p>
+          <a href="/work#wild-foundation" class="case-card-link">View case study <span aria-hidden="true">→</span></a>
         </div>
         <div>
           <div class="case-card-stats four-col" style="margin-top:40px">
@@ -932,7 +990,7 @@
     </div>
     <div class="payro-card-layout">
       <div class="payro-card-imgs clip-reveal">
-        <img src="/payro%20groundhog%20.webp" alt="Payro Finance Groundhog Day LinkedIn post" style="object-position:center center;" loading="lazy" decoding="async">
+        <img src="/payro%20groundhog%20.webp" alt="Payro Finance Groundhog Day LinkedIn post" width="900" height="1163" style="object-position:center center;" loading="lazy" decoding="async">
       </div>
       <div class="payro-card-content">
         <h3 class="case-card-client">Payro<br>Finance</h3>
@@ -952,6 +1010,7 @@
           </div>
         </div>
         <p class="payro-card-6months">In under 3 months.</p>
+        <a href="/work#payro-finance" class="case-card-link">View case study <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </div>
@@ -959,7 +1018,7 @@
   <!-- PITCH COMPETITION PHOTO -->
   <div class="clip-hero-wrap">
     <section class="clip-hero-sticky">
-      <img src="/georgetown-postcard.webp" alt="Georgetown University. If you want to go fast, go alone. If you want to go far, go together." loading="lazy" decoding="async">
+      <img src="/georgetown-postcard.webp" alt="Georgetown University. If you want to go fast, go alone. If you want to go far, go together." width="1200" height="800" loading="lazy" decoding="async">
     </section>
   </div>
 
@@ -970,7 +1029,7 @@
       <p>We dig it out. We measure whether it's working.</p>
     </div>
     <div class="philosophy-img clip-reveal" style="transition-delay:.2s">
-      <img src="/IMG_0899.webp" alt="Riya Mittal at Georgetown outdoor booth" loading="lazy" decoding="async">
+      <img src="/IMG_0899.webp" alt="Riya Mittal at Georgetown outdoor booth" width="900" height="675" loading="lazy" decoding="async">
     </div>
   </section>
 
@@ -984,11 +1043,12 @@
       </div>
       <div>
         <p class="case-card-body">Brand refresh, event marketing, and campaign strategy for Georgetown University. From the ground up.</p>
+        <a href="/work#georgetown-university" class="case-card-link">View case study <span aria-hidden="true">→</span></a>
       </div>
     </div>
     <div class="georgetown-strip">
-      <img src="/georgetown-action-figure.webp" alt="Georgetown Student Action Figure. O.S.O. campaign" loading="lazy" decoding="async">
-      <img src="/3e205807-38b9-4a25-9e87-3f578d0bcfc3.webp" alt="We're All Ears Georgetown event collateral" loading="lazy" decoding="async">
+      <img src="/georgetown-action-figure.webp" alt="Georgetown Student Action Figure. O.S.O. campaign" width="900" height="1123" loading="lazy" decoding="async">
+      <img src="/3e205807-38b9-4a25-9e87-3f578d0bcfc3.webp" alt="We're All Ears Georgetown event collateral" width="1000" height="1333" loading="lazy" decoding="async">
       <div class="georgetown-stat-block">
         <div class="g-stat">
           <p class="g-stat-num">+40%</p>
@@ -1010,7 +1070,7 @@
   <div class="case-card card-dyslex reveal">
     <div class="dyslex-layout">
       <div class="dyslex-img">
-        <img src="/pitch-cheque.webp" alt="Riya Mittal holding the $6,500 Dyslex-Aid pitch competition cheque" loading="lazy" decoding="async">
+        <img src="/pitch-cheque.webp" alt="Riya Mittal holding the $6,500 Dyslex-Aid pitch competition cheque" width="1000" height="666" loading="lazy" decoding="async">
       </div>
       <div class="dyslex-content">
         <div>
@@ -1034,7 +1094,8 @@
               <p class="case-stat-ctx">Personalised reading support, from scratch</p>
             </div>
           </div>
-          <p class="dyslex-note">Featured in Georgetown University CCT Disability Pride Month publication.</p>
+          <p class="dyslex-note">Featured in <a href="https://cct.georgetown.edu/announcements/disability-pride-month-second-year-cct-student-riya-mittal-is-paving-the-way-for-automated-learning-aids/" target="_blank" rel="noopener">Georgetown University CCT Disability Pride Month publication</a>.</p>
+          <a href="/work#dyslex-aid" class="case-card-link">View case study <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>
@@ -1087,7 +1148,7 @@
 
       <div class="features-image-wrap">
         <div class="features-image-frame" id="featuresImageFrame">
-          <img class="features-img" src="https://images.unsplash.com/photo-1675352162363-ac40c3bb8265?auto=format&fit=crop&w=900&q=80" alt="Organic first, then paid" style="object-position:center top;" fetchpriority="high" decoding="sync">
+          <img class="features-img" src="https://images.unsplash.com/photo-1675352162363-ac40c3bb8265?auto=format&fit=crop&w=900&q=80" alt="Organic first, then paid" width="900" height="506" style="object-position:center top;" fetchpriority="high" decoding="sync">
         </div>
       </div>
 
@@ -1155,7 +1216,7 @@
       <p class="founder-featured">As featured in Georgetown University CCT, Disability Pride Month.</p>
     </div>
     <div class="founder-img reveal" style="transition-delay:.2s">
-      <img src="/IMG_4734.webp" alt="Riya Mittal at Georgetown University event" loading="lazy" decoding="async">
+      <img src="/IMG_4734.webp" alt="Riya Mittal at Georgetown University event" width="900" height="1200" loading="lazy" decoding="async">
     </div>
   </section>
 
@@ -1181,7 +1242,7 @@
         </div>
       </div>
       <div class="strategy-right reveal" style="transition-delay:.2s">
-        <img src="/www.instagram.com_payrofinance_.webp" alt="Payro Finance Instagram content system" loading="lazy" decoding="async">
+        <img src="/www.instagram.com_payrofinance_.webp" alt="Payro Finance Instagram content system" width="900" height="2522" loading="lazy" decoding="async">
       </div>
     </div>
   </section>
@@ -1195,7 +1256,7 @@
         <!-- Slide 0 — Josh Harris, video (Variant A) -->
         <div class="testimonial-stack-item" data-slide="0" data-state="active" data-video-id="vOZbuVr-QVo" data-video-title="Josh Harris video testimonial" tabindex="0" role="button" aria-label="Play Josh Harris video testimonial">
           <div class="testimonial-video-wrap">
-            <img class="testimonial-video-poster" src="https://img.youtube.com/vi/vOZbuVr-QVo/maxresdefault.jpg" alt="" loading="lazy">
+            <img class="testimonial-video-poster" src="https://img.youtube.com/vi/vOZbuVr-QVo/maxresdefault.jpg" alt="" width="1280" height="720" loading="lazy">
             <span class="testimonial-video-play" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="20" height="20"><polygon points="6,4 20,12 6,20" fill="currentColor"/></svg>
             </span>
@@ -1205,7 +1266,9 @@
         <!-- Slide 1 — Cole Morris, quote-only (Variant B) -->
         <div class="testimonial-stack-item" data-slide="1" data-state="behind">
           <div class="testimonial-logo-panel">
-            <img src="/AR_logo.png" alt="A.R. Morris Jewelers" loading="lazy">
+            <a href="https://www.armorrisjewelers.com/" target="_blank" rel="noopener">
+              <img src="/AR_logo.png" alt="A.R. Morris Jewelers" width="320" height="85" loading="lazy">
+            </a>
           </div>
         </div>
       </div>
@@ -1213,12 +1276,12 @@
       <div class="testimonial-card-stack" id="testimonialCardStack">
         <div class="testimonial-card" data-slide="0" data-active="true">
           <p class="testimonial-card-name">Josh Harris</p>
-          <p class="testimonial-card-role">Founder, Josh Harris Media</p>
+          <p class="testimonial-card-role">Founder, <a href="https://www.joshharrismedia.com/" target="_blank" rel="noopener">Josh Harris Media</a></p>
           <p class="testimonial-card-quote">Working with Riya took a huge weight off my shoulders. She helped me make decisions I'd been putting off for weeks and somehow understood my vision even when I couldn't fully explain it. Halfway through, I completely changed directions, and instead of pushing back, she redid the research and copy to match. It was a pleasure working with her.</p>
         </div>
         <div class="testimonial-card" data-slide="1" data-active="false">
           <p class="testimonial-card-name">Cole Morris</p>
-          <p class="testimonial-card-role">Owner, A.R. Morris Jewelers</p>
+          <p class="testimonial-card-role">Owner, <a href="https://www.armorrisjewelers.com/" target="_blank" rel="noopener">A.R. Morris Jewelers</a></p>
           <p class="testimonial-card-quote">For our website development and positioning, Riya goes so incredibly above and beyond what she needs to do. Her work is fully comprehensive to an extent I never would have been able to reach myself. She's ingrained in our business as if it were her own, fully invested in getting it right and having the creativity to come up with incredible ideas for our users to make our online experience special. What stands out most is how she masters the balance between catching the finest details through every link, text, and design, while never losing sight of the bigger picture.</p>
         </div>
       </div>
@@ -1797,7 +1860,7 @@
 
     (function(){var b=document.getElementById('navHamburger'),o=document.getElementById('navMobile');if(!b||!o)return;function t(open){b.classList.toggle('open',open);o.classList.toggle('open',open);b.setAttribute('aria-expanded',String(open));o.setAttribute('aria-hidden',String(!open));document.body.style.overflow=open?'hidden':'';}b.addEventListener('click',function(){t(!b.classList.contains('open'));});o.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){t(false);});});document.addEventListener('keydown',function(e){if(e.key==='Escape')t(false);});}());
   
-    (function(){var KEY='tlco_consent_v1',stored=localStorage.getItem(KEY);function grantAnalytics(){if(window.gtag)gtag('consent','update',{analytics_storage:'granted',ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted'});if(!window._liLoaded){window._liLoaded=true;window._linkedin_partner_id='9504276';window._linkedin_data_partner_ids=window._linkedin_data_partner_ids||[];window._linkedin_data_partner_ids.push('9504276');(function(l){if(!l){window.lintrk=function(a,b){window.lintrk.q.push([a,b])};window.lintrk.q=[];}var s=document.getElementsByTagName('script')[0],b=document.createElement('script');b.type='text/javascript';b.async=true;b.src='https://snap.licdn.com/li.lms-analytics/insight.min.js';s.parentNode.insertBefore(b,s);})(window.lintrk);}}if(stored==='accepted'){grantAnalytics();}document.addEventListener('DOMContentLoaded',function(){var banner=document.getElementById('cookieBanner');function show(){if(banner)banner.classList.add('visible');}function hide(){if(banner)banner.classList.remove('visible');}window.tlcoOpenConsent=function(){localStorage.removeItem(KEY);show();};if(!stored){show();}var ac=document.getElementById('cookieAccept'),dc=document.getElementById('cookieDecline');if(ac)ac.addEventListener('click',function(){localStorage.setItem(KEY,'accepted');hide();grantAnalytics();});if(dc)dc.addEventListener('click',function(){localStorage.setItem(KEY,'declined');hide();});});}());
+    (function(){var KEY='tlco_consent_v1',stored=localStorage.getItem(KEY);function grantAnalytics(){if(window.gtag)gtag('consent','update',{analytics_storage:'granted',ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted'});if(!window._liLoaded){window._liLoaded=true;window._linkedin_partner_id='9504276';window._linkedin_data_partner_ids=window._linkedin_data_partner_ids||[];window._linkedin_data_partner_ids.push('9504276');(function(l){if(!l){window.lintrk=function(a,b){window.lintrk.q.push([a,b])};window.lintrk.q=[];}var s=document.getElementsByTagName('script')[0],b=document.createElement('script');b.type='text/javascript';b.async=true;b.src='https://snap.licdn.com/li.lms-analytics/insight.min.js';s.parentNode.insertBefore(b,s);})(window.lintrk);}}if(stored==='accepted'){grantAnalytics();}document.addEventListener('DOMContentLoaded',function(){var banner=document.getElementById('cookieBanner');function show(){if(!banner)return;banner.classList.add('visible');requestAnimationFrame(function(){document.documentElement.style.setProperty('--cookie-banner-h',banner.offsetHeight+'px');});window.addEventListener('resize',function(){if(banner.classList.contains('visible'))document.documentElement.style.setProperty('--cookie-banner-h',banner.offsetHeight+'px');});}function hide(){if(!banner)return;banner.classList.remove('visible');document.documentElement.style.setProperty('--cookie-banner-h','0px');}window.tlcoOpenConsent=function(){localStorage.removeItem(KEY);show();};if(!stored){show();}var ac=document.getElementById('cookieAccept'),dc=document.getElementById('cookieDecline');if(ac)ac.addEventListener('click',function(){localStorage.setItem(KEY,'accepted');hide();grantAnalytics();});if(dc)dc.addEventListener('click',function(){localStorage.setItem(KEY,'declined');hide();});});}());
   </script>
 
   <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie consent">

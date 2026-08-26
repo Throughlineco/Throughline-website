@@ -941,12 +941,12 @@
         <div class="wild-click-prev" id="wildPrev" role="button" aria-label="Previous slide"></div>
         <div class="wild-click-next" id="wildNext" role="button" aria-label="Next slide"></div>
         <div class="wild-dots" id="wildDots">
-          <button class="wild-dot" data-idx="0"></button>
-          <button class="wild-dot" data-idx="1"></button>
-          <button class="wild-dot" data-idx="2"></button>
-          <button class="wild-dot" data-idx="3"></button>
-          <button class="wild-dot" data-idx="4"></button>
-          <button class="wild-dot" data-idx="5"></button>
+          <button class="wild-dot" data-idx="0" aria-label="Show Shenandoah campaign slide 1"></button>
+          <button class="wild-dot" data-idx="1" aria-label="Show Shenandoah campaign slide 2"></button>
+          <button class="wild-dot" data-idx="2" aria-label="Show Shenandoah campaign slide 3"></button>
+          <button class="wild-dot" data-idx="3" aria-label="Show Shenandoah campaign slide 4"></button>
+          <button class="wild-dot" data-idx="4" aria-label="Show Shenandoah campaign slide 5"></button>
+          <button class="wild-dot" data-idx="5" aria-label="Show Shenandoah campaign slide 6"></button>
         </div>
       </div>
       <div class="wild-content">
@@ -1331,8 +1331,27 @@
   <section class="cs-form-section" id="throughline-form">
     <h2 class="cs-form-heading">Ready to get started?</h2>
 
-    <div class="calendly-inline-widget" data-url="https://calendly.com/rmittal-works/strategy-meet?hide_gdpr_banner=1&background_color=F5F0E8&text_color=2C3E35&primary_color=C2714F" style="min-width:320px;height:700px;"></div>
-    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    <div class="calendly-inline-widget" data-url="https://calendly.com/riya-mittal-throughline/30min?hide_gdpr_banner=1&background_color=F5F0E8&text_color=2C3E35&primary_color=C2714F" style="min-width:320px;height:700px;"></div>
+    <script>
+      (function() {
+        var section = document.getElementById('throughline-form');
+        if (!section) return;
+        var loaded = false;
+        function loadCalendly() {
+          if (loaded) return;
+          loaded = true;
+          var s = document.createElement('script');
+          s.src = 'https://assets.calendly.com/assets/external/widget.js';
+          s.async = true;
+          document.body.appendChild(s);
+          observer.disconnect();
+        }
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) { if (entry.isIntersecting) loadCalendly(); });
+        }, { rootMargin: '600px' });
+        observer.observe(section);
+      })();
+    </script>
 
     <p class="cs-form-legal">© 2026 Throughline Co. All rights reserved. &nbsp;&middot;&nbsp; <a href="/privacy" style="opacity:.5;text-decoration:underline;">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="#" onclick="window.tlcoOpenConsent&&window.tlcoOpenConsent();return false;" style="opacity:.5;text-decoration:underline;">Cookie settings</a></p>
   </section>
@@ -1865,7 +1884,7 @@
 
   <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie consent">
     <div class="cookie-inner">
-      <p class="cookie-text">We use analytics cookies to understand how visitors use our site. Essential cookies are always on. <a href="/privacy">Learn more</a></p>
+      <p class="cookie-text">We use analytics cookies to understand how visitors use our site. Essential cookies are always on. <a href="/privacy">Read our privacy policy</a></p>
       <div class="cookie-actions">
         <button class="cookie-btn cookie-btn-decline" id="cookieDecline">Decline</button>
         <button class="cookie-btn cookie-btn-accept" id="cookieAccept">Accept</button>

@@ -124,6 +124,12 @@
     .btn-primary:hover { opacity: .82; transform: translateY(-1px); }
 
     /* WHY IT'S DIFFERENT */
+    .section-fit { background: var(--cream-d); border-top: 1px solid rgba(44,62,53,.08); padding: 96px 52px; }
+    .section-fit-inner { max-width: 820px; margin: 0 auto; }
+    .fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 40px; }
+    .fit-block h3 { font-family: var(--font-body); font-size: 18px; font-weight: 900; letter-spacing: -.02em; color: var(--deep-forest); margin-bottom: 14px; }
+    .fit-block p { font-size: 15px; font-weight: 300; line-height: 1.78; color: rgba(44,62,53,.7); }
+    @media (max-width: 720px) { .fit-grid { grid-template-columns: 1fr; gap: 32px; } }
     .section-pricing { background: var(--cream); padding: 96px 52px; }
     .section-pricing-inner { max-width: 820px; margin: 0 auto; }
     .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 32px; }
@@ -264,27 +270,27 @@
       <div class="services-list">
         <div class="service-item reveal">
           <h3 class="service-name">Brand Strategy</h3>
-          <p class="service-desc">Positioning, voice, message hierarchy. We find the thread that connects your mission to your audience and make sure every touchpoint pulls on it. You leave knowing exactly what to say, who to say it to, and why it lands.</p>
+          <p class="service-desc">Positioning, voice, message hierarchy. We find the thread that connects your mission to your audience and make sure every touchpoint pulls on it. You leave knowing exactly what to say, who to say it to, and why it lands. Deliverables: a positioning statement, a message hierarchy, and a voice guide your whole team can actually use — not a deck that sits in a drive folder.</p>
         </div>
         <div class="service-item reveal" style="transition-delay:.05s">
           <h3 class="service-name">Audience Growth</h3>
-          <p class="service-desc">Not follower counts. Real people who care about what you do and come back. We build the kind of presence that earns attention over time, on the platforms that actually matter for your audience.</p>
+          <p class="service-desc">Not follower counts. Real people who care about what you do and come back. We build the kind of presence that earns attention over time, on the platforms that actually matter for your audience. That means channel selection, a realistic content cadence, and community tactics built around your actual audience, not a generic growth playbook.</p>
         </div>
         <div class="service-item reveal" style="transition-delay:.1s">
           <h3 class="service-name">Storytelling and Content</h3>
-          <p class="service-desc">You have a story worth telling. Most organizations do. The problem is it usually lives in the founder's head, or in a grant report nobody reads. We dig it out, make it sharp, and turn it into content that moves people.</p>
+          <p class="service-desc">You have a story worth telling. Most organizations do. The problem is it usually lives in the founder's head, or in a grant report nobody reads. We dig it out, make it sharp, and turn it into content that moves people. Deliverables: a core narrative framework, case-study copy, and a content library you can keep pulling from long after we hand it off.</p>
         </div>
         <div class="service-item reveal" style="transition-delay:.15s">
           <h3 class="service-name">LinkedIn Strategy</h3>
-          <p class="service-desc">For founders and organizations where LinkedIn is the primary growth channel. We build a presence that generates real conversations, not just impressions.</p>
+          <p class="service-desc">For founders and organizations where LinkedIn is the primary growth channel. We build a presence that generates real conversations, not just impressions — a posting cadence, content pillars, and a founder-voice framework built around what your specific audience actually engages with, not what's trending that week.</p>
         </div>
         <div class="service-item reveal" style="transition-delay:.2s">
           <h3 class="service-name">Online and Offline Marketing</h3>
-          <p class="service-desc">Social campaigns, donor communications, conference presence, community events. We build strategies that work in the room and outside it.</p>
+          <p class="service-desc">Social campaigns, donor communications, conference presence, community events. We build strategies that work in the room and outside it — from a donor email to a booth banner, everything ties back to the same throughline instead of feeling like six disconnected efforts.</p>
         </div>
         <div class="service-item reveal" style="transition-delay:.25s">
           <h3 class="service-name">Website Design &amp; Build</h3>
-          <p class="service-desc">From clean static sites to fully animated, tool-integrated builds. We design and build the thing itself, then make sure it is actually doing its job — converting the right people, not just looking good.</p>
+          <p class="service-desc">From clean static sites to fully animated, tool-integrated builds. We design and build the thing itself, then make sure it is actually doing its job — converting the right people, not just looking good. Static builds ship fast; motion and tool integrations like booking, forms, and CRM connections get layered in as scope grows.</p>
         </div>
       </div>
     </div>
@@ -334,6 +340,24 @@
       </div>
       <div class="steps-cta reveal" style="transition-delay:.28s">
         <a href="https://calendly.com/riya-mittal-throughline/30min" target="_blank" rel="noopener" class="btn-primary">Book a free 30-min call →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE & FIT -->
+  <section class="section-fit">
+    <div class="section-fit-inner">
+      <p class="section-label">Before you book a call</p>
+      <h2 class="section-heading reveal">How long this takes, and who it's actually for.</h2>
+      <div class="fit-grid">
+        <div class="fit-block reveal">
+          <h3>Timeline</h3>
+          <p>Most brand strategy engagements run 6 to 10 weeks from discovery to a working set of assets you can use. Website builds vary with scope — a clean static site can ship in 2 to 3 weeks; a fully animated, tool-integrated build takes longer. Social media and LinkedIn work is ongoing, scoped and priced against your actual posting cadence rather than a flat monthly retainer.</p>
+        </div>
+        <div class="fit-block reveal" style="transition-delay:.06s">
+          <h3>Who this is for</h3>
+          <p>Nonprofits, emerging brands, and social enterprises that already have something real to say and need it built into a system that actually works — not organizations starting from a blank page, and not organizations just shopping for the cheapest vendor. If you're not sure that's you yet, the free 30-minute call is the fastest way to find out.</p>
+        </div>
       </div>
     </div>
   </section>

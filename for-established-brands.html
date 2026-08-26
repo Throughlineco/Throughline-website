@@ -164,6 +164,11 @@
 
     /* ── PERCEPTION GAP DETECTOR ── */
     .eb-tool { background: var(--cream); padding: 100px 80px 112px; position: relative; overflow: hidden; }
+    .s-fit { background: var(--cream); padding: 96px 80px; border-top: 1px solid rgba(44,62,53,.08); }
+    .fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 40px; max-width: 900px; }
+    .fit-block h3 { font-family: var(--font-body); font-size: 18px; font-weight: 900; letter-spacing: -.02em; color: var(--deep-forest); margin-bottom: 14px; }
+    .fit-block p { font-size: 15px; font-weight: 300; line-height: 1.78; color: rgba(44,62,53,.68); }
+    @media (max-width: 720px) { .s-fit { padding: 72px 24px; } .fit-grid { grid-template-columns: 1fr; gap: 32px; } }
     .eb-tool::before {
       content: ''; position: absolute; bottom: -120px; right: -100px;
       width: 520px; height: 520px; border-radius: 50%;
@@ -469,7 +474,7 @@
     <div class="eb-problem-inner">
       <span class="section-eyebrow reveal">The real problem</span>
       <p class="eb-problem-body reveal" style="transition-delay:.07s">Established companies in mature industries face disruptive change. The business restructures, grows, and evolves, but the brand stays stuck in the past. Consistent messaging over time is what builds familiarity in new markets, and established brands struggle here because their perception hasn't kept pace with what they can actually do.</p>
-      <p class="eb-problem-key reveal" style="transition-delay:.14s"><strong>The gap isn't the logo.</strong> It's the space between what you were, what you are now, and what new markets still think you are. Most established brands respond with a visual refresh when what they actually need is a positioning shift.</p>
+      <p class="eb-problem-key reveal" style="transition-delay:.14s"><strong>The gap isn't the logo.</strong> It's the space between what you were, what you are now, and what new markets still think you are. Most established brands respond with a visual refresh when what they actually need is a positioning shift. A new color palette doesn't fix a perception problem — it just gives the old perception a fresh coat of paint.</p>
     </div>
   </section>
 
@@ -534,6 +539,22 @@
           <p class="eb-output-text" id="gapText"></p>
           <button type="button" class="eb-tool-again" id="gapReset">Try it again</button>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FIT -->
+  <section class="s-fit">
+    <span class="section-eyebrow reveal">Before you book a call</span>
+    <h2 class="eb-tool-headline reveal">Who this is actually for.</h2>
+    <div class="fit-grid">
+      <div class="fit-block reveal">
+        <h3>You're a good fit if</h3>
+        <p>Your business has genuinely changed — new capabilities, new customers, a bigger footprint — but the market still treats you like the version of you from five or ten years ago. You're ready for a real positioning shift, not another logo refresh, and you have the internal buy-in to see it through.</p>
+      </div>
+      <div class="fit-block reveal" style="transition-delay:.06s">
+        <h3>This isn't the right fit if</h3>
+        <p>You're looking for a quick visual update with no deeper strategy behind it, or your business hasn't actually changed and you just want new branding for its own sake. Closing a perception gap only works when there's a real gap to close.</p>
       </div>
     </div>
   </section>

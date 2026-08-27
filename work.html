@@ -29,6 +29,7 @@
         "@id": "https://throughline.community/#organization",
         "name": "Throughline Co.",
         "url": "https://throughline.community/",
+        "logo": "https://throughline.community/favicon.svg",
         "description": "Purpose-driven brand strategy agency helping nonprofits, emerging brands, and mission-driven organizations build the narrative architecture, positioning, and voice their story is missing.",
         "sameAs": ["https://www.linkedin.com/company/throughline-co/"],
         "foundingDate": "2026-04",
@@ -104,6 +105,10 @@
     .cs-body a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
     .cs-body a:hover, .cs-body a:focus-visible { color: var(--terracotta); }
     .cs-body a:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 2px; }
+    .cs-client-link { color: inherit; text-decoration: none; }
+    .cs-client-link:hover, .cs-client-link:focus-visible { color: var(--terracotta); text-decoration: underline; text-underline-offset: 6px; }
+    .cs-client-link:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 4px; }
+    .cs-client-link:active { opacity: .85; }
     .cs-media { border-radius: 8px; overflow: hidden; margin-bottom: 48px; }
     .cs-media img { width: 100%; display: block; object-fit: cover; max-height: 520px; }
     .cs-carousel { position: relative; border-radius: 8px; overflow: hidden; background: var(--sage-green); aspect-ratio: 16/9; margin-bottom: 48px; }
@@ -133,6 +138,8 @@
     .case-study-dark .cs-stats { border-color: rgba(245,240,232,.15); }
     .case-study-dark .cs-disclaimer { color: rgba(245,240,232,.9); }
     .case-study-dark .cs-label { color: rgba(245,240,232,.9); }
+    .case-study-dark .cs-client-link:hover, .case-study-dark .cs-client-link:focus-visible { color: var(--cream); text-decoration: underline; text-underline-offset: 6px; }
+    .case-study-dark .cs-client-link:focus-visible { outline: 2px solid var(--cream); outline-offset: 4px; }
 
     /* BOTTOM CTA */
     .section-cta { background: var(--deep-forest); padding: 96px 52px; text-align: center; }
@@ -260,7 +267,7 @@
   <section class="case-study case-study-dark" id="wild-foundation">
     <div class="case-study-inner">
       <p class="cs-label">Case study 01</p>
-      <h2 class="cs-client reveal">Wild<br>Foundation</h2>
+      <h2 class="cs-client reveal"><a class="cs-client-link" href="https://wild.org/" target="_blank" rel="noopener" aria-label="Visit Wild Foundation's website (opens in new tab)">Wild<br>Foundation</a></h2>
       <p class="cs-tags reveal" style="transition-delay:.04s">Conservation Nonprofit · Social Strategy · Data Storytelling · AI Build</p>
       <p class="cs-hook reveal" style="transition-delay:.08s">Fifty years of conservation impact. A digital presence that was not keeping up.</p>
       <p class="cs-body reveal" style="transition-delay:.12s">Wild Foundation had the story. They always did. Fifty years of it. What they did not have was a communications infrastructure that let people find it, understand it, and act on it.<br><br>We rebuilt it. Donor email, social strategy, a six-slide Shenandoah campaign built and designed end to end, an AI bot that turned their website into a real resource, and a data story that turned conservation research into content people actually share.</p>
@@ -295,7 +302,7 @@
   <section class="case-study" id="payro-finance">
     <div class="case-study-inner">
       <p class="cs-label">Case study 02</p>
-      <h2 class="cs-client reveal">Payro<br>Finance</h2>
+      <h2 class="cs-client reveal"><a class="cs-client-link" href="https://payrofinance.com/" target="_blank" rel="noopener" aria-label="Visit Payro Finance's website (opens in new tab)">Payro<br>Finance</a></h2>
       <p class="cs-tags reveal" style="transition-delay:.04s">Fintech · Brand Infrastructure · Audience Growth · LinkedIn Strategy</p>
       <p class="cs-hook reveal" style="transition-delay:.08s">We did not go viral. We got specific.</p>
       <p class="cs-body reveal" style="transition-delay:.12s">Payro Finance needed a LinkedIn presence that talked to real small business owners in real language. Not finance-speak. Not startup-speak. The actual language of someone who has made payroll on a Friday and is already thinking about the next one.<br><br>We rebuilt the content strategy around that person. In under three months: +118% LinkedIn audience growth. Website visits from 12 to 161 per month. Click-to-apply followed.</p>

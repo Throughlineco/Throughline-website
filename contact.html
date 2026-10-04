@@ -86,7 +86,14 @@
     .nav-links a.active { color: #9D5537; }
 
     /* HERO */
-    .page-hero { background: var(--sage-green); padding: 140px 52px 96px; }
+    .page-hero { background: var(--sage-green); padding: 140px 52px 96px; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 40px 72px; align-items: start; }
+    .hero-copy { padding-top: 24px; }
+    .hero-cal { min-width: 0; border-radius: 14px; overflow: hidden; }
+    .hero-alt { display: inline-block; font-size: 14px; font-weight: 700; color: var(--cream); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: rgba(245,240,232,.45); transition: text-decoration-color .2s; }
+    .hero-alt:hover { text-decoration-color: currentColor; }
+    .hero-alt:focus-visible { outline: 2px solid var(--cream); outline-offset: 3px; }
+    .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    @media (max-width: 900px) { .page-hero { grid-template-columns: 1fr; } .hero-copy { padding-top: 0; } }
     .page-hero-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: rgba(245,240,232,.9); margin-bottom: 24px; }
     .page-hero-heading { font-family: var(--font-body); font-size: clamp(40px, 6vw, 88px); font-weight: 900; letter-spacing: -.05em; line-height: .92; color: var(--cream); margin-bottom: 28px; max-width: 700px; }
     .page-hero-sub { font-size: 16px; font-weight: 300; line-height: 1.72; color: rgba(245,240,232,.92); max-width: 480px; margin-bottom: 40px; }
@@ -226,11 +233,29 @@
 
   <!-- HERO -->
   <section class="page-hero">
-    <p class="page-hero-eyebrow">Contact</p>
-    <h1 class="page-hero-heading">Let's find your throughline.</h1>
-    <p class="page-hero-sub">Thirty minutes. No pitch, no prep required. Tell us what you are building and where the story keeps getting stuck.</p>
-    <a href="https://calendly.com/riya-mittal-throughline/30min" target="_blank" rel="noopener" class="hero-book-btn">Book a free 30-min call →</a>
+    <div class="hero-copy">
+      <p class="page-hero-eyebrow">Contact</p>
+      <h1 class="page-hero-heading">Let's find your throughline.</h1>
+      <p class="page-hero-sub">Thirty minutes. No pitch, no prep required. Tell us what you are building and where the story keeps getting stuck.</p>
+      <a href="https://calendly.com/riya-mittal-throughline/30min" target="_blank" rel="noopener" class="hero-alt">Prefer a full page? Open the calendar in a new tab <span aria-hidden="true">→</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+    </div>
+    <div class="hero-cal" id="calendar">
+      <div class="calendly-inline-widget" data-url="https://calendly.com/riya-mittal-throughline/30min?hide_gdpr_banner=1&amp;background_color=3D6B4F&amp;text_color=F5F0E8&amp;primary_color=F5F0E8" style="min-width:320px;height:700px;"></div>
+    </div>
   </section>
+  <script>
+    (function () {
+      var box = document.getElementById('calendar'); if (!box) return;
+      var loaded = false;
+      function load() {
+        if (loaded) return; loaded = true;
+        var s = document.createElement('script'); s.src = 'https://assets.calendly.com/assets/external/widget.js'; s.async = true; document.body.appendChild(s);
+      }
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (es, o) { if (es[0].isIntersecting) { load(); o.disconnect(); } }, { rootMargin: '400px' }).observe(box);
+      } else load();
+    }());
+  </script>
 
   <!-- DIVIDER -->
   <div class="section-divider">

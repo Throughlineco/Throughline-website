@@ -25,7 +25,7 @@ def between(a, b):
 
 BASE_CSS = between("    :root {", "    /* ── HERO (single column, centered) ── */")
 FOOT_CSS = between("    /* FOOTER */", "    /* RESPONSIVE */")
-NAV_RESP = """    @media (max-width: 1240px) { .nav-links { display: none; } }
+NAV_RESP = """    @media (max-width: 1100px) { .nav-links { display: none; } }
     @media (max-width: 900px) { .nav { padding: 20px 36px; } }
     @media (max-width: 720px) {
       .nav { padding: 16px 24px; }
@@ -35,7 +35,8 @@ NAV_RESP = """    @media (max-width: 1240px) { .nav-links { display: none; } }
 """
 MOBILE_CSS = between("    /* ── MOBILE NAV ── */", "  </style>")
 GTAG = between("  <!-- Google tag (gtag.js) — Consent Mode v2 -->", "</head>")
-NAV = between('  <svg id="tlNav"', "  <!-- HERO -->").replace(' class="active"', "")
+NAV = (between('  <svg id="tlNav"', "  <!-- HERO -->").replace(' class="active" aria-current="page"', "")
+       .replace('nav-trigger active', 'nav-trigger').replace('<a href="/work">', '<a href="/work" class="active">'))
 FOOTER = between("  <!-- FOOTER -->", "  <script>")
 SCRIPTS = between("    // Scroll reveal", "  </script>\n\n  <div class=\"cookie-banner\"")
 COOKIE = SRC[SRC.index('  <div class="cookie-banner"'):SRC.index("</body>")]
@@ -536,7 +537,8 @@ def render(i, s):
   <script>
 {SCRIPTS}  </script>
 
-{COOKIE}</body>
+{COOKIE}  <script src="/assets/site.js" defer></script>
+</body>
 </html>
 """
 

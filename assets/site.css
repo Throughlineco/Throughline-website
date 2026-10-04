@@ -176,19 +176,98 @@
   .study-back, .study-next-link span { transition: none; }
 }
 
-/* ── WORK PAGE: all case studies ── */
-.study-index { max-width: 1200px; margin: 0 auto; padding: 112px 80px; background: var(--cream); }
-.study-index h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(28px, 3.2vw, 44px); letter-spacing: -.025em; margin: 0 0 40px; color: var(--ink); }
-.study-index ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
-.study-index li { border-bottom: 1px solid var(--rule); }
-.study-index a { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) minmax(0, 3fr) 24px; gap: 8px 32px; align-items: baseline; padding: 22px 0; text-decoration: none; color: var(--ink); transition: opacity .25s var(--ease-out); }
-.study-index .si-name { font-family: var(--font-display); font-size: clamp(20px, 2vw, 26px); letter-spacing: -.015em; }
-.study-index .si-what { font-size: 15px; line-height: 1.5; color: var(--ink-2); }
-.study-index .si-when { font-size: 14px; color: var(--ink-3); }
-.study-index .si-arrow { color: var(--terra-ink); transition: transform .35s var(--ease-out); }
-.study-index ul:hover a { opacity: .55; }
-.study-index ul:hover a:hover, .study-index a:focus-visible { opacity: 1; }
-.study-index a:hover .si-arrow { transform: translateX(6px); }
-.study-index a:active { opacity: .8; }
-@media (max-width: 900px) { .study-index { padding: 80px 40px; } .study-index a { grid-template-columns: minmax(0, 1fr) 24px; } .study-index .si-what, .study-index .si-when { grid-column: 1; } .study-index .si-arrow { grid-row: 1; grid-column: 2; } }
-@media (max-width: 720px) { .study-index { padding: 64px 24px; } }
+/* ── WORK PAGE ── */
+.work-list { max-width: 1200px; margin: 0 auto; padding: 8px 80px 96px; }
+@media (max-width: 900px) { .work-list { padding: 8px 40px 72px; } }
+@media (max-width: 720px) { .work-list { padding: 8px 24px 56px; } }
+
+/* ── HEADER NAV (all pages) ──────────────────────────────────
+   Links sit in one contained bar. Hover, focus and the current page get a filled
+   pill; the only terracotta is the Book a call button. On the home hero the bar
+   is frosted forest with cream text and the pill turns cream. */
+.nav .nav-links {
+  display: flex; align-items: center; gap: 2px; list-style: none; margin: 0;
+  padding: 5px; border-radius: 9999px; background: rgba(44, 62, 53, .04); border: 1px solid var(--rule);
+}
+.nav .nav-links > li > a, .nav .nav-trigger {
+  position: relative; z-index: 0; display: inline-flex; align-items: center; gap: 6px; height: 38px; padding: 0 16px;
+  border: 0; border-radius: 9999px; background: none; cursor: pointer;
+  font-family: var(--font-body); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--deep-forest); opacity: 1; transition: color .2s var(--ease-out);
+}
+.nav .nav-links > li > a::before, .nav .nav-trigger::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: rgba(61, 107, 79, .14);
+  opacity: 0; transform: scale(.9); transition: opacity .22s var(--ease-out), transform .35s var(--ease-out);
+}
+.nav .nav-links > li > a:hover::before, .nav .nav-links > li > a:focus-visible::before, .nav .nav-links > li > a.active::before,
+.nav .nav-trigger:hover::before, .nav .nav-trigger:focus-visible::before, .nav .nav-trigger.active::before,
+.nav .nav-trigger[aria-expanded="true"]::before, .nav .nav-group:hover .nav-trigger::before { opacity: 1; transform: none; }
+.nav .nav-links > li > a:active::before, .nav .nav-trigger:active::before { transform: scale(.95); }
+.nav .nav-links > li > a.active, .nav .nav-trigger.active { color: var(--deep-forest); }
+.nav .nav-links > li > a:hover { opacity: 1; }
+.nav-chev { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: transform .3s var(--ease-out); }
+.nav-trigger[aria-expanded="true"] .nav-chev, .nav-group:hover .nav-chev { transform: rotate(180deg); }
+
+.nav .nav-links > li > a.nav-cta { margin-left: 6px; background: #A55939; color: var(--cream); transition: opacity .2s var(--ease-out), transform .3s var(--ease-out); }
+.nav .nav-links > li > a.nav-cta::before { display: none; }
+.nav .nav-links > li > a.nav-cta:hover { opacity: .9; transform: translateY(-1px); }
+.nav .nav-links > li > a.nav-cta:active { transform: none; opacity: .8; }
+
+.nav-group { position: relative; }
+.nav-panel {
+  position: absolute; top: calc(100% + 12px); left: -6px; width: 320px; padding: 8px; z-index: 210;
+  background: var(--cream); border: 1px solid var(--rule); border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(44, 62, 53, .06), 0 24px 48px -20px rgba(44, 62, 53, .35);
+  opacity: 0; visibility: hidden; transform: translateY(-6px); pointer-events: none;
+  transition: opacity .2s var(--ease-out), transform .3s var(--ease-out), visibility 0s linear .3s;
+}
+.nav-panel::before { content: ''; position: absolute; left: 0; right: 0; top: -14px; height: 14px; }
+.nav-group:hover .nav-panel, .nav-group:focus-within .nav-panel, .nav-trigger[aria-expanded="true"] + .nav-panel {
+  opacity: 1; visibility: visible; transform: none; pointer-events: auto; transition-delay: 0s;
+}
+.nav .nav-links .nav-panel a {
+  display: block; padding: 12px 14px; border-radius: 10px; text-decoration: none;
+  font-size: 15px; font-weight: 700; letter-spacing: 0; text-transform: none; color: var(--deep-forest);
+  transition: background-color .2s var(--ease-out);
+}
+.nav .nav-links .nav-panel a span { display: block; margin-top: 4px; font-size: 13px; font-weight: 400; line-height: 1.45; color: var(--ink-3); }
+.nav .nav-links .nav-panel a:hover, .nav .nav-links .nav-panel a:focus-visible { background: var(--cream-d); }
+.nav .nav-links .nav-panel a.active { background: var(--cream-d); }
+
+/* Home, over the hero portrait (before the bar turns cream). */
+.home .nav:not(.scrolled) .nav-links {
+  background: rgba(11, 35, 27, .38); border-color: rgba(245, 240, 232, .18);
+  -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%);
+}
+.home .nav:not(.scrolled) .nav-links > li > a:not(.nav-cta), .home .nav:not(.scrolled) .nav-trigger { color: var(--cream); }
+.home .nav:not(.scrolled) .nav-links > li > a:not(.nav-cta)::before, .home .nav:not(.scrolled) .nav-trigger::before { background: var(--cream); }
+.home .nav:not(.scrolled) .nav-links > li > a:not(.nav-cta):hover, .home .nav:not(.scrolled) .nav-links > li > a:not(.nav-cta):focus-visible,
+.home .nav:not(.scrolled) .nav-trigger:hover, .home .nav:not(.scrolled) .nav-trigger:focus-visible,
+.home .nav:not(.scrolled) .nav-trigger[aria-expanded="true"], .home .nav:not(.scrolled) .nav-group:hover .nav-trigger { color: var(--deep-forest); }
+@media (prefers-reduced-motion: reduce) {
+  .nav .nav-links > li > a::before, .nav .nav-trigger::before, .nav-panel, .nav-chev { transition: none; }
+}
+
+/* ── WORK INDEX with cursor-following covers (home + work page) ── */
+.work-index { list-style: none; border-top: 1px solid var(--rule); }
+.work-index li { border-bottom: 1px solid var(--rule); }
+.work-index a { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) minmax(0, 2fr) 24px; gap: 6px 32px; align-items: baseline; padding: 24px 0; text-decoration: none; color: var(--ink); transition: opacity .25s var(--ease-out); }
+.work-index .wi-name { font-family: var(--font-display); font-size: clamp(21px, 2.1vw, 28px); line-height: 1.25; letter-spacing: -.015em; }
+.work-index .wi-what { font-size: 15px; line-height: 1.5; color: var(--ink-2); }
+.work-index .wi-when { font-size: 14px; color: var(--ink-3); }
+.work-index .wi-arrow { color: var(--terra-ink); transition: transform .35s var(--ease-out); }
+.work-index:hover a { opacity: .5; }
+.work-index:hover a:hover, .work-index a:focus-visible { opacity: 1; }
+.work-index a:hover .wi-arrow { transform: translateX(6px); }
+.work-index a:active { opacity: .8; }
+.work-cover { position: fixed; left: 0; top: 0; z-index: 150; width: 340px; aspect-ratio: 16 / 10; border-radius: 10px; overflow: hidden; pointer-events: none; opacity: 0; transition: opacity .25s var(--ease-out);
+  box-shadow: 0 1px 2px rgba(44,62,53,.10), 0 24px 48px -16px rgba(44,62,53,.40); }
+.work-cover.on { opacity: 1; }
+.work-cover img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+
+@media (max-width: 900px) {
+  .work-index a { grid-template-columns: minmax(0, 1fr) 24px; }
+  .work-index .wi-what, .work-index .wi-when { grid-column: 1; }
+  .work-index .wi-arrow { grid-row: 1; grid-column: 2; }
+}
+.nav .nav-links .nav-panel a { white-space: normal; }

@@ -39,5 +39,10 @@
         }
       ]
     }
-  ]
+  ],
+  "functions": {
+    "api/*.py": {
+      "excludeFiles": "astro-site/**"
+    }
+  }
 }

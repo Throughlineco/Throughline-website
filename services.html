@@ -173,7 +173,7 @@
       *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
     }
 
-    @media (max-width: 880px) {
+    @media (max-width: 1240px) {
       .nav-links { display: none; }
     }
     @media (max-width: 720px) {
@@ -190,7 +190,7 @@
     .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); background: var(--terracotta); }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); background: var(--terracotta); }
-    @media (max-width: 880px) { .nav-hamburger { display: flex; } }
+    @media (max-width: 1240px) { .nav-hamburger { display: flex; } }
     .nav-mobile { position: fixed; inset: 0; z-index: 195; background: var(--deep-forest); display: flex; flex-direction: column; justify-content: center; padding: 80px 40px 60px; opacity: 0; pointer-events: none; transition: opacity .32s cubic-bezier(.215,.61,.355,1); }
     .nav-mobile.open { opacity: 1; pointer-events: all; }
     .nav-mobile a { font-family: var(--font-body); font-size: 28px; font-weight: 900; letter-spacing: -.025em; color: rgba(245,240,232,.65); padding: 20px 0; display: block; border-bottom: 1px solid rgba(245,240,232,.08); opacity: 0; transform: translateY(14px); transition: opacity .38s cubic-bezier(.215,.61,.355,1), transform .38s cubic-bezier(.215,.61,.355,1), color .2s; }
@@ -248,6 +248,7 @@
     <ul class="nav-links">
       <li><a href="/for-emerging-brands">For Emerging Brands</a></li>
       <li><a href="/for-established-brands">For Established Brands</a></li>
+      <li><a href="/b2b-marketing">For B2B Brands</a></li>
       <li><a href="/services" class="active">Services</a></li>
       <li><a href="/work">Work</a></li>
       <li><a href="/about">About</a></li>
@@ -260,6 +261,7 @@
   <div class="nav-mobile" id="navMobile" aria-hidden="true">
     <a href="/for-emerging-brands">For Emerging Brands</a>
     <a href="/for-established-brands">For Established Brands</a>
+    <a href="/b2b-marketing">For B2B Brands</a>
     <a href="/services" class="active">Services</a>
     <a href="/work">Work</a>
     <a href="/about">About</a>
@@ -290,7 +292,7 @@
         </div>
         <div class="service-item reveal" style="transition-delay:.1s">
           <h3 class="service-name">Storytelling and Content</h3>
-          <p class="service-desc">You have a story worth telling. Most organizations do. The problem is it usually lives in the founder's head, or in a grant report nobody reads. We dig it out, sharpen it, and write the case-study copy and content you'll still be publishing months after we hand it off.</p>
+          <p class="service-desc">You have a story worth telling. Most organizations do. The problem is it usually lives in the founder's head, or in a pitch deck nobody outside the company reads. We dig it out, sharpen it, and write the case-study copy and content you'll still be publishing months after we hand it off.</p>
         </div>
         <div class="service-item reveal" style="transition-delay:.15s">
           <h3 class="service-name">LinkedIn Strategy</h3>
@@ -298,7 +300,7 @@
         </div>
         <div class="service-item reveal" style="transition-delay:.2s">
           <h3 class="service-name">Online and Offline Marketing</h3>
-          <p class="service-desc">Social campaigns, donor communications, conference presence, community events. We build strategies that work in the room and outside it, so a donor email and a booth banner sound like they came from the same place.</p>
+          <p class="service-desc">Social campaigns, customer email, conference presence, events. We build strategies that work in the room and outside it, so a sales email and a booth banner sound like they came from the same place.</p>
         </div>
         <div class="service-item reveal" style="transition-delay:.25s">
           <h3 class="service-name">Website Design &amp; Build</h3>
@@ -372,7 +374,7 @@
         </div>
         <div class="fit-block reveal" style="transition-delay:.06s">
           <h3>Who this is for</h3>
-          <p>Nonprofits, emerging brands, and social enterprises that already have something real to say and need it built into a system that actually works. We work best with clients who've decided to invest in getting this right, not ones still comparing quotes. If you're not sure that's you yet, the free 30-minute call is the fastest way to find out.</p>
+          <p>Startups, B2B companies, and established brands that already have something real to say and need it built into a system that actually works. We work best with clients who've decided to invest in getting this right, not ones still comparing quotes. If you're not sure that's you yet, the free 30-minute call is the fastest way to find out.</p>
         </div>
       </div>
     </div>
@@ -405,9 +407,9 @@
     <div class="section-diff-inner">
       <p class="diff-label">Why impact marketing is different</p>
       <h2 class="diff-heading reveal">Anyone can run ads. Not everyone can do this.</h2>
-      <p class="diff-body reveal" style="transition-delay:.08s">Product marketing is about features, comparisons, price points. Impact marketing is about trust.</p>
-      <p class="diff-body reveal" style="transition-delay:.12s">Your audience — whether that is donors, community members, or customers who buy because they believe in what you stand for — they do not convert on a clever headline. They convert when they feel something real. When they see themselves in your story. When they believe you are actually doing what you say you are doing.</p>
-      <p class="diff-body reveal" style="transition-delay:.16s">That takes more than good copy. It takes community building, persona-level research, and emotional storytelling that is backed by data on what is actually working. It takes someone who has done this for mission-driven organizations specifically, not someone who will try a product playbook and wonder why the numbers are not moving.</p>
+      <p class="diff-body reveal" style="transition-delay:.08s">Most marketing is about features, comparisons, price points. The marketing that works is about trust.</p>
+      <p class="diff-body reveal" style="transition-delay:.12s">Your buyers, whether that is a founder choosing a vendor or a customer choosing between you and a competitor, do not convert on a clever headline. They convert when they feel something real. When they see themselves in your story. When they believe you are actually doing what you say you are doing.</p>
+      <p class="diff-body reveal" style="transition-delay:.16s">That takes more than good copy. It takes community building, persona-level research, and emotional storytelling that is backed by data on what is actually working. It takes someone who starts with your buyer, not someone who runs the same playbook for every client and wonders why the numbers are not moving.</p>
       <p class="diff-thesis reveal" style="transition-delay:.2s">This is the work we were built for.</p>
       <a href="/work" class="btn-secondary reveal" style="transition-delay:.24s">See the work →</a>
     </div>

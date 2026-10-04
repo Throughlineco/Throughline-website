@@ -116,8 +116,15 @@
       background: transparent;
       backdrop-filter: blur(0px);
       border-bottom: 1px solid transparent;
-      transition: background .35s ease, backdrop-filter .35s ease, border-color .35s ease, padding .35s ease;
+      transition: background .35s ease, backdrop-filter .35s ease, border-color .35s ease, padding .35s ease,
+                  opacity .5s cubic-bezier(.16,1,.3,1), transform .5s cubic-bezier(.16,1,.3,1);
     }
+    /* Home only: the menu stays out of the portrait until the visitor scrolls.
+       Keyboard focus still brings it in, so tabbing never lands on an invisible link. */
+    .nav.at-top { opacity: 0; transform: translateY(-16px); }
+    .nav.at-top, .nav.at-top * { pointer-events: none !important; }
+    .nav.at-top:focus-within { opacity: 1; transform: none; }
+    .nav.at-top:focus-within, .nav.at-top:focus-within * { pointer-events: all !important; }
     .nav.scrolled {
       background: rgba(245,240,232,.95);
       backdrop-filter: blur(14px);
@@ -152,7 +159,7 @@
       position: relative; height: 100vh;
       height: 100svh;
       min-height: 620px;
-      overflow: hidden; background: #1a1a18;
+      overflow: hidden; background: #0B231B;
     }
     @keyframes pullUp {
       from { opacity: 0; transform: translateY(24px); }
@@ -161,44 +168,50 @@
     .hero-img { width: 100%; height: 100%; position: relative; overflow: hidden; }
     .hero-video {
       position: absolute; inset: 0;
-      width: 100%; height: 100%; object-fit: cover; z-index: 0;
+      width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; z-index: 0;
     }
+    /* Canvas sits over the still portrait and only becomes visible once the
+       head-tracking frames are loaded, so a slow network never shows a blank. */
+    .hero-canvas { opacity: 0; transition: opacity .6s cubic-bezier(.16,1,.3,1); }
+    .hero-canvas.ready { opacity: 1; }
     .hero-noise {
-      position: absolute; inset: 0; z-index: 1; opacity: 0.65; mix-blend-mode: overlay;
+      position: absolute; inset: 0; z-index: 1; opacity: 0.4; mix-blend-mode: overlay;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       background-size: 200px; pointer-events: none;
     }
     .hero-gradient {
       position: absolute; inset: 0; z-index: 2;
-      background: linear-gradient(to bottom, rgba(0,0,0,.30) 0%, transparent 40%, rgba(0,0,0,.72) 100%);
+      background: linear-gradient(to bottom, rgba(6,20,15,.45) 0%, rgba(6,20,15,0) 22%, rgba(6,20,15,0) 48%, rgba(6,20,15,.62) 72%, rgba(6,20,15,.92) 100%);
       pointer-events: none;
     }
     .hero-content {
       position: absolute; bottom: 0; left: 0; right: 0; z-index: 10;
-      padding: 0 52px calc(40px + var(--cookie-banner-h, 0px));
+      padding: 0 52px calc(44px + var(--cookie-banner-h, 0px));
       transition: padding-bottom .4s cubic-bezier(.215,.61,.355,1);
-      display: grid; grid-template-columns: 6fr 5fr; gap: 48px; align-items: end;
+      display: flex; justify-content: space-between; align-items: flex-end; gap: 48px;
     }
+    .hero-left { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
     .hero-title {
-      font-family: var(--font-body); font-size: clamp(56px, 9vw, 148px);
-      font-weight: 900; letter-spacing: -.05em; line-height: .88; color: var(--cream);
+      font-family: var(--font-body); font-size: clamp(52px, 6.8vw, 112px);
+      font-weight: 900; letter-spacing: -.04em; line-height: .9; color: var(--cream); white-space: nowrap;
       animation: pullUp .9s cubic-bezier(0.16,1,0.3,1) .1s both;
     }
     .hero-right {
-      padding-bottom: 8px; display: flex; flex-direction: column; gap: 18px;
+      display: flex; flex-direction: column; gap: 10px;
       animation: pullUp .9s cubic-bezier(0.16,1,0.3,1) .3s both;
     }
     .hero-subhead {
-      font-family: var(--font-display); font-size: clamp(22px, 2.8vw, 42px);
-      font-weight: 700; font-style: italic; line-height: 1.2; color: var(--cream);
+      font-family: var(--font-display); font-size: clamp(20px, 2vw, 30px);
+      font-weight: 400; font-style: italic; line-height: 1.25; letter-spacing: -.01em; color: var(--cream);
     }
     .hero-body {
-      font-size: 16px; font-weight: 300; line-height: 1.65;
-      color: rgba(245,240,232,.92); max-width: 380px;
+      font-size: 15px; font-weight: 300; line-height: 1.65;
+      color: rgba(245,240,232,.92); max-width: 520px;
     }
     .hero-cta {
       position: relative; overflow: hidden; display: inline-block;
-      height: 52px; min-width: 170px; align-self: flex-start;
+      height: 52px; min-width: 170px; flex-shrink: 0;
+      animation: pullUp .9s cubic-bezier(0.16,1,0.3,1) .45s both;
       background: var(--cream); border-radius: 9999px; border: none; padding: 0;
       cursor: pointer;
     }
@@ -722,7 +735,7 @@
       .georgetown-strip { grid-template-columns: 1fr 1fr; }
       .case-card-stats, .case-card-stats.four-col { grid-template-columns: 1fr 1fr; }
     }
-    @media (max-width: 880px) {
+    @media (max-width: 1240px) {
       .nav-links { display: none; }
     }
     @media (max-width: 720px) {
@@ -739,8 +752,9 @@
       .cs-form-submit { width: 100%; }
       .tl-orbit-wrap { display: none; }
       .throughline-inner { width: 100%; min-width: 0; }
-      .hero-content { grid-template-columns: 1fr; padding: 0 24px calc(28px + var(--cookie-banner-h, 0px)); }
-      .hero-title { font-size: clamp(44px, 11vw, 72px); }
+      .hero-content { flex-direction: column; align-items: flex-start; gap: 22px; padding: 0 24px calc(28px + var(--cookie-banner-h, 0px)); }
+      .hero-left { gap: 12px; }
+      .hero-title { font-size: clamp(40px, 11vw, 60px); white-space: normal; }
       .hero-subhead { font-size: 16px; line-height: 1.4; text-shadow: 0 1px 6px rgba(0,0,0,0.4); }
       .hero-body { font-size: 14px; }
       .hero-right { width: 100%; max-width: 100%; min-width: 0; overflow-x: hidden; }
@@ -763,7 +777,7 @@
     .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); background: var(--terracotta) !important; }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); background: var(--terracotta) !important; }
-    @media (max-width: 880px) { .nav-hamburger { display: flex; } }
+    @media (max-width: 1240px) { .nav-hamburger { display: flex; } }
     .nav-mobile { position: fixed; inset: 0; z-index: 195; background: var(--deep-forest); display: flex; flex-direction: column; justify-content: center; padding: 80px 40px 60px; opacity: 0; pointer-events: none; transition: opacity .32s cubic-bezier(.215,.61,.355,1); }
     .nav-mobile.open { opacity: 1; pointer-events: all; }
     .nav-mobile a { font-family: var(--font-body); font-size: 28px; font-weight: 900; letter-spacing: -.025em; color: rgba(245,240,232,.65); padding: 20px 0; display: block; border-bottom: 1px solid rgba(245,240,232,.08); opacity: 0; transform: translateY(14px); transition: opacity .38s cubic-bezier(.215,.61,.355,1), transform .38s cubic-bezier(.215,.61,.355,1), color .2s; }
@@ -815,7 +829,7 @@
   </svg>
 
   <!-- NAV -->
-  <nav class="nav" id="mainNav">
+  <nav class="nav at-top" id="mainNav">
     <a href="#">
       <svg class="nav-logo-svg" viewBox="0 0 520 140" xmlns="http://www.w3.org/2000/svg" aria-label="Throughline Co.">
         <path class="logo-wave" d="M32 68 C48 44, 72 44, 88 68 C104 92, 128 92, 144 68 C160 44, 184 44, 200 68" fill="none" stroke-width="2.8" stroke-linecap="round"/>
@@ -828,6 +842,7 @@
     <ul class="nav-links">
       <li><a href="/for-emerging-brands">For Emerging Brands</a></li>
       <li><a href="/for-established-brands">For Established Brands</a></li>
+      <li><a href="/b2b-marketing">For B2B Brands</a></li>
       <li><a href="/services">Services</a></li>
       <li><a href="/work">Work</a></li>
       <li><a href="/about">About</a></li>
@@ -840,6 +855,7 @@
   <div class="nav-mobile" id="navMobile" aria-hidden="true">
     <a href="/for-emerging-brands">For Emerging Brands</a>
     <a href="/for-established-brands">For Established Brands</a>
+    <a href="/b2b-marketing">For B2B Brands</a>
     <a href="/services">Services</a>
     <a href="/work">Work</a>
     <a href="/about">About</a>
@@ -850,24 +866,25 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-img">
-      <video class="hero-video" autoplay loop muted playsinline poster="/assets/video/hero-poster.jpg" preload="metadata">
-        <source src="/assets/video/hero.mp4" type="video/mp4">
-      </video>
+      <img class="hero-video hero-portrait" src="/assets/hero-frames/center.webp" alt="Illustrated portrait of Riya Mittal, founder of Throughline Co." width="1280" height="720" fetchpriority="high" decoding="async">
+      <canvas class="hero-video hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
       <div class="hero-noise"></div>
       <div class="hero-gradient"></div>
     </div>
     <div class="hero-content">
-      <p class="hero-title" aria-label="Throughline Co.">Throughline<br>Co.</p>
-      <div class="hero-right">
-        <h1 class="hero-subhead" id="heroSubhead">Stop shouting to nobody.<br> Start speaking to somebody.</h1>
-        <p class="hero-body">Brand strategy for nonprofits and purpose-driven brands ready for real results.</p>
+      <div class="hero-left">
+        <p class="hero-title">Throughline Co.</p>
+        <div class="hero-right">
+          <h1 class="hero-subhead" id="heroSubhead">Stop shouting to nobody. Start speaking to somebody.</h1>
+          <p class="hero-body">Brand strategy and marketing for startups, B2B companies, and established brands ready for real results.</p>
+        </div>
+      </div>
         <button class="hero-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
           <span class="hero-cta-icon">
             <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </span>
           <span class="hero-cta-label">Let's talk</span>
         </button>
-      </div>
     </div>
   </section>
 
@@ -1373,6 +1390,69 @@
 
   <script>
     document.body.classList.add('js-ready');
+
+    // Hero portrait: the head turns toward the cursor. 64 pre-rendered frames,
+    // one per 5.625deg around the face; nearest frame is drawn, never blended.
+    // Fine pointers only, and not under reduced motion: everyone else keeps the still portrait.
+    (function () {
+      var canvas = document.getElementById('heroCanvas');
+      var hero = canvas && canvas.closest('.hero');
+      if (!canvas || !matchMedia('(pointer: fine) and (hover: hover)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var N = 64, STEP = 360 / N, VW = 1280, VH = 720, FACE_X = 640, FACE_Y = 270;
+      var RESPONSE = 0.26, DEADZONE = 0.12, ANCHOR_Y = 0.25;
+      var ctx = canvas.getContext('2d', { alpha: false });
+      var frames = new Array(N), center = null, pending = N + 1;
+      var W = 0, H = 0, scale = 1, ox = 0, oy = 0, dpr = 1;
+      var pointer = null, angle = null, drawn = null, last = 0, raf = 0, inView = true;
+      function lerpAngle(a, b, t) { return a + ((((b - a) % 360) + 540) % 360 - 180) * t; }
+      function resize() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        W = hero.clientWidth; H = hero.clientHeight;
+        canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+        scale = Math.max(W / VW, H / VH);
+        ox = (W - VW * scale) / 2; oy = (H - VH * scale) * ANCHOR_Y;
+        ctx.imageSmoothingQuality = 'high'; drawn = null;
+      }
+      function draw(img, key) {
+        if (!img || key === drawn) return;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.drawImage(img, ox, oy, VW * scale, VH * scale);
+        drawn = key;
+      }
+      function tick(now) {
+        raf = 0;
+        if (!inView) return;
+        var dt = Math.min(now - (last || now), 100); last = now;
+        var fx = ox + FACE_X * scale, fy = oy + FACE_Y * scale;
+        var dx = pointer ? pointer.x - fx : 0, dy = pointer ? pointer.y - fy : 0;
+        if (!pointer || Math.sqrt(dx * dx + dy * dy) < DEADZONE * Math.max(W, H)) {
+          angle = null; draw(center, 'c');
+        } else {
+          var target = Math.atan2(dy, dx) * 180 / Math.PI;
+          angle = angle === null ? target : lerpAngle(angle, target, 1 - Math.pow(1 - RESPONSE, dt / 16.667));
+          var i = ((Math.round(angle / STEP) % N) + N) % N;
+          draw(frames[i] || center, frames[i] ? i : 'c');
+        }
+        raf = requestAnimationFrame(tick);
+      }
+      function start() { if (!raf && inView && center) { last = 0; raf = requestAnimationFrame(tick); } }
+      function loaded() { if (--pending === 0) { resize(); canvas.classList.add('ready'); start(); } }
+      function load(url, cb) { var img = new Image(); img.onload = function () { cb(img); loaded(); }; img.onerror = loaded; img.src = url; }
+      function begin() {
+        load('/assets/hero-frames/center.webp', function (img) { center = img; });
+        for (var k = 0; k < N; k++) (function (k) {
+          load('/assets/hero-frames/' + (k < 10 ? '0' : '') + k + '.webp', function (img) { frames[k] = img; });
+        })(k);
+      }
+      window.addEventListener('pointermove', function (e) {
+        var r = hero.getBoundingClientRect(); pointer = { x: e.clientX - r.left, y: e.clientY - r.top };
+      }, { passive: true });
+      document.documentElement.addEventListener('pointerleave', function () { pointer = null; });
+      window.addEventListener('resize', function () { if (center) resize(); }, { passive: true });
+      new IntersectionObserver(function (es) { inView = es[0].isIntersecting; start(); }).observe(hero);
+      // Frames are not needed for first paint: fetch them once the page has settled.
+      if (document.readyState === 'complete') begin(); else window.addEventListener('load', begin);
+    }());
     if (window.innerWidth <= 480) {
       const s = document.getElementById('heroSubhead');
       if (s) s.innerHTML = 'Stop shouting to nobody.<br>Start speaking to somebody.';
@@ -1528,9 +1608,12 @@
     })();
 
     const nav = document.getElementById('mainNav');
-    window.addEventListener('scroll', () => {
+    function syncNav() {
+      nav.classList.toggle('at-top', window.scrollY < 40);
       nav.classList.toggle('scrolled', window.scrollY > window.innerHeight * 0.85);
-    }, { passive: true });
+    }
+    window.addEventListener('scroll', syncNav, { passive: true });
+    syncNav();
 
     // Wild Foundation crossfade carousel
     (function() {

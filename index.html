@@ -289,89 +289,250 @@
     .footer-links a:hover { color: rgba(245,240,232,.7); }
 
 
-    /* ── HOME SECTIONS (same language as the case studies: cream canvas, hairlines, Merriweather) ── */
-    .home-sec { max-width: 1200px; margin: 0 auto; padding: 128px 80px; }
-    .home-sec + .home-sec { border-top: 1px solid var(--rule); }
-    .home-head { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; flex-wrap: wrap; margin-bottom: 48px; }
-    .home-h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(32px, 3.6vw, 52px); line-height: 1.12; letter-spacing: -.025em; color: var(--ink); text-wrap: balance; }
-    .home-intro { font-size: 17px; line-height: 1.7; color: var(--ink-2); max-width: 56ch; margin-top: 16px; }
-    .home-more { font-size: 14px; font-weight: 700; color: var(--terra-ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: rgba(157,85,55,.35); white-space: nowrap; transition: text-decoration-color .2s var(--ease-out); }
-    .home-more:hover { text-decoration-color: currentColor; }
-    .home-more:active { opacity: .7; }
+    /* CLIENT TESTIMONIAL CAROUSEL */
+    .section-testimonial { background: #141f1a; border-top: 1px solid rgba(245,240,232,.08); padding: 100px 52px; position: relative; overflow: hidden; }
+    .section-testimonial::before { content: ''; position: absolute; top: -110px; right: -70px; width: 560px; height: 560px; border-radius: 50%; background: radial-gradient(circle, rgba(194,113,79,.09) 0%, transparent 60%); pointer-events: none; }
+    .testimonial-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 44px; display: flex; align-items: center; justify-content: center; gap: 14px; position: relative; z-index: 1; }
+    .testimonial-eyebrow::before, .testimonial-eyebrow::after { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--terracotta); opacity: .5; }
 
+    .testimonial-carousel { max-width: 1040px; margin: 0 auto; position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; }
+
+    /* Stack of image/video panels: rotate/scale/z depth, active one pops forward */
+    .testimonial-stack { position: relative; width: clamp(480px, 34vw, 560px); aspect-ratio: 16/9; flex-shrink: 0; }
+    .testimonial-stack-item {
+      position: absolute; inset: 0; border-radius: 20px; overflow: hidden; cursor: pointer;
+      box-shadow: 0 40px 90px rgba(0,0,0,.45), 0 10px 26px rgba(0,0,0,.28);
+      transition: transform .6s cubic-bezier(.34,1.56,.64,1), opacity .45s ease, box-shadow .4s ease;
+    }
+    .testimonial-stack-item[data-state="active"] {
+      transform: translateY(0) rotate(0deg) scale(1); z-index: 3; opacity: 1;
+      animation: testimonialStackPop .65s cubic-bezier(.34,1.56,.64,1);
+    }
+    .testimonial-stack-item[data-state="behind"] {
+      transform: translateY(20px) rotate(-5deg) scale(.9); z-index: 1; opacity: .5;
+      box-shadow: 0 20px 50px rgba(0,0,0,.35); cursor: default; pointer-events: none;
+    }
+    @keyframes testimonialStackPop {
+      0%   { transform: translateY(26px) rotate(-4deg) scale(.92); }
+      55%  { transform: translateY(-8px) rotate(1deg) scale(1.03); }
+      100% { transform: translateY(0) rotate(0deg) scale(1); }
+    }
+    /* Video variant (Josh, Variant A) */
+    .testimonial-video-wrap { position: absolute; inset: 0; }
+    .testimonial-stack-item iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; opacity: 0; transition: opacity .35s ease; }
+    .testimonial-stack-item iframe.loaded { opacity: 1; }
+    .testimonial-video-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s cubic-bezier(.215,.61,.355,1); }
+    .testimonial-video-wrap:hover .testimonial-video-poster { transform: scale(1.03); }
+    .testimonial-video-wrap::after { content: ''; position: absolute; inset: 0; background: rgba(20,31,26,.18); transition: background .25s; }
+    .testimonial-video-wrap:hover::after { background: rgba(20,31,26,.28); }
+    .testimonial-video-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 64px; height: 64px; border-radius: 50%; z-index: 2; background: var(--terracotta); color: var(--cream); display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(194,113,79,.45), 0 0 0 7px rgba(245,240,232,.07); transition: transform .3s cubic-bezier(0.25,1,0.5,1), box-shadow .25s; }
+    .testimonial-video-play svg { margin-left: 3px; }
+    .testimonial-video-wrap:hover .testimonial-video-play { transform: translate(-50%,-50%) scale(1.08); }
+    .testimonial-stack-item.playing .testimonial-video-wrap { display: none; }
+    .testimonial-stack-item:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 4px; }
+
+    /* Quote-only variant (Cole, Variant B): solid panel with contained logo */
+    .testimonial-logo-panel { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: var(--cream); }
+    .testimonial-logo-panel img { width: 60%; max-width: 60%; height: auto; display: block; }
+
+    /* Dots, centered below the carousel */
+    .testimonial-dots { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 40px; position: relative; z-index: 1; }
+    .testimonial-dot {
+      width: 8px; height: 8px; border-radius: 50%; padding: 0; border: none; cursor: pointer; position: relative;
+      background: rgba(245,240,232,.25); transition: background .3s ease, transform .3s cubic-bezier(.34,1.56,.64,1);
+    }
+    .testimonial-dot::before {
+      content: ''; position: absolute; top: 50%; left: 50%;
+      width: 28px; height: 28px; transform: translate(-50%, -50%);
+    }
+    .testimonial-dot:hover { background: rgba(245,240,232,.5); }
+    .testimonial-dot[aria-current="true"] { background: var(--terracotta); transform: scale(1.35); }
+    .testimonial-dot:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 3px; }
+
+    /* Card stack: cross-fades between testimonials */
+    .testimonial-card-stack { position: relative; width: clamp(560px, 42vw, 640px); flex-shrink: 0; margin-left: -110px; min-height: clamp(200px, 19vw, 240px); }
+    .testimonial-card {
+      background: var(--cream-d); border-radius: 6px 20px 20px 6px; padding: 36px 40px 36px 150px;
+      position: absolute; inset: 0; z-index: 1;
+      box-shadow: 0 20px 50px rgba(0,0,0,.3), inset 60px 0 45px -38px rgba(0,0,0,.4);
+      opacity: 0; transform: translateY(10px); pointer-events: none;
+      transition: opacity .45s ease, transform .45s ease;
+    }
+    .testimonial-card[data-active="true"] { position: relative; opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .testimonial-card-name { font-family: var(--font-display); font-size: clamp(19px, 2vw, 23px); font-weight: 400; color: var(--deep-forest); margin-bottom: 4px; letter-spacing: -.01em; }
+    .testimonial-card-role { font-size: 11px; font-weight: 700; letter-spacing: .06em; color: #9a4f30; margin-bottom: 16px; }
+    .testimonial-card-role a { color: inherit; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: rgba(154,79,48,.4); transition: text-decoration-color .2s; }
+    .testimonial-card-role a:hover, .testimonial-card-role a:focus-visible { text-decoration-color: #9a4f30; }
+    .testimonial-card-role a:focus-visible { outline: 2px solid #9a4f30; outline-offset: 2px; }
+    .testimonial-card-quote { font-size: 14px; font-weight: 300; line-height: 1.62; color: rgba(44,62,53,.8); }
+    .testimonial-card-quote .word { display: inline-block; opacity: 0; filter: blur(6px); transform: translateY(4px); transition: opacity .5s ease, filter .5s ease, transform .5s ease; }
+    .testimonial-card-quote.blur-in .word { opacity: 1; filter: blur(0); transform: translateY(0); }
+
+    @media (max-width: 1100px) {
+      .testimonial-carousel { flex-direction: column; align-items: stretch; gap: 28px; }
+      .testimonial-stack { width: 100%; }
+      .testimonial-card-stack { margin-left: 0; width: 100%; }
+      .testimonial-card { padding: 32px 28px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,.3); }
+    }
+    @media (max-width: 720px) { .section-testimonial { padding-left: 24px; padding-right: 24px; } }
+
+
+
+
+    /* ── SELECTED WORK: carousel. Featured project (image left, story right) + thumbnail rail to switch ── */
+    .wk { background: var(--deep-forest); color: var(--cream); }
+    .wk-inner { max-width: 1200px; margin: 0 auto; padding: 88px 80px 88px; }
+    .wk-head { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; flex-wrap: wrap; margin-bottom: 40px; }
+    .wk-title { font-family: var(--font-display); font-weight: 400; font-size: clamp(36px, 4.2vw, 60px); line-height: 1.02; letter-spacing: -.03em; color: var(--cream); }
+    .wk-all { font-size: 14px; font-weight: 700; color: var(--cream); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: rgba(245,240,232,.4); }
+    .wk-all:hover { text-decoration-color: currentColor; }
+    .wk-feature { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 40px 64px; align-items: center; }
+    .wk-frame { position: relative; aspect-ratio: 16 / 10; border-radius: 18px; overflow: hidden; background: #0B231B; box-shadow: 0 2px 4px rgba(0,0,0,.2), 0 40px 80px -30px rgba(0,0,0,.6); }
+    .wk-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: left top; opacity: 0; transform: scale(1.02); transition: opacity .5s var(--ease-out), transform .9s var(--ease-out); }
+    .wk-media[data-on] { opacity: 1; transform: none; }
+    .wk-text { animation: wkIn .5s var(--ease-out) both; }
+    @keyframes wkIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    .wk-tag { font-size: 13px; font-weight: 700; letter-spacing: .06em; color: rgba(245,240,232,.78); }
+    .wk-name { margin-top: 10px; font-family: var(--font-display); font-weight: 400; font-size: clamp(30px, 3vw, 44px); line-height: 1.1; letter-spacing: -.02em; color: var(--cream); }
+    .wk-para { margin-top: 16px; font-size: 18px; line-height: 1.65; color: rgba(245,240,232,.9); max-width: 44ch; }
+    .wk-link { display: inline-flex; gap: 8px; margin-top: 24px; padding: 13px 22px; border-radius: 9999px; background: #A55939; color: var(--cream); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; transition: opacity .25s var(--ease-out), transform .3s var(--ease-out); }
+    .wk-link:hover { opacity: .9; transform: translateY(-2px); }
+    .wk-link:active { transform: none; opacity: .8; }
+    .wk-rail { margin-top: 40px; padding-top: 28px; border-top: 1px solid rgba(245,240,232,.14); display: flex; align-items: center; gap: 16px; }
+    .wk-thumbs { list-style: none; flex: 1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+    .wk-thumb { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; font-family: var(--font-body); text-align: left; color: rgba(245,240,232,.75); }
+    .wk-thumb img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: left top; border-radius: 10px; opacity: .55; outline: 2px solid transparent; outline-offset: 3px; transition: opacity .3s var(--ease-out), outline-color .3s var(--ease-out); }
+    .wk-thumb span { display: block; margin-top: 10px; font-size: 14px; font-weight: 700; transition: color .2s var(--ease-out); }
+    .wk-thumb:hover img { opacity: .85; }
+    .wk-thumb[aria-current="true"] img { opacity: 1; outline-color: var(--terracotta); }
+    .wk-thumb[aria-current="true"] span, .wk-thumb:hover span { color: var(--cream); }
+    .wk-thumb:active img { opacity: .7; }
+    .wk-arrow { flex: none; width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(245,240,232,.3); background: none; color: var(--cream); cursor: pointer; display: grid; place-items: center; transition: background-color .25s var(--ease-out), transform .3s var(--ease-out); }
+    .wk-arrow svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .wk-arrow:hover { background: rgba(245,240,232,.1); }
+    .wk-arrow:active { transform: scale(.94); }
+    .wk-thumb:focus-visible, .wk-arrow:focus-visible, .wk-link:focus-visible, .wk-all:focus-visible { outline: 2px solid var(--cream); outline-offset: 3px; }
+    @media (max-width: 1100px) { .wk-inner { padding: 72px 40px; } }
+    @media (max-width: 900px) {
+      .wk-feature { grid-template-columns: 1fr; }
+      .wk-thumbs { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+      .wk-thumbs::-webkit-scrollbar { display: none; }
+      .wk-thumbs li { flex: 0 0 42%; scroll-snap-align: start; }
+    }
+    @media (max-width: 720px) { .wk-inner { padding: 56px 24px; } .wk-arrow { display: none; } .wk-thumbs li { flex-basis: 60%; } }
+    @media (prefers-reduced-motion: reduce) { .wk-media, .wk-thumb img { transition: none; } .wk-text { animation: none; } }
+
+    /* ── STATEMENT: headline + three audience image cards ── */
+    .st-head .home-big { font-size: clamp(40px, 4.8vw, 70px); max-width: 15ch; }
+    .st-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 24px 80px; align-items: end; }
+    .st-line { font-size: 18px; line-height: 1.6; color: var(--ink-2); max-width: 36ch; }
+    .st-cards { margin-top: 48px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+    .st-card { display: flex; flex-direction: column; border-radius: 16px; overflow: hidden; text-decoration: none; color: var(--ink); background: #FBF8F2; border: 1px solid var(--rule);
+      box-shadow: 0 1px 2px rgba(44,62,53,.06), 0 18px 40px -24px rgba(44,62,53,.35); transition: transform .45s var(--ease-out), box-shadow .45s var(--ease-out); }
+    .st-card img { display: block; width: 100%; height: auto; padding: 28px 20px 0; transition: transform .6s var(--ease-out); transform-origin: 50% 100%; }
+    .st-txt { padding: 24px 28px 28px; border-top: 1px solid var(--rule); display: block; }
+    .st-txt strong { display: block; font-family: var(--font-display); font-weight: 400; font-size: clamp(24px, 2.2vw, 30px); letter-spacing: -.015em; }
+    .st-txt > span { display: block; margin-top: 8px; font-size: 16px; line-height: 1.55; color: var(--ink-2); }
+    .st-txt i { display: inline-block; margin-top: 18px; font-style: normal; font-size: 14px; font-weight: 700; padding: 10px 16px; border-radius: 9999px; background: var(--deep-forest); color: var(--cream); transition: background-color .25s var(--ease-out); }
+    .st-card:hover { transform: translateY(-4px); box-shadow: 0 1px 2px rgba(44,62,53,.06), 0 28px 50px -24px rgba(44,62,53,.45); }
+    .st-card:hover img { transform: scale(1.04); }
+    .st-card:hover i, .st-card:focus-visible i { background: #A55939; }
+    .st-card:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 3px; }
+    .st-card:active { transform: translateY(-1px); }
+    .home-statement .home-values { margin-top: 28px; max-width: 70ch; }
+    @media (max-width: 900px) { .st-head { grid-template-columns: 1fr; } .st-cards { grid-template-columns: 1fr; } }
+
+    /* ── WEBSITES: expanding panels (21st.dev interactive selector, built natively) ── */
+    .sp-row { list-style: none; display: flex; gap: 12px; height: 440px; }
+    .sp { position: relative; flex: 1 1 0%; min-width: 64px; border-radius: 14px; overflow: hidden; cursor: pointer; background: var(--deep-forest);
+      box-shadow: 0 1px 2px rgba(44,62,53,.08), 0 18px 40px -20px rgba(44,62,53,.4); transition: flex-grow .7s var(--ease-out); }
+    .sp.on { flex-grow: 6; cursor: default; }
+    .sp img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: left top; filter: grayscale(.5) brightness(.75); transition: filter .6s var(--ease-out); }
+    .sp.on img { filter: none; }
+    .sp::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 55%; background: linear-gradient(to top, rgba(20,31,26,.9), rgba(20,31,26,0)); pointer-events: none; }
+    .sp-label { position: absolute; left: 20px; right: 20px; bottom: 20px; z-index: 1; color: var(--cream); text-decoration: none; white-space: nowrap; opacity: 0; transform: translateX(16px); transition: opacity .5s var(--ease-out), transform .6s var(--ease-out); pointer-events: none; }
+    .sp.on .sp-label { opacity: 1; transform: none; pointer-events: auto; }
+    .sp-label strong { display: block; font-family: var(--font-display); font-weight: 400; font-size: 24px; }
+    .sp-label > span { display: block; margin-top: 4px; font-size: 14px; font-weight: 700; color: rgba(245,240,232,.9); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(245,240,232,.4); }
+    .sp-label:hover > span { text-decoration-color: currentColor; }
+    .sp-label:focus-visible { outline: 2px solid var(--cream); outline-offset: 4px; }
+    .sp:not(.on)::before { content: '+'; position: absolute; left: 50%; bottom: 22px; z-index: 2; width: 36px; height: 36px; margin-left: -18px; border-radius: 50%; display: grid; place-items: center; background: var(--cream); color: var(--deep-forest); font-size: 22px; line-height: 1; transition: transform .3s var(--ease-out); }
+    .sp:not(.on):hover::before { transform: scale(1.12); }
+    .sp-controls { margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 16px; }
+    .sp-arrow { color: var(--deep-forest); border-color: rgba(44,62,53,.3); }
+    .sp-arrow:hover { background: rgba(44,62,53,.08); }
+    .sp-arrow:focus-visible { outline: 2px solid var(--terracotta); }
+    .sp-count { min-width: 48px; text-align: center; font-size: 14px; font-weight: 700; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+    @media (max-width: 720px) { .sp-row { flex-direction: column; height: 620px; } .sp { min-height: 56px; } }
+    @media (prefers-reduced-motion: reduce) { .sp, .sp img, .sp-label { transition: none; } }
+
+
+    /* ── CLOSING CROWD: the market walks past; one person (terracotta) stops. Figures: Open Peeps; motion after Skiper UI's Crowd Canvas. ── */
+    .crowd { position: relative; height: 280px; margin-top: -24px; pointer-events: none; }
+    .crowd canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    @media (max-width: 720px) { .crowd { height: 190px; margin-top: -16px; } }
+    .ground { position: relative; z-index: 1; background: var(--deep-forest); color: var(--cream); box-shadow: 0 -1px 0 rgba(44,62,53,.4); }
+    .ground-inner { max-width: 1200px; margin: 0 auto; padding: 64px 80px 32px; }
+    .ground-tag { font-family: var(--font-display); font-weight: 400; font-size: clamp(30px, 3.8vw, 56px); line-height: 1.1; letter-spacing: -.025em; max-width: 22ch; }
+    .ground-tag em { color: #E9B49A; }
+    .ground-cols { margin-top: 56px; display: grid; grid-template-columns: minmax(0, 4fr) repeat(3, minmax(0, 2.6fr)); gap: 40px 32px; }
+    .ground-name { font-family: var(--font-display); font-size: 24px; margin-bottom: 10px; }
+    .ground-brand p:not(.ground-name) { font-size: 15px; line-height: 1.65; color: rgba(245,240,232,.82); max-width: 34ch; }
+    .ground-h { font-size: 13px; font-weight: 700; letter-spacing: .06em; color: rgba(245,240,232,.8); margin-bottom: 14px; }
+    .ground-cols a { display: block; padding: 5px 0; font-size: 15px; color: var(--cream); text-decoration: none; transition: color .2s var(--ease-out); }
+    .ground-cols a:hover { color: #E9B49A; }
+    .ground-cols a:active { opacity: .75; }
+    .ground a:focus-visible { outline: 2px solid var(--cream); outline-offset: 3px; }
+    .ground-legal { margin-top: 56px; padding-top: 20px; border-top: 1px solid rgba(245,240,232,.16); display: flex; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; font-size: 13px; color: rgba(245,240,232,.8); }
+    .ground-legal a { color: rgba(245,240,232,.9); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(245,240,232,.3); }
+    .ground-legal p:last-child { display: flex; gap: 20px; flex-wrap: wrap; }
+    .ground-legal a:hover { text-decoration-color: currentColor; }
+    @media (max-width: 900px) { .ground-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ground-brand { grid-column: 1 / -1; } }
+    @media (max-width: 720px) { .ground-inner { padding: 48px 24px 28px; } .ground-cols { grid-template-columns: 1fr; } }
+
+    /* Section rhythm: quiet full-width bands give each section its own edge */
+    .band { background: var(--cream-d); }
+    .band + .home-sec, .home-sec + .band { border-top: 0; }
+    .home-close .home-h2 { font-size: clamp(40px, 5.2vw, 76px); max-width: 16ch; }
+
+    /* ── HOME SECTIONS (same language as the case studies: cream canvas, hairlines, Merriweather) ── */
     .home-big { font-family: var(--font-display); font-weight: 400; font-size: clamp(40px, 5.4vw, 80px); line-height: 1.04; letter-spacing: -.03em; color: var(--ink); max-width: 16ch; text-wrap: balance; }
-    .home-statement-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 48px 96px; margin-top: 64px; align-items: start; }
-    .home-story p { font-family: var(--font-display); font-style: italic; font-size: clamp(19px, 1.7vw, 23px); line-height: 1.6; color: var(--ink); margin-bottom: 20px; max-width: 40ch; }
-    .home-story p:last-child { margin-bottom: 0; }
-    .home-aside-label { font-size: 13px; font-weight: 700; color: var(--ink-3); margin-bottom: 8px; }
-    .home-routes { list-style: none; border-top: 1px solid var(--rule); }
-    .home-routes a { display: grid; grid-template-columns: 1fr 20px; gap: 4px 12px; padding: 16px 0; border-bottom: 1px solid var(--rule); text-decoration: none; }
-    .home-routes strong { font-family: var(--font-display); font-weight: 400; font-size: 20px; color: var(--ink); }
-    .home-routes span { grid-column: 1; font-size: 14px; line-height: 1.5; color: var(--ink-3); }
-    .home-routes i { grid-row: 1; grid-column: 2; font-style: normal; color: var(--terra-ink); transition: transform .35s var(--ease-out); }
-    .home-routes a:hover i { transform: translateX(5px); }
-    .home-routes a:active { opacity: .75; }
     .home-values { margin-top: 24px; font-size: 15px; line-height: 1.7; color: var(--ink-2); }
     .home-values a { color: var(--terra-ink); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(157,85,55,.35); }
 
-    .sites-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px 40px; }
-    .site-card { display: block; text-decoration: none; color: var(--ink); }
-    .site-card img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border-radius: 12px;
-      box-shadow: 0 1px 2px rgba(44,62,53,.08), 0 18px 48px -18px rgba(44,62,53,.32); transition: transform .45s var(--ease-out), box-shadow .45s var(--ease-out); }
-    .site-card:hover img { transform: translateY(-4px); box-shadow: 0 1px 2px rgba(44,62,53,.08), 0 28px 56px -18px rgba(44,62,53,.42); }
-    .site-card:active img { transform: translateY(-1px); }
-    .site-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--rule); }
-    .site-name { font-family: var(--font-display); font-size: 22px; letter-spacing: -.01em; }
-    .site-url { font-size: 14px; font-weight: 700; color: var(--terra-ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(157,85,55,.35); }
-    .site-card:hover .site-url { text-decoration-color: currentColor; }
-    .site-note { margin-top: 8px; font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+    .how-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 24px 96px; align-items: end; margin-bottom: 40px; }
+    .how-head .home-h2 { max-width: 18ch; }
+    .how-row { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 32px; counter-reset: step; }
+    .how-row li { padding-top: 20px; border-top: 1px solid var(--rule); counter-increment: step; }
+    .how-row li::before { content: counter(step, decimal-leading-zero); display: block; margin-bottom: 20px; font-family: var(--font-display); font-size: clamp(48px, 5vw, 72px); line-height: 1; color: var(--sage-green); }
+    .how-row strong { display: block; font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+    .how-row span { display: block; font-size: 16px; line-height: 1.6; color: var(--ink-2); }
+    .how-services-line { margin-top: 36px; font-size: 16px; line-height: 1.7; color: var(--ink-2); max-width: 80ch; }
 
-    .how-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px 96px; align-items: start; }
-    .how-steps { list-style: none; border-top: 1px solid var(--rule); counter-reset: step; }
-    .how-steps li { display: grid; grid-template-columns: 56px 1fr; gap: 4px 16px; padding: 22px 0; border-bottom: 1px solid var(--rule); counter-increment: step; }
-    .how-steps li::before { content: counter(step, decimal-leading-zero); grid-row: span 2; font-family: var(--font-display); font-size: 22px; color: var(--sage-green); }
-    .how-steps strong { font-size: 16px; font-weight: 700; color: var(--ink); }
-    .how-steps span { font-size: 15px; line-height: 1.6; color: var(--ink-2); }
-    .how-services { margin-top: 72px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 32px; list-style: none; }
-    .how-services li { padding: 16px 0; border-top: 1px solid var(--rule); font-size: 15px; font-weight: 700; color: var(--ink); }
+    .sites-h { font-family: var(--font-display); font-weight: 400; font-size: clamp(26px, 2.4vw, 34px); letter-spacing: -.02em; color: var(--ink); }
+    .sites-sub { font-size: 16px; color: var(--ink-2); }
 
     .founder { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 48px 96px; align-items: center; }
-    .founder-h { font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(28px, 3.2vw, 46px); line-height: 1.22; letter-spacing: -.02em; color: var(--ink); margin-bottom: 28px; text-wrap: balance; }
+    .founder-h { font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(32px, 3.8vw, 56px); line-height: 1.18; letter-spacing: -.02em; color: var(--ink); margin-bottom: 28px; text-wrap: balance; }
     .founder-copy p { font-size: 17px; line-height: 1.75; color: var(--ink-2); margin-bottom: 16px; max-width: 58ch; }
     .founder-copy a { color: var(--terra-ink); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(157,85,55,.35); }
     .founder-sign { margin-top: 24px; font-size: 15px; font-weight: 700; color: var(--ink); }
     .founder-sign span { display: block; margin-top: 4px; font-weight: 400; font-size: 14px; color: var(--ink-3); }
     .founder-photo img { display: block; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 1px 2px rgba(44,62,53,.08), 0 18px 48px -18px rgba(44,62,53,.32); }
 
-    .home-voice .home-voice-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px 80px; align-items: start; }
-    .home-voice blockquote { max-width: none; margin: 0; }
-    .home-voice p { font-size: clamp(19px, 1.7vw, 23px); line-height: 1.6; margin-bottom: 24px; }
-    .home-video { position: relative; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; margin-bottom: 32px; background: #0B231B; }
-    .home-video img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s var(--ease-out); }
-    .home-video:hover img { transform: scale(1.03); }
-    .home-play { position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background: #A55939; color: var(--cream); display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 8px 24px -8px rgba(0,0,0,.45); transition: transform .35s var(--ease-out); }
-    .home-video:hover .home-play { transform: scale(1.06); }
-    .home-video:active .home-play { transform: scale(.97); }
-    .home-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-    .home-video.playing img, .home-video.playing .home-play { display: none; }
-
     .home-close { text-align: left; }
     .home-close-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; flex-wrap: wrap; }
     .home-close-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
-    .calendly-wrap { margin-top: 64px; border-top: 1px solid var(--rule); padding-top: 24px; }
 
     @media (max-width: 1100px) {
-      .home-sec { padding: 96px 40px; }
-      .how-services { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 900px) {
-      .home-statement-grid, .how-grid, .founder, .home-voice .home-voice-grid { grid-template-columns: 1fr; }
+      .how-head, .founder { grid-template-columns: 1fr; }
+      .how-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 24px; }
       .sites-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 720px) {
-      .home-sec { padding: 72px 24px; }
-      .how-services { grid-template-columns: 1fr; }
+      .how-row { grid-template-columns: 1fr; }
     }
     @media (max-width: 1100px) { .nav-links { display: none; } .nav-hamburger { display: flex; } }
     @media (max-width: 720px) {
@@ -382,7 +543,6 @@
       .hero-title { font-size: clamp(40px, 11vw, 60px); white-space: normal; }
       .hero-subhead { font-size: 16px; line-height: 1.4; text-shadow: 0 1px 6px rgba(0,0,0,0.4); }
       .hero-body { font-size: 14px; }
-      .site-footer { padding: 20px 24px; flex-direction: column; align-items: flex-start; }
     }
   </style>
   <!-- Google tag (gtag.js) — Consent Mode v2 -->
@@ -455,7 +615,7 @@
           <p class="hero-body">Most brands do not have a logo problem. They have a story problem. We find yours, build it into everything, and train your team to run it within six months.</p>
         </div>
       </div>
-        <button class="hero-cta" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">
+        <button class="hero-cta" onclick="window.open('https://calendly.com/riya-mittal-throughline/30min','_blank','noopener')">
           <span class="hero-cta-icon">
             <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </span>
@@ -466,55 +626,70 @@
 
   <main>
   <section class="home-sec home-statement" id="approach">
-    <h2 class="home-big reveal">Every brand has a throughline. We find yours.</h2>
-    <div class="home-statement-grid">
-      <div class="home-story reveal">
-        <p>I have been declined for funding as a woman-owned business. Told I needed a male cofounder to be taken seriously.</p>
-        <p>That taught me something. The problem is rarely the work. It is the story. Startups cannot find their people. Established brands cannot tell the market they have changed. B2B founders cannot get buyers to trust them before the first call.</p>
-        <p>So that is the work: find the story underneath the product, and build it into everything.</p>
+    <div class="st-head reveal">
+      <h2 class="home-big">Every brand has a throughline. We find yours.</h2>
+      <p class="st-line">Most brands do not have a logo problem. They have a story problem. Pick the one that sounds like you.</p>
+    </div>
+    <div class="st-cards reveal">
+      <a class="st-card" href="/for-emerging-brands"><img src="/assets/home/aud-emerging.webp" width="620" height="324" alt="" loading="lazy" decoding="async"><span class="st-txt"><strong>Emerging brands</strong><span>A real product, and a story that is not landing yet.</span><i>See how we help →</i></span></a>
+      <a class="st-card" href="/for-established-brands"><img src="/assets/home/aud-established.webp" width="620" height="324" alt="" loading="lazy" decoding="async"><span class="st-txt"><strong>Established brands</strong><span>Rebrands for businesses that have outgrown their image.</span><i>See how we help →</i></span></a>
+      <a class="st-card" href="/b2b-marketing"><img src="/assets/home/aud-b2b.webp" width="620" height="324" alt="" loading="lazy" decoding="async"><span class="st-txt"><strong>B2B brands</strong><span>Fintech, SaaS and founder-led B2B companies.</span><i>See how we help →</i></span></a>
+    </div>
+    <p class="home-values reveal">We often work with women-, Black-, LGBTQ+- and veteran-owned founders, and with nonprofits that have a real reason to exist. <a href="/faq#purpose-driven">What we mean by purpose-driven</a></p>
+  </section>
+
+  <section class="wk" id="work" aria-labelledby="wk-title">
+    <div class="wk-inner">
+      <div class="wk-head reveal"><h2 class="wk-title" id="wk-title">Selected work</h2><a class="wk-all" href="/work">All 11 case studies →</a></div>
+      <div class="wk-feature reveal">
+        <div class="wk-frame"><img class="wk-media" src="/assets/work/josh-harris-media/feature.webp" width="1280" height="800" alt="Josh Harris Media homepage: The sales call before the sales call." loading="lazy" decoding="async" data-on><img class="wk-media" src="/assets/work/a-r-morris-jewelers/feature.webp" width="1280" height="800" alt="A.R. Morris prototype homepage: Every great piece begins with a decision." loading="lazy" decoding="async"><img class="wk-media" src="/assets/work/sanjay-mohan-mittal/feature.webp" width="1280" height="800" alt="Sañjay Mohan Mittal author site opening on a havan fire." loading="lazy" decoding="async"><img class="wk-media" src="/assets/work/white-ash-glass/feature.webp" width="1280" height="800" alt="White Ash Glass Studio homepage with a forest path to the studio." loading="lazy" decoding="async"></div>
+        <div class="wk-side" aria-live="polite">
+          <div class="wk-text" id="wk-slide-0">
+            <p class="wk-tag">B2B</p>
+            <h3 class="wk-name">Josh Harris Media</h3>
+            <p class="wk-para">We repositioned Josh from selling video to selling sales velocity, then built the brand book, the website and two AI sales tools. Live in 10 days.</p>
+            <a class="wk-link" href="/work/josh-harris-media">Read the case study <span aria-hidden="true">→</span></a>
+          </div><div class="wk-text" id="wk-slide-1" hidden>
+            <p class="wk-tag">Established brand</p>
+            <h3 class="wk-name">A.R. Morris Jewelers</h3>
+            <p class="wk-para">We untangled a false choice between a tax-free pitch and a marketplace pitch, led the brand with permanence, and prototyped a guided shopping journey.</p>
+            <a class="wk-link" href="/work/a-r-morris-jewelers">Read the case study <span aria-hidden="true">→</span></a>
+          </div><div class="wk-text" id="wk-slide-2" hidden>
+            <p class="wk-tag">Author</p>
+            <h3 class="wk-name">Sañjay Mohan Mittal</h3>
+            <p class="wk-para">We fixed a Sanskrit ebook that broke on Kindle, built the author platform, and ran academic outreach that drew a professor's reply in 37 minutes.</p>
+            <a class="wk-link" href="/work/sanjay-mohan-mittal">Read the case study <span aria-hidden="true">→</span></a>
+          </div><div class="wk-text" id="wk-slide-3" hidden>
+            <p class="wk-tag">Small business</p>
+            <h3 class="wk-name">White Ash Glass Studio</h3>
+            <p class="wk-para">We started with cultural research on the town, then built a 21-page brand book and a seven-page site for a studio that had no web presence.</p>
+            <a class="wk-link" href="/work/white-ash-glass">Read the case study <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
       </div>
-      <div class="home-aside reveal" style="transition-delay:.08s">
-        <p class="home-aside-label">Who we help</p>
-        <ul class="home-routes">
-          <li><a href="/for-emerging-brands"><strong>Emerging brands</strong><span>A real product, and a story that is not landing yet.</span><i aria-hidden="true">→</i></a></li>
-          <li><a href="/for-established-brands"><strong>Established brands</strong><span>Rebrands for businesses that have outgrown their image.</span><i aria-hidden="true">→</i></a></li>
-          <li><a href="/b2b-marketing"><strong>B2B brands</strong><span>Fintech, SaaS and founder-led B2B companies.</span><i aria-hidden="true">→</i></a></li>
-        </ul>
-        <p class="home-values">We often work with women-, Black-, LGBTQ+- and veteran-owned founders, and with nonprofits that have a real reason to exist. <a href="/faq#purpose-driven">What we mean by purpose-driven</a></p>
+      <div class="wk-rail reveal">
+        <button class="wk-arrow" type="button" data-step="-1" aria-label="Previous project"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <ul class="wk-thumbs"><li><button class="wk-thumb" type="button" data-i="0" aria-controls="wk-slide-0" aria-current="true"><img src="/assets/work/josh-harris-media/thumb.webp" width="800" height="450" alt="" loading="lazy" decoding="async"><span>Josh Harris Media</span></button></li><li><button class="wk-thumb" type="button" data-i="1" aria-controls="wk-slide-1" aria-current="false"><img src="/assets/work/a-r-morris-jewelers/thumb.webp" width="800" height="450" alt="" loading="lazy" decoding="async"><span>A.R. Morris Jewelers</span></button></li><li><button class="wk-thumb" type="button" data-i="2" aria-controls="wk-slide-2" aria-current="false"><img src="/assets/work/sanjay-mohan-mittal/thumb.webp" width="800" height="450" alt="" loading="lazy" decoding="async"><span>Sañjay Mohan Mittal</span></button></li><li><button class="wk-thumb" type="button" data-i="3" aria-controls="wk-slide-3" aria-current="false"><img src="/assets/work/white-ash-glass/thumb.webp" width="800" height="450" alt="" loading="lazy" decoding="async"><span>White Ash Glass Studio</span></button></li></ul>
+        <button class="wk-arrow" type="button" data-step="1" aria-label="Next project"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
       </div>
     </div>
   </section>
 
-  <section class="home-sec" id="work">
-    <div class="home-head reveal"><h2 class="home-h2">Selected work</h2><a class="home-more" href="/work">All case studies →</a></div>
-    <ul class="work-index reveal"><li><a href="/work/josh-harris-media" data-cover="/assets/work/josh-harris-media/site-home.webp"><span class="wi-name">Josh Harris Media</span><span class="wi-what">Positioning, brand book, website, AI sales tools</span><span class="wi-when">2026</span><span class="wi-arrow" aria-hidden="true">→</span></a></li><li><a href="/work/a-r-morris-jewelers" data-cover="/assets/work/a-r-morris-jewelers/prototype-home.webp"><span class="wi-name">A.R. Morris Jewelers</span><span class="wi-what">Positioning, site audit, guided-shopping prototype</span><span class="wi-when">2026, ongoing</span><span class="wi-arrow" aria-hidden="true">→</span></a></li><li><a href="/work/sanjay-mohan-mittal" data-cover="/assets/work/sanjay-mohan-mittal/site-home.webp"><span class="wi-name">Sañjay Mohan Mittal</span><span class="wi-what">Ebook fix, author platform, academic outreach</span><span class="wi-when">2026</span><span class="wi-arrow" aria-hidden="true">→</span></a></li><li><a href="/work/white-ash-glass" data-cover="/assets/work/white-ash-glass/site-home.webp"><span class="wi-name">White Ash Glass Studio</span><span class="wi-what">Cultural research, brand book, website</span><span class="wi-when">2026</span><span class="wi-arrow" aria-hidden="true">→</span></a></li><li><a href="/work/df"><span class="wi-name">DF</span><span class="wi-what">Website, buyer qualification, AI search, operations</span><span class="wi-when">2026, ongoing</span><span class="wi-arrow" aria-hidden="true">→</span></a></li><li><a href="/work/blc"><span class="wi-name">BLC</span><span class="wi-what">Website rebuild, content migration, compliance, social</span><span class="wi-when">2026</span><span class="wi-arrow" aria-hidden="true">→</span></a></li><li><a href="/work/polaris-campus"><span class="wi-name">Polaris Campus</span><span class="wi-what">Brand audit and marketing roadmap</span><span class="wi-when">2026</span><span class="wi-arrow" aria-hidden="true">→</span></a></li><li><a href="/work/georgetown-ombuds" data-cover="/assets/work/georgetown-ombuds/postcard.webp"><span class="wi-name">Georgetown University Student Ombuds</span><span class="wi-what">Brand refresh, DEI communications, campaigns</span><span class="wi-when">2023 to 2025</span><span class="wi-arrow" aria-hidden="true">→</span></a></li><li><a href="/work/wild-foundation" data-cover="/assets/work/wild-foundation/shenandoah-01.webp"><span class="wi-name">Wild Foundation</span><span class="wi-what">Communications proposal and campaign design</span><span class="wi-when">2026</span><span class="wi-arrow" aria-hidden="true">→</span></a></li></ul>
-    <div class="work-cover" aria-hidden="true"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACw="></div>
-  </section>
-
-  <section class="home-sec" id="websites">
-    <div class="home-head reveal"><div><h2 class="home-h2">Websites we have built</h2><p class="home-intro">Designed, written and built by us, and live right now. Click through and use them.</p></div></div>
-    <div class="sites-grid"><a class="site-card reveal" href="https://www.joshharrismedia.com/" target="_blank" rel="noopener"><img src="/assets/work/josh-harris-media/site-home.webp" width="1440" height="810" alt="Josh Harris Media website homepage" loading="lazy" decoding="async"><div class="site-meta"><span class="site-name">Josh Harris Media</span><span class="site-url">joshharrismedia.com ↗<span class="visually-hidden"> (opens in a new tab)</span></span></div><p class="site-note">Video strategy for B2B founders, with an AI brand audit built in.</p></a><a class="site-card reveal" href="https://www.whiteashglass.com/" target="_blank" rel="noopener"><img src="/assets/work/white-ash-glass/site-home.webp" width="1440" height="900" alt="White Ash Glass Studio website homepage" loading="lazy" decoding="async"><div class="site-meta"><span class="site-name">White Ash Glass Studio</span><span class="site-url">whiteashglass.com ↗<span class="visually-hidden"> (opens in a new tab)</span></span></div><p class="site-note">A glass studio in the Ontario woods, from no web presence to a live site.</p></a><a class="site-card reveal" href="https://www.sanjaymohanmittal.com/" target="_blank" rel="noopener"><img src="/assets/work/sanjay-mohan-mittal/site-home.webp" width="1440" height="900" alt="Sañjay Mohan Mittal website homepage" loading="lazy" decoding="async"><div class="site-meta"><span class="site-name">Sañjay Mohan Mittal</span><span class="site-url">sanjaymohanmittal.com ↗<span class="visually-hidden"> (opens in a new tab)</span></span></div><p class="site-note">An author platform for a three-volume critical edition of the Manusmṛti.</p></a><a class="site-card reveal" href="/work/a-r-morris-jewelers"><img src="/assets/work/a-r-morris-jewelers/prototype-home.webp" width="1440" height="1600" alt="A.R. Morris Jewelers website homepage" loading="lazy" decoding="async"><div class="site-meta"><span class="site-name">A.R. Morris Jewelers</span><span class="site-url">Prototype, in build →</span></div><p class="site-note">A guided shopping journey for a 65-year family jeweler.</p></a></div>
-  </section>
-
+  <div class="band">
   <section class="home-sec" id="services">
-    <div class="how-grid">
-      <div class="reveal">
-        <h2 class="home-h2">Strategy only works if someone actually uses it.</h2>
-        <p class="home-intro">We build the strategy, we implement it, and then we train your team to run it.</p>
-        <p style="margin-top:24px"><a class="home-more" href="/services">Services and pricing →</a></p>
-      </div>
-      <ol class="how-steps reveal" style="transition-delay:.08s">
-        <li><strong>Discovery</strong><span>We find the story you have not told yet.</span></li>
-        <li><strong>Diagnosis</strong><span>We pinpoint what is actually broken.</span></li>
-        <li><strong>Execution</strong><span>Organic first, so we learn what works before you spend.</span></li>
-        <li><strong>Measure</strong><span>We track real outcomes, then hand your team the keys.</span></li>
-      </ol>
+    <div class="how-head reveal">
+      <h2 class="home-h2">Strategy only works if someone actually uses it.</h2>
+      <div><p class="home-intro">We build the strategy, we implement it, and then we train your team to run it.</p><p style="margin-top:16px"><a class="home-more" href="/services">Services and pricing →</a></p></div>
     </div>
-    <ul class="how-services reveal" aria-label="Services">
-      <li>Brand strategy</li><li>Audience growth</li><li>Storytelling and content</li><li>LinkedIn strategy</li>
-      <li>Online and offline marketing</li><li>Website design and build</li><li>SEO</li>
-    </ul>
+    <ol class="how-row reveal">
+      <li><strong>Discovery</strong><span>We find the story you have not told yet.</span></li>
+      <li><strong>Diagnosis</strong><span>We pinpoint what is actually broken.</span></li>
+      <li><strong>Execution</strong><span>Organic first, so we learn what works before you spend.</span></li>
+      <li><strong>Measure</strong><span>We track real outcomes, then hand your team the keys.</span></li>
+    </ol>
+    <p class="how-services-line reveal">What we do: brand strategy, audience growth, storytelling and content, LinkedIn strategy, online and offline marketing, website design and build, and SEO.</p>
   </section>
+  </div>
 
   <section class="home-sec" id="founder">
     <div class="founder">
@@ -532,18 +707,60 @@
   </section>
   </main>
 
-  <section class="study-voice home-voice" aria-label="What clients say">
-    <div class="home-voice-grid">
-      <blockquote class="reveal">
-        <div class="home-video" data-video-id="vOZbuVr-QVo" data-video-title="Josh Harris video testimonial" tabindex="0" role="button" aria-label="Play Josh Harris video testimonial">
-          <img src="https://img.youtube.com/vi/vOZbuVr-QVo/maxresdefault.jpg" alt="" width="1280" height="720" loading="lazy">
-          <span class="home-play" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><polygon points="7,4 20,12 7,20" fill="currentColor"/></svg></span>
+  <!-- CLIENT TESTIMONIAL CAROUSEL -->
+  <section class="section-testimonial">
+    <span class="testimonial-eyebrow reveal">In their words</span>
+    <div class="testimonial-carousel reveal" id="testimonialCarousel">
+      <div class="testimonial-stack" id="testimonialStack">
+
+        <!-- Slide 0 — Josh Harris, video (Variant A) -->
+        <div class="testimonial-stack-item" data-slide="0" data-state="active" data-video-id="vOZbuVr-QVo" data-video-title="Josh Harris video testimonial" tabindex="0" role="button" aria-label="Play Josh Harris video testimonial">
+          <div class="testimonial-video-wrap">
+            <img class="testimonial-video-poster" src="https://img.youtube.com/vi/vOZbuVr-QVo/maxresdefault.jpg" alt="" width="1280" height="720" loading="lazy">
+            <span class="testimonial-video-play" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20"><polygon points="6,4 20,12 6,20" fill="currentColor"/></svg>
+            </span>
+          </div>
         </div>
-        <p>Working with Riya took a huge weight off my shoulders. She helped me make decisions I&#x27;d been putting off for weeks and somehow understood my vision even when I couldn&#x27;t fully explain it. Halfway through, I completely changed directions, and instead of pushing back, she redid the research and copy to match. It was a pleasure working with her.</p><cite><b>Josh Harris</b>, Founder, Josh Harris Media</cite>
-      </blockquote>
-      <blockquote class="reveal" style="transition-delay:.08s"><p>For our website development and positioning, Riya goes so incredibly above and beyond what she needs to do. Her work is fully comprehensive to an extent I never would have been able to reach myself. She&#x27;s ingrained in our business as if it were her own, fully invested in getting it right and having the creativity to come up with incredible ideas for our users to make our online experience special. What stands out most is how she masters the balance between catching the finest details through every link, text, and design, while never losing sight of the bigger picture.</p><cite><b>Cole Morris</b>, Owner, A.R. Morris Jewelers</cite></blockquote>
+
+        <!-- Slide 1 — Cole Morris, quote-only (Variant B) -->
+        <div class="testimonial-stack-item" data-slide="1" data-state="behind">
+          <div class="testimonial-logo-panel">
+            <a href="https://www.armorrisjewelers.com/" target="_blank" rel="noopener">
+              <img src="/AR_logo.png" alt="A.R. Morris Jewelers" width="320" height="85" loading="lazy">
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card-stack" id="testimonialCardStack">
+        <div class="testimonial-card" data-slide="0" data-active="true">
+          <p class="testimonial-card-name">Josh Harris</p>
+          <p class="testimonial-card-role">Founder, <a href="https://www.joshharrismedia.com/" target="_blank" rel="noopener">Josh Harris Media</a></p>
+          <p class="testimonial-card-quote">Working with Riya took a huge weight off my shoulders. She helped me make decisions I'd been putting off for weeks and somehow understood my vision even when I couldn't fully explain it. Halfway through, I completely changed directions, and instead of pushing back, she redid the research and copy to match. It was a pleasure working with her.</p>
+        </div>
+        <div class="testimonial-card" data-slide="1" data-active="false">
+          <p class="testimonial-card-name">Cole Morris</p>
+          <p class="testimonial-card-role">Owner, <a href="https://www.armorrisjewelers.com/" target="_blank" rel="noopener">A.R. Morris Jewelers</a></p>
+          <p class="testimonial-card-quote">For our website development and positioning, Riya goes so incredibly above and beyond what she needs to do. Her work is fully comprehensive to an extent I never would have been able to reach myself. She's ingrained in our business as if it were her own, fully invested in getting it right and having the creativity to come up with incredible ideas for our users to make our online experience special. What stands out most is how she masters the balance between catching the finest details through every link, text, and design, while never losing sight of the bigger picture.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-dots" id="testimonialDots">
+      <button class="testimonial-dot" data-slide="0" aria-label="Show Josh Harris testimonial" aria-current="true"></button>
+      <button class="testimonial-dot" data-slide="1" aria-label="Show Cole Morris testimonial"></button>
     </div>
   </section>
+
+
+  <div class="band">
+  <section class="home-sec sites-sec" id="websites">
+    <div class="home-head reveal"><h2 class="sites-h">Websites we have built</h2><p class="sites-sub">Live now. Click a panel to see the next site, then click its name to visit it.</p></div>
+    <ul class="sp-row reveal"><li class="sp on"><img src="/assets/work/josh-harris-media/site-home.webp" alt="" loading="lazy" decoding="async"><a class="sp-label" href="https://www.joshharrismedia.com/" target="_blank" rel="noopener"><strong>Josh Harris Media</strong><span>joshharrismedia.com ↗<span class="visually-hidden"> (opens in a new tab)</span></span></a></li><li class="sp"><img src="/assets/work/white-ash-glass/site-home.webp" alt="" loading="lazy" decoding="async"><a class="sp-label" href="https://www.whiteashglass.com/" target="_blank" rel="noopener"><strong>White Ash Glass Studio</strong><span>whiteashglass.com ↗<span class="visually-hidden"> (opens in a new tab)</span></span></a></li><li class="sp"><img src="/assets/work/sanjay-mohan-mittal/site-home.webp" alt="" loading="lazy" decoding="async"><a class="sp-label" href="https://www.sanjaymohanmittal.com/" target="_blank" rel="noopener"><strong>Sañjay Mohan Mittal</strong><span>sanjaymohanmittal.com ↗<span class="visually-hidden"> (opens in a new tab)</span></span></a></li><li class="sp"><img src="/assets/work/a-r-morris-jewelers/prototype-home.webp" alt="" loading="lazy" decoding="async"><a class="sp-label" href="/work/a-r-morris-jewelers"><strong>A.R. Morris Jewelers</strong><span>Prototype, in build →</span></a></li></ul>
+    <div class="sp-controls reveal"><button class="wk-arrow sp-arrow" type="button" data-step="-1" aria-label="Previous site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><span class="sp-count" aria-live="polite">1 / 4</span><button class="wk-arrow sp-arrow" type="button" data-step="1" aria-label="Next site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></div>
+  </section>
+  </div>
 
   <section class="home-sec home-close" id="contact">
     <div class="home-close-row reveal">
@@ -552,46 +769,30 @@
         <p class="home-intro">Thirty minutes, no pitch, no prep. Tell us where your story is stuck.</p>
       </div>
       <div class="home-close-actions">
-        <a class="btn-terra" href="#book">Book a free 30-min call</a>
+        <a class="btn-terra" href="https://calendly.com/riya-mittal-throughline/30min" target="_blank" rel="noopener">Book a free 30-min call<span class="visually-hidden"> (opens in a new tab)</span></a>
         <a class="home-more" href="/for-established-brands#gapForm">Not ready to talk? Try the Perception Gap Detector →</a>
       </div>
     </div>
-    <div class="calendly-wrap" id="book">
-      <div id="throughline-form">
-        <div class="calendly-inline-widget" data-url="https://calendly.com/riya-mittal-throughline/30min?hide_gdpr_banner=1&background_color=F5F0E8&text_color=2C3E35&primary_color=A55939" style="min-width:320px;height:700px;"></div>
+  </section>
+  <!-- FOOTER: the crowd walks along its top edge -->
+  <div class="crowd" aria-hidden="true"><canvas></canvas></div>
+  <footer class="ground">
+    <div class="ground-inner">
+      <p class="ground-tag">Stop shouting to nobody. <em>Start speaking to somebody.</em></p>
+      <div class="ground-cols">
+        <div class="ground-brand">
+          <p class="ground-name">Throughline Co.</p>
+          <p>Brand strategy and marketing for startups, B2B companies and established brands. Based in Washington, DC.</p>
+        </div>
+        <nav aria-label="Who we help"><p class="ground-h">Who we help</p><a href="/for-emerging-brands">Emerging brands</a><a href="/for-established-brands">Established brands</a><a href="/b2b-marketing">B2B brands</a></nav>
+        <nav aria-label="Studio"><p class="ground-h">Studio</p><a href="/services">Services</a><a href="/work">Work</a><a href="/about">About</a><a href="/faq">FAQ</a></nav>
+        <div><p class="ground-h">Get in touch</p><a href="mailto:info@throughline.community">info@throughline.community</a><a href="https://www.linkedin.com/company/throughline-co/" target="_blank" rel="noopener">LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a><a href="https://calendly.com/riya-mittal-throughline/30min" target="_blank" rel="noopener">Book a free 30-min call<span class="visually-hidden"> (opens in a new tab)</span></a></div>
+      </div>
+      <div class="ground-legal">
+        <p>&copy; 2026 Throughline Co. All rights reserved. Illustrations by <a href="https://www.openpeeps.com/" target="_blank" rel="noopener">Open Peeps</a>.</p>
+        <p><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/accessibility">Accessibility</a><a href="#" onclick="window.tlcoOpenConsent&&window.tlcoOpenConsent();return false;">Cookie settings</a></p>
       </div>
     </div>
-  </section>
-    <script>
-      (function() {
-        var section = document.getElementById('throughline-form');
-        if (!section) return;
-        var loaded = false;
-        function loadCalendly() {
-          if (loaded) return;
-          loaded = true;
-          var s = document.createElement('script');
-          s.src = 'https://assets.calendly.com/assets/external/widget.js';
-          s.async = true;
-          document.body.appendChild(s);
-          observer.disconnect();
-        }
-        var observer = new IntersectionObserver(function(entries) {
-          entries.forEach(function(entry) { if (entry.isIntersecting) loadCalendly(); });
-        }, { rootMargin: '600px' });
-        observer.observe(section);
-      })();
-    </script>
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <p class="footer-copy">Throughline Co. &middot; &copy; 2026 &middot; All rights reserved</p>
-    <nav class="footer-links">
-      <a href="/privacy">Privacy Policy</a>
-      <a href="/terms">Terms of Service</a>
-      <a href="/accessibility">Accessibility</a>
-      <a href="#" onclick="window.tlcoOpenConsent&&window.tlcoOpenConsent();return false;">Cookie settings</a>
-      <a href="https://www.linkedin.com/company/throughline-co/" target="_blank" rel="noopener">LinkedIn</a>
-    </nav>
   </footer>
 
   <script>
@@ -687,6 +888,191 @@
       wrap.addEventListener('click', play);
       wrap.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(); } });
     });
+
+    // Testimonial carousel: stacked image/video panels + cross-fading quote cards
+    (function () {
+      var stack     = document.getElementById('testimonialStack');
+      var cardStack = document.getElementById('testimonialCardStack');
+      var dotsWrap  = document.getElementById('testimonialDots');
+      if (!stack || !cardStack) return;
+
+      var stackItems = Array.from(stack.querySelectorAll('.testimonial-stack-item'));
+      var cards      = Array.from(cardStack.querySelectorAll('.testimonial-card'));
+      var dots       = dotsWrap ? Array.from(dotsWrap.querySelectorAll('.testimonial-dot')) : [];
+      var active     = 0;
+      var AUTOPLAY_MS = 6000;
+      var autoplayTimer = null;
+      var reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Split each quote into words for the per-word blur-in effect.
+      cards.forEach(function (card) {
+        var q = card.querySelector('.testimonial-card-quote');
+        if (!q || q.dataset.wrapped) return;
+        var words = q.textContent.trim().split(/\s+/);
+        q.innerHTML = words.map(function (w, i) {
+          return '<span class="word" style="transition-delay:' + (i * 16) + 'ms">' + w + '</span>';
+        }).join(' ');
+        q.dataset.wrapped = 'true';
+      });
+
+      function stopVideo(item) {
+        if (!item.classList.contains('playing')) return;
+        var iframe = item.querySelector('iframe');
+        if (iframe) iframe.remove();
+        item.classList.remove('playing');
+      }
+
+      function stopAutoplay() {
+        if (autoplayTimer) { clearInterval(autoplayTimer); autoplayTimer = null; }
+      }
+
+      function goTo(newIndex) {
+        if (newIndex === active || !stackItems.length) return;
+        var prevActive = active;
+
+        stackItems.forEach(function (item, i) {
+          if (i === prevActive) stopVideo(item);
+          item.setAttribute('data-state', i === newIndex ? 'active' : 'behind');
+        });
+
+        cards.forEach(function (card, i) {
+          var isNext = i === newIndex;
+          card.setAttribute('data-active', String(isNext));
+          if (isNext) {
+            var q = card.querySelector('.testimonial-card-quote');
+            if (q) {
+              q.classList.remove('blur-in');
+              void q.offsetWidth;
+              requestAnimationFrame(function () { q.classList.add('blur-in'); });
+            }
+          }
+        });
+
+        dots.forEach(function (dot, i) { dot.setAttribute('aria-current', String(i === newIndex)); });
+
+        active = newIndex;
+      }
+
+      dots.forEach(function (dot, i) {
+        dot.addEventListener('click', function () { stopAutoplay(); goTo(i); });
+      });
+      stackItems.forEach(function (item) {
+        item.addEventListener('click', stopAutoplay);
+      });
+
+      // Run the first blur-in and start a brief autoplay once the carousel scrolls into view.
+      var section = document.querySelector('.section-testimonial');
+      if (section) {
+        var initObs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              var q = cards[active] && cards[active].querySelector('.testimonial-card-quote');
+              if (q) q.classList.add('blur-in');
+              if (!reducedMotion && stackItems.length > 1) {
+                autoplayTimer = setInterval(function () { goTo((active + 1) % stackItems.length); }, AUTOPLAY_MS);
+              }
+              initObs.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.3 });
+        initObs.observe(section);
+
+        section.addEventListener('mouseenter', stopAutoplay);
+      }
+    }());
+
+    // Selected work carousel: thumbnails, arrows or arrow keys switch the featured project.
+    (function () {
+      var root = document.querySelector('.wk'); if (!root) return;
+      var media = [].slice.call(root.querySelectorAll('.wk-media')), texts = [].slice.call(root.querySelectorAll('.wk-text')),
+          thumbs = [].slice.call(root.querySelectorAll('.wk-thumb')), n = thumbs.length, cur = 0;
+      function go(k) {
+        cur = (k + n) % n;
+        media.forEach(function (m, j) { if (j === cur) m.setAttribute('data-on', ''); else m.removeAttribute('data-on'); });
+        texts.forEach(function (t, j) { t.hidden = j !== cur; });
+        thumbs.forEach(function (t, j) { t.setAttribute('aria-current', j === cur); });
+        thumbs[cur].scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+      }
+      thumbs.forEach(function (t, k) { t.addEventListener('click', function () { go(k); }); });
+      root.querySelectorAll('.wk-arrow').forEach(function (b) { b.addEventListener('click', function () { go(cur + Number(b.dataset.step)); }); });
+      root.querySelector('.wk-rail').addEventListener('keydown', function (ev) {
+        if (ev.key === 'ArrowRight') { ev.preventDefault(); go(cur + 1); thumbs[cur].focus(); }
+        if (ev.key === 'ArrowLeft') { ev.preventDefault(); go(cur - 1); thumbs[cur].focus(); }
+      });
+    }());
+
+    // Websites: click (or hover on desktop) a panel to expand it; the expanded panel's label links to the site.
+    (function () {
+      var ps = [].slice.call(document.querySelectorAll('.sp')); if (!ps.length) return;
+      var hover = matchMedia('(hover: hover)').matches;
+      var count = document.querySelector('.sp-count'), cur = 0;
+      function go(k) { cur = (k + ps.length) % ps.length; ps.forEach(function (p, j) { p.classList.toggle('on', j === cur); }); if (count) count.textContent = (cur + 1) + ' / ' + ps.length; }
+      document.querySelectorAll('.sp-arrow').forEach(function (b) { b.addEventListener('click', function () { go(cur + Number(b.dataset.step)); }); });
+      ps.forEach(function (p, k) {
+        p.addEventListener('click', function (ev) { if (!p.classList.contains('on')) { ev.preventDefault(); go(k); } });
+        if (hover) p.addEventListener('mouseenter', function () { go(k); });
+        p.querySelector('.sp-label').addEventListener('focus', function () { go(k); });
+      });
+    }());
+
+    // Closing crowd: figures walk across in forest green; one stands still in terracotta (the "somebody").
+    // Pauses offscreen; a still frame under reduced motion.
+    (function () {
+      var wrap = document.querySelector('.crowd'); if (!wrap) return;
+      var cv = wrap.querySelector('canvas'), ctx = cv.getContext('2d');
+      var COLS = 15, ROWS = 7, CW = 240, CH = 324, SKIP = [11, 17, 72, 92, 100];
+      var sheet = new Image(), one = new Image(), ready = 0, still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var W = 0, H = 0, dpr = 1, scale = 1, walkers = [], pool = [], raf = 0, visible = false, last = 0;
+      for (var i = 0; i < COLS * ROWS; i++) if (SKIP.indexOf(i) < 0) pool.push(i);
+      function rand(a, b) { return a + Math.random() * (b - a); }
+      // Two rows on one ground line: the canvas bottom is the footer edge, and every figure's
+      // lower edge sits below it (clipped), so nobody floats. Back row stands slightly higher.
+      function spawn(w, anywhere) {
+        w.cell = pool[(Math.random() * pool.length) | 0];
+        w.dir = Math.random() < .5 ? 1 : -1;
+        w.speed = rand(30, 46) * scale * 3;
+        w.y = H - CH * scale + (w.back ? 36 : 62) * scale;
+        w.x = anywhere ? rand(-CW * scale, W) : (w.dir > 0 ? -CW * scale : W);
+        w.phase = rand(0, 6.28);
+      }
+      function size() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2); W = wrap.clientWidth; H = wrap.clientHeight;
+        cv.width = W * dpr; cv.height = H * dpr; scale = H / 360;
+        var perRow = Math.max(5, Math.ceil(W / (CW * scale * .42)));
+        walkers = [];
+        for (var k = 0; k < perRow * 2; k++) { var w = { back: k < perRow }; spawn(w, true); walkers.push(w); }
+        draw(0);
+      }
+      function draw(t) {
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+        var pw = CW * scale, ph = CH * scale;
+        walkers.forEach(function (w) {
+          var sx = (w.cell % COLS) * CW, sy = ((w.cell / COLS) | 0) * CH, bob = still ? 0 : Math.abs(Math.sin(t / 260 + w.phase)) * 5 * scale;
+          ctx.save(); ctx.translate(w.x + (w.dir < 0 ? pw : 0), w.y - bob); ctx.scale(w.dir, 1);
+          ctx.drawImage(sheet, sx, sy, CW, CH, 0, 0, pw, ph); ctx.restore();
+        });
+        drawOne(pw, ph);
+      }
+      function drawOne(pw, ph) {
+        var w1 = 210 * scale;
+        ctx.drawImage(one, W / 2 - w1 / 2, H - ph + 66 * scale, w1, ph);
+      }
+      function tick(t) {
+        raf = 0; if (!visible) return;
+        var dt = Math.min((t - (last || t)) / 1000, .05); last = t;
+        walkers.forEach(function (w) {
+          w.x += w.dir * w.speed * dt;
+          if (w.x > W + 10 || w.x < -CW * scale - 10) spawn(w, false);
+        });
+        draw(t); raf = requestAnimationFrame(tick);
+      }
+      function start() { if (!raf && visible && ready === 2 && !still) { last = 0; raf = requestAnimationFrame(tick); } }
+      function loaded() { if (++ready === 2) { size(); start(); } }
+      new IntersectionObserver(function (es) { visible = es[0].isIntersecting; start(); }, { rootMargin: '200px' }).observe(wrap);
+      window.addEventListener('resize', function () { if (ready === 2) size(); }, { passive: true });
+      function load() { sheet.onload = loaded; one.onload = loaded; sheet.src = '/assets/home/crowd.webp'; one.src = '/assets/home/crowd-one.webp'; }
+      if (document.readyState === 'complete') load(); else window.addEventListener('load', load);
+    }());
 
     const nav = document.getElementById('mainNav');
     function syncNav() {

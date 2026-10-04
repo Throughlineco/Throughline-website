@@ -252,18 +252,13 @@
 .work-index { list-style: none; border-top: 1px solid var(--rule); }
 .work-index li { border-bottom: 1px solid var(--rule); }
 .work-index a { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) minmax(0, 2fr) 24px; gap: 6px 32px; align-items: baseline; padding: 24px 0; text-decoration: none; color: var(--ink); transition: opacity .25s var(--ease-out); }
-.work-index .wi-name { font-family: var(--font-display); font-size: clamp(21px, 2.1vw, 28px); line-height: 1.25; letter-spacing: -.015em; }
-.work-index .wi-what { font-size: 15px; line-height: 1.5; color: var(--ink-2); }
-.work-index .wi-when { font-size: 14px; color: var(--ink-3); }
+.work-index .wi-name { font-family: var(--font-display); font-size: clamp(21px, 2.1vw, 28px); line-height: 1.25; letter-spacing: -.015em; transition: color .2s var(--ease-out); }
+.work-index .wi-what { font-size: 17px; line-height: 1.5; color: var(--ink); }
+.work-index .wi-when { font-size: 16px; color: var(--ink-2); }
 .work-index .wi-arrow { color: var(--terra-ink); transition: transform .35s var(--ease-out); }
-.work-index:hover a { opacity: .5; }
-.work-index:hover a:hover, .work-index a:focus-visible { opacity: 1; }
 .work-index a:hover .wi-arrow { transform: translateX(6px); }
+.work-index a:hover .wi-name { color: var(--terra-ink); }
 .work-index a:active { opacity: .8; }
-.work-cover { position: fixed; left: 0; top: 0; z-index: 150; width: 340px; aspect-ratio: 16 / 10; border-radius: 10px; overflow: hidden; pointer-events: none; opacity: 0; transition: opacity .25s var(--ease-out);
-  box-shadow: 0 1px 2px rgba(44,62,53,.10), 0 24px 48px -16px rgba(44,62,53,.40); }
-.work-cover.on { opacity: 1; }
-.work-cover img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
 
 @media (max-width: 900px) {
   .work-index a { grid-template-columns: minmax(0, 1fr) 24px; }
@@ -271,3 +266,25 @@
   .work-index .wi-arrow { grid-row: 1; grid-column: 2; }
 }
 .nav .nav-links .nav-panel a { white-space: normal; }
+
+/* ── PAGE KIT (shared by home and every content page) ──
+   .home-sec: 1200px container, hairline between consecutive sections.
+   .home-h2 section heading · .home-intro supporting line · .home-more text link · .how-steps numbered steps.
+   Reuse with .study-head/.study-title/.study-dek (page header), .study-section (heading left, copy right),
+   .study-list (ruled 2-col list), .study-results, .study-voice (the one forest band), .study-route + .btn-terra (ask). */
+.home-sec { max-width: 1200px; margin: 0 auto; padding: 80px 80px; }
+.home-sec + .home-sec { border-top: 1px solid var(--rule); }
+.home-head { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; }
+.home-h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(32px, 3.6vw, 52px); line-height: 1.12; letter-spacing: -.025em; color: var(--ink); text-wrap: balance; }
+.home-intro { font-size: 17px; line-height: 1.7; color: var(--ink-2); max-width: 56ch; margin-top: 16px; }
+.home-more { font-size: 14px; font-weight: 700; color: var(--terra-ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: rgba(157,85,55,.35); white-space: nowrap; transition: text-decoration-color .2s var(--ease-out); }
+.home-more:hover { text-decoration-color: currentColor; }
+.home-more:active { opacity: .7; }
+
+.how-steps { list-style: none; border-top: 1px solid var(--rule); counter-reset: step; }
+.how-steps li { display: grid; grid-template-columns: 56px 1fr; gap: 4px 16px; padding: 22px 0; border-bottom: 1px solid var(--rule); counter-increment: step; }
+.how-steps li::before { content: counter(step, decimal-leading-zero); grid-row: span 2; font-family: var(--font-display); font-size: 22px; color: var(--sage-green); }
+.how-steps strong { font-size: 16px; font-weight: 700; color: var(--ink); }
+.how-steps span { font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+@media (max-width: 1100px) { .home-sec { padding: 64px 40px; } }
+@media (max-width: 720px) { .home-sec { padding: 52px 24px; } }

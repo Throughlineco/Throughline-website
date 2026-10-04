@@ -1,17 +1,146 @@
 ---
-
+import Base from '../layouts/Base.astro';
+import WorkCarousel from '../components/WorkCarousel.tsx';
+import SitePanels from '../components/SitePanels.tsx';
+import jsonLd from '../data/home.jsonld?raw';
+const projects = [{"slug": "josh-harris-media", "name": "Josh Harris Media", "tag": "B2B", "text": "We repositioned Josh from selling video to selling sales velocity, then built the brand book, the website and two AI sales tools. Live in 10 days.", "alt": "Josh Harris Media homepage: The sales call before the sales call."}, {"slug": "a-r-morris-jewelers", "name": "A.R. Morris Jewelers", "tag": "Established brand", "text": "We untangled a false choice between a tax-free pitch and a marketplace pitch, led the brand with permanence, and prototyped a guided shopping journey.", "alt": "A.R. Morris prototype homepage: Every great piece begins with a decision."}, {"slug": "sanjay-mohan-mittal", "name": "Sañjay Mohan Mittal", "tag": "Author", "text": "We fixed a Sanskrit ebook that broke on Kindle, built the author platform, and ran academic outreach that drew a professor's reply in 37 minutes.", "alt": "Sañjay Mohan Mittal author site opening on a havan fire."}, {"slug": "white-ash-glass", "name": "White Ash Glass Studio", "tag": "Small business", "text": "We started with cultural research on the town, then built a 21-page brand book and a seven-page site for a studio that had no web presence.", "alt": "White Ash Glass Studio homepage with a forest path to the studio."}];
+const sites = [{"slug": "josh-harris-media", "img": "site-home", "href": "https://www.joshharrismedia.com/", "external": true, "name": "Josh Harris Media", "label": "joshharrismedia.com ↗"}, {"slug": "white-ash-glass", "img": "site-home", "href": "https://www.whiteashglass.com/", "external": true, "name": "White Ash Glass Studio", "label": "whiteashglass.com ↗"}, {"slug": "sanjay-mohan-mittal", "img": "site-home", "href": "https://www.sanjaymohanmittal.com/", "external": true, "name": "Sañjay Mohan Mittal", "label": "sanjaymohanmittal.com ↗"}, {"slug": "a-r-morris-jewelers", "img": "prototype-home", "href": "/work/a-r-morris-jewelers", "external": false, "name": "A.R. Morris Jewelers", "label": "Prototype, in build →"}];
 ---
+<Base home title="DC Brand Strategy &amp; Marketing Agency | Throughline Co." description="Brand strategy and marketing for startups, B2B companies, and established brands across Washington DC, Virginia, and Maryland." canonical="https://throughline.community/" jsonLd={jsonLd}>
+  <section class="hero">
+    <div class="hero-img">
+      <img class="hero-video hero-portrait" src="/assets/hero-frames/center.webp" alt="Illustrated portrait of Riya Mittal, founder of Throughline Co." width="1280" height="720" fetchpriority="high" decoding="async">
+      <canvas class="hero-video hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
+      <div class="hero-noise"></div>
+      <div class="hero-gradient"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-left">
+        <p class="hero-title">Throughline Co.</p>
+        <div class="hero-right">
+          <h1 class="hero-subhead" id="heroSubhead">Stop shouting to nobody. Start speaking to somebody.</h1>
+          <p class="hero-body">Most brands do not have a logo problem. They have a story problem. We find yours, build it into everything, and train your team to run it within six months.</p>
+        </div>
+      </div>
+        <button class="hero-cta" onclick="window.open('https://calendly.com/riya-mittal-throughline/30min','_blank','noopener')">
+          <span class="hero-cta-icon">
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+          <span class="hero-cta-label">Book a free 30-min call</span>
+        </button>
+    </div>
+  </section>
+  <main>
+  <section class="home-sec home-statement" id="approach">
+    <div class="st-head reveal">
+      <h2 class="home-big">Every brand has a throughline. We find yours.</h2>
+      <p class="st-line">Most brands do not have a logo problem. They have a story problem. Pick the one that sounds like you.</p>
+    </div>
+    <div class="st-cards reveal">
+      <a class="st-card" href="/for-emerging-brands"><img src="/assets/home/grp-emerging.webp" width="640" height="324" alt="" loading="lazy" decoding="async"><span class="st-txt"><strong>Emerging brands</strong><span>A real product, and a story that is not landing yet.</span><i>See how we help →</i></span></a>
+      <a class="st-card" href="/for-established-brands"><img src="/assets/home/grp-established.webp" width="640" height="324" alt="" loading="lazy" decoding="async"><span class="st-txt"><strong>Established brands</strong><span>Rebrands for businesses that have outgrown their image.</span><i>See how we help →</i></span></a>
+      <a class="st-card" href="/b2b-marketing"><img src="/assets/home/grp-b2b.webp" width="640" height="324" alt="" loading="lazy" decoding="async"><span class="st-txt"><strong>B2B brands</strong><span>Fintech, SaaS and founder-led B2B companies.</span><i>See how we help →</i></span></a>
+    </div>
+    <p class="home-values reveal">We often work with women-, Black-, LGBTQ+- and veteran-owned founders, and with nonprofits that have a real reason to exist. <a href="/faq#purpose-driven">What we mean by purpose-driven</a></p>
+  </section>
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+  <WorkCarousel client:visible projects={projects} totalCaseStudies={11} />
+
+  <div class="band">
+  <section class="home-sec" id="services">
+    <div class="how-head reveal">
+      <h2 class="home-h2">Strategy only works if someone actually uses it.</h2>
+      <div><p class="home-intro">We build the strategy, we implement it, and then we train your team to run it.</p><p style="margin-top:16px"><a class="home-more" href="/services">Services and pricing →</a></p></div>
+    </div>
+    <ol class="how-row reveal">
+      <li><strong>Discovery</strong><span>We find the story you have not told yet.</span></li>
+      <li><strong>Diagnosis</strong><span>We pinpoint what is actually broken.</span></li>
+      <li><strong>Execution</strong><span>Organic first, so we learn what works before you spend.</span></li>
+      <li><strong>Measure</strong><span>We track real outcomes, then hand your team the keys.</span></li>
+    </ol>
+    <p class="how-services-line reveal">What we do: brand strategy, audience growth, storytelling and content, LinkedIn strategy, online and offline marketing, website design and build, and SEO.</p>
+  </section>
+  </div>
+
+  <section class="home-sec" id="founder">
+    <div class="founder">
+      <div class="reveal">
+        <h2 class="founder-h">I was asked to leave school because I couldn't read the way they taught.</h2>
+        <div class="founder-copy">
+          <p>In 2019 I was diagnosed with dyslexia. I was 21.</p>
+          <p>So I went to Georgetown, built an AI reading tool for kids who learn the way I do, won a pitch competition and piloted it in real classrooms. <a href="/work/dyslex-aid">The Dyslex-Aid story</a></p>
+          <p>Now I help businesses find the story they have been sitting on.</p>
+        </div>
+        <p class="founder-sign">Riya Mittal, Founder<span>As featured in Georgetown University CCT, Disability Pride Month.</span></p>
+      </div>
+      <div class="founder-photo reveal" style="transition-delay:.1s"><img src="/IMG_4734.webp" alt="Riya Mittal at a Georgetown University event" width="900" height="1200" loading="lazy" decoding="async"></div>
+    </div>
+  </section>
+  </main>
+
+  <!-- CLIENT TESTIMONIAL CAROUSEL -->
+  <section class="section-testimonial">
+    <span class="testimonial-eyebrow reveal">In their words</span>
+    <div class="testimonial-carousel reveal" id="testimonialCarousel">
+      <div class="testimonial-stack" id="testimonialStack">
+
+        <!-- Slide 0 — Josh Harris, video (Variant A) -->
+        <div class="testimonial-stack-item" data-slide="0" data-state="active" data-video-id="vOZbuVr-QVo" data-video-title="Josh Harris video testimonial" tabindex="0" role="button" aria-label="Play Josh Harris video testimonial">
+          <div class="testimonial-video-wrap">
+            <img class="testimonial-video-poster" src="https://img.youtube.com/vi/vOZbuVr-QVo/maxresdefault.jpg" alt="" width="1280" height="720" loading="lazy">
+            <span class="testimonial-video-play" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20"><polygon points="6,4 20,12 6,20" fill="currentColor"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Slide 1 — Cole Morris, quote-only (Variant B) -->
+        <div class="testimonial-stack-item" data-slide="1" data-state="behind">
+          <div class="testimonial-logo-panel">
+            <a href="https://www.armorrisjewelers.com/" target="_blank" rel="noopener">
+              <img src="/AR_logo.png" alt="A.R. Morris Jewelers" width="320" height="85" loading="lazy">
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card-stack" id="testimonialCardStack">
+        <div class="testimonial-card" data-slide="0" data-active="true">
+          <p class="testimonial-card-name">Josh Harris</p>
+          <p class="testimonial-card-role">Founder, <a href="https://www.joshharrismedia.com/" target="_blank" rel="noopener">Josh Harris Media</a></p>
+          <p class="testimonial-card-quote">Working with Riya took a huge weight off my shoulders. She helped me make decisions I'd been putting off for weeks and somehow understood my vision even when I couldn't fully explain it. Halfway through, I completely changed directions, and instead of pushing back, she redid the research and copy to match. It was a pleasure working with her.</p>
+        </div>
+        <div class="testimonial-card" data-slide="1" data-active="false">
+          <p class="testimonial-card-name">Cole Morris</p>
+          <p class="testimonial-card-role">Owner, <a href="https://www.armorrisjewelers.com/" target="_blank" rel="noopener">A.R. Morris Jewelers</a></p>
+          <p class="testimonial-card-quote">For our website development and positioning, Riya goes so incredibly above and beyond what she needs to do. Her work is fully comprehensive to an extent I never would have been able to reach myself. She's ingrained in our business as if it were her own, fully invested in getting it right and having the creativity to come up with incredible ideas for our users to make our online experience special. What stands out most is how she masters the balance between catching the finest details through every link, text, and design, while never losing sight of the bigger picture.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-dots" id="testimonialDots">
+      <button class="testimonial-dot" data-slide="0" aria-label="Show Josh Harris testimonial" aria-current="true"></button>
+      <button class="testimonial-dot" data-slide="1" aria-label="Show Cole Morris testimonial"></button>
+    </div>
+  </section>
+
+
+  <div class="band">
+  <SitePanels client:visible sites={sites} />
+  </div>
+
+  <section class="home-sec home-close" id="contact">
+    <div class="home-close-row reveal">
+      <div>
+        <h2 class="home-h2">Ready to find the story your market is missing?</h2>
+        <p class="home-intro">Thirty minutes, no pitch, no prep. Tell us where your story is stuck.</p>
+      </div>
+      <div class="home-close-actions">
+        <a class="btn-terra" href="https://calendly.com/riya-mittal-throughline/30min" target="_blank" rel="noopener">Book a free 30-min call<span class="visually-hidden"> (opens in a new tab)</span></a>
+        <a class="home-more" href="/for-established-brands#gapForm">Not ready to talk? Try the Perception Gap Detector →</a>
+      </div>
+    </div>
+  </section>
+  <!-- FOOTER: the crowd walks along its top edge -->
+  <script>import '../scripts/home.js';</script>
+</Base>

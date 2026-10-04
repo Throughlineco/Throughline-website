@@ -1,0 +1,39 @@
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://throughline.community/#organization",
+        "name": "Throughline Co.",
+        "url": "https://throughline.community/",
+        "logo": "https://throughline.community/favicon.svg",
+        "description": "Washington DC brand strategy and marketing agency helping startups, B2B companies, and established brands build the positioning, messaging, and voice their story is missing.",
+        "areaServed": [
+          { "@type": "City", "name": "Washington, DC" },
+          { "@type": "City", "name": "Arlington, VA" },
+          { "@type": "City", "name": "Richmond, VA" },
+          { "@type": "State", "name": "Virginia" },
+          { "@type": "State", "name": "Maryland" }
+        ],
+        "sameAs": ["https://www.linkedin.com/company/throughline-co/"],
+        "foundingDate": "2026-04",
+        "founder": { "@id": "https://throughline.community/about#riya-mittal" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://throughline.community/about#riya-mittal",
+        "name": "Riya Mittal",
+        "jobTitle": "Founder",
+        "url": "https://throughline.community/about",
+        "worksFor": { "@id": "https://throughline.community/#organization" },
+        "alumniOf": { "@type": "CollegeOrUniversity", "name": "Georgetown University" }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://throughline.community/#website",
+        "url": "https://throughline.community/",
+        "name": "Throughline Co.",
+        "publisher": { "@id": "https://throughline.community/#organization" }
+      }
+    ]
+  }

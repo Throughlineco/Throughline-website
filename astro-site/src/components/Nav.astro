@@ -1,0 +1,38 @@
+---
+const { home = false } = Astro.props;
+---
+  <!-- THROUGHLINE SVG TRACKER -->
+  <svg id="tlNav" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <line x1="6" y1="0" x2="6" y2="10000" stroke="#3D6B4F" stroke-width="1" opacity="0.18" stroke-dasharray="5 7"/>
+    <line id="tlFill" x1="6" y1="0" x2="6" y2="0" stroke="#3D6B4F" stroke-width="2" stroke-linecap="round"/>
+    <circle id="tlTip" cx="6" cy="0" r="4" fill="#C2714F" opacity="0" style="filter:drop-shadow(0 0 4px rgba(194,113,79,0.8));"/>
+  </svg>
+
+  <!-- NAV -->
+  <nav class={`nav ${home ? "at-top" : "scrolled"}`} id="mainNav">
+    <a href="/">
+      <svg class="nav-logo-svg" viewBox="0 0 520 140" xmlns="http://www.w3.org/2000/svg" aria-label="Throughline Co.">
+        <path class="logo-wave" d="M32 68 C48 44, 72 44, 88 68 C104 92, 128 92, 144 68 C160 44, 184 44, 200 68" fill="none" stroke-width="2.8" stroke-linecap="round"/>
+        <circle class="logo-dot" cx="200" cy="68" r="5"/>
+        <text class="logo-text" x="228" y="78" font-family="Georgia, serif" font-size="42" font-weight="400" letter-spacing="-0.5">Throughline Co.</text>
+        <line class="logo-line" x1="228" y1="90" x2="498" y2="90" stroke-width="0.8"/>
+        <text class="logo-tagline" x="228" y="108" font-family="Georgia, serif" font-size="11" letter-spacing="1.8">PURPOSE-DRIVEN BRAND STRATEGY</text>
+      </svg>
+    </a>
+    <ul class="nav-links">
+      <li class="nav-group"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="navWho">Who we help<svg class="nav-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3"/></svg></button>
+        <div class="nav-panel" id="navWho"><a href="/for-emerging-brands">Emerging brands<span>A real product, and a story that is not landing yet</span></a><a href="/for-established-brands">Established brands<span>Rebrands for businesses that have outgrown their image</span></a><a href="/b2b-marketing">B2B brands<span>Fintech, SaaS and founder-led B2B companies</span></a></div></li>
+      <li><a href="/services">Services</a></li><li><a href="/work">Work</a></li><li><a href="/about">About</a></li><li><a href="/faq">FAQ</a></li><li><a href="/contact" class="nav-cta">Book a call</a></li>
+    </ul>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="nav-mobile" id="navMobile" aria-hidden="true">
+    <a href="/for-emerging-brands">For Emerging Brands</a>
+    <a href="/for-established-brands">For Established Brands</a>
+    <a href="/b2b-marketing">For B2B Brands</a>
+    <a href="/services">Services</a>
+    <a href="/work">Work</a>
+    <a href="/about">About</a>
+    <a href="/faq">FAQ</a>
+    <a href="/contact">Contact</a>
+  </div>

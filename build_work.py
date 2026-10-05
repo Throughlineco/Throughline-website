@@ -59,7 +59,7 @@ STUDIES = [
         "slug": "payro-finance",
         "client": "Payro Finance",
         "title": "Payro Finance case study: LinkedIn strategy for a fintech",
-        "description": "How Throughline Co. rebuilt a payroll-funding fintech's LinkedIn content around one buyer: +118% audience growth and monthly click-to-apply from 12 to 161 in four months.",
+        "description": "How Throughline Co. rebuilt a fintech's LinkedIn content around one buyer: followers up 118% and monthly click-to-apply from 12 to 161 in four months.",
         "dek": "We did not go viral. We got specific.",
         "meta": [("Who", "Payroll funding for small businesses"), ("Where", "McLean, Virginia"),
                  ("When", "December 2025 to April 2026"), ("What we did", "LinkedIn strategy, content, brand infrastructure")],
@@ -89,7 +89,7 @@ STUDIES = [
         "slug": "josh-harris-media",
         "client": "Josh Harris Media",
         "title": "Josh Harris Media case study: B2B video strategy repositioning",
-        "description": "How Throughline Co. repositioned a B2B video strategist from selling content to selling sales velocity, with a brand book, a new site and two AI-powered sales tools in one month.",
+        "description": "How Throughline Co. repositioned a B2B video strategist to sell sales velocity, with a brand book, a new site and two AI sales tools in one month.",
         "dek": "Josh was selling video. His buyers wanted to walk into sales calls already trusted.",
         "meta": [("Who", "Video strategist for founder-led B2B companies"), ("Where", "Charlottesville, Virginia"),
                  ("When", "June 2026"), ("What we did", "Positioning, brand book, website, AI sales tools")],
@@ -131,7 +131,7 @@ STUDIES = [
         "slug": "a-r-morris-jewelers",
         "client": "A.R. Morris Jewelers",
         "title": "A.R. Morris Jewelers case study: repositioning a family jeweler",
-        "description": "How Throughline Co. resolved a 65-year jeweler's false choice between a tax-free pitch and a marketplace pitch, then prototyped a guided shopping journey built on trust.",
+        "description": "How Throughline Co. resolved a 65-year jeweler's false choice between a tax-free pitch and a marketplace pitch, then prototyped a guided shopping journey.",
         "dek": "A 65-year jeweler, stuck choosing between two pitches that were never competing.",
         "meta": [("Who", "Family fine jeweler since 1962"), ("Where", "Greenville, Delaware"),
                  ("When", "June 2026 to now"), ("What we did", "Positioning, site audit, guided-shopping prototype")],
@@ -244,7 +244,7 @@ STUDIES = [
         "slug": "df",
         "client": "DF",
         "title": "DF case study: B2B website, buyer qualification and AI search",
-        "description": "How Throughline Co. built a 16-page B2B website for an email marketing company, with a self-qualification funnel, AI-search-ready structure and Lighthouse scores of 99 to 100.",
+        "description": "How Throughline Co. built a 16-page B2B site for an email marketing company, with a buyer-qualification quiz, AI-search structure and Lighthouse 99 to 100.",
         "dek": "A B2B email marketing company needed a site that qualifies buyers before the first call.",
         "meta": [("Who", "Done-for-you email marketing for e-commerce brands"), ("Where", "United States"),
                  ("When", "August 2026 to now"), ("What we did", "Website, buyer qualification, AI search, operations")],
@@ -275,7 +275,7 @@ STUDIES = [
         "slug": "blc",
         "client": "BLC",
         "title": "BLC case study: relaunching a cigar community site under tobacco law",
-        "description": "How Throughline Co. rebuilt and relaunched a cigar community platform in about two weeks: 149 pages, 791 glossary terms migrated, and compliance with Canada's tobacco advertising rules built in.",
+        "description": "How Throughline Co. rebuilt a cigar community site in about two weeks: 791 glossary terms moved, and Canada's tobacco advertising rules built in.",
         "dek": "A cigar community on an aging WordPress site, in a category where the law limits what you can say.",
         "meta": [("Who", "Cigar content and community platform"), ("Where", "Canada"),
                  ("When", "September 2026"), ("What we did", "Website rebuild, content migration, compliance, social")],
@@ -332,6 +332,7 @@ STUDIES = [
     },
     {
         "slug": "georgetown-ombuds",
+        "short": "Georgetown Ombuds",
         "client": "Georgetown University Student Ombuds",
         "title": "Georgetown Student Ombuds case study: brand refresh and campaigns",
         "description": "How a brand refresh and campus campaigns for Georgetown University's Office of the Student Ombuds grew website traffic 40% and student visits 70%.",
@@ -416,7 +417,7 @@ STUDIES = [
 def render(i, s):
     nxt = STUDIES[(i + 1) % len(STUDIES)]
     url = f"{SITE}/work/{s['slug']}"
-    page_title = f"{s['client']} Case Study | Throughline Co."
+    page_title = f"{s.get('short', s['client'])} Case Study | Throughline Co."
     image = f"{SITE}/{s['hero'][0]}" if s.get("hero") else f"{SITE}/og-image.png"
     about = {"@type": "Organization", "name": s["client"]}
     if s.get("link"):

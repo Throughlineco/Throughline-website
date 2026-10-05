@@ -288,3 +288,6 @@
 .how-steps span { font-size: 15px; line-height: 1.6; color: var(--ink-2); }
 @media (max-width: 1100px) { .home-sec { padding: 64px 40px; } }
 @media (max-width: 720px) { .home-sec { padding: 52px 24px; } }
+
+/* Mobile and tablet: the full link bar is replaced by the hamburger menu. */
+@media (max-width: 1100px) { .nav .nav-links { display: none; } }

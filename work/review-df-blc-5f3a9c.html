@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case studies for review | Throughline Co.</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="How Throughline Co. built a 16-page B2B website for an email marketing company, with a self-qualification funnel, AI-search-ready structure and Lighthouse scores of 99 to 100.">
+                    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Merriweather:ital,wght@0,400;1,300;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --cream:       #F5F0E8;
+      --cream-d:     #EDE8DC;
+      --deep-forest: #2C3E35;
+      --sage-green:  #3D6B4F;
+      --muted-sage:  #8BA888;
+      --terracotta:  #C2714F;
+      --font-display:'Merriweather', Georgia, serif;
+      --font-body:   'Lato', Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--cream); scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body); font-weight: 300; font-size: 14px; line-height: 1;
+      background: var(--cream); color: var(--deep-forest);
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    ::selection { background: #ffccc1; color: var(--deep-forest); }
+    a { color: inherit; text-decoration: none; }
+
+    @media (pointer: fine) and (hover: hover) { * { cursor: none !important; } }
+
+    /* THROUGHLINE SVG TRACKER */
+    #tlNav { position: fixed; left: 20px; top: 0; width: 12px; height: 100vh; z-index: 90; pointer-events: none; overflow: visible; display: none; }
+    @media (min-width: 900px) { #tlNav { display: block; } }
+    #tlFill { filter: drop-shadow(0 0 4px rgba(61,107,79,0.9)) drop-shadow(0 0 8px rgba(61,107,79,0.5)); }
+
+    /* NAV */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 24px 64px; display: flex; justify-content: space-between; align-items: center; background: rgba(245,240,232,.93); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(44,62,53,.08); }
+    .nav-logo-svg { height: 60px; width: auto; display: block; }
+    .nav-logo-svg .logo-wave    { stroke: var(--muted-sage); transition: stroke-width .3s ease; }
+    .nav-logo-svg .logo-dot     { fill: var(--terracotta); transition: transform .4s cubic-bezier(.34,1.56,.64,1); transform-box: fill-box; transform-origin: center; }
+    a:hover .nav-logo-svg .logo-dot  { transform: scale(1.35); }
+    a:hover .nav-logo-svg .logo-wave { stroke-width: 3.6; }
+    .nav-logo-svg .logo-text    { fill: var(--deep-forest); }
+    .nav-logo-svg .logo-line    { stroke: var(--sage-green); opacity: .45; }
+    .nav-logo-svg .logo-tagline { fill: var(--muted-sage); }
+    .nav-links { display: flex; gap: 24px; list-style: none; align-items: center; }
+    .nav-links a { font-size: 9.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--deep-forest); transition: opacity .25s; white-space: nowrap; }
+    .nav-links a:hover { opacity: .5; }
+    .nav-links a.active { color: #9D5537; }
+    .nav-linkedin { display: flex; align-items: center; opacity: .5; transition: opacity .2s; }
+    .nav-linkedin:hover { opacity: 1; }
+
+    /* REVEAL */
+    .js-ready .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s cubic-bezier(.215,.61,.355,1), transform .9s cubic-bezier(.215,.61,.355,1); }
+    .js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .js-ready .reveal { opacity: 1; transform: none; transition: none; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+    }
+
+    /* FOOTER */
+    .site-footer { background: var(--deep-forest); border-top: 1px solid rgba(245,240,232,.08); padding: 24px 52px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 10px; font-weight: 400; letter-spacing: .1em; color: rgba(245,240,232,.6); }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,232,.6); transition: color .25s; }
+    .footer-links a:hover { color: rgba(245,240,232,.7); }
+
+    @media (max-width: 1100px) { .nav-links { display: none; } }
+    @media (max-width: 900px) { .nav { padding: 20px 36px; } }
+    @media (max-width: 720px) {
+      .nav { padding: 16px 24px; }
+      .nav-logo-svg { height: 52px; }
+      .site-footer { padding: 20px 24px; flex-direction: column; align-items: flex-start; }
+    }
+    /* ── MOBILE NAV ── */
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; align-items: center; justify-content: center; background: none; border: none; padding: 6px; width: 36px; height: 36px; flex-shrink: 0; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--deep-forest); border-radius: 2px; transform-origin: center; transition: transform .32s cubic-bezier(.215,.61,.355,1), opacity .22s, background .22s; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); background: var(--terracotta); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); background: var(--terracotta); }
+    @media (max-width: 1100px) { .nav-hamburger { display: flex; } }
+
+    .nav-mobile { position: fixed; inset: 0; z-index: 195; background: var(--deep-forest); display: flex; flex-direction: column; justify-content: center; padding: 80px 40px 60px; opacity: 0; pointer-events: none; transition: opacity .32s cubic-bezier(.215,.61,.355,1); }
+    .nav-mobile.open { opacity: 1; pointer-events: all; }
+    .nav-mobile a { font-family: var(--font-body); font-size: 28px; font-weight: 900; letter-spacing: -.025em; color: rgba(245,240,232,.65); padding: 20px 0; display: block; border-bottom: 1px solid rgba(245,240,232,.08); opacity: 0; transform: translateY(14px); transition: opacity .38s cubic-bezier(.215,.61,.355,1), transform .38s cubic-bezier(.215,.61,.355,1), color .2s; }
+    .nav-mobile a:last-child { border-bottom: none; }
+    .nav-mobile a.active { color: #D2967C; }
+    .nav-mobile a:hover { color: var(--cream); }
+    .nav-mobile.open a { opacity: 1; transform: none; }
+    .nav-mobile.open a:nth-child(1) { transition-delay: .04s; }
+    .nav-mobile.open a:nth-child(2) { transition-delay: .09s; }
+    .nav-mobile.open a:nth-child(3) { transition-delay: .14s; }
+    .nav-mobile.open a:nth-child(4) { transition-delay: .19s; }
+    .nav-mobile.open a:nth-child(5) { transition-delay: .24s; }
+
+    /* COOKIE CONSENT BANNER */
+    .cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:9000;background:var(--deep-forest);border-top:1px solid rgba(245,240,232,.12);padding:20px 40px;transform:translateY(100%);transition:transform .4s cubic-bezier(.215,.61,.355,1);}
+    .cookie-banner.visible{transform:translateY(0);}
+    .cookie-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+    .cookie-text{font-size:12px;font-weight:300;color:rgba(245,240,232,.7);line-height:1.65;}
+    .cookie-text a{color:#8FAB8C;text-decoration:underline;}
+    .cookie-actions{display:flex;gap:10px;flex-shrink:0;}
+    .cookie-btn{font-family:var(--font-body);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:10px 22px;border-radius:9999px;border:none;transition:opacity .2s;}
+    .cookie-btn-decline{background:transparent;color:rgba(245,240,232,.55);border:1px solid rgba(245,240,232,.2);}
+    .cookie-btn-decline:hover{color:rgba(245,240,232,.9);border-color:rgba(245,240,232,.5);}
+    .cookie-btn-accept{background:#A55939;color:var(--cream);}
+    .cookie-btn-accept:hover{opacity:.85;}
+    @media(max-width:720px){.cookie-banner{padding:20px 24px;}.cookie-inner{flex-direction:column;align-items:flex-start;gap:16px;}}
+  </style>
+  <link rel="stylesheet" href="/assets/site.css">
+  <!-- Google tag (gtag.js) — Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XB1J0CMTXV"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied'
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-XB1J0CMTXV');
+  </script>
+  <link rel="stylesheet" href="/assets/site.css">
+<style>
+.rv-top{max-width:1200px;margin:0 auto;padding:140px 80px 8px}.rv-top p{max-width:720px}.rv-block .study-head{padding-top:20px}.rv-block .study-body{padding-top:48px}
+.rv-top h1{font-family:var(--font-display);font-weight:400;font-size:clamp(30px,4vw,46px);letter-spacing:-.03em;line-height:1.1;color:var(--deep-forest)}
+.rv-top p{margin-top:16px;font-size:17px;line-height:1.7;color:var(--ink-2)}
+.rv-flag{display:inline-block;margin-bottom:16px;padding:6px 12px;border-radius:9999px;background:var(--cream-d,#EDE8DC);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#9D5537}
+.rv-block{padding:56px 0 24px;border-top:1px solid var(--rule)}
+.rv-block:first-of-type{margin-top:40px}
+.rv-tag{max-width:1200px;margin:0 auto;padding:0 80px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#9D5537}
+.rv-check{max-width:1040px;margin:24px auto 0;padding:28px 24px;border:1px solid var(--rule);border-radius:14px;background:#FBF8F2}
+.rv-check h2{font-family:var(--font-display);font-weight:400;font-size:22px;color:var(--deep-forest)}
+.rv-check ul{list-style:none;margin-top:14px}.rv-check li{padding:8px 0;font-size:16px;line-height:1.6;color:var(--ink-2)}
+.rv-check input{margin-right:8px;accent-color:#3D6B4F}
+.rv-q{margin-top:16px;font-size:15px;color:var(--ink-2)}
+@media(max-width:1100px){.rv-top,.rv-tag{padding-left:40px;padding-right:40px}.rv-check{margin-left:40px;margin-right:40px}}
+@media(max-width:720px){.rv-top,.rv-tag{padding-left:24px;padding-right:24px}.rv-check{margin-left:24px;margin-right:24px}}
+</style>
+</head>
+<body class="study">
+
+  <svg id="tlNav" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <line x1="6" y1="0" x2="6" y2="10000" stroke="#3D6B4F" stroke-width="1" opacity="0.18" stroke-dasharray="5 7"/>
+    <line id="tlFill" x1="6" y1="0" x2="6" y2="0" stroke="#3D6B4F" stroke-width="2" stroke-linecap="round"/>
+    <circle id="tlTip" cx="6" cy="0" r="4" fill="#C2714F" opacity="0" style="filter:drop-shadow(0 0 4px rgba(194,113,79,0.8));"/>
+  </svg>
+
+  <nav class="nav">
+    <a href="/">
+      <svg class="nav-logo-svg" viewBox="0 0 520 140" xmlns="http://www.w3.org/2000/svg" aria-label="Throughline Co.">
+        <path class="logo-wave" d="M32 68 C48 44, 72 44, 88 68 C104 92, 128 92, 144 68 C160 44, 184 44, 200 68" fill="none" stroke-width="2.8" stroke-linecap="round"/>
+        <circle class="logo-dot" cx="200" cy="68" r="5"/>
+        <text class="logo-text" x="228" y="78" font-family="Georgia, serif" font-size="42" font-weight="400" letter-spacing="-0.5">Throughline Co.</text>
+        <line class="logo-line" x1="228" y1="90" x2="498" y2="90" stroke-width="0.8"/>
+        <text class="logo-tagline" x="228" y="108" font-family="Georgia, serif" font-size="11" letter-spacing="1.8">PURPOSE-DRIVEN BRAND STRATEGY</text>
+      </svg>
+    </a>
+    <ul class="nav-links">
+      <li class="nav-group"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="navWho">Who we help<svg class="nav-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3"/></svg></button>
+        <div class="nav-panel" id="navWho"><a href="/for-emerging-brands">Emerging brands<span>A real product, and a story that is not landing yet</span></a><a href="/for-established-brands">Established brands<span>Rebrands for businesses that have outgrown their image</span></a><a href="/b2b-marketing">B2B brands<span>Fintech, SaaS and founder-led B2B companies</span></a></div></li>
+      <li><a href="/services">Services</a></li><li><a href="/work" class="active">Work</a></li><li><a href="/about">About</a></li><li><a href="/faq">FAQ</a></li><li><a href="/contact" class="nav-cta">Book a call</a></li>
+    </ul>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="nav-mobile" id="navMobile" aria-label="Site navigation" aria-hidden="true">
+    <a href="/for-emerging-brands">For Emerging Brands</a>
+    <a href="/for-established-brands">For Established Brands</a>
+    <a href="/b2b-marketing" class="active">For B2B Brands</a>
+    <a href="/services">Services</a>
+    <a href="/work" class="active">Work</a>
+    <a href="/about">About</a>
+    <a href="/faq">FAQ</a>
+    <a href="/contact">Contact</a>
+  </div>
+
+
+  <main><div class="rv-top"><span class="rv-flag">Draft for review. Not published.</span>
+<h1>Two case studies, for your approval.</h1>
+<p>This page is private. It is not linked from our website and search engines are told to skip it. Below are the two case studies exactly as we would publish them. Your company name, link and screenshots are left out until you say they can go in. Tick what is accurate, tell us what to change, and we will update this page before anything goes live.</p></div><section class="rv-block">
+      <p class="rv-tag">Case study 1</p>
+      <header class="study-head">
+      
+      <h1 class="study-title reveal">DF</h1>
+      <p class="study-dek reveal">A B2B email marketing company needed a site that qualifies buyers before the first call.</p>
+      <div class="study-lede reveal"><blockquote class="study-quote"><p>Most visitors were not a fit yet, and the site had nothing to tell them.</p><cite>From our project log, September 2026</cite></blockquote></div>
+      <dl class="study-meta reveal"><div><dt>Who</dt><dd>Done-for-you email marketing for e-commerce brands</dd></div><div><dt>Where</dt><dd>United States</dd></div><div><dt>When</dt><dd>August 2026 to now</dd></div><div><dt>What we did</dt><dd>Website, buyer qualification, AI search, operations</dd></div></dl>
+    </header>
+      <div class="study-body">
+      <section class="study-section reveal"><h2>A sales team spending calls on the wrong buyers.</h2><div class="study-copy"><p>DF sells a done-for-you email system to product brands. Not every brand is ready for it, and the old approach was to find that out on a sales call. The alternative most B2B sites take is a contact form and hope.</p><p>We built the site to do the sorting first: tell visitors who it is for, who it is not for, and where to start if they are not ready yet.</p></div></section><section class="study-section reveal"><h2>What we built</h2><div class="study-copy"><ul class="study-list"><li><strong>A 16-page site</strong><span>Designed, written and built from the first commit on August 19, live on its own domain.</span></li><li><strong>Fit Check</strong><span>A short branching quiz that tells a visitor whether they are a fit and what to start with, before they book.</span></li><li><strong>AI search readiness</strong><span>Every page prerendered so AI crawlers can read it, with structured data for the company, services, FAQs and podcast.</span></li><li><strong>Accessibility</strong><span>An accessibility statement, audits on every page, and fixes for every contrast and text-size issue found.</span></li><li><strong>Operations</strong><span>A policies and procedures system, a file-naming protocol, a daily work log and weekly reporting.</span></li></ul></div></section><section class="study-section reveal"><h2>What changed</h2><div class="study-copy"><ul class="study-results"><li><b>99 / 100 / 100</b><span>Lighthouse performance, accessibility and SEO on desktop, re-measured October 4, 2026.</span></li><li><b>−28%</b><span>Homepage weight, 860 KB to 616 KB, in one speed pass.</span></li><li><b>0 errors</b><span>Structured data validation. All 60 site links checked and working.</span></li></ul><p class="study-note">These are technical measures. The client&#x27;s results are not ours to publish. The company name, link and screenshots will be added once the client signs off.</p></div></section>
+    </div>
+      <div class="rv-check"><h2>Please check these before anything is published</h2>
+        <ul><li><label><input type="checkbox"> The page describes DF as a done-for-you email marketing company for product brands.</label></li><li><label><input type="checkbox"> A 16-page site, designed, written and built by us from August 19, 2026.</label></li><li><label><input type="checkbox"> The Fit Check quiz, which tells visitors whether they are a fit before they book.</label></li><li><label><input type="checkbox"> Lighthouse scores of 99 (performance), 100 (accessibility) and 100 (SEO), measured October 4, 2026.</label></li><li><label><input type="checkbox"> Homepage weight cut 28 percent (860 KB to 616 KB).</label></li></ul>
+        <p class="rv-q">Edits, cuts or anything we got wrong? Reply to Riya and we will change it. Nothing goes on the public site until you say yes.</p></div>
+    </section><section class="rv-block">
+      <p class="rv-tag">Case study 2</p>
+      <header class="study-head">
+      
+      <h1 class="study-title reveal">BLC</h1>
+      <p class="study-dek reveal">A cigar community on an aging WordPress site, in a category where the law limits what you can say.</p>
+      <div class="study-lede reveal"><blockquote class="study-quote"><p>Compliance was a design constraint from day one, not a review at the end.</p><cite>How we approached the build</cite></blockquote></div>
+      <dl class="study-meta reveal"><div><dt>Who</dt><dd>Cigar content and community platform</dd></div><div><dt>Where</dt><dd>Canada</dd></div><div><dt>When</dt><dd>September 2026</dd></div><div><dt>What we did</dt><dd>Website rebuild, content migration, compliance, social</dd></div></dl>
+    </header>
+      <div class="study-body">
+      <section class="study-section reveal"><h2>A big library, an old site, and strict rules.</h2><div class="study-copy"><p>BLC is a free platform for cigar reviews, education, a podcast and a community. It sells nothing. Its content lived on an aging WordPress site, and in Canada, tobacco law limits what any cigar brand can show and say.</p><p>The alternative was a fresh coat of paint on the old site. Instead we rebuilt it, moved every piece of content across, and wrote the legal limits into the content rules before a single page was published.</p></div></section><section class="study-section reveal"><h2>What we built</h2><div class="study-copy"><ul class="study-list"><li><strong>Rebuilt site</strong><span>Reviews, education, a cigar database, events, a community hub, search and filters, behind an age gate.</span></li><li><strong>Content migration</strong><span>18 articles, 7 guides, 28 new releases, 117 community photos and 791 glossary terms parsed from the old site by script.</span></li><li><strong>Compliance</strong><span>Content guardrails written against the tobacco act, AI-image disclosure, and an audit of 86 images for identifiable people.</span></li><li><strong>Voice system</strong><span>A founder voice guide built from about 46,000 words of real transcripts, across story, podcast and written registers.</span></li><li><strong>Social and podcast</strong><span>Instagram highlight icons, a podcast intro and outro, and an episode thumbnail kit.</span></li></ul></div></section><section class="study-section reveal"><h2>What changed</h2><div class="study-copy"><ul class="study-results"><li><b>About 2 weeks</b><span>From first commit (September 11) to the new site live on its own domain, replacing WordPress.</span></li><li><b>149 pages</b><span>Indexed in the new sitemap.</span></li><li><b>−79%</b><span>Gallery image weight, 99.4 MB down to 20.5 MB.</span></li></ul><p class="study-note">The brand name, link and screenshots will be added once the client signs off.</p></div></section>
+    </div>
+      <div class="rv-check"><h2>Please check these before anything is published</h2>
+        <ul><li><label><input type="checkbox"> The page describes BLC as a free cigar reviews, education, podcast and community platform.</label></li><li><label><input type="checkbox"> About two weeks from first commit (September 11, 2026) to the new site live, replacing WordPress.</label></li><li><label><input type="checkbox"> 149 pages in the new sitemap, and 791 glossary terms moved across by script.</label></li><li><label><input type="checkbox"> The compliance work: content guardrails written against Canada&#x27;s tobacco advertising rules, and an audit of 86 images.</label></li><li><label><input type="checkbox"> Gallery image weight cut 79 percent (99.4 MB to 20.5 MB).</label></li></ul>
+        <p class="rv-q">Edits, cuts or anything we got wrong? Reply to Riya and we will change it. Nothing goes on the public site until you say yes.</p></div>
+    </section></main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p class="footer-copy">Throughline Co. &middot; &copy; 2026 &middot; All rights reserved</p>
+    <nav class="footer-links">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms of Service</a>
+      <a href="/accessibility">Accessibility</a>
+      <a href="#" onclick="window.tlcoOpenConsent&&window.tlcoOpenConsent();return false;">Cookie settings</a>
+      <a href="https://www.linkedin.com/company/throughline-co/" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
+  </footer>
+
+
+  <script>
+    // Scroll reveal
+    document.body.classList.add('js-ready');
+    var revealObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.04, rootMargin: '0px 0px -24px 0px' });
+    document.querySelectorAll('.reveal').forEach(function (el) { revealObs.observe(el); });
+
+    // Throughline SVG scroll tracker
+    (function () {
+      var tlNav = document.getElementById('tlNav'), tlFill = document.getElementById('tlFill'), tlTip = document.getElementById('tlTip');
+      if (!tlNav || !tlFill || window.innerWidth < 900) return;
+      var y = 0, raf;
+      function frame() { var h = document.body.scrollHeight - window.innerHeight; var p = h > 0 ? Math.min(window.scrollY / h, 1) : 0; y = y + (p * window.innerHeight - y) * 0.12; tlFill.setAttribute('y2', y); if (tlTip) { tlTip.setAttribute('cy', y); tlTip.setAttribute('opacity', y > 4 ? '1' : '0'); } raf = requestAnimationFrame(frame); }
+      frame();
+      window.addEventListener('resize', function () { cancelAnimationFrame(raf); y = 0; frame(); }, { passive: true });
+    }());
+
+    // Dot cursor
+    (function () {
+      if (!matchMedia('(pointer:fine) and (hover:hover)').matches) return;
+      var c = document.createElement('div');
+      c.style.cssText = 'position:fixed;pointer-events:none;z-index:9999;width:10px;height:10px;border-radius:50%;background:#C2714F;transform:translate(-50%,-50%);opacity:0;left:-20px;top:-20px;';
+      document.body.appendChild(c);
+      document.addEventListener('mousemove', function (e) { c.style.opacity = '1'; c.style.left = e.clientX + 'px'; c.style.top = e.clientY + 'px'; }, { passive: true });
+      document.addEventListener('mouseleave', function () { c.style.opacity = '0'; });
+    }());
+
+    // Mobile hamburger nav
+    (function () {
+      var b = document.getElementById('navHamburger'), o = document.getElementById('navMobile');
+      if (!b || !o) return;
+      function t(open) { b.classList.toggle('open', open); o.classList.toggle('open', open); b.setAttribute('aria-expanded', String(open)); o.setAttribute('aria-hidden', String(!open)); document.body.style.overflow = open ? 'hidden' : ''; }
+      b.addEventListener('click', function () { t(!b.classList.contains('open')); });
+      o.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { t(false); }); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') t(false); });
+    }());
+
+    (function(){var KEY='tlco_consent_v1',stored=localStorage.getItem(KEY);function grantAnalytics(){if(window.gtag)gtag('consent','update',{analytics_storage:'granted',ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted'});if(!window._liLoaded){window._liLoaded=true;window._linkedin_partner_id='9504276';window._linkedin_data_partner_ids=window._linkedin_data_partner_ids||[];window._linkedin_data_partner_ids.push('9504276');(function(l){if(!l){window.lintrk=function(a,b){window.lintrk.q.push([a,b])};window.lintrk.q=[];}var s=document.getElementsByTagName('script')[0],b=document.createElement('script');b.type='text/javascript';b.async=true;b.src='https://snap.licdn.com/li.lms-analytics/insight.min.js';s.parentNode.insertBefore(b,s);})(window.lintrk);}}if(stored==='accepted'){grantAnalytics();}document.addEventListener('DOMContentLoaded',function(){var banner=document.getElementById('cookieBanner');function show(){if(banner)banner.classList.add('visible');}function hide(){if(banner)banner.classList.remove('visible');}window.tlcoOpenConsent=function(){localStorage.removeItem(KEY);show();};if(!stored){show();}var ac=document.getElementById('cookieAccept'),dc=document.getElementById('cookieDecline');if(ac)ac.addEventListener('click',function(){localStorage.setItem(KEY,'accepted');hide();grantAnalytics();});if(dc)dc.addEventListener('click',function(){localStorage.setItem(KEY,'declined');hide();});});}());
+  </script>
+
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie consent">
+    <div class="cookie-inner">
+      <p class="cookie-text">We use analytics cookies to understand how visitors use our site. Essential cookies are always on. <a href="/privacy">Read our privacy policy</a></p>
+      <div class="cookie-actions">
+        <button class="cookie-btn cookie-btn-decline" id="cookieDecline">Decline</button>
+        <button class="cookie-btn cookie-btn-accept" id="cookieAccept">Accept</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    console.log('%cLooking for the throughline?', 'font-size:16px;font-weight:bold;color:#C2714F;');
+    console.log('%cWe find them for brands like yours. throughline.community/contact', 'font-size:12px;color:#2C3E35;');
+  </script>
+  <script src="/assets/site.js" defer></script>
+  <script src="/assets/site.js" defer></script>
+</body>
+</html>

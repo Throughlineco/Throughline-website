@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BLC case study for review | Throughline Co.</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="How Throughline Co. built a 16-page B2B website for an email marketing company, with a self-qualification funnel, AI-search-ready structure and Lighthouse scores of 99 to 100.">
+                    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Merriweather:ital,wght@0,400;1,300;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --cream:       #F5F0E8;
+      --cream-d:     #EDE8DC;
+      --deep-forest: #2C3E35;
+      --sage-green:  #3D6B4F;
+      --muted-sage:  #8BA888;
+      --terracotta:  #C2714F;
+      --font-display:'Merriweather', Georgia, serif;
+      --font-body:   'Lato', Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--cream); scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body); font-weight: 300; font-size: 14px; line-height: 1;
+      background: var(--cream); color: var(--deep-forest);
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    ::selection { background: #ffccc1; color: var(--deep-forest); }
+    a { color: inherit; text-decoration: none; }
+
+    @media (pointer: fine) and (hover: hover) { * { cursor: none !important; } }
+
+    /* THROUGHLINE SVG TRACKER */
+    #tlNav { position: fixed; left: 20px; top: 0; width: 12px; height: 100vh; z-index: 90; pointer-events: none; overflow: visible; display: none; }
+    @media (min-width: 900px) { #tlNav { display: block; } }
+    #tlFill { filter: drop-shadow(0 0 4px rgba(61,107,79,0.9)) drop-shadow(0 0 8px rgba(61,107,79,0.5)); }
+
+    /* NAV */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 24px 64px; display: flex; justify-content: space-between; align-items: center; background: rgba(245,240,232,.93); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(44,62,53,.08); }
+    .nav-logo-svg { height: 60px; width: auto; display: block; }
+    .nav-logo-svg .logo-wave    { stroke: var(--muted-sage); transition: stroke-width .3s ease; }
+    .nav-logo-svg .logo-dot     { fill: var(--terracotta); transition: transform .4s cubic-bezier(.34,1.56,.64,1); transform-box: fill-box; transform-origin: center; }
+    a:hover .nav-logo-svg .logo-dot  { transform: scale(1.35); }
+    a:hover .nav-logo-svg .logo-wave { stroke-width: 3.6; }
+    .nav-logo-svg .logo-text    { fill: var(--deep-forest); }
+    .nav-logo-svg .logo-line    { stroke: var(--sage-green); opacity: .45; }
+    .nav-logo-svg .logo-tagline { fill: var(--muted-sage); }
+    .nav-links { display: flex; gap: 24px; list-style: none; align-items: center; }
+    .nav-links a { font-size: 9.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--deep-forest); transition: opacity .25s; white-space: nowrap; }
+    .nav-links a:hover { opacity: .5; }
+    .nav-links a.active { color: #9D5537; }
+    .nav-linkedin { display: flex; align-items: center; opacity: .5; transition: opacity .2s; }
+    .nav-linkedin:hover { opacity: 1; }
+
+    /* REVEAL */
+    .js-ready .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s cubic-bezier(.215,.61,.355,1), transform .9s cubic-bezier(.215,.61,.355,1); }
+    .js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .js-ready .reveal { opacity: 1; transform: none; transition: none; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+    }
+
+    /* FOOTER */
+    .site-footer { background: var(--deep-forest); border-top: 1px solid rgba(245,240,232,.08); padding: 24px 52px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 10px; font-weight: 400; letter-spacing: .1em; color: rgba(245,240,232,.6); }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,232,.6); transition: color .25s; }
+    .footer-links a:hover { color: rgba(245,240,232,.7); }
+
+    @media (max-width: 1100px) { .nav-links { display: none; } }
+    @media (max-width: 900px) { .nav { padding: 20px 36px; } }
+    @media (max-width: 720px) {
+      .nav { padding: 16px 24px; }
+      .nav-logo-svg { height: 52px; }
+      .site-footer { padding: 20px 24px; flex-direction: column; align-items: flex-start; }
+    }
+    /* ── MOBILE NAV ── */
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; align-items: center; justify-content: center; background: none; border: none; padding: 6px; width: 36px; height: 36px; flex-shrink: 0; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--deep-forest); border-radius: 2px; transform-origin: center; transition: transform .32s cubic-bezier(.215,.61,.355,1), opacity .22s, background .22s; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); background: var(--terracotta); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); background: var(--terracotta); }
+    @media (max-width: 1100px) { .nav-hamburger { display: flex; } }
+
+    .nav-mobile { position: fixed; inset: 0; z-index: 195; background: var(--deep-forest); display: flex; flex-direction: column; justify-content: center; padding: 80px 40px 60px; opacity: 0; pointer-events: none; transition: opacity .32s cubic-bezier(.215,.61,.355,1); }
+    .nav-mobile.open { opacity: 1; pointer-events: all; }
+    .nav-mobile a { font-family: var(--font-body); font-size: 28px; font-weight: 900; letter-spacing: -.025em; color: rgba(245,240,232,.65); padding: 20px 0; display: block; border-bottom: 1px solid rgba(245,240,232,.08); opacity: 0; transform: translateY(14px); transition: opacity .38s cubic-bezier(.215,.61,.355,1), transform .38s cubic-bezier(.215,.61,.355,1), color .2s; }
+    .nav-mobile a:last-child { border-bottom: none; }
+    .nav-mobile a.active { color: #D2967C; }
+    .nav-mobile a:hover { color: var(--cream); }
+    .nav-mobile.open a { opacity: 1; transform: none; }
+    .nav-mobile.open a:nth-child(1) { transition-delay: .04s; }
+    .nav-mobile.open a:nth-child(2) { transition-delay: .09s; }
+    .nav-mobile.open a:nth-child(3) { transition-delay: .14s; }
+    .nav-mobile.open a:nth-child(4) { transition-delay: .19s; }
+    .nav-mobile.open a:nth-child(5) { transition-delay: .24s; }
+
+    /* COOKIE CONSENT BANNER */
+    .cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:9000;background:var(--deep-forest);border-top:1px solid rgba(245,240,232,.12);padding:20px 40px;transform:translateY(100%);transition:transform .4s cubic-bezier(.215,.61,.355,1);}
+    .cookie-banner.visible{transform:translateY(0);}
+    .cookie-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+    .cookie-text{font-size:12px;font-weight:300;color:rgba(245,240,232,.7);line-height:1.65;}
+    .cookie-text a{color:#8FAB8C;text-decoration:underline;}
+    .cookie-actions{display:flex;gap:10px;flex-shrink:0;}
+    .cookie-btn{font-family:var(--font-body);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:10px 22px;border-radius:9999px;border:none;transition:opacity .2s;}
+    .cookie-btn-decline{background:transparent;color:rgba(245,240,232,.55);border:1px solid rgba(245,240,232,.2);}
+    .cookie-btn-decline:hover{color:rgba(245,240,232,.9);border-color:rgba(245,240,232,.5);}
+    .cookie-btn-accept{background:#A55939;color:var(--cream);}
+    .cookie-btn-accept:hover{opacity:.85;}
+    @media(max-width:720px){.cookie-banner{padding:20px 24px;}.cookie-inner{flex-direction:column;align-items:flex-start;gap:16px;}}
+  </style>
+  <link rel="stylesheet" href="/assets/site.css">
+  <!-- Google tag (gtag.js) — Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XB1J0CMTXV"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied'
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-XB1J0CMTXV');
+  </script>
+  <link rel="stylesheet" href="/assets/site.css">
+<style>
+.rv-top{max-width:1200px;margin:0 auto;padding:140px 80px 8px}
+.rv-top h1{font-family:var(--font-display);font-weight:400;font-size:clamp(26px,3.4vw,40px);letter-spacing:-.03em;line-height:1.1;color:var(--deep-forest)}
+.rv-top p{margin-top:16px;font-size:17px;line-height:1.7;color:var(--ink-2);max-width:720px}
+.rv-flag{display:inline-block;margin-bottom:16px;padding:6px 12px;border-radius:9999px;background:var(--cream-d,#EDE8DC);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#9D5537}
+.rv-study .study-head{padding-top:32px}
+.rv-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:28px}
+.rv-study .study-copy>.study-shot{margin-top:28px}
+.rv-open,.rv-check{max-width:1040px;margin:0 auto 24px;padding:28px 28px;border:1px solid var(--rule);border-radius:14px;background:#FBF8F2}
+.rv-open h2,.rv-check h2{font-family:var(--font-display);font-weight:400;font-size:22px;color:var(--deep-forest)}
+.rv-open ul,.rv-check ul{list-style:none;margin-top:14px}.rv-open li,.rv-check li{padding:7px 0;font-size:16px;line-height:1.6;color:var(--ink-2)}
+.rv-check input{margin-right:8px;accent-color:#3D6B4F}
+.rv-q{margin-top:16px;font-size:15px;color:var(--ink-2)}
+.rv-end{padding:24px 80px 96px}
+@media(max-width:1100px){.rv-top{padding-left:40px;padding-right:40px}.rv-end{padding-left:40px;padding-right:40px}}
+@media(max-width:720px){.rv-top{padding-left:24px;padding-right:24px}.rv-end{padding-left:24px;padding-right:24px}.rv-pair{grid-template-columns:1fr}}
+</style>
+</head>
+<body class="study">
+
+  <svg id="tlNav" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <line x1="6" y1="0" x2="6" y2="10000" stroke="#3D6B4F" stroke-width="1" opacity="0.18" stroke-dasharray="5 7"/>
+    <line id="tlFill" x1="6" y1="0" x2="6" y2="0" stroke="#3D6B4F" stroke-width="2" stroke-linecap="round"/>
+    <circle id="tlTip" cx="6" cy="0" r="4" fill="#C2714F" opacity="0" style="filter:drop-shadow(0 0 4px rgba(194,113,79,0.8));"/>
+  </svg>
+
+  <nav class="nav">
+    <a href="/">
+      <svg class="nav-logo-svg" viewBox="0 0 520 140" xmlns="http://www.w3.org/2000/svg" aria-label="Throughline Co.">
+        <path class="logo-wave" d="M32 68 C48 44, 72 44, 88 68 C104 92, 128 92, 144 68 C160 44, 184 44, 200 68" fill="none" stroke-width="2.8" stroke-linecap="round"/>
+        <circle class="logo-dot" cx="200" cy="68" r="5"/>
+        <text class="logo-text" x="228" y="78" font-family="Georgia, serif" font-size="42" font-weight="400" letter-spacing="-0.5">Throughline Co.</text>
+        <line class="logo-line" x1="228" y1="90" x2="498" y2="90" stroke-width="0.8"/>
+        <text class="logo-tagline" x="228" y="108" font-family="Georgia, serif" font-size="11" letter-spacing="1.8">PURPOSE-DRIVEN BRAND STRATEGY</text>
+      </svg>
+    </a>
+    <ul class="nav-links">
+      <li class="nav-group"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="navWho">Who we help<svg class="nav-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3"/></svg></button>
+        <div class="nav-panel" id="navWho"><a href="/for-emerging-brands">Emerging brands<span>A real product, and a story that is not landing yet</span></a><a href="/for-established-brands">Established brands<span>Rebrands for businesses that have outgrown their image</span></a><a href="/b2b-marketing">B2B brands<span>Fintech, SaaS and founder-led B2B companies</span></a></div></li>
+      <li><a href="/services">Services</a></li><li><a href="/work" class="active">Work</a></li><li><a href="/about">About</a></li><li><a href="/faq">FAQ</a></li><li><a href="/contact" class="nav-cta">Book a call</a></li>
+    </ul>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="nav-mobile" id="navMobile" aria-label="Site navigation" aria-hidden="true">
+    <a href="/for-emerging-brands">For Emerging Brands</a>
+    <a href="/for-established-brands">For Established Brands</a>
+    <a href="/b2b-marketing" class="active">For B2B Brands</a>
+    <a href="/services">Services</a>
+    <a href="/work" class="active">Work</a>
+    <a href="/about">About</a>
+    <a href="/faq">FAQ</a>
+    <a href="/contact">Contact</a>
+  </div>
+
+
+  <main class="rv-study">
+    <div class="rv-top"><span class="rv-flag">Draft for review. Not published.</span>
+      <h1>BLC case study, for your approval.</h1>
+      <p>This page is private. It is not linked from our website and search engines are told to skip it, but anyone with the address can open it, so please do not forward it. It shows the case study as we would publish it. Nothing goes on our public site until you say yes. Tick what is accurate, tell us what to change, and we will update this page first.</p></div>
+    <header class="study-head">
+      <h2 class="study-title">BLC</h2>
+      <p class="study-dek">A free cigar community built around a blindfold, and a country where the law decides what a cigar site may say.</p>
+      <div class="study-lede"><blockquote class="study-quote"><p>Compliance was a design constraint from day one, not a review at the end.</p><cite>How we approached the build</cite></blockquote></div>
+      <dl class="study-meta"><div><dt>Who</dt><dd>Cigar reviews, education and community platform</dd></div><div><dt>Where</dt><dd>Canada</dd></div><div><dt>When</dt><dd>September 2026 to now</dd></div><div><dt>What we did</dt><dd>Rebuild, compliance, founder voice, content migration, handover</dd></div></dl>
+    </header>
+    <div class="study-body"><section class="study-section"><h2>A club named after a blindfold.</h2><div class="study-copy"><p>BLC runs on one idea: judge the cigar, not the label. Its founder has smoked cigars for forty years and, by his own telling, was not a fan of the first five. Today BLC is a free community with honest reviews, a podcast, a glossary of 791 terms and informal meetups in city lounges. It sells nothing. No cigars, no memberships.</p><p>The old site had grown one page at a time, and it showed. It did a great deal, with a search bar, a chat bubble, poster-weight type and a crowded menu, and the calm, curious tone of the brand was hard to find in it. The job was to make the site sound like the person.</p><div class="rv-pair"><figure class="study-shot"><img src="/assets/work/blc/old-home.webp" width="1280" height="679" alt="BLC’s previous website home page" loading="lazy" decoding="async"><figcaption>The old site.</figcaption></figure><figure class="study-shot"><img src="/assets/work/blc/new-home.webp" width="1280" height="720" alt="BLC’s new website home page: Some cigars age well. Most of us don’t." loading="lazy" decoding="async"><figcaption>The new site, past the age gate.</figcaption></figure></div></div></section><section class="study-section"><h2>We started with the law, and got it wrong first.</h2><div class="study-copy"><p>In Canada, tobacco law limits what any cigar brand can show and say. On day four we researched the rules and wrote a first set of content guardrails. We assumed the strictest reading: that even review and community content could count as promotion. So we banned purchase recommendations and lifestyle framing outright.</p><p>Three days later the founder shared the compliance review he had already commissioned. It read the rule differently: unpaid commentary is not promotion, as long as no money or favors flow from a cigar maker or retailer. We threw out version one and rebuilt the guardrails around the review’s own four fences: no payment from makers or retailers, no links to cigar sellers, no cigar giveaways, and the same standard across every channel.</p><p>Two of our bans became style defaults, because the review confirmed they were lawful. Five questions were still open, so we wrote them down for the founder’s counsel instead of guessing.</p><p>The same care shows up in small places. The exact 21+ notice sits in the footer. An audit of all 86 article images found 34 with a person as the focal subject, and each now carries an AI-generated image label. One photo flagged as unlicensed came off the site.</p></div></section><section class="study-section"><h2>Sounding like him, without faking it.</h2><div class="study-copy"><p>BLC’s voice is one man’s voice. He says “so,” “now,” “you know” and “anyways.” He never says “delve” or “leverage.” To write in that voice without inventing a character, we read six transcripts, about 46,000 words, and pulled out the founder’s own lines: roughly 17,000 words.</p><p>We counted about 110 candidate habits, kept the ones he actually uses, and wrote down the words that never appear in his speech. The result is a voice guide with real quotes and a never-say list. Nothing in it is invented biography.</p><p>On the second pass we corrected ourselves. Two words we had banned turned out to be in his speech, so they moved from “never” to “avoid as filler.”</p></div></section><section class="study-section"><h2>Moving a library without losing a book.</h2><div class="study-copy"><p>The old site held 18 blog posts, 7 beginner guides, 28 new-release pages, 111 FAQs and a glossary. We moved it by script wherever the markup allowed. All 791 glossary terms, with pronunciations and category tiers, came across in one pass instead of being retyped.</p><p>When we checked the new-release pages against the old ones, only 7 of 28 were on the new site. We added the other 21, with their photos. The 117 event and lounge photos shrank from 99.4 MB to 20.5 MB, down 79 percent, so the gallery loads on a phone.</p><p>The founder caught one error himself. A review said Macanudo 1968. The cigar is a 1868, and its hero image showed a different band. We replaced it with the real photos already on file. Seven reviews were missing the founder’s own “From the Porch” story, so we asked, and he wrote all seven the next day.</p><figure class="study-shot"><img src="/assets/work/blc/new-reviews.webp" width="1280" height="720" alt="BLC reviews page showing the rating scale and review cards" loading="lazy" decoding="async"><figcaption>The new reviews page, with the BLC rating scale up front.</figcaption></figure></div></section><section class="study-section"><h2>A 26-page PDF became a shared list.</h2><div class="study-copy"><p>The founder’s revisions arrived as a 26-page PDF. We turned every note into its own tracked item: 90 items across 21 sections at first, 176 by September 22. Each item carries a status, a note on what we built, and a comment box, so the founder and his team could settle a question in the open instead of in a thread.</p><p>Where we disagreed with a note, we ran the options past a simulated panel of marketers instead of picking one. The homepage line “Built by people who actually smoke cigars” came out of that.</p></div></section><section class="study-section"><h2>The hardest part was the last mile.</h2><div class="study-copy"><p>On September 22 we found something awkward. About twenty commits of work were on GitHub and none of it was live. The domain still served the old site. We said so plainly instead of calling it launched.</p><p>Three days later the domain moved. We checked the live site ourselves rather than taking it on faith: a normal response, no trace of the old software, the right page title.</p></div></section><section class="study-section"><h2>Handing over the keys.</h2><div class="study-copy"><p>BLC should not need us for every edit. On September 29 we set the founder up to change his own site safely: an editor with Claude Code installed, a separate preview copy of the site, and one rule written into the project. Nothing goes to the live site until he has seen it on preview. A test photo went up on the preview that same day.</p><p>We switched some things off on purpose. The “Ash” chat helper kept answering “I don’t have a script for that,” so it is off behind one setting, and visitors go to the contact page until it is rebuilt. Instagram refuses to show cigar posts to logged-out visitors, so we hosted the founder’s two reels on the site instead of embedding them.</p></div></section><section class="study-section"><h2>What changed</h2><div class="study-copy"><ul class="study-results"><li><b>About 2 weeks</b><span>From the first push to GitHub (September 11) to the new site on its own domain (September 25).</span></li><li><b>791</b><span>Glossary terms moved across by script.</span></li><li><b>−79%</b><span>Gallery image weight, 99.4 MB down to 20.5 MB.</span></li><li><b>90 to 176</b><span>Tracked launch items, each with a status and a note.</span></li></ul><p class="study-note">These are delivery facts. BLC’s own results, such as members and podcast listens, are not ours to publish.</p></div></section></div>
+    <div class="rv-end">
+      <div class="rv-open"><h2>What is still open</h2><ul><li>Pushes to the live site are still manual. The hosting account has no automatic deploy connected yet.</li><li>The Ash helper is off until it is rebuilt.</li><li>Five compliance questions are with the founder’s counsel.</li></ul></div>
+      <div class="rv-check"><h2>Please check before anything is published</h2><ul><li><label><input type="checkbox"> BLC is described as a free community that sells nothing.</label></li><li><label><input type="checkbox"> The compliance story is told fairly: we first assumed the strict reading, then rebuilt around his compliance review. Please also check the wording about the law.</label></li><li><label><input type="checkbox"> The founder’s “forty years, not a fan of the first five” story can be told.</label></li><li><label><input type="checkbox"> The old and new site screenshots on this page can be public.</label></li><li><label><input type="checkbox"> The numbers: 791 glossary terms, 117 photos, 99.4 MB to 20.5 MB, and September 11 to September 25.</label></li><li><label><input type="checkbox"> The founder’s name, BLC’s name and link can appear on our public Work page.</label></li></ul>
+        <p class="rv-q">Edits, cuts, or anything we got wrong? Reply to Riya and we will change it.</p></div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p class="footer-copy">Throughline Co. &middot; &copy; 2026 &middot; All rights reserved</p>
+    <nav class="footer-links">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms of Service</a>
+      <a href="/accessibility">Accessibility</a>
+      <a href="#" onclick="window.tlcoOpenConsent&&window.tlcoOpenConsent();return false;">Cookie settings</a>
+      <a href="https://www.linkedin.com/company/throughline-co/" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
+  </footer>
+
+
+  <script>
+    // Scroll reveal
+    document.body.classList.add('js-ready');
+    var revealObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.04, rootMargin: '0px 0px -24px 0px' });
+    document.querySelectorAll('.reveal').forEach(function (el) { revealObs.observe(el); });
+
+    // Throughline SVG scroll tracker
+    (function () {
+      var tlNav = document.getElementById('tlNav'), tlFill = document.getElementById('tlFill'), tlTip = document.getElementById('tlTip');
+      if (!tlNav || !tlFill || window.innerWidth < 900) return;
+      var y = 0, raf;
+      function frame() { var h = document.body.scrollHeight - window.innerHeight; var p = h > 0 ? Math.min(window.scrollY / h, 1) : 0; y = y + (p * window.innerHeight - y) * 0.12; tlFill.setAttribute('y2', y); if (tlTip) { tlTip.setAttribute('cy', y); tlTip.setAttribute('opacity', y > 4 ? '1' : '0'); } raf = requestAnimationFrame(frame); }
+      frame();
+      window.addEventListener('resize', function () { cancelAnimationFrame(raf); y = 0; frame(); }, { passive: true });
+    }());
+
+    // Dot cursor
+    (function () {
+      if (!matchMedia('(pointer:fine) and (hover:hover)').matches) return;
+      var c = document.createElement('div');
+      c.style.cssText = 'position:fixed;pointer-events:none;z-index:9999;width:10px;height:10px;border-radius:50%;background:#C2714F;transform:translate(-50%,-50%);opacity:0;left:-20px;top:-20px;';
+      document.body.appendChild(c);
+      document.addEventListener('mousemove', function (e) { c.style.opacity = '1'; c.style.left = e.clientX + 'px'; c.style.top = e.clientY + 'px'; }, { passive: true });
+      document.addEventListener('mouseleave', function () { c.style.opacity = '0'; });
+    }());
+
+    // Mobile hamburger nav
+    (function () {
+      var b = document.getElementById('navHamburger'), o = document.getElementById('navMobile');
+      if (!b || !o) return;
+      function t(open) { b.classList.toggle('open', open); o.classList.toggle('open', open); b.setAttribute('aria-expanded', String(open)); o.setAttribute('aria-hidden', String(!open)); document.body.style.overflow = open ? 'hidden' : ''; }
+      b.addEventListener('click', function () { t(!b.classList.contains('open')); });
+      o.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { t(false); }); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') t(false); });
+    }());
+
+    (function(){var KEY='tlco_consent_v1',stored=localStorage.getItem(KEY);function grantAnalytics(){if(window.gtag)gtag('consent','update',{analytics_storage:'granted',ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted'});if(!window._liLoaded){window._liLoaded=true;window._linkedin_partner_id='9504276';window._linkedin_data_partner_ids=window._linkedin_data_partner_ids||[];window._linkedin_data_partner_ids.push('9504276');(function(l){if(!l){window.lintrk=function(a,b){window.lintrk.q.push([a,b])};window.lintrk.q=[];}var s=document.getElementsByTagName('script')[0],b=document.createElement('script');b.type='text/javascript';b.async=true;b.src='https://snap.licdn.com/li.lms-analytics/insight.min.js';s.parentNode.insertBefore(b,s);})(window.lintrk);}}if(stored==='accepted'){grantAnalytics();}document.addEventListener('DOMContentLoaded',function(){var banner=document.getElementById('cookieBanner');function show(){if(banner)banner.classList.add('visible');}function hide(){if(banner)banner.classList.remove('visible');}window.tlcoOpenConsent=function(){localStorage.removeItem(KEY);show();};if(!stored){show();}var ac=document.getElementById('cookieAccept'),dc=document.getElementById('cookieDecline');if(ac)ac.addEventListener('click',function(){localStorage.setItem(KEY,'accepted');hide();grantAnalytics();});if(dc)dc.addEventListener('click',function(){localStorage.setItem(KEY,'declined');hide();});});}());
+  </script>
+
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie consent">
+    <div class="cookie-inner">
+      <p class="cookie-text">We use analytics cookies to understand how visitors use our site. Essential cookies are always on. <a href="/privacy">Read our privacy policy</a></p>
+      <div class="cookie-actions">
+        <button class="cookie-btn cookie-btn-decline" id="cookieDecline">Decline</button>
+        <button class="cookie-btn cookie-btn-accept" id="cookieAccept">Accept</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    console.log('%cLooking for the throughline?', 'font-size:16px;font-weight:bold;color:#C2714F;');
+    console.log('%cWe find them for brands like yours. throughline.community/contact', 'font-size:12px;color:#2C3E35;');
+  </script>
+  <script src="/assets/site.js" defer></script>
+  <script src="/assets/site.js" defer></script>
+</body>
+</html>

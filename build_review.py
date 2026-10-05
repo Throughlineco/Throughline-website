@@ -117,6 +117,7 @@ STORIES = {
         ("The hardest part was the last mile.", [
             "On September 22 we found something awkward. About twenty commits of work were on GitHub and none of it was live. The domain still served the old site. We said so plainly instead of calling it launched.",
             "Three days later the domain moved. We checked the live site ourselves rather than taking it on faith: a normal response, no trace of the old software, the right page title.",
+            "One gap remained: pushing changes to the live branch did not deploy them, because the hosting account had no automatic deploy connected. That is now fixed, so a push to the live branch goes live on its own.",
         ], None),
         ("Handing over the keys.", [
             "BLC should not need us for every edit. On September 29 we set the founder up to change his own site safely: an editor with Claude Code installed, a separate preview copy of the site, and one rule written into the project. Nothing goes to the live site until he has seen it on preview. A test photo went up on the preview that same day.",
@@ -128,8 +129,7 @@ STORIES = {
              ("−79%", "Gallery image weight, 99.4 MB down to 20.5 MB."),
              ("90 to 176", "Tracked launch items, each with a status and a note.")],
     note="These are delivery facts. BLC’s own results, such as members and podcast listens, are not ours to publish.",
-    still_open=["Pushes to the live site are still manual. The hosting account has no automatic deploy connected yet.",
-                "The Ash helper is off until it is rebuilt.",
+    still_open=["The Ash helper is off until it is rebuilt.",
                 "Five compliance questions are with the founder’s counsel."],
     check=["BLC is described as a free community that sells nothing.",
            "The compliance story is told fairly: we first assumed the strict reading, then rebuilt around his compliance review. Please also check the wording about the law.",

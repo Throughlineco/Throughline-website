@@ -97,7 +97,7 @@ STORIES = {
         ("We started with the law, and got it wrong first.", [
             "In Canada, tobacco law limits what any cigar brand can show and say. On day four we researched the rules and wrote a first set of content guardrails. We assumed the strictest reading: that even review and community content could count as promotion. So we banned purchase recommendations and lifestyle framing outright.",
             "Three days later the founder shared the compliance review he had already commissioned. It read the rule differently: unpaid commentary is not promotion, as long as no money or favors flow from a cigar maker or retailer. We threw out version one and rebuilt the guardrails around the review’s own four fences: no payment from makers or retailers, no links to cigar sellers, no cigar giveaways, and the same standard across every channel.",
-            "Two of our bans became style defaults, because the review confirmed they were lawful. Five questions were still open, so we wrote them down for the founder’s counsel instead of guessing.",
+            "Two of our bans became style defaults, because the review confirmed they were lawful. Five questions were still open, so we wrote them down for the founder’s counsel instead of guessing. They have since been closed.",
             "The same care shows up in small places. The exact 21+ notice sits in the footer. An audit of all 86 article images found 34 with a person as the focal subject, and each now carries an AI-generated image label. One photo flagged as unlicensed came off the site.",
         ], None),
         ("Sounding like him, without faking it.", [
@@ -129,8 +129,7 @@ STORIES = {
              ("−79%", "Gallery image weight, 99.4 MB down to 20.5 MB."),
              ("90 to 176", "Tracked launch items, each with a status and a note.")],
     note="These are delivery facts. BLC’s own results, such as members and podcast listens, are not ours to publish.",
-    still_open=["The Ash helper is off until it is rebuilt.",
-                "Five compliance questions are with the founder’s counsel."],
+    still_open=["The Ash helper is off until it is rebuilt."],
     check=["BLC is described as a free community that sells nothing.",
            "The compliance story is told fairly: we first assumed the strict reading, then rebuilt around his compliance review. Please also check the wording about the law.",
            "The founder’s “forty years, not a fan of the first five” story can be told.",

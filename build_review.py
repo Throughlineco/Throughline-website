@@ -17,8 +17,8 @@ def fig(src, w, h, cap, alt):
             f'loading="lazy" decoding="async"><figcaption>{e(cap)}</figcaption></figure>')
 
 
-def pair(a, b):
-    return f'<div class="rv-pair">{a}{b}</div>'
+def pair(a, b, stack=False):
+    return f'<div class="rv-pair{" stack" if stack else ""}">{a}{b}</div>'
 
 
 STORIES = {
@@ -94,6 +94,17 @@ STORIES = {
             "The old site had grown one page at a time, and it showed. It did a great deal, with a search bar, a chat bubble, poster-weight type and a crowded menu, and the calm, curious tone of the brand was hard to find in it. The job was to make the site sound like the person.",
         ], pair(fig("blc/old-home", 1280, 679, "The old site.", "BLC’s previous website home page"),
                 fig("blc/new-home", 1280, 720, "The new site, past the age gate.", "BLC’s new website home page: Some cigars age well. Most of us don’t."))),
+        ("People could not find their way, so we cut the way in.", [
+            "The old site’s biggest problem was not how it looked. People did not know how to find their way around it. A visitor met two search boxes on the same page, a header with nine links and a button, a pop-up, a chat bubble and a home page with two main buttons. Every one of them was a reasonable idea. Together they asked a first-time visitor to make a lot of decisions before reading a word.",
+            "Most of our design choices came from that one problem. We gave the podcast and the newsletter their own links in the menu instead of burying them under Media. We kept a single “Join the community” button in the header, always in the same place. The home page now has one main button and one line, “See how BLC works.” The detail is in the pages below.",
+            "Some of it was subtraction on purpose. The founder’s two rating systems, the standard BLC score and the blind-tasting score, are both good. Put side by side at the top of the page, they would overwhelm a newcomer. We proposed giving the blind tasting its own “tasting of the week” section, built around one of his videos.",
+            pair(fig("blc/old-header", 1280, 120, "Before: a search bar, a utility bar and nine links.", "BLC old header"),
+                 fig("blc/new-header", 1280, 100, "After: eight links and one button.", "BLC new header"), stack=True),
+            pair(fig("blc/old-glossary", 1280, 800, "Before: a search in the header, another on the page, and page numbers in the toolbar.", "BLC old glossary page"),
+                 fig("blc/new-glossary", 1280, 800, "After: one search, a letter strip, color-coded tiers, and a count of what you are looking at.", "BLC new glossary page")),
+            pair(fig("blc/old-blog", 1280, 800, "Before: the blog with two search bars and several dropdowns.", "BLC old blog page"),
+                 fig("blc/new-blog", 1280, 800, "After: one search and four category buttons. Twelve inconsistent labels became one category per post.", "BLC new blog page")),
+        ], None),
         ("We started with the law, and got it wrong first.", [
             "In Canada, tobacco law limits what any cigar brand can show and say. On day four we researched the rules and wrote a first set of content guardrails. We assumed the strictest reading: that even review and community content could count as promotion. So we banned purchase recommendations and lifestyle framing outright.",
             "Three days later the founder shared the compliance review he had already commissioned. It read the rule differently: unpaid commentary is not promotion, as long as no money or favors flow from a cigar maker or retailer. We threw out version one and rebuilt the guardrails around the review’s own four fences: no payment from makers or retailers, no links to cigar sellers, no cigar giveaways, and the same standard across every channel.",
@@ -146,6 +157,7 @@ CSS = """<style>
 .rv-flag{display:inline-block;margin-bottom:16px;padding:6px 12px;border-radius:9999px;background:var(--cream-d,#EDE8DC);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#9D5537}
 .rv-study .study-head{padding-top:32px}
 .rv-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:28px}
+.rv-pair.stack{grid-template-columns:1fr}
 .rv-study .study-copy>.study-shot{margin-top:28px}
 .rv-open,.rv-check{max-width:1040px;margin:0 auto 24px;padding:28px 28px;border:1px solid var(--rule);border-radius:14px;background:#FBF8F2}
 .rv-open h2,.rv-check h2{font-family:var(--font-display);font-weight:400;font-size:22px;color:var(--deep-forest)}
@@ -163,7 +175,7 @@ def build(key):
     secs = ""
     for heading, paras, extra in s["chapters"]:
         secs += (f'<section class="study-section"><h2>{e(heading)}</h2><div class="study-copy">'
-                 + "".join(f"<p>{e(p)}</p>" for p in paras) + (extra or "") + "</div></section>")
+                 + "".join(p if p.startswith("<") else f"<p>{e(p)}</p>" for p in paras) + (extra or "") + "</div></section>")
     res = '<ul class="study-results">' + "".join(f"<li><b>{e(a)}</b><span>{e(b)}</span></li>" for a, b in s["results"]) + "</ul>"
     secs += (f'<section class="study-section"><h2>What changed</h2><div class="study-copy">{res}'
              f'<p class="study-note">{e(s["note"])}</p></div></section>')

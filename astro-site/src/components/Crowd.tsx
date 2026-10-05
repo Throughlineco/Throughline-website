@@ -26,15 +26,8 @@ export default function Crowd() {
 
     // Two rows on one ground line: the canvas bottom is the footer edge and every figure's lower
     // edge sits below it (clipped), so nobody floats. The back row stands slightly higher.
-    const spawn = (w: Walker, anywhere: boolean) => {
-      w.cell = pool[(Math.random() * pool.length) | 0];
-      w.dir = Math.random() < 0.5 ? 1 : -1;
-      w.speed = rand(30, 46) * scale * 3;
-      w.y = H - CH * scale + (w.back ? 36 : 62) * scale;
-      w.x = anywhere ? rand(-CW * scale, W) : w.dir > 0 ? -CW * scale : W;
-      w.phase = rand(0, 6.28);
-    };
-
+    // Each row is a conveyor: evenly spaced figures, one direction, one speed, so the crowd never clumps or leaves gaps.
+    const pick = () => pool[(Math.random() * pool.length) | 0];
     const draw = (t: number) => {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, W, H);
@@ -57,12 +50,19 @@ export default function Crowd() {
       W = el.clientWidth; H = el.clientHeight;
       canvas.width = W * dpr; canvas.height = H * dpr;
       scale = H / 360;
-      const perRow = Math.max(5, Math.ceil(W / (CW * scale * 0.42)));
+      const pw = CW * scale, perRow = Math.max(5, Math.ceil(W / (pw * 0.42)));
+      const span = W + pw + 20, gap = span / perRow;
       walkers = [];
-      for (let k = 0; k < perRow * 2; k++) {
-        const w = { back: k < perRow } as Walker;
-        spawn(w, true);
-        walkers.push(w);
+      for (let row = 0; row < 2; row++) {
+        for (let i = 0; i < perRow; i++) {
+          const back = row === 0;
+          walkers.push({
+            cell: pick(), back, dir: back ? 1 : -1, speed: (back ? 38 : 44) * scale * 3,
+            y: H - CH * scale + (back ? 36 : 62) * scale,
+            x: -pw - 10 + i * gap + (back ? 0 : gap / 2) + rand(-gap * 0.08, gap * 0.08),
+            phase: rand(0, 6.28),
+          });
+        }
       }
       draw(0);
     };
@@ -74,7 +74,9 @@ export default function Crowd() {
       last = t;
       for (const w of walkers) {
         w.x += w.dir * w.speed * dt;
-        if (w.x > W + 10 || w.x < -CW * scale - 10) spawn(w, false);
+        const span = W + CW * scale + 20;
+        if (w.x > W + 10) { w.x -= span; w.cell = pick(); }
+        else if (w.x < -CW * scale - 10) { w.x += span; w.cell = pick(); }
       }
       draw(t);
       raf = requestAnimationFrame(tick);

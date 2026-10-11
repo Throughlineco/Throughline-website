@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lohitha — Full Stack Developer</title>
+<meta name="description" content="Lohitha is a full stack developer building web products end to end in React, Node and Postgres.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="public/frames/center.webp">
+<style>
+  :root {
+    --bg: #0B231B;            /* sampled from the video's corners (extract_frames.py) */
+    --ink: #F4ECE2;           /* warm white, pulled from her skin highlights */
+    --ink-soft: rgba(244, 236, 226, .72);
+    --glass: rgba(255, 255, 255, .08);
+    --glass-line: rgba(255, 255, 255, .22);
+    --spring: cubic-bezier(.34, 1.4, .64, 1);
+    --ease-out: cubic-bezier(.22, 1, .36, 1);
+    --gutter: clamp(20px, 5vw, 72px);
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; background: var(--bg); color: var(--ink); overflow: hidden; }
+  body { font: 400 15px/1.7 "Instrument Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  @media (pointer: fine) { html, html * { cursor: none !important; } }
+
+  /* base: the character */
+  .stage { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; display: block; background: var(--bg); }
+  /* legibility scrim in the exact background color, so it reads as vignette not overlay */
+  .scrim { position: fixed; inset: 0; pointer-events: none;
+    background: linear-gradient(to top, rgba(11,35,27,.92) 0%, rgba(11,35,27,.55) 26%, rgba(11,35,27,0) 52%); }
+
+  /* floating: nav pill */
+  .nav { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 20;
+    display: flex; gap: 4px; padding: 6px; border-radius: 999px;
+    background: var(--glass); border: 1px solid var(--glass-line);
+    -webkit-backdrop-filter: blur(20px) saturate(140%); backdrop-filter: blur(20px) saturate(140%);
+    box-shadow: 0 1px 0 rgba(255,255,255,.12) inset, 0 12px 32px -12px rgba(0,0,0,.45), 0 2px 6px rgba(4,18,13,.3); }
+  .nav a { font: 500 12px/1 "JetBrains Mono", ui-monospace, monospace; letter-spacing: .14em;
+    color: var(--ink-soft); text-decoration: none; padding: 11px 16px; border-radius: 999px;
+    transition: background-color .25s var(--ease-out), color .25s var(--ease-out), transform .35s var(--spring); }
+  .nav a:hover { color: var(--ink); background: rgba(255,255,255,.1); }
+  .nav a:active { transform: scale(.95); }
+  .nav a:focus-visible, .btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+  /* elevated: hero copy */
+  .hero { position: fixed; left: var(--gutter); bottom: var(--gutter); z-index: 10; max-width: 440px; }
+  .hello { font: 500 13px/1 "Instrument Sans", sans-serif; letter-spacing: .42em; text-transform: uppercase; color: var(--ink-soft); }
+  .name { font: 400 clamp(76px, 10vw, 136px)/1 "Pinyon Script", cursive; letter-spacing: -.01em;
+    margin: .12em 0 .2em -.04em; color: var(--ink);
+    text-shadow: 0 2px 4px rgba(4,18,13,.35), 0 14px 36px rgba(4,18,13,.55); }
+  .bio { max-width: 340px; color: var(--ink-soft); font-size: 15px; }
+  .ctas { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 24px; border-radius: 999px;
+    font: 600 14px/1 "Instrument Sans", sans-serif; letter-spacing: .01em; text-decoration: none;
+    transition: transform .45s var(--spring), background-color .25s var(--ease-out), box-shadow .25s var(--ease-out); }
+  .btn:active { transform: scale(.96) !important; }
+  .btn-solid { background: #fff; color: var(--bg);
+    box-shadow: 0 1px 0 rgba(255,255,255,.6) inset, 0 10px 28px -10px rgba(244,236,226,.45), 0 2px 6px rgba(4,18,13,.35); }
+  .btn-solid:hover { background: var(--ink); box-shadow: 0 1px 0 rgba(255,255,255,.6) inset, 0 16px 36px -10px rgba(244,236,226,.55), 0 2px 6px rgba(4,18,13,.35); }
+  .btn-solid svg { transition: transform .45s var(--spring); }
+  .btn-solid:hover svg { transform: translateX(3px); }
+  .btn-glass { color: var(--ink); background: var(--glass); border: 1px solid rgba(255,255,255,.55);
+    -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
+  .btn-glass:hover { background: rgba(255,255,255,.16); }
+
+  /* custom cursor */
+  .cursor-dot, .cursor-ring { position: fixed; top: 0; left: 0; z-index: 100; pointer-events: none; border-radius: 50%; opacity: 0;
+    transition: opacity .3s var(--ease-out); will-change: transform; }
+  .cursor-dot { width: 8px; height: 8px; margin: -4px 0 0 -4px; background: #fff;
+    box-shadow: 0 0 10px rgba(255,255,255,.9), 0 0 24px rgba(244,236,226,.55); }
+  .cursor-ring { width: 40px; height: 40px; margin: -20px 0 0 -20px; border: 1px solid rgba(255,255,255,.55);
+    box-shadow: 0 0 18px rgba(244,236,226,.18), inset 0 0 12px rgba(244,236,226,.12); }
+  .cursor-on .cursor-dot, .cursor-on .cursor-ring { opacity: 1; }
+  @media (pointer: coarse) { .cursor-dot, .cursor-ring { display: none; } }
+
+  @media (max-width: 560px) {
+    .nav { top: 14px; }
+    .nav a { padding: 10px 12px; font-size: 11px; }
+    .bio { font-size: 14px; }
+    .btn { height: 46px; padding: 0 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition-duration: 0s !important; } }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="module">
+import React, { useEffect, useRef } from "https://esm.sh/react@18.3.1";
+import { createRoot } from "https://esm.sh/react-dom@18.3.1/client";
+import htm from "https://esm.sh/htm@3.1.1";
+const html = htm.bind(React.createElement);
+
+const N = 64;                       // frames around the circle, 5.625deg apart
+const STEP = 360 / N;
+const VW = 1280, VH = 720;          // source frame size
+const FACE = { x: 640, y: 270 };    // face center in source pixels (center.webp)
+const RESPONSE = 0.26;              // lerp factor per 60Hz frame (~35ms to settle)
+const DEADZONE = 0.12;              // fraction of the viewport's long side
+const ANCHOR_Y = 0.25;              // cover crop bias: keep her hair on ultrawide screens
+
+const lerpAngle = (a, b, t) => a + ((((b - a) % 360) + 540) % 360 - 180) * t;
+const src = (i) => `public/frames/${String(i).padStart(2, "0")}.webp`;
+
+function loadImage(url) {
+  const img = new Image();
+  img.src = url;
+  return img.decode().then(() => img);
+}
+
+function Character() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d", { alpha: false });
+    const frames = new Array(N);
+    let center = null;
+    let W = 0, H = 0, scale = 1, ox = 0, oy = 0, dpr = 1;
+    let pointer = null;               // {x, y} in CSS px, null = no pointer
+    let angle = null, drawn = null, last = performance.now(), raf;
+
+    const resize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = innerWidth; H = innerHeight;
+      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+      scale = Math.max(W / VW, H / VH);              // object-fit: cover
+      ox = (W - VW * scale) / 2;
+      oy = (H - VH * scale) * ANCHOR_Y;
+      ctx.imageSmoothingQuality = "high";
+      drawn = null;                                   // force a redraw
+    };
+
+    const draw = (img, key) => {
+      if (!img || key === drawn) return;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.globalAlpha = 1;                            // one opaque frame, never blended
+      ctx.drawImage(img, ox, oy, VW * scale, VH * scale);
+      drawn = key;
+    };
+
+    const tick = (now) => {
+      const dt = Math.min(now - last, 100); last = now;
+      const fx = ox + FACE.x * scale, fy = oy + FACE.y * scale;
+      const dx = pointer ? pointer.x - fx : 0, dy = pointer ? pointer.y - fy : 0;
+
+      if (!pointer || Math.hypot(dx, dy) < DEADZONE * Math.max(W, H)) {
+        angle = null;                                 // eye contact; restart from the cursor's angle next time
+        draw(center, "center");
+      } else {
+        const target = (Math.atan2(dy, dx) * 180) / Math.PI;
+        angle = angle === null ? target : lerpAngle(angle, target, 1 - Math.pow(1 - RESPONSE, dt / 16.667));
+        const i = ((Math.round(angle / STEP) % N) + N) % N;
+        draw(frames[i] || center, frames[i] ? i : "center");
+      }
+      raf = requestAnimationFrame(tick);
+    };
+
+    const move = (e) => { pointer = { x: e.clientX, y: e.clientY }; };
+    const leave = () => { pointer = null; };
+
+    resize();
+    addEventListener("resize", resize);
+    addEventListener("pointermove", move, { passive: true });
+    addEventListener("pointerdown", move, { passive: true });
+    document.documentElement.addEventListener("pointerleave", leave);
+
+    loadImage("public/frames/center.webp").then((img) => { center = img; drawn = null; });
+    for (let i = 0; i < N; i++) loadImage(src(i)).then((img) => { frames[i] = img; }).catch(() => {});
+    raf = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      removeEventListener("resize", resize);
+      removeEventListener("pointermove", move);
+      removeEventListener("pointerdown", move);
+      document.documentElement.removeEventListener("pointerleave", leave);
+    };
+  }, []);
+
+  return html`<canvas ref=${canvasRef} class="stage" role="img"
+    aria-label="Illustrated portrait of Lohitha. Her head turns to follow your cursor."></canvas>`;
+}
+
+function Cursor() {
+  const dotRef = useRef(null), ringRef = useRef(null);
+
+  useEffect(() => {
+    if (!matchMedia("(pointer: fine)").matches) return;
+    const root = document.documentElement;
+    let x = -100, y = -100, rx = -100, ry = -100, rs = 1, hover = null, raf;
+
+    const move = (e) => {
+      x = e.clientX; y = e.clientY;
+      root.classList.add("cursor-on");
+      const el = e.target.closest("a, button");
+      if (el !== hover) { if (hover) hover.style.transform = ""; hover = el; }
+      if (hover) {                                    // magnetic pull toward the cursor
+        const r = hover.getBoundingClientRect();
+        hover.style.transform = `translate(${(x - r.left - r.width / 2) * 0.18}px, ${(y - r.top - r.height / 2) * 0.28}px)`;
+      }
+    };
+    const leave = () => { root.classList.remove("cursor-on"); if (hover) hover.style.transform = ""; hover = null; };
+
+    const tick = () => {
+      let tx = x, ty = y, ts = 1;
+      if (hover) {                                    // ring snaps toward the element's center and swells
+        const r = hover.getBoundingClientRect();
+        tx = x + (r.left + r.width / 2 - x) * 0.35;
+        ty = y + (r.top + r.height / 2 - y) * 0.35;
+        ts = 1.8;
+      }
+      rx += (tx - rx) * 0.2; ry += (ty - ry) * 0.2; rs += (ts - rs) * 0.18;
+      dotRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${hover ? 0 : 1})`;
+      ringRef.current.style.transform = `translate3d(${rx}px, ${ry}px, 0) scale(${rs})`;
+      raf = requestAnimationFrame(tick);
+    };
+
+    addEventListener("pointermove", move, { passive: true });
+    root.addEventListener("pointerleave", leave);
+    raf = requestAnimationFrame(tick);
+    return () => { cancelAnimationFrame(raf); removeEventListener("pointermove", move); root.removeEventListener("pointerleave", leave); };
+  }, []);
+
+  return html`<div ref=${dotRef} class="cursor-dot" aria-hidden="true"></div>
+    <div ref=${ringRef} class="cursor-ring" aria-hidden="true"></div>`;
+}
+
+const Arrow = () => html`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+function App() {
+  return html`
+    <${Character} />
+    <div class="scrim" aria-hidden="true"></div>
+    <nav class="nav" aria-label="Primary">
+      <a href="#work">[WORK]</a><a href="#about">[ABOUT]</a><a href="#contact">[CONTACT]</a>
+    </nav>
+    <main class="hero">
+      <p class="hello">Hi, I'm</p>
+      <h1 class="name">Lohitha</h1>
+      <p class="bio">Full stack developer. I build web products end to end, from the database schema to the last pixel, in React, Node and Postgres.</p>
+      <div class="ctas">
+        <a class="btn btn-solid" href="#resume">Resume <${Arrow} /></a>
+        <a class="btn btn-glass" href="#contact">Let's Talk</a>
+      </div>
+    </main>
+    <${Cursor} />`;
+}
+
+createRoot(document.getElementById("root")).render(html`<${App} />`);
+</script>
+</body>
+</html>
